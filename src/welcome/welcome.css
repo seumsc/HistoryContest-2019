@@ -1,0 +1,84 @@
+.WEL{
+    text-align: center;
+  }
+.top{
+    font-size:90px;
+}
+.sma{
+    font-size:25px;
+}
+  
+  .welcome1 {
+    height: 900;
+    width: 1600;
+    background-image: url("../photo/1.jpg");
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(50px + 2vmin);
+    color: white;
+  }
+  .welcome2 {
+    height: 900;
+    width: 1600;
+    background-image: url("../photo/3.jpg");
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(50px + 2vmin);
+    color: white;
+  }
+  
+  .welcome3 {
+    height: 900;
+    width: 1600;
+    background-image: url("../photo/4正.jpg");
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(50px + 2vmin);
+    color: white;
+  }
+  
+  .welcome4 {
+    height: 900;
+    width: 1600;
+    background-image: url("../photo/5-暗.jpg");
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(50px + 2vmin);
+    color: white;
+  }
+  .login-button {
+    background-color:rgba(26, 23, 23, 0.5);
+    font-size: 40px;
+    border-radius: 12px;
+    border-color: rgba(26, 23, 23, 0.5);
+    color:rgb(208, 245, 204);
+  }
+  
+  .login-button:hover{
+    background-color:rgba(26, 23, 23, 0.8);
+    font-size:40px;
+    border-color: rgba(26, 23, 23, 0.8);
+    border-radius: 12px;
+    color:rgb(197, 248, 192);
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
