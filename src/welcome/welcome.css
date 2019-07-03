@@ -2,10 +2,11 @@
     text-align: center;
   }
 .top{
-    font-size:90px;
+    font-size:100px;
+    color:white;
 }
 .sma{
-    font-size:25px;
+    color:rgb(197, 240, 248);
 }
   
   .welcome1 {
@@ -18,7 +19,7 @@
     align-items: center;
     justify-content: center;
     font-size: calc(50px + 2vmin);
-    color: white;
+
   }
   .welcome2 {
     height: 900;
@@ -30,7 +31,6 @@
     align-items: center;
     justify-content: center;
     font-size: calc(50px + 2vmin);
-    color: white;
   }
   
   .welcome3 {
@@ -43,7 +43,7 @@
     align-items: center;
     justify-content: center;
     font-size: calc(50px + 2vmin);
-    color: white;
+
   }
   
   .welcome4 {
@@ -56,14 +56,13 @@
     align-items: center;
     justify-content: center;
     font-size: calc(50px + 2vmin);
-    color: white;
   }
   .login-button {
     background-color:rgba(26, 23, 23, 0.5);
     font-size: 40px;
     border-radius: 12px;
     border-color: rgba(26, 23, 23, 0.5);
-    color:rgb(208, 245, 204);
+    color:rgb(133, 237, 255);
   }
   
   .login-button:hover{
@@ -71,7 +70,7 @@
     font-size:40px;
     border-color: rgba(26, 23, 23, 0.8);
     border-radius: 12px;
-    color:rgb(197, 248, 192);
+    color:rgb(133, 237, 255);
   }
   
   @keyframes App-logo-spin {
