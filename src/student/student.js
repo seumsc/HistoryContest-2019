@@ -8,28 +8,25 @@ import { EditorFormatSize } from 'material-ui/svg-icons';
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
-
+import AppBar from 'material-ui/AppBar';
+import "antd/dist/antd.css"
+import {Button,Input,Modal,message} from 'antd';
 class Student extends Component{
     constructor(props){
         super(props);
     }
     render(){
+        message.success('登陆成功！');
         return(
-            <div className="WEL" >
-            <header id="background"
-                className="welcome1" >
-
-                <b>2019东南大学</b><br></br>
-                <b className="top">校史校情答题页面 </b>
-                <p></p>
-                < button className="login-button"
-                    onClick={this.test}
-                >
-                    登陆 / login
-                    </button>
-
-            </header>
-        </div>
+            <MuiThemeProvider>
+                <AppBar
+                    title="校史校情知识竞赛"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    onLeftIconButtonTouchTap={this.toggleDrawer}
+                    style={{ backgroundColor: '#29833D', position: 'fixed', webkitAppRegion: 'drag', webkitUserSelect: 'none' }}
+                    titleStyle={{ fontFamily: "NotoSansHans-Regular" }}
+                />
+            </MuiThemeProvider>
         )
     }
 }

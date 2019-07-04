@@ -8,6 +8,10 @@ import { EditorFormatSize } from 'material-ui/svg-icons';
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
+import LoginModal from '../dialog/dialog.js'
+import "antd/dist/antd.css"
+import {Button, DatePicker ,Icon,Menu,Dropdown} from 'antd';
+
 
 
 class Welcome extends React.Component {
@@ -16,113 +20,105 @@ class Welcome extends React.Component {
         this.state={
             pic:0,
             logining:false,
-            username:'',
-            password:''
+            attemp:"学生"
         };
-        this.test=this.test.bind(this);
-        this.close=this.close.bind(this);
+        this.open=this.open.bind(this);
         this.tologin=this.tologin.bind(this);
+        this.changebg=this.changebg.bind(this);
+        this.closModal=this.closModal.bind(this);
     }
     componentDidMount(){
-        this.timerID=setInterval(()=>(this.changebg()),3000);
+        if(this.props.state.isWelcome){
+            this.timerID=setInterval(()=>(this.changebg()),3000);
+        }
     }
-    componentWillMount(){
+    componentWillUnmount(){
         clearInterval(this.timerID);
     }
+
     changebg(){
        // setTimeout(document.getElementById("background").opacity=0.9,0);
        // for(let x=80;x>=40;x-=10){
        // setTimeout(document.getElementById("background").opacity=x/100,100);
        //}
-        
-        document.getElementById("background").className="welcome"+(this.state.pic+1);
+       {document.getElementById("background").className="welcome"+(this.state.pic+1)}
         this.state.pic=(this.state.pic+1)%4;
        // for(let x=40;x<=100;x+=10){
        //      setTimeout(document.getElementById("background").opacity=x/100,100);
        // }
     }
     
-    test(){
+    open(){
         this.setState({logining:true});
     }
-    close(){
+    closModal(){
         this.setState({logining:false});
     }
     tologin(){
-        //登陆函数
-        this.props.setState({isWelcome:false,isStudent:true});
+        //暂时的登陆函数
+        let that=this;
+        that.props.setState({isWelcome:false,isStudent:true});
     }
     render() {
+
+        let select=(
+            <Menu>
+                <Menu.Item key="1" onClick={()=>this.setState({attemp:"学生"})}>学生</Menu.Item>
+                <Menu.Item key="2" onClick={()=>this.setState({attemp:"辅导员"})}>辅导员</Menu.Item>
+                <Menu.Item key="3" onClick={()=>this.setState({attemp:"管理员"})}>管理员</Menu.Item>
+            </Menu >
+        )
         let orgin = (
         <div className="WEL" >
-            <header id="background"
-                className="welcome1" >
+            <header className="welcome1" id="background" onLoad={this. changebg}
+                 >
                 <b className="sma">2019东南大学</b><br></br>
                 <b className="top">校史校情知识竞赛 <br></br> </b>
                 <p></p>
-                < button className="login-button"
-                    onClick={this.test}
+                < Button type="primary" size="large"
+                
+                    onClick={this.open}
                 >
+                    <Icon type="login" />
                     登陆 / login
-                    </button>
-
+                    </Button>
+                    <p></p>
+                    <Dropdown overlay={select}>
+                        <Button type="defult">
+                            <Icon type="down" />
+                            {this.state.attemp}
+                        </Button>
+                    </Dropdown>
             </header>
         </div>
         );
         let login=(
-            <div>
             <div className="WEL" >
-            <header id="background"
-                className="welcome1" >
-
-                <b className="sma">2019东南大学</b><br></br>
-                <b className="top">校史校情答题 <br></br> </b>
-
-                < button className="login-button"
-                    onClick={this.test}
+            <header className="welcome1" id="background" onLoad={this. changebg}>
+            <b className="sma">2019东南大学</b><br></br>
+                <b className="top">校史校情知识竞赛 <br></br> </b>
+                <p></p>
+                < Button type="primary" size="large"
+                
+                    onClick={this.open}
                 >
+                    <Icon type="login" />
                     登陆 / login
-                    </button>
-
+                    </Button>
+                    <p></p>
+                    <Dropdown overlay={select}>
+                        <Button type="defult">
+                            <Icon type="down" />
+                            {this.state.attemp}
+                        </Button>
+                    </Dropdown>
             </header>
+            <LoginModal state={this.state}  setState={this.props.setState} close={this.closModal}/>
         </div>
-        <div>
-            <MuiThemeProvider>
-                <Dialog
-                    title="答题系统登陆"
-                    actions={[
-                        <FlatButton
-                            label="取消"
-                            primary={true}
-                        onClick={this.close}
-                        />,
-                        <FlatButton
-                            label="登录"
-                            primary={true}
-                            keyboardFocused={true}
-                        onClick={this.login}
-                        />,
-                    ]}
-                    modal={false}
-                    open={this.state.logining}
-                    onRequestClose={this.handleClose}
-                   >
-                    <TextField
-                        floatingLabelText="用户名"
-                        hintText="默认是八位学号哦~"
-                        //errorText={this.state.errorText}
-                        onChange={(e, v) => { this.setState({ username: v }) }}
-                    /><br />
-                    <TextField
-                        floatingLabelText="密码"
-                        hintText="默认是一卡通号哦~"
-                        type="password"
-                        onChange={(e, v) => { this.setState({ password: v }) }}
-                    /><br />
-                </Dialog>
-            </MuiThemeProvider></div></div>
         );
-        return (this.state.logining ? login : orgin);
+        let x=(this.state.logining ?login: orgin);
+        this.state.logining=false;
+        return x;
     }
                    
 }
