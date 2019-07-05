@@ -17,8 +17,8 @@ class App extends React.Component{
       userInfo:
       {
         username:'',
-        access:  -1,
-        score:   0
+        access: -1,
+        score: -1
       },
       answer:{
         
@@ -31,10 +31,9 @@ class App extends React.Component{
   }
   
   render(){
-    (this.state.isStudent)?message.success("登陆成功"):null;
   return <div id="app">
         {(this.state.isWelcome)?<Welcome state={this.state} setState={this.appSetState}/>:<div/>}
-        {(this.state.isStudent)?<Student state={this.state} setState={this.appSetState}/>:<div/>}
+        {(this.state.isStudent&&this.state.userInfo.score<0)?<Student state={this.state} setState={this.appSetState}/>:<div/>}
   </div>
   }
 }

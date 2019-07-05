@@ -23,7 +23,6 @@ class Welcome extends React.Component {
             attemp:"学生"
         };
         this.open=this.open.bind(this);
-        this.tologin=this.tologin.bind(this);
         this.changebg=this.changebg.bind(this);
         this.closModal=this.closModal.bind(this);
     }
@@ -53,11 +52,6 @@ class Welcome extends React.Component {
     }
     closModal(){
         this.setState({logining:false});
-    }
-    tologin(){
-        //暂时的登陆函数
-        let that=this;
-        that.props.setState({isWelcome:false,isStudent:true});
     }
     render() {
 

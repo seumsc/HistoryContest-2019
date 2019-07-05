@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import welcome from './welcome/welcome'
+import "antd/dist/antd.css"
 
 
 
