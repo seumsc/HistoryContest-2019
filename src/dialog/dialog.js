@@ -36,8 +36,9 @@ class LoginModal extends React.Component{
             return;
         }
         //学生登陆成功
+        console.log("login");
         message.success("登陆成功！");
-        this.props.setState({isWelcome:false,isStudent:true,isLogin:true});
+        this.props.setState({isWelcome:false,isStudent:true,isLogin:true,username:this.state.username});
     }
     ToSignin(){
         //暂时的注册函数
@@ -67,7 +68,7 @@ class LoginModal extends React.Component{
         )
         let sign=(
             [
-                <Button key="返回" type="defult" onClick={this.close}>
+                <Button key="返回" type="defult"  onClick={this.close}>
                   返回
                 </Button>,
                 <Button key="登陆" type="primary" onClick={this.ToSignin}>
@@ -91,7 +92,6 @@ class LoginModal extends React.Component{
             </Modal>
             </div>
             }
-
     }
     
     export default LoginModal;

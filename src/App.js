@@ -14,6 +14,7 @@ class App extends React.Component{
       isStudent:false,
       isAdmin:false,
       isTeacher:false,
+      host:"",
       userInfo:
       {
         username:'',

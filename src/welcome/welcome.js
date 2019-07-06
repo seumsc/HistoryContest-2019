@@ -11,9 +11,12 @@ import TextField from 'material-ui/TextField'
 import LoginModal from '../dialog/dialog.js'
 import "antd/dist/antd.css"
 import {Button, DatePicker ,Icon,Menu,Dropdown} from 'antd';
+import bg1 from "../photo/1.jpg"
+import bg2 from "../photo/3.jpg"
+import bg3 from "../photo/4正.jpg"
+import bg4 from "../photo/5-暗.jpg"
 
-
-
+let bg=[bg1,bg2,bg3,bg4]
 class Welcome extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +31,7 @@ class Welcome extends React.Component {
     }
     componentDidMount(){
         if(this.props.state.isWelcome){
-            this.timerID=setInterval(()=>(this.changebg()),3000);
+            this.timerID=setInterval(()=>(this.changebg()),5000);
         }
     }
     componentWillUnmount(){
@@ -40,8 +43,8 @@ class Welcome extends React.Component {
        // for(let x=80;x>=40;x-=10){
        // setTimeout(document.getElementById("background").opacity=x/100,100);
        //}
-       {document.getElementById("background").className="welcome"+(this.state.pic+1)}
-        this.state.pic=(this.state.pic+1)%4;
+       let x=(this.state.pic+1)%4;
+        this.setState({pic:x});
        // for(let x=40;x<=100;x+=10){
        //      setTimeout(document.getElementById("background").opacity=x/100,100);
        // }
@@ -54,7 +57,6 @@ class Welcome extends React.Component {
         this.setState({logining:false});
     }
     render() {
-
         let select=(
             <Menu>
                 <Menu.Item key="1" onClick={()=>this.setState({attemp:"学生"})}>学生</Menu.Item>
@@ -64,7 +66,9 @@ class Welcome extends React.Component {
         )
         let orgin = (
         <div className="WEL" >
-            <header className="welcome1" id="background" onLoad={this. changebg}
+            <header className="welcome" 
+            id="background"  
+            style = {{backgroundImage:`url(${bg[this.state.pic]})`}}
                  >
                 <b className="sma">2019东南大学</b><br></br>
                 <b className="top">校史校情知识竞赛 <br></br> </b>
@@ -88,7 +92,9 @@ class Welcome extends React.Component {
         );
         let login=(
             <div className="WEL" >
-            <header className="welcome1" id="background" onLoad={this. changebg}>
+            <header className="welcome" 
+            id="background" 
+            style = {{backgroundImage:`url(${bg[this.state.pic]})`}}>
             <b className="sma">2019东南大学</b><br></br>
                 <b className="top">校史校情知识竞赛 <br></br> </b>
                 <p></p>
@@ -111,7 +117,6 @@ class Welcome extends React.Component {
         </div>
         );
         let x=(this.state.logining ?login: orgin);
-        this.state.logining=false;
         return x;
     }
                    

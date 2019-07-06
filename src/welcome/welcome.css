@@ -9,10 +9,9 @@
     color:rgb(197, 240, 248);
 }
   
-  .welcome1 {
+  .welcome {
     height: 900;
     width: 1600;
-    background-image: url("../photo/1.jpg");
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -21,42 +20,7 @@
     font-size: calc(50px + 2vmin);
 
   }
-  .welcome2 {
-    height: 900;
-    width: 1600;
-    background-image: url("../photo/3.jpg");
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(50px + 2vmin);
-  }
-  
-  .welcome3 {
-    height: 900;
-    width: 1600;
-    background-image: url("../photo/4正.jpg");
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(50px + 2vmin);
-
-  }
-  
-  .welcome4 {
-    height: 900;
-    width: 1600;
-    background-image: url("../photo/5-暗.jpg");
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(50px + 2vmin);
-  }
+ 
   .login-button {
     background-color:rgba(26, 23, 23, 0.5);
     font-size: 40px;
