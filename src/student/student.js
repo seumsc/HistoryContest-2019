@@ -51,13 +51,22 @@ class Student extends React.Component {
         this.closeControl= this.closeControl.bind(this);
         this.logout = this.logout.bind(this);
         this.done = this.done.bind(this);
+        this.Next=this.Next.bind(this);
         //测试初始化
         this.state.question[0]={
-            isFinish: true,
+            isFinish: false,
             kind: "选择题",
             title:"燃煤联合循环发电技术由哪个研究所长期研究",
             choice: ['东大建筑与环境研究所','东大热能工程研究所','东大能源与环境工程研究所','东大动力研究所'],
             isRight: false
+        }
+    }
+    Next(){
+        let x=this.state.focusOn;
+        x++;
+        console.log(x);
+        if(x<30){
+            this.setState({focusOn:x})
         }
     }
     componentWillMount(){//设定背景定时；获取试卷
@@ -88,6 +97,9 @@ class Student extends React.Component {
         this.setState({ question: x });
     }
     render() {
+        if(!this.state.isTesting){
+
+        }
         return (
             <div id="student">
                 <Drawer
@@ -111,18 +123,21 @@ class Student extends React.Component {
                         </Row>
                     </Header>
 
-                    {<Content style={{ backgroundColor: "white" }}>
+                    <Content style={{ backgroundColor: "white" }}>
                         <Row>
                             <Col span={18} style={{backgroundColor:"rgb(227, 248, 252)"}}>
-                                <Tabs defaultActiveKey="0" tabPosition="left" style={{ height: 670, color: "black" }} >
+                                <Tabs activeKey={`${this.state.focusOn}`}
+                                onTabClick={(x)=>{this.setState({focusOn:x})}} 
+                                tabPosition="left" 
+                                style={{ height: 670, color: "black" }} >
                                     {this.state.question.map((x, i) => (
                                         <TabPane tab={!x.isFinish ? <div><Icon type="clock-circle" /> {x.kind}{i + 1}</div> : <div><Icon type="check" />{x.kind}{i + 1}</div>}
                                             key={i}
-                                            onChange={() => { this.done(i)}
-                                            }>
+                                            onChange={() => { this.done(i)}}
+                                            >
                                             { x.kind=="选择题"?
-                                            <Choice Id={i} state={x} setFinish={this.done.bind(this)} />
-                                            :<TrueFalse Id={i} state={x} setFinish={this.done.bind(this)}/>
+                                            <Choice Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} />
+                                            :<TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next}/>
                                             }
                                         </TabPane>))
                                     }
@@ -132,7 +147,7 @@ class Student extends React.Component {
 
                             </Col>
                         </Row>
-                    </Content> }
+                    </Content> 
                 </Layout>
             </div>
         )

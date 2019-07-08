@@ -29,7 +29,7 @@ class Choice extends React.Component {
                 <h2>
                     {this.props.state.title}
                 </h2>
-                <Radio.Group onChange={this.onchange} value={this.state.value}>
+                <Radio.Group onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
                     <Radio style={style} value={1}>
                         <b>A</b> &nbsp; {this.props.state.choice[0]}
                     </Radio>
@@ -43,6 +43,7 @@ class Choice extends React.Component {
                         <b>D</b> &nbsp; {this.props.state.choice[3]}
                     </Radio>
                 </Radio.Group>
+                <Button onClick={this.props.Next}>下一题</Button>
                 </Row>
             </React.Fragment>
         )
@@ -59,7 +60,7 @@ class TrueFalse extends React.Component {
     render() {
         return (
             <React.Fragment>
-
+                <p>asfasdfasdfasfasef</p>
             </React.Fragment>
         )
     }
@@ -68,8 +69,8 @@ class Timer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            min: 1,
-            sec: 10,
+            min: 2,
+            sec: 59,
             isClocking: true
         }
     }
@@ -96,10 +97,10 @@ class Timer extends React.Component {
                         icon: <Icon type="clock-circle" style={{ color: "rgb(248, 39, 39)" }} />
                     })
                 }
-                else if (y == 0 && x == 30) {
+                else if (y == 10 && x == 0) {
                     notification.open({
-                        message: "时间还有30秒",
-                        description: "距离自动交卷只剩30秒了哦，同学要加油啦",
+                        message: "时间还有10分钟",
+                        description: "距离自动交卷还有10分钟，同学要加油啦",
                         icon: <Icon type="clock-circle" style={{ color: "rgb(248, 39, 39)" }} />
                     })
                 }

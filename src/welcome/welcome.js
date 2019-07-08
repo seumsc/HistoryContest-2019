@@ -14,9 +14,10 @@ import {Button, DatePicker ,Icon,Menu,Dropdown} from 'antd';
 import bg1 from "../photo/1.jpg"
 import bg2 from "../photo/3.jpg"
 import bg3 from "../photo/4正.jpg"
-import bg4 from "../photo/5-暗.jpg"
+import seu from "../photo/东南大学.png"
 
-let bg=[bg1,bg2,bg3,bg4]
+
+
 class Welcome extends React.Component {
     constructor(props) {
         super(props);
@@ -43,7 +44,7 @@ class Welcome extends React.Component {
        // for(let x=80;x>=40;x-=10){
        // setTimeout(document.getElementById("background").opacity=x/100,100);
        //}
-       let x=(this.state.pic+1)%4;
+       let x=(this.state.pic+1)%3;
         this.setState({pic:x});
        // for(let x=40;x<=100;x+=10){
        //      setTimeout(document.getElementById("background").opacity=x/100,100);
@@ -67,18 +68,19 @@ class Welcome extends React.Component {
         let orgin = (
         <div className="WEL" >
             <header className="welcome" 
-            id="background"  
-            style = {{backgroundImage:`url(${bg[this.state.pic]})`}}
+            id="background" 
+            style = {{backgroundImage:`url(${bg1})`}}
                  >
-                <b className="sma">2019东南大学</b><br></br>
+                <b className="sma"><img src={seu} height="150px" width="400px"></img></b><br></br>
                 <b className="top">校史校情知识竞赛 <br></br> </b>
                 <p></p>
-                < Button type="primary" size="large"
-                
-                    onClick={this.open}
+                < Button type="primary" 
+                style={{backgroundColor:"rgb(251,226,81,0.5)", color:"white",height:"60px",width:"250px",fontSize:"30px",borderRadius:"20px",border:"none"}}
+                onClick={this.open}
                 >
-                    <Icon type="login" />
-                    登陆 / login
+                    <Icon type="login" style={{color:"white"}}/>
+                    &nbsp;
+                    <b>Login &nbsp; 登陆</b>
                     </Button>
                     <p></p>
                     <Dropdown overlay={select}>
@@ -94,15 +96,15 @@ class Welcome extends React.Component {
             <div className="WEL" >
             <header className="welcome" 
             id="background" 
-            style = {{backgroundImage:`url(${bg[this.state.pic]})`}}>
-            <b className="sma">2019东南大学</b><br></br>
+            style = {{backgroundImage:`url(${bg1})`}}>
+            <b className="sma"><img src={seu}></img></b><br></br>
                 <b className="top">校史校情知识竞赛 <br></br> </b>
                 <p></p>
                 < Button type="primary" size="large"
                 
                     onClick={this.open}
                 >
-                    <Icon type="login" />
+                    <Icon type="login"/>
                     登陆 / login
                     </Button>
                     <p></p>

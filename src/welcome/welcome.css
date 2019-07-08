@@ -6,7 +6,7 @@
     color:white;
 }
 .sma{
-    color:rgb(197, 240, 248);
+    color:rgb(251,226,81);
 }
   
   .welcome {
@@ -26,7 +26,7 @@
     font-size: 40px;
     border-radius: 125x;
     border-color: rgb(255, 255, 255);
-    color:rgb(133, 237, 255);
+    color:rgb(69, 127, 173);
   }
   
   .login-button:hover{
@@ -34,7 +34,7 @@
     font-size:40px;
     border-color: rgba(26, 23, 23, 0.8);
     border-radius: 12px;
-    color:rgb(133, 237, 255);
+    color:rgb(88, 98, 155);
   }
   
   @keyframes App-logo-spin {
