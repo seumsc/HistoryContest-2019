@@ -1,0 +1,6 @@
+{
+  "name": "SEU-History-Contest",
+  "dependencies": {
+    "koa-logger": "registry:dt/koa-logger#2.0.0+20161219223325"
+  }
+}
