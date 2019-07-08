@@ -5,6 +5,7 @@ import './dialog.css';
 import "antd/dist/antd.css"
 import {Icon,Button,Input,Modal,message,Dropdown,Menu} from 'antd';
 import { thisExpression } from '@babel/types';
+import importantDevices from 'material-ui/svg-icons/action/important-devices';
 
 class LoginModal extends React.Component{
     constructor(props){
@@ -12,9 +13,10 @@ class LoginModal extends React.Component{
         this.state={
             visible:true,
             attemp:"学生",
+            name:"",
             username:'',
             password:'',
-            toDo:"登陆"
+            toDo:"登录"
         }
         this.ToLogin=this.ToLogin.bind(this);
         this.close=this.close.bind(this);
@@ -38,7 +40,7 @@ class LoginModal extends React.Component{
         }
         //学生登陆成功
         console.log("login");
-        message.success("登陆成功！");
+        message.success("登录成功！");
         this.props.setState({isWelcome:false,isStudent:true,isLogin:true,username:this.state.username});
     }
     ToSignin(){
@@ -53,59 +55,76 @@ class LoginModal extends React.Component{
         this.setState({toDo:"注册"});
     }
     render(){ 
-        let login=(
-            [
-
+        let login=<div id='modal'>
+        <Modal 
+            title={
+         <Dropdown overlay={
+            <Menu>
+                <Menu.Item key="1" onClick={()=>this.setState({attemp:"学生"})}>学生</Menu.Item>
+                <Menu.Item key="2" onClick={()=>this.setState({attemp:"辅导员"})}>辅导员</Menu.Item>
+                <Menu.Item key="3" onClick={()=>this.setState({attemp:"管理员"})}>管理员</Menu.Item>
+            </Menu >}>
+            <Button type="defult">
+                <Icon type="down" />
+                {this.state.attemp}
+            </Button>
+        </Dropdown>}
+            visible={this.state.visible}
+            onOk={this.StudentToLogin}
+            onCancel={this.close}
+            footer={[
                 <Button key="返回" type="defult" onClick={this.close}>
                   返回
                 </Button>,
-                <Button key="登陆" type="primary" onClick={this.ToLogin}>
+                <Button key="登录" type="primary" onClick={this.ToLogin}>
                     <Icon type="check-circle" theme="twoTone" />
-                  登陆
+                  登录
                 </Button>
-              ]
-        )
-        let sign=(
-            [
+              ]}
+            visible={this.state.visible}
+        >
+            <Input id="username"addonBefore=" 账户 "placeholder="八位学号" allowClear onChange={(x,v)=>{this.setState({username:v})}}></Input>
+            <p></p>
+            <Input id="password"addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x,v)=>{this.setState({password:v})}}></Input>
+            <p > <br></br>非特殊情况不用注册哦~&nbsp;&nbsp;
+            <a onClick={this.signin}>
+              注册
+            </a>
+            </p>
+
+        </Modal>
+        </div>
+ 
+        
+        let sign=<div id='modal'>
+        <Modal 
+            title="学生注册 "
+            visible={this.state.visible}
+            onOk={this.StudentToLogin}
+            onCancel={this.close}
+            footer={ [
                 <Button key="返回" type="defult"  onClick={this.close}>
                   返回
                 </Button>,
-                <Button key="登陆" type="primary" onClick={this.ToSignin}>
+                <Button key="注册" type="primary" onClick={this.ToSignin}>
                   注册
                 </Button>
-            ]
-        )
-        return<div id='modal'>
-            <Modal bodyStyle={{transparent:"true"}}
-                title={
-             <Dropdown overlay={
-                <Menu>
-                    <Menu.Item key="1" onClick={()=>this.setState({attemp:"学生"})}>学生</Menu.Item>
-                    <Menu.Item key="2" onClick={()=>this.setState({attemp:"辅导员"})}>辅导员</Menu.Item>
-                    <Menu.Item key="3" onClick={()=>this.setState({attemp:"管理员"})}>管理员</Menu.Item>
-                </Menu >}>
-                <Button type="defult">
-                    <Icon type="down" />
-                    {this.state.attemp}
-                </Button>
-            </Dropdown>}
-                visible={this.state.visible}
-                onOk={this.StudentToLogin}
-                onCancel={this.close}
-                footer={this.state.toDo=="登陆"?login:sign}
-                visible={this.state.visible}
-            >
-                <Input id="username"addonBefore=" 账户 "placeholder="八位学号" allowClear onChange={(x,v)=>{this.setState({username:v})}}></Input>
-                <p></p>
-                <Input id="password"addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x,v)=>{this.setState({password:v})}}></Input>
-                <p > <br></br>非特殊情况不用注册哦~&nbsp;&nbsp;
-                <a onClick={this.signin}>
-                  注册
-                </a>
-                </p>
+            ]}
+            visible={this.state.visible}
+        >
+            <Input id="name"addonBefore=" 姓名 "placeholder="你的姓名" allowClear onChange={(x,v)=>{this.setState({name:v})}}></Input>
+            <p></p>
+            <Input id="username"addonBefore=" 账户 "placeholder="八位学号" allowClear onChange={(x,v)=>{this.setState({username:v})}}></Input>
+            <p></p>
+            <Input id="password"addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x,v)=>{this.setState({password:v})}}></Input>
 
-            </Modal>
-            </div>
+        </Modal>
+        </div>
+        return(
+            <React.Fragment>
+                {this.state.toDo=="登录"?login:sign}
+            </React.Fragment>
+        )
             }
     }
     

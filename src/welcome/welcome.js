@@ -80,7 +80,7 @@ class Welcome extends React.Component {
                 >
                     <Icon type="login" style={{color:"white"}}/>
                     &nbsp;
-                    <b>Login &nbsp; 登陆</b>
+                    <b>Login &nbsp; 登录</b>
                     </button>
                     <p></p>
             </header>
@@ -99,9 +99,9 @@ class Welcome extends React.Component {
                 onClick={this.open}
                 disabled={true}
                 >
-                    <Icon type="登陆中" style={{color:"white"}}/>
+                    <Icon type="loading" style={{color:"white"}}/>
                     &nbsp;
-                    <b>logining</b>
+                    <b>登录中</b>
                     </button>
                     <p></p>
 
