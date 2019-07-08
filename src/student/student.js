@@ -5,16 +5,13 @@ import './student.css';
 import "antd/dist/antd.css";
 import { Button, Input, Modal, message, Layout, Menu, Dropdown, Icon, Drawer, Tabs, Row, Col } from 'antd';
 import logo from "../photo/校徽实体.png"
-import pic1 from "../photo/答题1.jpg"
-import pic2 from "../photo/答题2.jpg"
-import pic3 from "../photo/答题3.jpg"
-import pic4 from "../photo/答题4.jpg"
+import pic1 from "../photo/答题背景1.jpg"
 import {Choice,TrueFalse,Timer}  from "../question/qusetion"
 
 
 const { Header, Footer, Sider, Content } = Layout;
 const { TabPane } = Tabs;
-let bg=[pic1,pic2,pic3,pic4];
+//let bg=[pic1,pic2,pic3,pic4];
 
 class Student extends React.Component {
     constructor(props) {
@@ -69,10 +66,10 @@ class Student extends React.Component {
         }
     }
     componentWillMount(){//设定背景定时；获取试卷
-        this.timer=setInterval(()=>{
-            let x=(this.state.pic+1)%4;
-            this.setState({pic:x});},
-            3000)
+        // this.timer=setInterval(()=>{
+        //     let x=(this.state.pic+1)%4;
+        //     this.setState({pic:x});},
+        //     3000)
     }
     componentWillUnmount(){
         clearInterval(this.timer);
@@ -100,7 +97,8 @@ class Student extends React.Component {
 
         }
         return (
-            <div id="student">
+            <React.Fragment >
+                <div id="student" className="backGround">
                 <Drawer
                     title="选项"
                     placement="left"
@@ -134,7 +132,7 @@ class Student extends React.Component {
                                             key={i}
                                             onChange={() => { this.done(i)}}
                                             >
-                                            { x.kind=="选择题"?
+                                            {x.kind=="选择题"?
                                             <Choice Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} />
                                             :<TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next}/>
                                             }
@@ -142,13 +140,14 @@ class Student extends React.Component {
                                     }
                                 </Tabs>
                             </Col>
-                            <Col span={6} style={{backgroundImage:`url(${bg[this.state.pic]})`,height:670}}>
+                            <Col span={6} style={{backgroundColor:"transparent", height:670}}>
 
                             </Col>
                         </Row>
                     </Content> 
                 </Layout>
-            </div>
+                </div>
+            </React.Fragment>
         )
     }
 }

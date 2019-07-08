@@ -2,20 +2,15 @@ import React, {
     Component
 } from 'react';
 import './welcome.css';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
-import { EditorFormatSize } from 'material-ui/svg-icons';
-import FlatButton from 'material-ui/FlatButton'
-import Dialog from 'material-ui/Dialog'
-import TextField from 'material-ui/TextField'
 import LoginModal from '../dialog/dialog.js'
 import "antd/dist/antd.css"
 import {Button, DatePicker ,Icon,Menu,Dropdown} from 'antd';
-import bg1 from "../photo/1.jpg"
+import bg1 from "../photo/11.png"
 import bg2 from "../photo/3.jpg"
 import bg3 from "../photo/4正.jpg"
 import seu from "../photo/东南大学.png"
 import words from "../photo/校史校情知识竞赛 .PNG"
+import seus from "../photo/校徽.png"
 
 
 
