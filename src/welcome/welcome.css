@@ -2,7 +2,7 @@
     text-align: center;
   }
 .top{
-    font-size:100px;
+    font-size:80px;
     color:white;
 }
 .sma{
@@ -22,19 +22,15 @@
   }
  
   .login-button {
-    background-color:rgba(26, 23, 23, 0.5);
-    font-size: 40px;
-    border-radius: 125x;
-    border-color: rgb(255, 255, 255);
-    color:rgb(69, 127, 173);
+    background-color:rgb(251,226,81,0.5);
+    color:white;height:50px;width:210px;
+    font-size:25px;border-radius:20px;border:none;
   }
   
   .login-button:hover{
-    background-color:rgba(26, 23, 23, 0.8);
-    font-size:40px;
-    border-color: rgba(26, 23, 23, 0.8);
-    border-radius: 12px;
-    color:rgb(88, 98, 155);
+    background-color:rgb(251,226,81,0.9);
+    color:white;height:50px;width:210px;
+    font-size:25px;border-radius:20px;border:none;
   }
   
   @keyframes App-logo-spin {

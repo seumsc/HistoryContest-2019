@@ -15,6 +15,7 @@ import bg1 from "../photo/1.jpg"
 import bg2 from "../photo/3.jpg"
 import bg3 from "../photo/4正.jpg"
 import seu from "../photo/东南大学.png"
+import words from "../photo/校史校情知识竞赛 .PNG"
 
 
 
@@ -24,7 +25,6 @@ class Welcome extends React.Component {
         this.state={
             pic:0,
             logining:false,
-            attemp:"学生"
         };
         this.open=this.open.bind(this);
         this.changebg=this.changebg.bind(this);
@@ -71,24 +71,18 @@ class Welcome extends React.Component {
             id="background" 
             style = {{backgroundImage:`url(${bg1})`}}
                  >
-                <b className="sma"><img src={seu} height="150px" width="400px"></img></b><br></br>
-                <b className="top">校史校情知识竞赛 <br></br> </b>
+                <b className="sma"><img src={seu} height="100px" width="300px"></img></b><br></br>
+                <b className="top"><img src={words} height="140px" width="936px"></img><br></br> </b>
                 <p></p>
-                < Button type="primary" 
-                style={{backgroundColor:"rgb(251,226,81,0.5)", color:"white",height:"60px",width:"250px",fontSize:"30px",borderRadius:"20px",border:"none"}}
+                < button 
+                className="login-button"
                 onClick={this.open}
                 >
                     <Icon type="login" style={{color:"white"}}/>
                     &nbsp;
                     <b>Login &nbsp; 登陆</b>
-                    </Button>
+                    </button>
                     <p></p>
-                    <Dropdown overlay={select}>
-                        <Button type="defult">
-                            <Icon type="down" />
-                            {this.state.attemp}
-                        </Button>
-                    </Dropdown>
             </header>
         </div>
         );
@@ -97,23 +91,20 @@ class Welcome extends React.Component {
             <header className="welcome" 
             id="background" 
             style = {{backgroundImage:`url(${bg1})`}}>
-            <b className="sma"><img src={seu}></img></b><br></br>
-                <b className="top">校史校情知识竞赛 <br></br> </b>
+                <b className="sma"><img src={seu} height="100px" width="300px"></img></b><br></br>
+                <b className="top"><img src={words} height="140px" width="936px"></img><br></br> </b>
                 <p></p>
-                < Button type="primary" size="large"
-                
-                    onClick={this.open}
+                < button 
+                className="login-button"
+                onClick={this.open}
+                disabled={true}
                 >
-                    <Icon type="login"/>
-                    登陆 / login
-                    </Button>
+                    <Icon type="登陆中" style={{color:"white"}}/>
+                    &nbsp;
+                    <b>logining</b>
+                    </button>
                     <p></p>
-                    <Dropdown overlay={select}>
-                        <Button type="defult">
-                            <Icon type="down" />
-                            {this.state.attemp}
-                        </Button>
-                    </Dropdown>
+
             </header>
             <LoginModal state={this.state}  setState={this.props.setState} close={this.closModal}/>
         </div>

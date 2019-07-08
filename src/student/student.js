@@ -64,7 +64,6 @@ class Student extends React.Component {
     Next(){
         let x=this.state.focusOn;
         x++;
-        console.log(x);
         if(x<30){
             this.setState({focusOn:x})
         }
