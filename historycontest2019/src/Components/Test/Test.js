@@ -73,7 +73,7 @@ class Test extends React.Component{
                     <Content style={{backgroundColor:'white'}}>
                         <Row>
                             <Col span={6} style = {{backgroundImage:`url(${imgs[this.state.x]})`, height:900}}>
-                                <div style={{ width: 300, border: '1px solid #d9d9d9', borderRadius: 4 }}>
+                                <div style={{ width: 375, border: '1px solid #d9d9d9', borderRadius: 4 }}>
                                     <Calendar fullscreen={false}  />
                                 </div>
                             </Col>
@@ -81,7 +81,7 @@ class Test extends React.Component{
                                 <Tabs defaultActiveKey="1" tabPosition='left' style={{ height: 720 }}>
                                     {[...Array(30).keys()].map(i => (
                                         <TabPane tab={`Q ${i+1}`} key={i+1}>
-                                            <h2>燃煤联合循环发电技术由哪个研究所长期研究</h2>
+                                            <h2>第{i+1}题 燃煤联合循环发电技术由哪个研究所长期研究</h2>
                                             <Radio.Group onChange={this.onChange} value={this.state.value}>
                                                 <Radio style={radioStyle} value={1}>
                                                 A 东大建筑与环境研究所

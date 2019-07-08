@@ -40,7 +40,7 @@ class Welcome extends React.Component{
                 <div className = "Welcome">
                     <body className = "Welcome-body"  style = {{backgroundImage:`url(${imgs[this.state.x]})`}}>
                         <h1 class="text-center" style = {{color:'white'}}>2019东南大学校史校情知识竞赛答题</h1>
-                        <Button type="dashed" size="large" ghost onClick={this.showModal}>Login 登录</Button>
+                        <Button type="dashed" style={{width:"220px", height:"60px", borderRadius:"40px 40px 40px 40px", fontSize:"25px"}} ghost onClick={this.showModal}>Login 登录</Button>
                         <LoginModal visible = {this.state.value}/>
                     </body>
                 </div>
