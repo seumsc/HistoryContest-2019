@@ -1,12 +1,16 @@
-.ant-carousel .slick-slide {
-    text-align: center;
-    height: 160px;
-    line-height: 160px;
-    background: #364d79;
-    overflow: hidden;
-  }
-  
-  .ant-carousel .slick-slide h3 {
-    color: #fff;
-  }
-  
+body{
+  height: 900px;
+}
+header{
+  height:60px;
+  background-color: rgba(74,89,61,0.8);
+}
+.Question{
+  border-radius: 100px!important;
+  width:960px;
+  height:640px;
+  background-color: rgba(255,255,255,0.8)!important;
+  margin-top: 60px;
+  margin-left: 60px;
+
+}

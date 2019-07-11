@@ -1,51 +1,75 @@
 import React from 'react';
-import bg1 from '../../img/图片1.jpg';
-import bg2 from '../../img/图片2.jpg';
-import bg3 from '../../img/图片3.jpg';
 import './Welcome.css';
 import 'antd/dist/antd.css';
-import {Modal,Button}from 'antd';
+import bg1 from '../../img/1.png';
+import seu from '../../img/东南大学.png';
+import words from '../../img/校史校情知识竞赛 .PNG';
+import {Icon}from 'antd';
 import LoginModal from '../LoginModal/LoginModal';
 
-var imgs = [bg1, bg2, bg3];
 class Welcome extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            x:0,
-            value:false
+            logining:false,
         };
+        this.open=this.open.bind(this);
+        this.closModal=this.closModal.bind(this);
     } 
-    componentDidMount() {
-        this.timer = setInterval(function () {
-            var x = this.state.x;
-            x++;
-            x=x%3;
-            this.setState({x:x});
-        }.bind(this), 5000);
+    open(){
+        this.setState({logining:true});
     }
-    componentWillUnmount(){
-        clearInterval(this.timer);
-    }    
-    showModal = () => {
-        this.setState({
-          value: true,
-        });
-      };
+    closModal(){
+        this.setState({logining:false});
+    }
     
     render(){
-        let value = false;
-        return(
-            <React.Fragment>
-                <div className = "Welcome">
-                    <body className = "Welcome-body"  style = {{backgroundImage:`url(${imgs[this.state.x]})`}}>
-                        <h1 class="text-center" style = {{color:'white'}}>2019东南大学校史校情知识竞赛答题</h1>
-                        <Button type="dashed" style={{width:"220px", height:"60px", borderRadius:"40px 40px 40px 40px", fontSize:"25px"}} ghost onClick={this.showModal}>Login 登录</Button>
-                        <LoginModal visible = {this.state.value}/>
-                    </body>
-                </div>
-            </React.Fragment>
-        )
+        let orgin = (
+        <div className="WEL" >
+            <header className="welcome" 
+            id="background" 
+            style = {{backgroundImage:`url(${bg1})`}}
+                 >
+                <b className="sma"><img src={seu} height="100px" width="300px"></img></b><br></br>
+                <b className="top"><img src={words} height="140px" width="936px"></img><br></br> </b>
+                <p></p>
+                < button 
+                className="login-button"
+                onClick={this.open}
+                >
+                    <Icon type="login" style={{color:"white"}}/>
+                    &nbsp;
+                    <b>Login &nbsp; 登录</b>
+                    </button>
+                    <p></p>
+            </header>
+        </div>
+        );
+        let login=(
+            <div className="WEL" >
+            <header className="welcome" 
+            id="background" 
+            style = {{backgroundImage:`url(${bg1})`}}>
+                <b className="sma"><img src={seu} height="100px" width="300px"></img></b><br></br>
+                <b className="top"><img src={words} height="140px" width="936px"></img><br></br> </b>
+                <p></p>
+                < button 
+                className="login-button"
+                onClick={this.open}
+                disabled={true}
+                >
+                    <Icon type="loading" style={{color:"white"}}/>
+                    &nbsp;
+                    <b>登录中</b>
+                    </button>
+                    <p></p>
+
+            </header>
+            <LoginModal state={this.state}  setState={this.props.setState} close={this.closModal}/>
+        </div>
+        );
+        let x=(this.state.logining?login: orgin);
+        return x;
     }
 }
 
