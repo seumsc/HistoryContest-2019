@@ -1,6 +1,6 @@
 // import "reflect-metadata";
 import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import {Student} from "./entity/Student";
 import * as Koa from 'koa';
 import * as Router from "koa-router";
 
@@ -26,12 +26,12 @@ app.listen(8080,()=>{
 
 createConnection().then(async connection => {
     console.log("connected successfully!") // here you can start to work with your entities
-    let admin=   new User();
-    admin.name="任栗晗"
-    admin.id=1
-    admin.username="admin"
-    admin.password="hkhtql"
-    admin.identity=1
-    admin.department=71
-    return await connection.manager.save(admin).then(User =>{console.log(admin.id," user has been saved.")})
+    // let admin=   new Admin();
+    // admin.name="任栗晗"
+    // admin.id=1
+    // admin.username="admin"
+    // admin.password="hkhtql"
+    // admin.identity=1
+    // admin.department=71
+    // return await connection.manager.save(admin).then(User =>{console.log(admin.id," user has been saved.")})
 }).catch(error => console.log(error))

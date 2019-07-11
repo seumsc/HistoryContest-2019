@@ -1,10 +1,10 @@
 import {getRepository,Like,AdvancedConsoleLogger}from "typeorm"
 import {Controller,Param,Body,Get,Post,Put,Delete} from "routing-controllers"
-import {User}from "../entity/User"
+import {Student}from "../entity/Student"
 
 
 @Controller("/user")
-export class UserController{
+export class StudentController{
     
     @Get("")
     async getAll(){
