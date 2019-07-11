@@ -5,10 +5,12 @@ import './student.css';
 import "antd/dist/antd.css";
 import { Button, Input, Modal, message, Layout, Menu, Dropdown, Icon, Drawer, Tabs, Row, Col } from 'antd';
 import logo from "../photo/校徽实体.png"
-import pic1 from "../photo/答题背景1.jpg"
 import {Choice,TrueFalse,Timer}  from "../question/qusetion"
+import pic1 from "../photo/答题1.png"
+import pic2 from "../photo/答题2.png"
+import pic3 from "../photo/答题4.png"
 
-
+const imgs=[pic1,pic2,pic3];
 const { Header, Footer, Sider, Content } = Layout;
 const { TabPane } = Tabs;
 //let bg=[pic1,pic2,pic3,pic4];
@@ -94,11 +96,11 @@ class Student extends React.Component {
     }
     render() {
         if(!this.state.isTesting){
-
         }
         return (
-            <React.Fragment >
-                <div id="student" className="backGround">
+            <React.Fragment>
+                <div id="student" style={{backgroundImage:`url(${imgs[(this.state.focusOn%3)]})`, 
+                backgroundSize:'cover', backgroundPosition:'center'}}>
                 <Drawer
                     title="选项"
                     placement="left"
@@ -109,26 +111,26 @@ class Student extends React.Component {
                     <p></p>
                     <Button type="danger" onClick={this.logout} block={true}>注销/logout</Button>
                 </Drawer>
-                <Layout>
-                    <Header>
-                        <Row>
-                            <Col span={3}> <Button type="primary" onClick={this.openControl}><Icon type="menu-unfold" /></Button> </Col>
+                    <Header className="header">
+                        <Row >
+                            <Col span={2}> <Button type="primary" onClick={this.openControl}><Icon type="menu-unfold" /></Button> </Col>
                             <Col span={1} ><img src={logo} width="40" height="40"></img> </Col>
                             <Col span={8} style={{ color: "white", fontSize: "35px" }}>校史校情知识竞赛</Col>
-                            <Col span={6}></Col>
-                            <Col span={6}><Timer state={this.state} setState={this.setState.bind(this)}/></Col>
+                            <Col span={7}></Col>
+                            <Col span={6} >  <Timer state={this.state} setState={this.setState.bind(this)}/></Col>
                         </Row>
                     </Header>
 
-                    <Content style={{ backgroundColor: "white" }}>
+                    <Content className="content">
                         <Row>
-                            <Col span={18} style={{backgroundColor:"rgb(227, 248, 252)"}}>
+                            <Col span={18} >
                                 <Tabs activeKey={`${this.state.focusOn}`}
                                 onTabClick={(x)=>{this.setState({focusOn:x})}} 
                                 tabPosition="left" 
-                                style={{ height: 670, color: "black" }} >
+                                style={{ color: "black" }}
+                                className="Question" >
                                     {this.state.question.map((x, i) => (
-                                        <TabPane tab={!x.isFinish ? <div><Icon type="clock-circle" /> {x.kind}{i + 1}</div> : <div><Icon type="check" />{x.kind}{i + 1}</div>}
+                                        <TabPane tab={!x.isFinish ? <div><Icon type="clock-circle" /> {x.kind}{i + 1}</div> : <div><Icon type="carry-out" />&nbsp;{x.kind}{i + 1}</div>}
                                             key={i}
                                             onChange={() => { this.done(i)}}
                                             >
@@ -140,12 +142,8 @@ class Student extends React.Component {
                                     }
                                 </Tabs>
                             </Col>
-                            <Col span={6} style={{backgroundColor:"transparent", height:670}}>
-
-                            </Col>
                         </Row>
                     </Content> 
-                </Layout>
                 </div>
             </React.Fragment>
         )

@@ -69,7 +69,7 @@ class Timer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            min: 2,
+            min: 1,
             sec: 59,
             isClocking: true
         }

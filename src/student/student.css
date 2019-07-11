@@ -1,4 +1,25 @@
 
-.ant-tabs-bar{
-       border-bottom: 10px solid rgb(255, 255, 255);
- }
+
+.body {
+      height: 900px;
+}
+
+.header {
+      height: 60px;
+      background-color: rgba(255,255,255,0);
+}
+
+.Question {
+      border-radius: 60px !important;
+      width: 1000px;
+      height: 584px;
+      background-color: rgba(255, 255, 255, 0.8) !important;
+      margin-top: 10px;
+      margin-bottom: 45px;
+      margin-left: 80px;
+
+}
+
+.content{
+      background-color: rgba(255, 255, 255, 0);
+}
