@@ -1,9 +1,9 @@
 import {getRepository,Like,AdvancedConsoleLogger}from "typeorm"
-import {Controller,Param,Body,Get,Post,Put,Delete} from "routing-controllers"
+import {JsonController,Param,Body,Get,Post,Put,Delete} from "routing-controllers"
 import {Student}from "../entity/Student"
 
 
-@Controller("/user")
+@JsonController("/user")
 export class StudentController{
     
     @Get("")
