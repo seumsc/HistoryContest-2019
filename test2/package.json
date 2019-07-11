@@ -1,0 +1,24 @@
+{
+  "name": "seu-historycontest-2019",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "ts-node src/app.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.6.2",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "mysql": "^2.17.1",
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.7.7",
+    "ts-node": "^8.3.0",
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.18",
+    "typescript": "^3.5.3"
+  }
+}
