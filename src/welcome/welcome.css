@@ -15,10 +15,11 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
     justify-content: center;
     font-size: calc(50px + 2vmin);
-
+    background-repeat: no-repeat;
+    background-size: cover;
   }
  
   .login-button {

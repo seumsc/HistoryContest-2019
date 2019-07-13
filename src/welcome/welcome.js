@@ -1,3 +1,4 @@
+
 import React, {
     Component
 } from 'react';
@@ -11,8 +12,6 @@ import bg3 from "../photo/4正.jpg"
 import seu from "../photo/东南大学.png"
 import words from "../photo/校史校情知识竞赛 .PNG"
 import seus from "../photo/校徽.png"
-
-
 
 class Welcome extends React.Component {
     constructor(props) {

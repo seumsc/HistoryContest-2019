@@ -100,7 +100,9 @@ class Student extends React.Component {
         return (
             <React.Fragment>
                 <div id="student" style={{backgroundImage:`url(${imgs[(this.state.focusOn%3)]})`, 
-                backgroundSize:'cover', backgroundPosition:'center'}}>
+                backgroundSize:'cover', 
+                backgroundPosition:'center',
+                transition:'1.5s'}}>
                 <Drawer
                     title="选项"
                     placement="left"
