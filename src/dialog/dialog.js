@@ -100,8 +100,8 @@ class LoginModal extends React.Component{
         <Modal 
             title="学生注册 "
             visible={this.state.visible}
-            onOk={this.StudentToLogin}
             onCancel={this.close}
+            onPressEnter={this.ToLogin}
             footer={ [
                 <Button key="返回" type="defult"  onClick={this.close}>
                   返回
