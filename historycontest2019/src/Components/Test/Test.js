@@ -162,7 +162,7 @@ class Test extends React.Component {
                     visible={this.state.settingVisible}
                 >
                     <p></p>
-                    <Button type="default" onClick={this.handIn} block={true}>提前交卷</Button>
+                    <Button type="default" onClick={this.submit} block={true}>提前交卷</Button>
                     <p></p>
                     <Button type="danger" onClick={this.logout} block={true}>注销/logout</Button>
                 </Drawer>
