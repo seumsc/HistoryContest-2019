@@ -26,8 +26,8 @@ class LoginModal extends React.Component{
   ToLogin(){
       //暂时的登陆函数
       //最后要区分登陆请求
-      let x=document.getElementById("username").value;
-      let y=document.getElementById("password").value;
+      let x=this.state.username;
+      let y=this.state.password;
       if(isNaN(x)) {
           message.warn("输入非学号哟");
           return;

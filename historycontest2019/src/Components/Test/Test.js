@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Icon, Tabs, Button, Modal } from 'antd';
+import { Row, Col, Icon, Tabs, Button, Modal, Drawer } from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
 import bg1 from '../../img/答题1.png';
@@ -17,7 +17,7 @@ class Test extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            usernanme: "",
+            name: "",
             isTesting: false,
             isPaperGet: false,
             isAllDone: false,
@@ -113,7 +113,8 @@ class Test extends React.Component {
         })
     }
     submit() {
-        this.setState({ isAllDone:true })
+        //提交函数
+        this.setState({ isAllDone: true })
     }
     done(i) {
         let x = this.state.question;
@@ -143,21 +144,37 @@ class Test extends React.Component {
                                 开始答题
                       </Button>
                         ]}>
-                        <p>1.本答题共有30道题</p>
+                        <b>{this.state.name}同学,你好!</b><br></br>
+                        <p>1.本答题共有30道题,其中有20道选择题,10道判断题</p>
+                        <p>2.答题时限为30分钟,时间用完自动交卷</p>
+                        <p>3.未成功交卷之前,可进行多次答题(但每次生成题目不同)</p>
                     </Modal>
                 </div>
             )
         }
         return (
             <React.Fragment>
-                <body style={{ backgroundImage: `url(${imgs[(this.state.focusOn % 3)]})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', transition: '2s' }}>
+                <Drawer
+                    title="选项"
+                    placement="left"
+                    closable={false}
+                    onClose={this.closeControl}
+                    visible={this.state.settingVisible}
+                >
+                    <p></p>
+                    <Button type="default" onClick={this.handIn} block={true}>提前交卷</Button>
+                    <p></p>
+                    <Button type="danger" onClick={this.logout} block={true}>注销/logout</Button>
+                </Drawer>
+                <body style={{
+                    backgroundImage: `url(${imgs[(this.state.focusOn % 3)]})`,
+                    backgroundSize: 'cover', backgroundRepeat: 'no-repeat', transition: '2s',
+                    top: "0px", bottom: "0px", position: "absolute", width: "100%", height: "100%"
+                }}>
                     <header>
                         <Row>
-                            <Col span={1}></Col>
-                            <Col span={1}>
-                                <br />
-                                <br />
-                                <Icon style={{ color: 'white', fontSize: '30px' }} type="home" onClick={this.logout} block={true} />
+                            <Col span={1} offset={1} style={{ marginTop: "35px" }}>
+                                <Button type="primary" onClick={this.openControl}><Icon type="menu-unfold" /></Button>
                             </Col>
                             <Col span={16}>
                                 <img src={Title}></img>
@@ -169,38 +186,44 @@ class Test extends React.Component {
                             </Col>
                         </Row>
                     </header>
-                    <Row>
-                        <div className="Question">
-                            <Col span={24} >
-                                <Tabs activeKey={`${this.state.focusOn}`}
-                                    onTabClick={(x) => { this.setState({ focusOn: x }) }}
-                                    tabPosition="left"
-                                    style={{ height: 640 }} >
-                                    {this.state.question.map((x, i) => (
-                                        <TabPane tab={!x.isFinish ? <div><Icon type="clock-circle" /> {x.kind}{i + 1}&nbsp;</div> : <div style={{backgroundColor:'#572A3F', color:'white', borderRadius:20}}><Icon type="clock-circle" />{x.kind}{i + 1}&nbsp;</div>}
-                                            key={i}
-                                            onChange={() => { this.done(i) }}
-                                        >
-                                            {x.kind == "选择题" ?
-                                                <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} />
-                                                : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} />
-                                            }
-                                        </TabPane>))
-                                    }
-                                    <Row>
-                                        <Col span={16}></Col>
-                                        <Col span={3}>
-                                            <Button onClick={this.Prev}>上一题</Button>
-                                        </Col>
-                                        <Col span={4}>
-                                            {this.state.focusOn < 29 && <Button onClick={this.Next}>下一题</Button>}
-                                            {this.state.focusOn == 29 && <Button type='primary' onClick={this.submit}>提交</Button>}
-                                        </Col>
-                                    </Row>
-                                </Tabs>
-                            </Col>
-                        </div>
-                        <iframe onClick={this.submit} src="https://zhanyuzhang.github.io/lovely-cat/cat.html"></iframe>
+                    <Row className="Question">
+                        <Col span={18} >
+                            <Tabs activeKey={`${this.state.focusOn}`}
+                                onTabClick={(x) => { this.setState({ focusOn: x }) }}
+                                tabPosition="left"
+                                style={{ height: 590 }} >
+                                {this.state.question.map((x, i) => (
+                                    <TabPane tab={
+                                        !x.isFinish ? <div><Icon type="clock-circle" /> {x.kind}{i + 1}</div> :
+                                            <div style={{ backgroundColor: "rgb(24, 144, 255)", color: "white", borderRadius: "8px" }}><Icon type="carry-out" />{x.kind}{i + 1}</div>}
+                                        key={i}
+                                        onChange={() => { this.done(i) }}
+                                    >
+                                        {x.kind == "选择题" ?
+                                            <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} />
+                                            : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} />
+                                        }
+                                    </TabPane>))
+                                }
+                                <Row>
+                                    <Col span={9} offset={16} style={{marginTop:"100px"}}>
+                                        <Button.Group size="large">
+                                            <Button type="primary" onClick={this.Prev}>
+                                                <Icon type="left" />
+                                                上一题
+                                            </Button>
+                                            {this.state.focusOn < 29 ?
+                                            <Button type="primary" onClick={this.Next}>下一题<Icon type="right" /></Button>:
+                                            <Button type='primary' onClick={this.submit}>提交答案<Icon type="right" /></Button>}
+                                        </Button.Group>
+                                      </Col>  
+                                </Row>
+                            </Tabs>
+                        </Col>
+                        <Col span={2} offset={20} style={{ marginTop: "0px" }}>
+                            <iframe onClick={this.submit} src="https://zhanyuzhang.github.io/lovely-cat/cat.html"></iframe>
+                        </Col>
+
                     </Row>
 
                 </body>
