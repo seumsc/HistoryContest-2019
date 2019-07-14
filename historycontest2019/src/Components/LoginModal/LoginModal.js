@@ -79,7 +79,7 @@ class LoginModal extends React.Component{
       >
           <Input id="username"addonBefore=" 账户 "placeholder="八位学号" allowClear onChange={(x,v)=>{this.setState({username:v})}}></Input>
           <p></p>
-          <Input id="password"addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x,v)=>{this.setState({password:v})}}></Input>
+          <Input.Password id="password"addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x,v)=>{this.setState({password:v})}} />
           <p > <br></br>非特殊情况不用注册哦~&nbsp;&nbsp;
           <a onClick={this.signin}>
             注册
@@ -110,7 +110,7 @@ class LoginModal extends React.Component{
           <p></p>
           <Input id="username"addonBefore=" 账户 "placeholder="八位学号" allowClear onChange={(x,v)=>{this.setState({username:v})}}></Input>
           <p></p>
-          <Input id="password"addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x,v)=>{this.setState({password:v})}}></Input>
+          <Input.Password id="password"addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x,v)=>{this.setState({password:v})}} />
 
       </Modal>
       </div>

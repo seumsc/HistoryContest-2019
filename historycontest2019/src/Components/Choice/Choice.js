@@ -24,10 +24,10 @@ class Choice extends React.Component {
         return (
             <React.Fragment>
                 <Row>
-                <h2 style={{marginTop:30, marginLeft:20, fontSize:25}}>
+                <h2 style={{marginTop:30, marginLeft:20, fontSize:25, height:60}}>
                     {this.props.state.title}
                 </h2>
-                <Radio.Group style={{marginTop:40, marginLeft:40}} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
+                <Radio.Group style={{marginTop:40, marginLeft:40, height:250}} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
                     <Radio style={style} value={1}>
                         <b>A</b> &nbsp; {this.props.state.choice[0]}
                     </Radio>

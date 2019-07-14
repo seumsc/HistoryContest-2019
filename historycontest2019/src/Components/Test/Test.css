@@ -14,6 +14,10 @@ header{
   margin-left: 60px;
 
 }
+iframe{
+  border: 0px;
+  margin: 0px;
+}
 .choice{
   margin-top: 20px!important;
   margin-left: 30px!important;
