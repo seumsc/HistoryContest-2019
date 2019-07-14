@@ -1,0 +1,21 @@
+body{
+  height: 900px;
+}
+header{
+  height:70px;
+  background-color: rgba(74,89,61,0);
+}
+.Question{
+  border-radius: 80px!important;
+  width:1000px;
+  height:640px;
+  background-color: rgba(255,255,255,0.8)!important;
+  margin-top: 40px;
+  margin-left: 60px;
+
+}
+.choice{
+  margin-top: 20px!important;
+  margin-left: 30px!important;
+  color: brown!important;
+}
