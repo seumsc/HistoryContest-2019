@@ -13,13 +13,13 @@ class App extends React.Component{
       isStudent:false,
       isAdmin:false,
       isTeacher:false,
+      host:"",
       userInfo:
       {
-        username:'',
+        name:'',
         token:'',
         access:-1,
-        isLogin:false,
-        score:0
+        score:-1
       },
       answer:{
       choice:{},
@@ -36,9 +36,9 @@ class App extends React.Component{
       <React.Fragment>
         <div id="index">
               {this.state.isWelcome?<Welcome state={this.state} setState={this.appState}/>:<div/>}
-              {this.state.isTest&&this.state.userInfo.score==0?<LoginModal state={this.state} setState={this.appState}/>:<div/>}
-              {this.state.isStudent&&this.state.userInfo.score==0?<Test state={this.state} setState={this.appState}/>:<div/>}
-              {this.state.userInfo.score>0&&(this.state.userInfo.access==2)?<div/>:<div/>}
+              {this.state.isStudent&&this.state.userInfo.score==-1?<Test state={this.state} setState={this.appState}/>:<div/>}
+              {this.state.userInfo.score>0&&(this.state.userInfo.access==0)?<div/>:<div/>}
+              {this.state.isTeacher?<div/>:<div/>}
               {this.state.isAdmin?<div/>:<div/>}
               </div>
       </React.Fragment>

@@ -107,10 +107,23 @@ class Test extends React.Component {
     }
     logout() {
         this.props.setState({
-            isWelcome: true,
-            isLogin: false,
-            isStudent: false
-        })
+            isWelcome:true,
+            isLogin:false,
+            isStudent:false,
+            isAdmin:false,
+            isTeacher:false,
+            userInfo:
+            {
+              name:'',
+              token:'',
+              access:-1,
+              score:0
+            },
+            answer:{
+            choice:{},
+            true_false:{}
+            },
+          })
     }
     submit() {
         //提交函数

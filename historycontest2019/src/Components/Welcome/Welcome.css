@@ -10,8 +10,6 @@
 }
   
   .welcome {
-    height: 900;
-    width: 1600;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

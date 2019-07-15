@@ -24,11 +24,17 @@ class Welcome extends React.Component{
     }
     
     render(){
-        let orgin = (
+        let origin = (
         <div className="WEL" >
             <header className="welcome" 
             id="background" 
-            style = {{backgroundImage:`url(${bg1})`}}
+            style = {{backgroundImage:`url(${bg1})`,                  
+             backgroundSize: 'cover',
+             backgroundPosition: 'center',
+            width: "100%", height: "100%",
+            position: "absolute",
+            top: "0px",
+            bottom: "0px"}}
                  >
                 <b className="sma"><img src={seu} height="100px" width="300px"></img></b><br></br>
                 <b className="top"><img src={words} height="140px" width="936px"></img><br></br> </b>
@@ -49,7 +55,13 @@ class Welcome extends React.Component{
             <div className="WEL" >
             <header className="welcome" 
             id="background" 
-            style = {{backgroundImage:`url(${bg1})`}}>
+            style = {{backgroundImage:`url(${bg1})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            width: "100%", height: "100%",
+            position: "absolute",
+            top: "0px",
+            bottom: "0px"}}>
                 <b className="sma"><img src={seu} height="100px" width="300px"></img></b><br></br>
                 <b className="top"><img src={words} height="140px" width="936px"></img><br></br> </b>
                 <p></p>
@@ -68,7 +80,7 @@ class Welcome extends React.Component{
             <LoginModal state={this.state}  setState={this.props.setState} close={this.closModal}/>
         </div>
         );
-        let x=(this.state.logining?login: orgin);
+        let x=(this.state.logining?login: origin);
         return x;
     }
 }
