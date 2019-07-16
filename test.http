@@ -1,0 +1,27 @@
+### 测试登陆功能
+
+
+post http://localhost:5000/api/ui/login
+
+Content-Type: application/json
+{
+    "Identity":"1",
+    "Username":"71118118",
+    "Password":"213183580"
+}
+
+### 测试get
+
+get http://localhost:5000/api/ui/getadminall
+
+
+### 测试注册
+post http://localhost:5000/api/ui/register
+
+Content-Type: application/json
+{
+    "Identity":"1",
+    "Username":"09018316",
+    "Password":"213181432",
+    "Name":"黄开鸿"
+}

@@ -1,7 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
 
 @Entity()
-export class Student {
+export class Student extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -17,10 +17,10 @@ export class Student {
     @Column()
     password: string;
 
-    @Column()
-    identity:number;//0:学生；1：管理员；2：辅导员
+    @Column({default:0})
+    identity:string;//0:学生；1：管理员；2：辅导员
 
     @Column()
-    department:number;
+    department:string;
 
 }
