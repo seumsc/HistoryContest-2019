@@ -1,4 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import { SSL_OP_NO_COMPRESSION } from "constants";
 
 @Entity()
 export class Student extends BaseEntity{
@@ -23,4 +24,6 @@ export class Student extends BaseEntity{
     @Column()
     department:string;
 
+    @Column()
+    score:number;
 }
