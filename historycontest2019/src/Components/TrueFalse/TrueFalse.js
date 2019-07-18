@@ -41,39 +41,41 @@ class Choice extends React.Component {
         }
         return (
             <React.Fragment>
-                <Row style={{ backgroundImage: `url(${imgs[(this.props.Id % 12)]})`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            width: "100%", height: "100%",
-                            marginBottom:40 }}>
+                <Row style={{
+                    backgroundImage: `url(${imgs[(this.props.Id % 12)]})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    width: "100%", height: "100%",
+                    marginBottom: 40,
+                }}>
                     <Col span={4}></Col>
                     <Col span={16}>
-                    <div style={{
-                        backgroundColor:bg[this.props.Id % 12]
-                    }}>
-                        <h2 style={{ marginTop: 60, marginBottom: 20, color:'white', fontSize: 25, minHeight: 120 }}>
-                            {this.props.state.title}
-                        </h2>
-                        <Radio.Group style={{ color:'white',marginTop: 40, marginLeft: 40, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
-                            <Radio style={style} value={1}>
-                                <b>√</b>对
-                            </Radio>
-                            <Radio style={style} value={2}>
-                                <b>×</b>错
-                            </Radio>
-                        </Radio.Group>
-                        <Row>
+                        <div style={{
+                            backgroundColor: bg[this.props.Id % 12],
+                            marginTop: 60
+                        }}>
+                            <h2 style={{ marginLeft: 40, color: 'white', fontSize: 25, minHeight: "6px", lineHeight: 6, overflow: "hidden" }}>
+                                {this.props.Id + 1}&nbsp;{this.props.state.title}
+                            </h2>
+                            <Radio.Group style={{ color: 'white', marginLeft: 40, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
+                                <Radio style={style} value={1}>
+                                    <b>对</b>
+                                </Radio>
+                                <Radio style={style} value={2}>
+                                    <b>错</b>
+                                </Radio>
+                            </Radio.Group>
+                            <Row>
                                 <Col span={16}></Col>
                                 <Col span={3}>
-                                    <Button onClick={this.props.Prev}>上一题</Button>
+                                    {this.props.Id > 0 && <Button onClick={this.props.Prev}>上一题</Button>}
                                 </Col>
-                                <Col span={4}>
+                                <Col span={4} style={{marginBottom:40}}>
                                     {this.props.Id < 29 && <Button onClick={this.props.Next}>下一题</Button>}
                                     {this.props.Id == 29 && <Button type='primary' onClick={this.submit}>提交</Button>}
                                 </Col>
                             </Row>
-                            <br /><br /><br />
-                    </div>
+                        </div>
                     </Col>
                     <Col span={4}></Col>
                 </Row>
