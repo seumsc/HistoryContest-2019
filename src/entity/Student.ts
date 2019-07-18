@@ -24,6 +24,11 @@ export class Student extends BaseEntity{
     @Column()
     department:string;
 
-    @Column()
+    @Column({default:-1})
     score:number;
+
+    @Column({default:-1})
+    time:number;
+
+
 }

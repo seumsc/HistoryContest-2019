@@ -22,7 +22,7 @@ export class UIController{
                 else
                 {
                     ctx.status=200
-                    ctx.body={Name:stu.name,Score:stu.score}
+                    ctx.body={Name:stu.name,Score:stu.score,Time:stu.time}
                 }
                 break;
             case '1':
@@ -58,6 +58,8 @@ export class UIController{
         }
         return ctx;
     }
+
+    
     @Post("/register")
     async post_register(@Ctx() ctx:Context){
         switch (ctx.request.body.Identity)
@@ -125,10 +127,16 @@ export class UIController{
         }
         return ctx;
     }
-    @Get("/getadminall")
-    async get_admin_all(@Ctx() ctx:Context){
-        ctx.body=await Admin.find()
-        return ctx;
-        // return await Admin.find()
-    }
+    // @Get("/getadminall")
+    // async get_admin_all(@Ctx() ctx:Context){
+    //     ctx.body={admin: await Admin.find({select:["name","username"]})}
+    //     return ctx;
+    //     // return await Admin.find()
+    // }
+
+    // @Get("/getstudentall")
+    // async get_student_all(@Ctx() ctx:Context){
+    //     ctx.body={student:await Student.find({select:["name","username","department","score","time"]})}
+    //     return ctx;
+    // }
 }

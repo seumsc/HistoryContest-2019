@@ -20,16 +20,7 @@ export class ChoiceQuestion extends BaseEntity{
 
     @Column()
     d:string;
-
+    
     @Column()
-    a_value:number;
-
-    @Column()
-    b_value:number;
-
-    @Column()
-    c_value:number;
-
-    @Column()
-    d_value:number;
+    answer:number;
 }

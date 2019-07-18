@@ -5,23 +5,42 @@ POST  http://localhost:5000/api/ui/login
 Content-Type: application/json
 
 {
-    "Identity":"1",
+    "Identity":"0",
     "Username":"71118118",
     "Password":"213183580"
 }
 
-### 测试get
+### 测试get_admin
 
 get http://localhost:5000/api/ui/getadminall
 
+### 测试get_student
+GET http://localhost:5000/api/ui/getstudentall
 
 ### 测试注册
 post http://localhost:5000/api/ui/register
-
 Content-Type: application/json
+
 {
-    "Identity":"1",
-    "Username":"09018316",
-    "Password":"213181432",
-    "Name":"黄开鸿"
+    "Identity":"0",
+    "Username":"71118118",
+    "Password":"213183580",
+    "Name":"任栗晗"
+}
+
+### 测试开始答题
+POST http://localhost:5000/api/student/start
+Content-Type: application/json
+
+{
+    "Name":"任栗晗",
+    "Username":"71118118"
+}
+
+### 测试获取试卷
+POST http://localhost:5000/api/student/test
+Content-Type: application/json
+
+{
+    "Username":"71118118"
 }
