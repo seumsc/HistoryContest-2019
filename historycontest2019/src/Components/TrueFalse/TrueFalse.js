@@ -26,8 +26,8 @@ class Choice extends React.Component {
         this.onchange = this.onchange.bind(this);
     }
     onchange(e) {
-        this.setState({ value: e.target.value });
-        this.props.setFinish(this.props.Id);
+        this.setState({value:e.target.value});
+        this.props.setFinish(this.props.Id,e.target.value);
         this.props.Next(this.props.Next);
     }
     render() {
@@ -57,10 +57,10 @@ class Choice extends React.Component {
                                 {this.props.Id + 1}&nbsp;{this.props.state.title}
                             </h2>
                             <Radio.Group style={{ color: 'white', marginLeft: 40, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
-                                <Radio style={style} value={1}>
+                                <Radio style={style} value={0}>
                                     <b>对</b>
                                 </Radio>
-                                <Radio style={style} value={2}>
+                                <Radio style={style} value={1}>
                                     <b>错</b>
                                 </Radio>
                             </Radio.Group>
@@ -71,7 +71,7 @@ class Choice extends React.Component {
                                 </Col>
                                 <Col span={4} style={{marginBottom:40}}>
                                     {this.props.Id < 29 && <Button onClick={this.props.Next}>下一题</Button>}
-                                    {this.props.Id == 29 && <Button type='primary' onClick={this.submit}>提交</Button>}
+                                    {this.props.Id == 29 && <Button type='primary' onClick={this.props.submit}>提交</Button>}
                                 </Col>
                             </Row>
                         </div>
