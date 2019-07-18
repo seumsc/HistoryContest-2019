@@ -37,7 +37,7 @@ class Choice extends React.Component {
             height: '50px',
             lineHeight: '50px',
             color: 'white',
-            fontSize: '20px'
+            fontSize: '20px',
         }
         return (
             <React.Fragment>
@@ -54,15 +54,15 @@ class Choice extends React.Component {
                             backgroundColor: bg[this.props.Id % 12],
                             marginTop: 60
                         }}>
-                            <h2 style={{ marginLeft: 40, color: 'white', fontSize: 25, minHeight: "6px", lineHeight: 6, overflow: "hidden" }}>
+                            <h2 style={{ marginLeft: 100, color: 'white', fontSize: 25, minHeight: "6px", lineHeight: 6, overflow: "hidden" }}>
                                 {this.props.Id + 1}&nbsp;{this.props.state.title}
                             </h2>
-                            <Radio.Group style={{ color: 'white', marginLeft: 40, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
+                            <Radio.Group style={{ color: 'white', marginLeft: 150, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
                                 <Radio style={style} value={this.props.state.choice[0].value}>
                                     <b>A</b> &nbsp; {this.props.state.choice[0].text}
                                 </Radio>
                                 <Radio style={style} value={this.props.state.choice[1].value}>
-                                    <b>B</b> &nbsp; {this.props.state.choice[1].text}
+                                    <b >B</b> &nbsp; {this.props.state.choice[1].text}
                                 </Radio>
                                 <Radio style={style} value={this.props.state.choice[2].value}>
                                     <b>C</b> &nbsp; {this.props.state.choice[2].text}

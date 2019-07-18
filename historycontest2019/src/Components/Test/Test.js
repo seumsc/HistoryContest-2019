@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Icon, Tabs, Button, Modal, Layout } from 'antd';
+import { Row, Col, Icon, Tabs, Button, Modal, Layout ,List} from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
 import bg1 from '../../img/background1.png';
@@ -207,22 +207,22 @@ class Test extends React.Component {
     }
     submit() {
         //提交函数
-        let that = this;
-        let data={answer:[]};
-        this.state.answer.forEach((x,i)=>{
-            data.answer.push({id:x.id,value:x.value})
-        })
-        fetch("htttp://" + that.props.state.host + "/api/student/hangin",
-            {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: JSON.stringify(data)
-            }.then((res)=>{that.setState({isAllDone:true});return res.json()}
-        ).then(data=>{that.props.setState({userInfo:{score:data.score}})})
-        )
+        // let that = this;
+        // let data={answer:[]};
+        // this.state.question.forEach((x,i)=>{
+        //     data.answer.push({id:x.id,value:x.value})
+        // })
+        // fetch("htttp://" + that.props.state.host + "/api/student/hangin",
+        //     {
+        //         method: 'POST',
+        //         mode: 'cors',
+        //         headers: {
+        //             "Content-Type": "application/x-www-form-urlencoded"
+        //         },
+        //         body: JSON.stringify(data)
+        //     }.then((res)=>{that.setState({isAllDone:true});return res.json()}
+        // ).then(data=>{that.props.setState({userInfo:{score:data.score}})})
+        // )
     }
     done(i, value) {
         let x = this.state.question;
@@ -265,14 +265,14 @@ class Test extends React.Component {
                                 开始答题
                       </Button>
                         ]}>
-                        <b>{this.state.name}同学,你好!</b><br></br>
-                        <p>欢迎来到校史校情竞赛答题</p>
-                        <p></p>
-                        <p>1.本答题共有<b>30道题</b>,其中有<b>20道选择题,10道判断题</b></p>
-                        <p>选择题每道4分,判断题每道2分,满分共<b>100分</b></p>
-                        <p>2.答题时限为<b>30分钟</b>,时间用完自动交卷</p>
-                        <p>3.在未成功交卷前,出现特殊情况,可重新进入答题</p>
-                        <p>4.对本答题有疑问,可联系在场负责老师</p>
+
+                        <b style={{fontSize:"15px",color:"#1890ff"}}>{this.state.name}同学,你好!</b><br></br>
+                        <p>欢迎来到校史校情竞赛答题!</p><p></p>
+                        <p>- &nbsp;本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></p>
+                        <p>- &nbsp;选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></p>
+                        <p>- &nbsp;答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</p>
+                        <p>- &nbsp;在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</p>
+                        <p>- &nbsp;对本答题有疑问,&nbsp;可联系在场负责老师</p>
                     </Modal>
                 </div>
             )
