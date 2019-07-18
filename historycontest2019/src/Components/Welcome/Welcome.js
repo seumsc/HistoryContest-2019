@@ -28,7 +28,7 @@ class Welcome extends React.Component{
         <div className="WEL" >
             <header className="welcome" 
             id="background" 
-            style = {{backgroundImage:`url(${bg1})`}}
+            style = {{backgroundImage:`url(${bg1})`,width:"100%", height:"100%"}}
                  >
                 <b className="sma"><img src={seu} height="100px" width="300px"></img></b><br></br>
                 <b className="top"><img src={words} height="140px" width="936px"></img><br></br> </b>

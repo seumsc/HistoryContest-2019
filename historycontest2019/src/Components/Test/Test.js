@@ -1,17 +1,29 @@
 import React from 'react';
-import { Row, Col, Icon, Tabs, Button, Modal } from 'antd';
+import { Row, Col, Icon, Tabs, Button, Modal, Layout } from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
-import bg1 from '../../img/答题1.png';
-import bg2 from '../../img/答题2.png';
-import bg3 from '../../img/答题3.png';
+import bg1 from '../../img/background1.png';
+import bg2 from '../../img/background2.png';
+import bg3 from '../../img/background3.png';
+import bg4 from '../../img/background4.jpg';
+import bg5 from '../../img/background5.jpg';
+import bg6 from '../../img/background6.jpg';
+import bg7 from '../../img/background7.jpg';
+import bg8 from '../../img/background8.jpg';
+import bg9 from '../../img/background9.jpg';
+import bg10 from '../../img/background10.jpg';
+import bg11 from '../../img/background11.jpg';
+import bg12 from '../../img/background12.jpg';
+
+
 import Title from '../../img/标题.PNG';
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
 import TrueFalse from '../TrueFalse/TrueFalse';
 
-let imgs = [bg1, bg2, bg3];
+let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12];
 const { TabPane } = Tabs;
+const { Header, Footer, Sider, Content } = Layout;
 
 class Test extends React.Component {
     constructor(props) {
@@ -55,11 +67,18 @@ class Test extends React.Component {
         this.state.question[0] = {
             isFinish: false,
             kind: "选择题",
-            title: "燃煤联合循环发电技术由哪个研究所长期研究",
+            title: "燃煤联合循环发电技术由哪个研究所长期研究计划",
             choice: ['东大建筑与环境研究所', '东大热能工程研究所', '东大能源与环境工程研究所', '东大动力研究所'],
             isRight: false
         }
         this.state.question[1] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[2] = {
             isFinish: false,
             kind: "选择题",
             title: "东南大学的历史最早可追溯至哪一年?",
@@ -73,7 +92,20 @@ class Test extends React.Component {
             choice: ['√', '×'],
             isRight: false
         }
-
+        this.state.question[21] = {
+            isFinish: false,
+            kind: "判断题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['√', '×'],
+            isRight: false
+        }
+        this.state.question[22] = {
+            isFinish: false,
+            kind: "判断题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['√', '×'],
+            isRight: false
+        }
     }
     Next() {
         let x = this.state.focusOn;
@@ -113,7 +145,7 @@ class Test extends React.Component {
         })
     }
     submit() {
-        this.setState({ isAllDone:true })
+        this.setState({ isAllDone: true })
     }
     done(i) {
         let x = this.state.question;
@@ -150,7 +182,54 @@ class Test extends React.Component {
         }
         return (
             <React.Fragment>
-                <body style={{ backgroundImage: `url(${imgs[(this.state.focusOn % 3)]})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', transition: '2s' }}>
+                <Layout style={{ height: 900}}>
+                    <Header>
+                    <Row>
+                            <Col span={2}></Col>
+                            <Col span={16}>
+                            <h1 style={{color:'white'}}>东南大学校史校情知识竞赛</h1>
+                            </Col>
+                            <Col span={6}>
+                                <Timer state={this.state} setState={this.setState.bind(this)} />
+                            </Col>
+                        </Row>
+                        {/* <h1 style={{color:'white'}}>东南大学校史校情知识竞赛<Timer state={this.state} setState={this.setState.bind(this)} /></h1> */}
+                    </Header>
+                    <Content style={{backgroundColor: '#1C1C1C'}}>
+                        <Row>
+                            <Col span={2}>
+                                
+                            </Col>
+                            <Col span={20}>
+                            <Tabs activeKey={`${this.state.focusOn}`}
+                            animated='true'
+                            onTabClick={(x) => { this.setState({ focusOn: x }) }}
+                            tabBarGutter='0'
+                            tabPosition="bottom"
+                            // size="small"
+                            style={{marginBottom:0}}>
+                            {this.state.question.map((x, i) => (
+                                <TabPane tab={!x.isFinish ? <div style={{color: 'white'}}>{i + 1}</div> : <div style={{ backgroundColor: '#0089A7', backgroundSize:'cover',color: 'white', borderRadius:360}}>{i + 1}</div>}
+                                    key={i}
+                                    onChange={() => { this.done(i) }}
+                                >
+                                    {x.kind == "选择题" ?
+                                        <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
+                                        : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
+                                    }
+                                </TabPane>))
+                            }
+                        </Tabs>
+                            </Col>
+                            <Col span={2}>
+
+                            </Col>
+                        </Row>
+                        
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微<br/>版权所有©</Footer>
+                </Layout>
+                {/* <body style={{ backgroundImage: `url(${imgs[(this.state.focusOn % 3)]})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', transition: '2s' }}>
                     <header>
                         <Row>
                             <Col span={1}></Col>
@@ -170,8 +249,8 @@ class Test extends React.Component {
                         </Row>
                     </header>
                     <Row>
+                    <Col span={18} >
                         <div className="Question">
-                            <Col span={24} >
                                 <Tabs activeKey={`${this.state.focusOn}`}
                                     onTabClick={(x) => { this.setState({ focusOn: x }) }}
                                     tabPosition="left"
@@ -198,15 +277,209 @@ class Test extends React.Component {
                                         </Col>
                                     </Row>
                                 </Tabs>
+                                </div>
                             </Col>
-                        </div>
+                            <Col span={4}>
+                                <div style={{width:200}}>
+                                <br/>
+                                {this.state.question.map((x, i) => (
+                                x.isFinish?<Button ghost style={{width:10, textAlign:'center'}}>{i+1}</Button>:<Button style={{width:10}} onClick={() => { this.setState({ focusOn: i }) }}>{i+1}</Button>))}
+                                </div>
+                            </Col>
                         <iframe onClick={this.submit} src="https://zhanyuzhang.github.io/lovely-cat/cat.html"></iframe>
                     </Row>
-
-                </body>
+                </body> */}
             </React.Fragment>
         )
     }
 }
 
 export default Test
+
+{/*
+    import BannerAnim from 'rc-banner-anim';
+import TweenOne, { TweenOneGroup } from 'rc-tween-one';
+import 'rc-banner-anim/assets/index.css';
+const { Element, Arrow, Thumb } = BannerAnim;
+const BgElement = Element.BgElement;
+class Demo extends React.Component {
+  constructor() {
+    super(...arguments);
+    this.imgArray = [
+      'https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg',
+      'https://zos.alipayobjects.com/rmsportal/gGlUMYGEIvjDOOw.jpg',
+    ];
+    this.state = {
+      intShow: 0,
+      prevEnter: false,
+      nextEnter: false,
+      thumbEnter: false,
+    };
+    [
+      'onChange',
+      'prevEnter',
+      'prevLeave',
+      'nextEnter',
+      'nextLeave',
+      'onMouseEnter',
+      'onMouseLeave',
+    ].forEach((method) => this[method] = this[method].bind(this));
+  }
+
+  onChange(type, int) {
+    if (type === 'before') {
+      this.setState({
+        intShow: int,
+      });
+    }
+  }
+
+  getNextPrevNumber() {
+    let nextInt = this.state.intShow + 1;
+    let prevInt = this.state.intShow - 1;
+    if (nextInt >= this.imgArray.length) {
+      nextInt = 0;
+    }
+    if (prevInt < 0) {
+      prevInt = this.imgArray.length - 1;
+    }
+
+    return [prevInt, nextInt];
+  }
+
+  prevEnter() {
+    this.setState({
+      prevEnter: true,
+    });
+  }
+
+  prevLeave() {
+    this.setState({
+      prevEnter: false,
+    });
+  }
+
+  nextEnter() {
+    this.setState({
+      nextEnter: true,
+    });
+  }
+
+  nextLeave() {
+    this.setState({
+      nextEnter: false,
+    });
+  }
+  
+  onMouseEnter() {
+    this.setState({
+      thumbEnter: true,
+    });
+  }
+
+  onMouseLeave() {
+    this.setState({
+      thumbEnter: false,
+    });
+  }
+
+  render() {
+    const intArray = this.getNextPrevNumber();
+    const thumbChildren = this.imgArray.map((img, i) =>
+          <span key={i}><i style={{ backgroundImage: `url(${img})` }} /></span>
+        );
+    return (
+      <BannerAnim 
+        onChange={this.onChange} 
+        onMouseEnter={this.onMouseEnter} 
+        onMouseLeave={this.onMouseLeave} 
+        prefixCls="custom-arrow-thumb"
+      >
+        <Element key="aaa"
+          prefixCls="banner-user-elem"
+        >
+          <BgElement
+            key="bg"
+            className="bg"
+            style={{
+              backgroundImage: `url(${this.imgArray[0]})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+          <TweenOne className="banner-user-title" animation={{ y: 30, opacity: 0, type: 'from' }}>
+            Ant Motion Banner
+          </TweenOne>
+          <TweenOne 
+            className="banner-user-text" 
+            animation={{ y: 30, opacity: 0, type: 'from', delay: 100 }}
+          >
+            The Fast Way Use Animation In React
+            </TweenOne>
+        </Element>
+        <Element key="bbb"
+          prefixCls="banner-user-elem"
+        >
+          <BgElement
+            key="bg"
+            className="bg"
+            style={{
+              backgroundImage: `url(${this.imgArray[1]})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+          <TweenOne className="banner-user-title" animation={{ y: 30, opacity: 0, type: 'from' }}>
+            Ant Motion Banner
+          </TweenOne>
+          <TweenOne 
+            className="banner-user-text" 
+            animation={{ y: 30, opacity: 0, type: 'from', delay: 100 }}
+          >
+            The Fast Way Use Animation In React
+          </TweenOne>
+        </Element>
+        <Arrow arrowType="prev" key="prev" prefixCls="user-arrow" component={TweenOne}
+          onMouseEnter={this.prevEnter}
+          onMouseLeave={this.prevLeave}
+          animation={{ left: this.state.prevEnter ? 0 : -120 }}
+        >
+          <div className="arrow"></div>
+          <TweenOneGroup 
+            enter={{ opacity: 0, type: 'from' }} 
+            leave={{ opacity: 0 }} 
+            appear={false} 
+            className="img-wrapper" component="ul"
+          >
+            <li style={{ backgroundImage: `url(${this.imgArray[intArray[0]]})`}} key={intArray[0]} />
+          </TweenOneGroup>
+        </Arrow>
+        <Arrow arrowType="next" key="next" prefixCls="user-arrow" component={TweenOne}
+          onMouseEnter={this.nextEnter}
+          onMouseLeave={this.nextLeave}
+          animation={{ right: this.state.nextEnter ? 0 : -120 }}
+        >
+          <div className="arrow"></div>
+          <TweenOneGroup 
+            enter={{ opacity: 0, type: 'from' }} 
+            leave={{ opacity: 0 }} 
+            appear={false} 
+            className="img-wrapper" 
+            component="ul"
+          >
+            <li style={{ backgroundImage: `url(${this.imgArray[intArray[1]]})`}} key={intArray[1]} />
+          </TweenOneGroup>
+        </Arrow>
+        <Thumb prefixCls="user-thumb" key="thumb" component={TweenOne}
+          animation={{ bottom: this.state.thumbEnter ? 0 : -70 }}
+        >
+          {thumbChildren}
+        </Thumb>
+      </BannerAnim>
+    );
+  }
+}
+ReactDOM.render(
+  <Demo />
+, mountNode);
+*/}
