@@ -17,6 +17,7 @@ class App extends React.Component{
       userInfo:
       {
         name:'',
+        username:"",
         token:'',
         access:-1,
         score:-1

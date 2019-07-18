@@ -29,16 +29,16 @@ class Choice extends React.Component {
                 </h2>
                 <Radio.Group style={{marginTop:40, marginLeft:40, height:250}} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
                     <Radio style={style} value={1}>
-                        <b>A</b> &nbsp; {this.props.state.choice[0]}
+                        <b>A</b> &nbsp; {this.props.state.choice[0].text}
                     </Radio>
                     <Radio style={style} value={2}>
-                        <b>B</b> &nbsp; {this.props.state.choice[1]}
+                        <b>B</b> &nbsp; {this.props.state.choice[1].text}
                     </Radio>
                     <Radio style={style} value={3}>
-                        <b>C</b> &nbsp; {this.props.state.choice[2]}
+                        <b>C</b> &nbsp; {this.props.state.choice[2].text}
                     </Radio>
                     <Radio style={style} value={4}>
-                        <b>D</b> &nbsp; {this.props.state.choice[3]}
+                        <b>D</b> &nbsp; {this.props.state.choice[3].text}
                     </Radio>
                 </Radio.Group>
                 {/* <Button onClick={this.props.Next}>下一题</Button> */}

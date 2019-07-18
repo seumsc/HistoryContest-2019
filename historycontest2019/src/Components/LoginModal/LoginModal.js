@@ -45,9 +45,9 @@ class LoginModal extends React.Component {
         //         "Content-Type": "application/x-www-form-urlencoded"
         //     },
         //     body: JSON.stringify({
-        //         username: username,
-        //         password: password,
-        //         identity: identity
+        //         Username: username,
+        //         Password: password,
+        //         Identity: identity
         //     })
         // }).then(
         //     res => { return res.json() }
@@ -70,8 +70,8 @@ class LoginModal extends React.Component {
         //                 isLogin: true,
         //                 username: this.state.username,
         //                 userInfo:{
-        //                     name:data.body.name,
-        //                     score:data.body.score,
+        //                     name:data.body.Name,
+        //                     score:data.body.Score,
         //                     access:0
         //                 }
         //             });

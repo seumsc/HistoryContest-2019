@@ -89,15 +89,67 @@ class Test extends React.Component {
             this.setState({ focusOn: n })
         }
     }
-    componentWillMount() {//设定背景定时；获取试卷
-        this.timer = setInterval(() => {
-            let x = (this.state.pic + 1) % 4;
-            this.setState({ pic: x });
-        },
-            3000)
+    Random(arr) {
+        let length = arr.length,
+            randomIndex,
+            temp;
+        while (length) {
+            randomIndex = Math.floor(Math.random() * (--length));
+            temp = arr[randomIndex];
+            arr[randomIndex] = arr[length];
+            arr[length] = temp
+        }
+        return arr;
     }
+    componentWillMount() {
+        // let that=this;
+        // fetch('http://'+that.props.state.host+'/api/student/test',{
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     headers: {
+        //         "Content-Type": "application/x-www-form-urlencoded"
+        //     },
+        //     body: JSON.stringify({
+        //         Username: that.props.state.username,
+        //     })
+        // }
+        // ).then(
+        //     res=>{return res.json()}
+        // ).then(
+        //     data=>{
+        //         for(let i=0;i<20;i++){
+        //             that.state.question[i].id=data.test[i].id;
+        //             that.state.question[i].title=data.test[i].text;
+        //             let temp=[
+        //                 {
+        //                     text:data.test[i].a,
+        //                     value:data.test[i].a_value
+        //                 },
+        //                 {
+        //                     text:data.test[i].b,
+        //                     value:data.test[i].b_value
+        //                 },
+        //                 {
+        //                     text:data.test[i].c,
+        //                     value:data.test[i].c_value
+        //                 },
+        //                 {
+        //                     text:data.test[i].d,
+        //                     value:data.test[i].d_value
+        //                 }
+        //             ]
+        //             that.state.question[i].choice=this.Random(temp);
+        //         }
+        //         for(let i=20;i<30;i++){
+        //             that.state.question[i].id=data.test[i].id;
+        //             that.state.question[i].title=data.test[i].text;
+        //         }
+        //     }
+        // )
+    }
+
     componentWillUnmount() {
-        clearInterval(this.timer);
+        // clearInterval(this.timer);
     }
     openControl() {
         this.setState({ settingVisible: true });

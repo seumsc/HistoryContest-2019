@@ -29,10 +29,10 @@ class TrueFalse extends React.Component {
                 </h2>
                 <Radio.Group style={{marginTop:40, marginLeft:40, height:250}} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
                     <Radio style={style} value={1}>
-                        <b>对</b> &nbsp; {this.props.state.choice[0]}
+                        <b>对</b> 
                     </Radio>
                     <Radio style={style} value={2}>
-                        <b>错</b> &nbsp; {this.props.state.choice[1]}
+                        <b>错</b>
                     </Radio>
                 </Radio.Group>
                 </Row>
