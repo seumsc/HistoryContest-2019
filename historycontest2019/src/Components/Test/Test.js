@@ -30,39 +30,36 @@ class Test extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
+            name: "菜鸡",
             isTesting: false,
             isPaperGet: false,
             isAllDone: false,
-            settingVisible: false,
             focusOn: 0,
             pic: 0,
             question: []
         }
         for (let i = 0; i < 20; i++) {
             this.state.question.push({
-                id:null,
+                id:-1,
                 isFinish: false,
                 kind: "选择题",
                 title: "",
                 choice: ['', '', '', ''],
                 isRight: false,
-                value: null
+                value: -1
             });
         }
         for (let i = 20; i < 30; i++) {
             this.state.question.push({
-                id:nullLiteral,
+                id:-1,
                 isFinish: false,
                 kind: "判断题",
                 title: "",
                 choice: ['√', '×'],
                 isRight: false,
-                value: null
+                value: -1
             });
         }
-        this.openControl = this.openControl.bind(this);
-        this.closeControl = this.closeControl.bind(this);
         this.logout = this.logout.bind(this);
         this.done = this.done.bind(this);
         this.Next = this.Next.bind(this);
@@ -188,12 +185,6 @@ class Test extends React.Component {
     componentWillUnmount() {
         // clearInterval(this.timer);
     }
-    openControl() {
-        this.setState({ settingVisible: true });
-    }
-    closeControl() {
-        this.setState({ settingVisible: false });
-    }
     logout() {
         this.props.setState({
             isWelcome: true,
@@ -296,7 +287,7 @@ class Test extends React.Component {
                             <h1 style={{color:'white'}}>东南大学校史校情知识竞赛</h1>
                             </Col>
                             <Col span={6}>
-                                <Timer state={this.state} setState={this.setState.bind(this)} />
+                                <Timer state={this.state} setState={this.setState.bind(this)} submit={this.submit}/>
                             </Col>
                         </Row>
                         {/* <h1 style={{color:'white'}}>东南大学校史校情知识竞赛<Timer state={this.state} setState={this.setState.bind(this)} /></h1> */}
@@ -320,8 +311,9 @@ class Test extends React.Component {
                                     onChange={() => { this.done(i) }}
                                 >
                                     {x.kind == "选择题" ?
-                                        <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
-                                        : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
+                                        <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} 
+                                        submit={this.submint}/>
+                                        : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
                                     }
                                 </TabPane>))
                             }

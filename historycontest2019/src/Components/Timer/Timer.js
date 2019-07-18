@@ -20,6 +20,7 @@ class Timer extends React.Component {
                     clearInterval(this.timerId);
                     this.state.isClocking = false;
                     this.props.setState({ isAllDone: false });
+                    this.props.handin();
                 }
                 else if (x > 0) {
                     this.setState({ sec: x - 1 });
