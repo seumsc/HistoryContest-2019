@@ -9,6 +9,7 @@ import Title from '../../img/标题.PNG';
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
 import TrueFalse from '../TrueFalse/TrueFalse';
+import { nullLiteral } from '@babel/types';
 
 let imgs = [bg1, bg2, bg3];
 const { TabPane } = Tabs;
@@ -28,20 +29,24 @@ class Test extends React.Component {
         }
         for (let i = 0; i < 20; i++) {
             this.state.question.push({
+                id:null,
                 isFinish: false,
                 kind: "选择题",
                 title: "",
                 choice: ['', '', '', ''],
-                isRight: false
+                isRight: false,
+                value: null
             });
         }
         for (let i = 20; i < 30; i++) {
             this.state.question.push({
+                id:nullLiteral,
                 isFinish: false,
                 kind: "判断题",
                 title: "",
                 choice: ['√', '×'],
-                isRight: false
+                isRight: false,
+                value: null
             });
         }
         this.openControl = this.openControl.bind(this);
@@ -123,19 +128,19 @@ class Test extends React.Component {
         //             let temp=[
         //                 {
         //                     text:data.test[i].a,
-        //                     value:data.test[i].a_value
+        //                     value:1
         //                 },
         //                 {
         //                     text:data.test[i].b,
-        //                     value:data.test[i].b_value
+        //                     value:2
         //                 },
         //                 {
         //                     text:data.test[i].c,
-        //                     value:data.test[i].c_value
+        //                     value:3
         //                 },
         //                 {
         //                     text:data.test[i].d,
-        //                     value:data.test[i].d_value
+        //                     value:4
         //                 }
         //             ]
         //             that.state.question[i].choice=this.Random(temp);
@@ -159,31 +164,47 @@ class Test extends React.Component {
     }
     logout() {
         this.props.setState({
-            isWelcome:true,
-            isLogin:false,
-            isStudent:false,
-            isAdmin:false,
-            isTeacher:false,
+            isWelcome: true,
+            isLogin: false,
+            isStudent: false,
+            isAdmin: false,
+            isTeacher: false,
             userInfo:
             {
-              name:'',
-              token:'',
-              access:-1,
-              score:0
+                name: '',
+                token: '',
+                access: -1,
+                score: 0
             },
-            answer:{
-            choice:{},
-            true_false:{}
+            answer: {
+                choice: {},
+                true_false: {}
             },
-          })
+        })
     }
     submit() {
         //提交函数
-        this.setState({ isAllDone: true })
+        let that = this;
+        let data={answer:[]};
+        this.state.answer.forEach((x,i)=>{
+            data.answer.push({id:x.id,value:x.value})
+        })
+        fetch("htttp://" + that.props.state.host + "/api/student/hangin",
+            {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: JSON.stringify(data)
+            }.then((res)=>{that.setState({isAllDone:true});return res.json()}
+        ).then(data=>{that.props.setState({userInfo:{score:data.score}})})
+        )
     }
-    done(i) {
+    done(i, value) {
         let x = this.state.question;
         x[i].isFinish = true;
+        x[i].value = value;
         this.setState({ question: x });
     }
     render() {
@@ -204,7 +225,18 @@ class Test extends React.Component {
                         centered={true}
                         footer={[
                             <Button type="primary" onClick={() => {
-                                this.setState({ isTesting: true })
+                                let that = this;
+                                fetch("http://" + this.props.state.host + '/api/student/start'),
+                                    {
+                                        method: 'POST',
+                                        mode: 'cors',
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: JSON.stringify({
+                                            Username: that.props.state.username,
+                                        }).then(() => { that.setState({ isTesting: true }) })
+                                    }
                             }}>
                                 开始答题
                       </Button>
@@ -271,17 +303,17 @@ class Test extends React.Component {
                                     </TabPane>))
                                 }
                                 <Row>
-                                    <Col span={9} offset={16} style={{marginTop:"100px"}}>
+                                    <Col span={9} offset={16} style={{ marginTop: "100px" }}>
                                         <Button.Group size="large">
                                             <Button type="primary" onClick={this.Prev}>
                                                 <Icon type="left" />
                                                 上一题
                                             </Button>
                                             {this.state.focusOn < 29 ?
-                                            <Button type="primary" onClick={this.Next}>下一题<Icon type="right" /></Button>:
-                                            <Button type='primary' onClick={this.submit}>提交答案<Icon type="right" /></Button>}
+                                                <Button type="primary" onClick={this.Next}>下一题<Icon type="right" /></Button> :
+                                                <Button type='primary' onClick={this.submit}>提交答案<Icon type="right" /></Button>}
                                         </Button.Group>
-                                      </Col>  
+                                    </Col>
                                 </Row>
                             </Tabs>
                         </Col>

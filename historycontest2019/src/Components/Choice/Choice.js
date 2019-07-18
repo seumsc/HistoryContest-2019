@@ -12,7 +12,7 @@ class Choice extends React.Component {
     }
     onchange(e){
         this.setState({value:e.target.value});
-        this.props.setFinish(this.props.Id);
+        this.props.setFinish(this.props.Id,e.target.value);
     }
     render() {
         let style = {
@@ -28,16 +28,16 @@ class Choice extends React.Component {
                     {this.props.state.title}
                 </h2>
                 <Radio.Group style={{marginTop:40, marginLeft:40, height:250}} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
-                    <Radio style={style} value={1}>
+                    <Radio style={style} value={this.props.state.choice[0].value}>
                         <b>A</b> &nbsp; {this.props.state.choice[0].text}
                     </Radio>
-                    <Radio style={style} value={2}>
+                    <Radio style={style} value={this.props.state.choice[1].value}>
                         <b>B</b> &nbsp; {this.props.state.choice[1].text}
                     </Radio>
-                    <Radio style={style} value={3}>
+                    <Radio style={style} value={this.props.state.choice[2].value}>
                         <b>C</b> &nbsp; {this.props.state.choice[2].text}
                     </Radio>
-                    <Radio style={style} value={4}>
+                    <Radio style={style} value={this.props.state.choice[3].value}>
                         <b>D</b> &nbsp; {this.props.state.choice[3].text}
                     </Radio>
                 </Radio.Group>
