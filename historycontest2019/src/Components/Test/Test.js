@@ -13,15 +13,13 @@ import bg8 from '../../img/background8.jpg';
 import bg9 from '../../img/background9.jpg';
 import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
-import bg12 from '../../img/background12.jpg';
+import BG from '../../img/图片2.jpg'
 
-
-import Title from '../../img/标题.PNG';
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
 import TrueFalse from '../TrueFalse/TrueFalse';
 
-let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12];
+let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
 const { TabPane } = Tabs;
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -79,6 +77,69 @@ class Test extends React.Component {
             isRight: false
         }
         this.state.question[2] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[3] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[4] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[5] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[6] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[7] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[8] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[9] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[10] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[11] = {
             isFinish: false,
             kind: "选择题",
             title: "东南大学的历史最早可追溯至哪一年?",
@@ -191,23 +252,23 @@ class Test extends React.Component {
     }
     logout() {
         this.props.setState({
-            isWelcome:true,
-            isLogin:false,
-            isStudent:false,
-            isAdmin:false,
-            isTeacher:false,
+            isWelcome: true,
+            isLogin: false,
+            isStudent: false,
+            isAdmin: false,
+            isTeacher: false,
             userInfo:
             {
-              name:'',
-              token:'',
-              access:-1,
-              score:0
+                name: '',
+                token: '',
+                access: -1,
+                score: 0
             },
-            answer:{
-            choice:{},
-            true_false:{}
+            answer: {
+                choice: {},
+                true_false: {}
             },
-          })
+        })
     }
     submit() {
         this.setState({ isAllDone: true })
@@ -221,7 +282,7 @@ class Test extends React.Component {
         if (!this.state.isTesting) {
             return (
                 <div style={{
-                    backgroundImage: `url(${imgs[0]})`,
+                    backgroundImage: `url(${BG})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: "100%", height: "100%",
@@ -240,62 +301,65 @@ class Test extends React.Component {
                                 开始答题
                       </Button>
                         ]}>
-                        <b>{this.state.name}同学,你好!</b><br></br>
-                        <p>1.本答题共有30道题,其中有20道选择题,10道判断题</p>
-                        <p>2.答题时限为30分钟,时间用完自动交卷</p>
-                        <p>3.未成功交卷之前,可进行多次答题(但每次生成题目不同)</p>
+                        <b>{this.state.name}同学,你好，欢迎来到东南大学校史校情知识竞赛答题系统！</b><br/><br/>
+                        <ul>
+                            <li>本答题共有30道题,其中有20道选择题,10道判断题</li>
+                            <li>答题时限为30分钟,时间用完自动交卷</li>
+                            <li>在未成功交卷前,出现特殊情况,可重新进入答题</li>
+                            <li>对本答题有疑问可联系在场负责老师</li>
+                        </ul>
                     </Modal>
                 </div>
             )
         }
         return (
             <React.Fragment>
-                <Layout style={{ height: 900}}>
+                <Layout style={{ overflow: "hidder" }}>
                     <Header>
-                    <Row>
+                        <Row>
                             <Col span={2}></Col>
                             <Col span={16}>
-                            <h1 style={{color:'white'}}>东南大学校史校情知识竞赛</h1>
+                                <h1 style={{ color: 'white' }}>东南大学校史校情知识竞赛</h1>
                             </Col>
                             <Col span={6}>
                                 <Timer state={this.state} setState={this.setState.bind(this)} />
                             </Col>
                         </Row>
-                        {/* <h1 style={{color:'white'}}>东南大学校史校情知识竞赛<Timer state={this.state} setState={this.setState.bind(this)} /></h1> */}
                     </Header>
-                    <Content style={{backgroundColor: '#1C1C1C'}}>
+                    <Content style={{ backgroundColor: '#1C1C1C' }}>
                         <Row>
-                            <Col span={2}>
-                                
-                            </Col>
-                            <Col span={20}>
                             <Tabs activeKey={`${this.state.focusOn}`}
-                            animated='true'
-                            onTabClick={(x) => { this.setState({ focusOn: x }) }}
-                            tabBarGutter='0'
-                            tabPosition="bottom"
-                            // size="small"
-                            style={{marginBottom:0}}>
-                            {this.state.question.map((x, i) => (
-                                <TabPane tab={!x.isFinish ? <div style={{color: 'white'}}>{i + 1}</div> : <div style={{ backgroundColor: '#0089A7', backgroundSize:'cover',color: 'white', borderRadius:360}}>{i + 1}</div>}
-                                    key={i}
-                                    onChange={() => { this.done(i) }}
-                                >
-                                    {x.kind == "选择题" ?
-                                        <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
-                                        : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
-                                    }
-                                </TabPane>))
-                            }
-                        </Tabs>
-                            </Col>
-                            <Col span={2}>
+                                animated='true'
+                                onTabClick={(x) => { this.setState({ focusOn: x }) }}
+                                tabBarGutter='0'
+                                tabPosition="bottom"
+                                style={{ textAlign: "center" }}>
+                                {this.state.question.map((x, i) => (
+                                    <TabPane tab={!x.isFinish ? <div style={{ color: 'white' }}>{i + 1}</div> : <div style={{ backgroundColor: '#0089A7', backgroundSize: 'cover', color: 'white', borderRadius: 360 }}>{i + 1}</div>}
+                                        key={i}
+                                        onChange={() => { this.done(i) }}
+                                        style={{ textAlign: "left" }}
+                                    >
+                                        <Col span={2}>
 
-                            </Col>
+                                        </Col>
+                                        <Col span={20}>
+                                            {x.kind == "选择题" ?
+                                                <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
+                                                : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
+                                            }
+                                        </Col>
+                                        <Col span={2}>
+
+                                        </Col>
+                                    </TabPane>))
+                                }
+                            </Tabs>
+
                         </Row>
-                        
+
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微<br/>版权所有©</Footer>
+                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微<br />版权所有©</Footer>
                 </Layout>
                 {/* <body style={{ backgroundImage: `url(${imgs[(this.state.focusOn % 3)]})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', transition: '2s' }}>
                     <header>

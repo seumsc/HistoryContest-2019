@@ -12,11 +12,10 @@ import bg8 from '../../img/background8.jpg';
 import bg9 from '../../img/background9.jpg';
 import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
-import bg12 from '../../img/background12.jpg';
 
 const RadioGroup = Radio.Group;
-let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12];
-let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(98,89,44,0.7)', 'rgba(102, 153, 161,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(15, 37, 64, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(0,92,175,0.7)', 'rgba(218,201,166,0.7)', 'rgba(0,98,132,0.7)']
+let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
+let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(98,89,44,0.7)', 'rgba(102, 153, 161,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(46,169,223, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(215,185,142,0.7)', 'rgba(46,169,223,0.7)']
 
 class Choice extends React.Component {
     constructor(props) {
