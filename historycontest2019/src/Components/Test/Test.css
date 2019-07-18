@@ -10,8 +10,8 @@ header{
   width:1000px;
   height:600px;
   background-color: rgba(255,255,255,0.8)!important;
-  margin-top: 40px;
-  margin-left: 100px;
+  /* margin-top: 40px; */
+  margin-left: 60px;
 
 }
 iframe{
@@ -23,3 +23,4 @@ iframe{
   margin-left: 30px!important;
   color: brown!important;
 }
+
