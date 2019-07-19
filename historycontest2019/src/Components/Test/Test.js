@@ -30,7 +30,6 @@ class Test extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "菜鸡",
             isTesting: false,
             isPaperGet: false,
             isAllDone: false,
@@ -70,7 +69,7 @@ class Test extends React.Component {
             isFinish: false,
             kind: "选择题",
             title: "燃煤联合循环发电技术由哪个研究所长期研究计划",
-            choice: ['东大建筑与环境研究所', '东大热能工程研究所', '东大能源与环境工程研究所', '东大动力研究所'],
+            choice: [{text:'东大建筑与环境研究所', value:2}, {text:'东大热能工程研究所',value:3}, {text:'东大能源与环境工程研究所',value:1}, {text:'东大动力研究所',value:4}],
             isRight: false
         }
         this.state.question[1] = {
@@ -152,7 +151,6 @@ class Test extends React.Component {
         // ).then(
         //     data=>{
         //         for(let i=0;i<20;i++){
-        //             that.state.question[i].id=data.test[i].id;
         //             that.state.question[i].title=data.test[i].text;
         //             let temp=[
         //                 {
@@ -175,7 +173,6 @@ class Test extends React.Component {
         //             that.state.question[i].choice=this.Random(temp);
         //         }
         //         for(let i=20;i<30;i++){
-        //             that.state.question[i].id=data.test[i].id;
         //             that.state.question[i].title=data.test[i].text;
         //         }
         //     }
@@ -206,23 +203,24 @@ class Test extends React.Component {
         })
     }
     submit() {
-        //提交函数
-        // let that = this;
-        // let data={answer:[]};
-        // this.state.question.forEach((x,i)=>{
-        //     data.answer.push({id:x.id,value:x.value})
-        // })
-        // fetch("htttp://" + that.props.state.host + "/api/student/hangin",
-        //     {
-        //         method: 'POST',
-        //         mode: 'cors',
-        //         headers: {
-        //             "Content-Type": "application/x-www-form-urlencoded"
-        //         },
-        //         body: JSON.stringify(data)
-        //     }.then((res)=>{that.setState({isAllDone:true});return res.json()}
-        // ).then(data=>{that.props.setState({userInfo:{score:data.score}})})
-        // )
+        提交函数
+        let that = this;
+        let data={answer:[]};
+        this.state.question.forEach((x,i)=>{
+            data.answer.push(x.value)
+        })
+        fetch("htttp://" + that.props.state.host + "/api/student/hangin",
+            {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: JSON.stringify(data)
+            }.then((res)=>{that.setState({isAllDone:true});return res.json()}
+        ).then(()=>{console.log("handin successfully")}//data=>{that.props.setState({userInfo:{score:data.score}})}
+        )
+        )
     }
     done(i, value) {
         let x = this.state.question;
@@ -265,14 +263,16 @@ class Test extends React.Component {
                                 开始答题
                       </Button>
                         ]}>
+                        <b style={{fontSize:"18px",color:"#1890ff"}}>&nbsp;{this.props.state.userInfo.name}同学,你好!</b><br></br>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
 
-                        <b style={{fontSize:"15px",color:"#1890ff"}}>{this.state.name}同学,你好!</b><br></br>
-                        <p>欢迎来到校史校情竞赛答题!</p><p></p>
-                        <p>- &nbsp;本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></p>
-                        <p>- &nbsp;选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></p>
-                        <p>- &nbsp;答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</p>
-                        <p>- &nbsp;在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</p>
-                        <p>- &nbsp;对本答题有疑问,&nbsp;可联系在场负责老师</p>
+                        <ul style={{fontSize:"15px"}}>
+                        <li>本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
+                        <li>选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
+                        <li>答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</li>
+                        <li>在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
+                        <li>对本答题有疑问,&nbsp;可联系在场负责老师</li>
+                        </ul>
                     </Modal>
                 </div>
             )
@@ -306,7 +306,7 @@ class Test extends React.Component {
                             // size="small"
                             style={{marginBottom:"0"}}>
                             {this.state.question.map((x, i) => (
-                                <TabPane tab={!x.isFinish ? <div style={{color: 'white'}}>{i + 1}</div> : <div style={{ backgroundColor: '#0089A7', backgroundSize:'cover',color: 'white', borderRadius:360}}>{i + 1}</div>}
+                                <TabPane tab={!x.isFinish ? <div style={{color: 'white'}}>{i + 1}</div> : <div style={{ backgroundColor: '#0089A7', backgroundSize:'cover',color: 'white', borderRadius:10}}>{i + 1}</div>}
                                     key={i}
                                     onChange={() => { this.done(i) }}
                                 >
