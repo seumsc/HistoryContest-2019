@@ -12,11 +12,10 @@ import bg8 from '../../img/background8.jpg';
 import bg9 from '../../img/background9.jpg';
 import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
-import bg12 from '../../img/background12.jpg';
 
 const RadioGroup = Radio.Group;
-let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12];
-let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(98,89,44,0.7)', 'rgba(102, 153, 161,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(15, 37, 64, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(0,92,175,0.7)', 'rgba(218,201,166,0.7)', 'rgba(0,98,132,0.7)']
+let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
+let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(98,89,44,0.7)', 'rgba(102, 153, 161,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(46,169,223, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(215,185,142,0.7)', 'rgba(46,169,223,0.7)']
 
 class Choice extends React.Component {
     constructor(props) {
@@ -42,24 +41,25 @@ class Choice extends React.Component {
         return (
             <React.Fragment>
                 <Row style={{
-                    backgroundImage: `url(${imgs[(this.props.Id % 12)]})`,
+                    backgroundImage: `url(${imgs[(this.props.Id % 11)]})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: "100%", height: "100%",
-                    marginBottom: 40,
                 }}>
                     <Col span={4}></Col>
                     <Col span={16}>
                         <div style={{
-                            backgroundColor: bg[this.props.Id % 12],
-                            marginTop: 60
+                            backgroundColor: bg[this.props.Id % 11],
+                            marginTop: 60,
+                            marginBottom: 60
                         }}>
-                            <h2 style={{ marginLeft: 100, color: 'white', fontSize: 25, minHeight: "6px", lineHeight: 6, overflow: "hidden" }}>
+                            <div style={{ marginLeft: 80, overflow: "hidden", height: 160 }}>
+                                <h2 style={{color: 'white', fontSize: 25,marginTop:60, marginBottom: 60, marginRight: 80}}>
                                 {this.props.Id + 1}&nbsp;{this.props.state.title}
                             </h2>
                             <Radio.Group style={{ color: 'white', marginLeft: 150, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                 <Radio style={style} value={this.props.state.choice[0].value}>
-                                    <b>A</b> &nbsp; {this.props.state.choice[0].text}
+                                    <b>A</b> &nbsp; {this.props.state.choice[0]}
                                 </Radio>
                                 <Radio style={style} value={this.props.state.choice[1].value}>
                                     <b >B</b> &nbsp; {this.props.state.choice[1].text}
@@ -81,6 +81,7 @@ class Choice extends React.Component {
                                     {this.props.Id == 29 && <Button type='primary' onClick={this.submit}>提交</Button>}
                                 </Col>
                             </Row>
+                            </div>
                         </div>
                     </Col>
                     <Col span={4}></Col>

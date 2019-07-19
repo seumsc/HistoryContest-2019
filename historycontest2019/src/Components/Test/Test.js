@@ -13,16 +13,14 @@ import bg8 from '../../img/background8.jpg';
 import bg9 from '../../img/background9.jpg';
 import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
-import bg12 from '../../img/background12.jpg';
+import BG from '../../img/图片2.jpg'
 
-
-import Title from '../../img/标题.PNG';
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
 import TrueFalse from '../TrueFalse/TrueFalse';
 import { nullLiteral } from '@babel/types';
 
-let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12];
+let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
 const { TabPane } = Tabs;
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -80,6 +78,69 @@ class Test extends React.Component {
             isRight: false
         }
         this.state.question[2] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[3] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[4] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[5] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[6] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[7] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[8] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[9] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[10] = {
+            isFinish: false,
+            kind: "选择题",
+            title: "东南大学的历史最早可追溯至哪一年?",
+            choice: ['1902', '1988', '1905', '1900'],
+            isRight: false
+        }
+        this.state.question[11] = {
             isFinish: false,
             kind: "选择题",
             title: "东南大学的历史最早可追溯至哪一年?",
@@ -232,7 +293,7 @@ class Test extends React.Component {
         if (!this.state.isTesting) {
             return (
                 <div style={{
-                    backgroundImage: `url(${imgs[0]})`,
+                    backgroundImage: `url(${BG})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: "100%", height: "100%",
@@ -279,25 +340,20 @@ class Test extends React.Component {
         }
         return (
             <React.Fragment>
-                <Layout style={{ height: 900}}>
+                <Layout style={{ overflow: "hidder" }}>
                     <Header>
-                    <Row>
+                        <Row>
                             <Col span={2}></Col>
                             <Col span={16}>
-                            <h1 style={{color:'white'}}>东南大学校史校情知识竞赛</h1>
+                                <h1 style={{ color: 'white' }}>东南大学校史校情知识竞赛</h1>
                             </Col>
                             <Col span={6}>
                                 <Timer state={this.state} setState={this.setState.bind(this)} submit={this.submit}/>
                             </Col>
                         </Row>
-                        {/* <h1 style={{color:'white'}}>东南大学校史校情知识竞赛<Timer state={this.state} setState={this.setState.bind(this)} /></h1> */}
                     </Header>
-                    <Content style={{backgroundColor: '#1C1C1C'}}>
+                    <Content style={{ backgroundColor: '#1C1C1C' }}>
                         <Row>
-                            <Col span={2}>
-                                
-                            </Col>
-                            <Col span={20}>
                             <Tabs activeKey={`${this.state.focusOn}`}
                             animated='true'
                             onTabClick={(x) => { this.setState({ focusOn: x }) }}
@@ -318,14 +374,10 @@ class Test extends React.Component {
                                 </TabPane>))
                             }
                         </Tabs>
-                            </Col>
-                            <Col span={2}>
-
-                            </Col>
+                            
                         </Row>
-                        
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微<br/>版权所有©</Footer>
+                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微<br />版权所有©</Footer>
                 </Layout>
                 {/* <body style={{ backgroundImage: `url(${imgs[(this.state.focusOn % 3)]})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', transition: '2s' }}>
                     <header>
