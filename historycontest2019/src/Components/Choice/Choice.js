@@ -58,9 +58,9 @@ class Choice extends React.Component {
                                 {this.props.Id + 1}&nbsp;{this.props.state.title}
                             </h2>
                             </div>
-                            <Radio.Group style={{ color: 'white', marginLeft: 160, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
+                            <Radio.Group style={{ color: 'white', marginLeft: 160, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                 <Radio style={style} value={this.props.state.choice[0].value}>
-                                    <b>A</b> &nbsp; {this.props.state.choice[0]}
+                                    <b>A</b> &nbsp; {this.props.state.choice[0].text}
                                 </Radio>
                                 <Radio style={style} value={this.props.state.choice[1].value}>
                                     <b >B</b> &nbsp; {this.props.state.choice[1].text}
