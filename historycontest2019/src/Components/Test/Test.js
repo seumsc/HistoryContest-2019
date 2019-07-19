@@ -264,25 +264,25 @@ class Test extends React.Component {
         })
     }
     submit() {
-        提交函数
-        let that = this;
-        let data={answer:[]};
-        this.state.question.forEach((x,i)=>{
-            data.answer.push(x.value)
-        })
-        fetch("htttp://" + that.props.state.host + "/api/student/hangin",
-            {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: JSON.stringify(data)
-            }.then((res)=>{that.setState({isAllDone:true});return res.json()}
-        ).then(()=>{console.log("handin successfully")}//data=>{that.props.setState({userInfo:{score:data.score}})}
-        )
-        )
-    }
+    //     //提交函数
+    //     let that = this;
+    //     let data={answer:[]};
+    //     this.state.question.forEach((x,i)=>{
+    //         data.answer.push(x.value)
+    //     })
+    //     fetch("htttp://" + that.props.state.host + "/api/student/hangin",
+    //         {
+    //             method: 'POST',
+    //             mode: 'cors',
+    //             headers: {
+    //                 "Content-Type": "application/x-www-form-urlencoded"
+    //             },
+    //             body: JSON.stringify(data)
+    //         }.then((res)=>{that.setState({isAllDone:true});return res.json()}
+    //     ).then(()=>{console.log("handin successfully")}//data=>{that.props.setState({userInfo:{score:data.score}})}
+    //     )
+    //     )
+     }
     done(i, value) {
         let x = this.state.question;
         x[i].isFinish = true;
