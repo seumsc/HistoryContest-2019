@@ -17,7 +17,7 @@ class App extends React.Component{
       host:"",
       userInfo:
       {
-        name:'',
+        name:'菜鸡',
         username:"",
         token:'',
         access:-1,

@@ -50,17 +50,17 @@ class LoginModal extends React.Component {
         //         Identity: identity
         //     })
         // }).then(
-        //     res => { return res.json() }
-        // ).then(data => {
-        //     this.setState({posted:false})
-        //     if (data.status == 404) {
+        //     async res => { 
+        //     if (res.status == 404) {
         //         message.error("学号不存在");
         //     }
-        //     else if (data.status == 204) {
+        //     else if (res.status == 204) {
         //         message.error("用户名或密码错误");
         //     }
         //     else {
         //         //学生登陆成功
+        //         let data= await res.json() ;
+        //         this.setState({posted:false})
         //         console.log("login");
         //         message.success("登录成功！");
         //         if (identity == "0") {

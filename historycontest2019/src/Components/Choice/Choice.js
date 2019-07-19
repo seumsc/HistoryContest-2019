@@ -25,9 +25,9 @@ class Choice extends React.Component {
         }
         this.onchange = this.onchange.bind(this);
     }
-    onchange(e){
-        this.setState({value:e.target.value});
-        this.props.setFinish(this.props.Id,e.target.value);
+    onchange(e) {
+        this.setState({ value: e.target.value });
+        this.props.setFinish(this.props.Id, e.target.value);
         this.props.Next(this.props.Next);
     }
     render() {
@@ -54,9 +54,9 @@ class Choice extends React.Component {
                             marginBottom: 60
                         }}>
                             <div style={{ marginLeft: 80, overflow: "hidden", height: 160 }}>
-                                <h2 style={{color: 'white', fontSize: 25,marginTop:60, marginBottom: 60, marginRight: 80}}>
-                                {this.props.Id + 1}&nbsp;{this.props.state.title}
-                            </h2>
+                                <h2 style={{ color: 'white', fontSize: 25, marginTop: 60, marginBottom: 60, marginRight: 80 }}>
+                                    {this.props.Id + 1}&nbsp;{this.props.state.title}
+                                </h2>
                             </div>
                             <Radio.Group style={{ color: 'white', marginLeft: 160, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                 <Radio style={style} value={this.props.state.choice[0].value}>
@@ -77,7 +77,7 @@ class Choice extends React.Component {
                                 <Col span={3}>
                                     {this.props.Id > 0 && <Button onClick={this.props.Prev}>上一题</Button>}
                                 </Col>
-                                <Col span={4} style={{marginBottom:40}}>
+                                <Col span={4} style={{ marginBottom: 40 }}>
                                     {this.props.Id < 29 && <Button onClick={this.props.Next}>下一题</Button>}
                                     {this.props.Id == 29 && <Button type='primary' onClick={this.submit}>提交</Button>}
                                 </Col>

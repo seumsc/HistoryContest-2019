@@ -210,7 +210,6 @@ class Test extends React.Component {
         // ).then(
         //     data=>{
         //         for(let i=0;i<20;i++){
-        //             that.state.question[i].id=data.test[i].id;
         //             that.state.question[i].title=data.test[i].text;
         //             let temp=[
         //                 {
@@ -233,7 +232,6 @@ class Test extends React.Component {
         //             that.state.question[i].choice=this.Random(temp);
         //         }
         //         for(let i=20;i<30;i++){
-        //             that.state.question[i].id=data.test[i].id;
         //             that.state.question[i].title=data.test[i].text;
         //         }
         //     }
@@ -264,24 +262,25 @@ class Test extends React.Component {
         })
     }
     submit() {
-        //提交函数
-        // let that = this;
-        // let data={answer:[]};
-        // this.state.question.forEach((x,i)=>{
-        //     data.answer.push({id:x.id,value:x.value})
-        // })
-        // fetch("htttp://" + that.props.state.host + "/api/student/hangin",
-        //     {
-        //         method: 'POST',
-        //         mode: 'cors',
-        //         headers: {
-        //             "Content-Type": "application/x-www-form-urlencoded"
-        //         },
-        //         body: JSON.stringify(data)
-        //     }.then((res)=>{that.setState({isAllDone:true});return res.json()}
-        // ).then(data=>{that.props.setState({userInfo:{score:data.score}})})
-        // )
-    }
+    //     //提交函数
+    //     let that = this;
+    //     let data={answer:[]};
+    //     this.state.question.forEach((x,i)=>{
+    //         data.answer.push(x.value)
+    //     })
+    //     fetch("htttp://" + that.props.state.host + "/api/student/hangin",
+    //         {
+    //             method: 'POST',
+    //             mode: 'cors',
+    //             headers: {
+    //                 "Content-Type": "application/x-www-form-urlencoded"
+    //             },
+    //             body: JSON.stringify(data)
+    //         }.then((res)=>{that.setState({isAllDone:true});return res.json()}
+    //     ).then(()=>{console.log("handin successfully")}//data=>{that.props.setState({userInfo:{score:data.score}})}
+    //     )
+    //     )
+     }
     done(i, value) {
         let x = this.state.question;
         x[i].isFinish = true;
@@ -323,13 +322,16 @@ class Test extends React.Component {
                                 开始答题
                       </Button>
                         ]}>
-                        <b style={{fontSize:"15px",color:"#1890ff"}}>{this.state.name}同学,你好!</b><br></br>
-                        <p>欢迎来到校史校情竞赛答题!</p><p></p>
-                        <p>- &nbsp;本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></p>
-                        <p>- &nbsp;选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></p>
-                        <p>- &nbsp;答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</p>
-                        <p>- &nbsp;在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</p>
-                        <p>- &nbsp;对本答题有疑问,&nbsp;可联系在场负责老师</p>
+                        <b style={{fontSize:"18px",color:"#1890ff"}}>&nbsp;{this.props.state.userInfo.name}同学,你好!</b><br></br>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
+
+                        <ul style={{fontSize:"15px"}}>
+                        <li>本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
+                        <li>选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
+                        <li>答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</li>
+                        <li>在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
+                        <li>对本答题有疑问,&nbsp;可联系在场负责老师</li>
+                        </ul>
                     </Modal>
                 </div>
             )
@@ -351,32 +353,34 @@ class Test extends React.Component {
                     <Content style={{ backgroundColor: '#1C1C1C' }}>
                         <Row>
                             <Tabs activeKey={`${this.state.focusOn}`}
-                                animated='true'
-                                onTabClick={(x) => { this.setState({ focusOn: x }) }}
-                                tabBarGutter='0'
-                                tabPosition="bottom"
-                                style={{ textAlign: "center" }}>
-                                {this.state.question.map((x, i) => (
-                                    <TabPane tab={!x.isFinish ? <div style={{ color: 'white' }}>{i + 1}</div> : <div style={{ backgroundColor: '#0089A7', backgroundSize: 'cover', color: 'white', borderRadius: 360 }}>{i + 1}</div>}
-                                        key={i}
-                                        onChange={() => { this.done(i) }}
-                                        style={{ textAlign: "left" }}
-                                    >
-                                        <Col span={2}>
+                            animated='true'
+                            onTabClick={(x) => { this.setState({ focusOn: x }) }}
+                            tabBarGutter='0'
+                            tabPosition="bottom"
+                            style={{ textAlign: "center" }}>
+                            {this.state.question.map((x, i) => (
+                                <TabPane tab={!x.isFinish ? <div style={{color: 'white'}}>{i + 1}</div> : <div style={{ backgroundColor: '#0089A7', backgroundSize:'cover',color: 'white', borderRadius:10}}>{i + 1}</div>}
+                                    key={i}
+                                    onChange={() => { this.done(i) }}
+                                    style={{ textAlign: "left" }}
+                                >
+                                    <Col span={2}>
 
-                                        </Col>
-                                        <Col span={20}>
-                                            {x.kind == "选择题" ?
-                                                <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
-                                                : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} />
-                                            }
-                                        </Col>
-                                        <Col span={2}>
+                                    </Col>
+                                    <Col span={20}>
+                                    {x.kind == "选择题" ?
+                                        <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} 
+                                        submit={this.submint}/>
+                                        : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
+                                    }
+                                    </Col>
+                                    <Col span={2}>
 
-                                        </Col>
-                                    </TabPane>))
-                                }
-                            </Tabs>
+                                    </Col>
+                                </TabPane>))
+                            }
+                        </Tabs>
+                            
                         </Row>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>图源：东南大学官微<br />版权所有©</Footer>
