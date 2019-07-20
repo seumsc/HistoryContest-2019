@@ -41,7 +41,6 @@ class Test extends React.Component {
               kind: "选择题",
               title: "",
               choice: [{}, {}, {}, {}],
-              isRight: false,
               value: -1
           });
       }
@@ -51,7 +50,6 @@ class Test extends React.Component {
               kind: "判断题",
               title: "",
               choice: ['√', '×'],
-              isRight: false,
               value: -1
           });
       }
@@ -93,6 +91,8 @@ class Test extends React.Component {
         return arr;
     }
     componentWillMount() {
+      //试卷获取
+      this.setState({isPaperGet:true})
         // let that=this;
         // fetch('http://'+that.props.state.host+'/api/student/test',{
         //     method: 'POST',
@@ -109,30 +109,31 @@ class Test extends React.Component {
         // ).then(
         //     data=>{
         //         for(let i=0;i<20;i++){
-        //             that.state.question[i].title=data.test[i].text;
+        //             that.state.question[i].title=data.Paper.Choice_question[i].text;
         //             let temp=[
         //                 {
-        //                     text:data.test[i].option[0],
+        //                     text:data.Paper.Choice_question[i].option[0],
         //                     value:1
         //                 },
         //                 {
-        //                     text:data.test[i].option[1],
+        //                     text:data.Paper.Choice_question[i].option[1],
         //                     value:2
         //                 },
         //                 {
-        //                     text:data.test[i].option[2],
+        //                     text:data.Paper.Choice_question[i].option[2],
         //                     value:3
         //                 },
         //                 {
-        //                     text:data.test[i].option[3],
+        //                     text:data.Paper.Choice_question[i].option[3],
         //                     value:4
         //                 }
         //             ]
         //             that.state.question[i].choice=this.Random(temp);
         //         }
         //         for(let i=20;i<30;i++){
-        //             that.state.question[i].title=data.test[i].text;
+        //             that.state.question[i].title=data.Paper.Judgment_question[i-20].text;
         //         }
+        //       that.setState({isPaperGet:true});
         //     }
         // )
     }
@@ -157,13 +158,11 @@ class Test extends React.Component {
             access:-1,
             score:-1
           },
-          answer:{
-          choice:{},
-          true_false:{}
-          },
+          answer:[]
         })
     }
     submit() {
+      //暂时的提交函数
       this.props.setState({            
         isWelcome:false,
         isLogin:true,
@@ -180,15 +179,14 @@ class Test extends React.Component {
           access:-1,
           score:90
         },
-        answer:{
-        choice:{},
-        true_false:{}
-        }})
+        answer:this.state.question
+      })
+
     //     //提交函数
     //     let that = this;
     //     let data={answer:[]};
     //     this.state.question.forEach((x,i)=>{
-    //         data.answer.push(x.value)
+    //         data.Answer.push(x.value)
     //     })
     //     fetch("htttp://" + that.props.state.host + "/api/student/hangin",
     //         {
@@ -210,56 +208,57 @@ class Test extends React.Component {
         this.setState({ question: x });
     }
     render() {
-        // if (!this.state.isTesting) {
-        //     return (
-        //         <div style={{
-        //             backgroundImage: `url(${BG})`,
-        //             backgroundSize: 'cover',
-        //             backgroundPosition: 'center',
-        //             width: "100%", height: "100%",
-        //             position: "absolute",
-        //             top: "0px",
-        //             bottom: "0px"
-        //         }}>
-        //             <Modal
-        //                 visible={!this.state.isTesting}
-        //                 title="答题须知"
-        //                 centered={true}
-        //                 footer={[
-        //                     <Button type="primary" onClick={() => {
-        //                         let that = this;
-        //                         //temp
-        //                         that.setState({ isTesting: true })
+        if (!this.state.isTesting) {
+            return (
+                <div style={{
+                    backgroundImage: `url(${BG})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    width: "100%", height: "100%",
+                    position: "absolute",
+                    top: "0px",
+                    bottom: "0px"
+                }}>
+                    <Modal
+                        visible={!this.state.isTesting}
+                        title="答题须知"
+                        centered={true}
+                        footer={[
+                            <Button type="primary" loading={!this.state.isPaperGet}
+                                onClick={() => {
+                                let that = this;
+                                //temp
+                                that.setState({ isTesting: true })
+                                
+                                // fetch("http://" + this.props.state.host + '/api/student/start',
+                                //     {
+                                //         method: 'POST',
+                                //         mode: 'cors',
+                                //         headers: {
+                                //             "Content-Type": "application/x-www-form-urlencoded"
+                                //         },
+                                //         body: JSON.stringify({
+                                //             Username: that.props.state.username,
+                                //         }).then(() => { that.setState({ isTesting: true }) })
+                                //     })
+                            }}>
+                                开始答题
+                      </Button>
+                        ]}>
+                        <b style={{fontSize:"18px",color:"#1890ff"}}>&nbsp;{this.props.state.userInfo.name}同学,你好!</b><br></br>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
 
-        //                         // fetch("http://" + this.props.state.host + '/api/student/start',
-        //                         //     {
-        //                         //         method: 'POST',
-        //                         //         mode: 'cors',
-        //                         //         headers: {
-        //                         //             "Content-Type": "application/x-www-form-urlencoded"
-        //                         //         },
-        //                         //         body: JSON.stringify({
-        //                         //             Username: that.props.state.username,
-        //                         //         }).then(() => { that.setState({ isTesting: true }) })
-        //                         //     })
-        //                     }}>
-        //                         开始答题
-        //               </Button>
-        //                 ]}>
-        //                 <b style={{fontSize:"18px",color:"#1890ff"}}>&nbsp;{this.props.state.userInfo.name}同学,你好!</b><br></br>
-        //                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
-
-        //                 <ul style={{fontSize:"15px"}}>
-        //                 <li>本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
-        //                 <li>选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
-        //                 <li>答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</li>
-        //                 <li>在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
-        //                 <li>对本答题有疑问,&nbsp;可联系在场负责老师</li>
-        //                 </ul>
-        //             </Modal>
-        //         </div>
-        //     )
-        // }
+                        <ul style={{fontSize:"15px"}}>
+                        <li>本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
+                        <li>选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
+                        <li>答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</li>
+                        <li>在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
+                        <li>对本答题有疑问,&nbsp;可联系在场负责老师</li>
+                        </ul>
+                    </Modal>
+                </div>
+            )
+        }
         return (
             <React.Fragment>
                 <Layout style={{ overflow: "hidder" }}>

@@ -24,10 +24,7 @@ class App extends React.Component{
         access:-1,
         score:-1
       },
-      answer:{
-      choice:{},
-      true_false:{}
-      },
+      answer:[],
     }
     this.appState = this.appState.bind(this);
   }

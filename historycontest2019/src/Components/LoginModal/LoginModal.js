@@ -12,7 +12,7 @@ class LoginModal extends React.Component {
             username: '',
             password: '',
             toDo: "登录",
-            posted:false
+            posted: false
         }
         this.ToLogin = this.ToLogin.bind(this);
         this.close = this.close.bind(this);
@@ -20,7 +20,7 @@ class LoginModal extends React.Component {
         this.ToSignin = this.ToSignin.bind(this);
     }
     ToLogin() {
-        this.setState({posted:true})
+        this.setState({ posted: true })
         let that = this;
         let username = this.state.username;
         let password = this.state.password;
@@ -30,89 +30,103 @@ class LoginModal extends React.Component {
         console.log("login");
         message.success("登录成功！");
 
-            //暂时的登陆函数
+        //暂时的登陆函数
         that.props.setState({
-            isWelcome:false,
-            isLogin:true,
-            isStudent:true,
-            isAllDone:false,
-            isAdmin:false,
-            isTeacher:false,
-            host:"",
+            isWelcome: false,
+            isLogin: true,
+            isStudent: true,
+            isAllDone: false,
+            isAdmin: false,
+            isTeacher: false,
+            host: "",
             userInfo:
             {
-              name:'菜鸡',
-              username:"",
-              token:'',
-              access:-1,
-              score:-1
+                name: '菜鸡',
+                username: "",
+                token: '',
+                access: -1,
+                score: -1
             },
-            answer:{
-            choice:{},
-            true_false:{}
-            }
+            answer: []
         })
 
 
 
-        // fetch('http://' + that.props.state.host + '/api/login', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: JSON.stringify({
-        //         Username: username,
-        //         Password: password,
-        //         Identity: identity
-        //     })
-        // }).then(
-        //     async res => { 
-        //     if (res.status == 404) {
-        //         message.error("学号不存在");
-        //     }
-        //     else if (res.status == 204) {
-        //         message.error("用户名或密码错误");
-        //     }
-        //     else {
-        //         //学生登陆成功
-        //         let data= await res.json() ;
-        //         this.setState({posted:false})
-        //         console.log("login");
-        //         message.success("登录成功！");
-        //         if (identity == "0") {
-        //             that.props.setState({
-        //                 isWelcome: false,
-        //                 isStudent: true,
-        //                 isLogin: true,
-        //                 username: this.state.username,
-        //                 userInfo:{
-        //                     name:data.body.Name,
-        //                     score:data.body.Score,
-        //                     access:0
-        //                 }
-        //             });
-        //         }
-        //         else if(identity=="2"){
-        //             that.props.setState({
-        //                 isWelcome:false,
-        //                 isTeacher:true,
-        //                 userInfo:{
-        //                     access:2
-        //                 }
-        //             })
-        //         }
-        //         else if(identity=="1"){
-        //             that.props.setState({
-        //                 isWelcome:false,
-        //                 isAdmin:true,
-        //                 userInfo:{
-        //                     access:1
-        //                 }
-        //             })
-        //         }
-        //     }
-        // })
+        fetch('http://' + that.props.state.host + '/api/ui/login', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: JSON.stringify({
+                Username: username,
+                Password: password,
+                Identity: identity
+            })
+        }).then(
+            async res => {
+                if (res.status == 404) {
+                    message.error("学号不存在");
+                }
+                else if (res.status == 204) {
+                    message.error("用户名或密码错误");
+                }
+                else {
+                    //学生登陆成功
+                    let data = await res.json();
+                    this.setState({ posted: false })
+                    console.log("login");
+                    message.success("登录成功！");
+                    if (identity == "0") {
+                        if (data.Score == -1) {
+                            that.props.setState({
+                                isWelcome: false,
+                                isStudent: true,
+                                isAllDone: false,
+                                isLogin: true,
+                                username: this.state.username,
+                                userInfo: {
+                                    name: data.Name,
+                                    score: data.Score,
+                                    access: 0
+                                }
+                            });
+                        }
+                        else {
+                            that.props.setState({
+                                isWelcome: false,
+                                isStudent: true,
+                                isAllDone: true,
+                                isLogin: true,
+                                username: this.state.username,
+                                userInfo: {
+                                    name: data.Name,
+                                    score: data.Score,
+                                    access: 0
+                                }
+                            })
+                        }
+                    }
+                    else if (identity == "2") {
+                        that.props.setState({
+                            isWelcome: false,
+                            isTeacher: true,
+                            userInfo: {
+                                access: 2
+                            }
+                        })
+                    }
+                    else if (identity == "1") {
+                        that.props.setState({
+                            isWelcome: false,
+                            isAdmin: true,
+                            userInfo: {
+                                access: 1
+                            }
+                        })
+                    }
+                }
+            })
 
 
     }
@@ -121,7 +135,7 @@ class LoginModal extends React.Component {
         this.props.setState({ isWelcome: false, isStudent: true, isLogin: true });
     }
     close() {
-        this.setState({ visible: false});
+        this.setState({ visible: false });
         this.props.close();
     }
     signin() {
@@ -139,9 +153,9 @@ class LoginModal extends React.Component {
                         </Menu >}>
                         <Button type="defult">
                             <Icon type="down" />
-                            {this.state.attemp==0&&"学生"}
-                            {this.state.attemp==2&&"辅导员"}
-                            {this.state.attemp==1&&"管理员"}
+                            {this.state.attemp == 0 && "学生"}
+                            {this.state.attemp == 2 && "辅导员"}
+                            {this.state.attemp == 1 && "管理员"}
                         </Button>
                     </Dropdown>}
                 visible={this.state.visible}
@@ -156,24 +170,22 @@ class LoginModal extends React.Component {
                         登录
               </Button>
                 ]}
-                visible={this.state.visible}
-            >
-                <Input id="username" addonBefore=" 账户 " placeholder="八位学号" allowClear onChange={(x, v) => { this.setState({ username: v }) }}></Input>
+                visible={this.state.visible}>
+                <Input id="username" addonBefore=" 账户 " placeholder={this.state.attemp=="0"?"八位学号":"管理员账户"} allowClear onChange={(x, v) => { this.setState({ username: v }) }}></Input>
                 <p></p>
-                <Input.Password id="password" addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
-                <p > <br></br>
-                    <a onClick={this.signin}>
+                <Input.Password id="password" addonBefore=" 密码 " placeholder={this.state.attemp=="0"?"一卡通号码":"管理员密码"} allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
+                <p > <br></br>{this.state.attemp=="0"?
+                    <a onClick={()=>{this.setState({attemp:"1",toDo:"注册"})}}>
                         &nbsp;&nbsp;没有账号?
-          </a>
+                    </a>:<div/>}
                 </p>
 
             </Modal>
         </div>
 
-
         let sign = <div id='modal'>
             <Modal
-                title="学生注册 "
+                title="注册需管理员登录"
                 visible={this.state.visible}
                 onOk={this.StudentToLogin}
                 onCancel={this.close}
@@ -181,18 +193,16 @@ class LoginModal extends React.Component {
                     <Button key="返回" type="defult" onClick={this.close}>
                         返回
               </Button>,
-                    <Button key="注册" type="primary" onClick={this.ToSignin}>
-                        注册
+                    <Button key="注册" type="primary" onClick={this.ToLogin}>
+                        登录
               </Button>
                 ]}
                 visible={this.state.visible}
             >
-                <Input id="name" addonBefore=" 姓名 " placeholder="你的姓名" allowClear onChange={(x, v) => { this.setState({ name: v }) }}></Input>
+                <Input id="username" addonBefore=" 账户 " placeholder="管理员账户" allowClear onChange={(x, v) => { this.setState({ username: v }) }}></Input>
                 <p></p>
-                <Input id="username" addonBefore=" 账户 " placeholder="学号" allowClear onChange={(x, v) => { this.setState({ username: v }) }}></Input>
-                <p></p>
-                <Input.Password id="password" addonBefore=" 密码 " placeholder="一卡通号" allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
-
+                <Input.Password id="password" addonBefore=" 密码 " placeholder="管理员密码" allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
+                <p> </p><br></br>
             </Modal>
         </div>
         return (
