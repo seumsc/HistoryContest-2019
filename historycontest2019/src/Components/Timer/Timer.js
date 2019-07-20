@@ -1,6 +1,8 @@
 import React from 'react';
 import 'antd/dist/antd.css';
+import 'rc-texty/assets/index.css';
 import {Icon, notification} from 'antd';
+import Texty from 'rc-texty';
 
 class Timer extends React.Component {
     constructor(props) {
@@ -55,10 +57,10 @@ class Timer extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <p style={{ color: "white", fontSize: "20px" }}>
+                <div style={{ color: "white", fontSize: "20px" }} type="scaleY" mode="sync" >
                     {/* <Icon type="clock-circle" style={{ color: "rgb(248, 39, 39)", fontSize: "25px" }} /> */}
-                    &nbsp;&nbsp;答题倒计时：{this.state.min}分&nbsp;{this.state.sec}秒
-                </p>
+                    {"  答题倒计时："+this.state.min+" 分 "+this.state.sec+" 秒 "}
+                </div>
             </React.Fragment>
         )
     }
