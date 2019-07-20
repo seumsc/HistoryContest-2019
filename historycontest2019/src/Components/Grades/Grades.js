@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Card, Row, Col, Layout, Icon, Radio } from 'antd';
 
-import BG from '../../img/图片2.jpg'
+import BG from '../../img/图片2.jpg';
 
 const { Header, Footer, Sider, Content } = Layout;
 const RadioGroup = Radio.Group;
@@ -321,7 +321,7 @@ class Grades extends React.Component {
                     <Header style={{height:100}}>
                         <h1 style={{ color: "white", textAlign: "center", fontSize: "40px", marginTop:15, marginBottom:30 }}>{this.props.state.userInfo.name}&nbsp;同学，你本次校史校情知识竞赛得分为&nbsp;<b style={{ color: "red", fontSize: "50px" }}>{this.props.state.userInfo.score}</b></h1>
                     </Header>
-                    <Content style={{ backgroundImage: `url(${BG})` }}>
+                    <Content style={{ backgroundImage: `url(${BG})`, backgroundSize: "cover"}}>
                         <Row style={{ marginTop: 80, marginBottom: 80 }}>
                             <Col span={2}>
 
@@ -336,7 +336,7 @@ class Grades extends React.Component {
                                                     textAlign: 'center',
                                                     fontSize: '20px',
                                                 }}>
-                                                {i + 1}&nbsp;{x.isRight ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <Icon type="close-circle" theme="twoTone" twoToneColor="#E83015" style={{ fontSize: "20px" }} />}
+                                                {i + 1}&nbsp;{x.value==x.answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <Icon type="close-circle" theme="twoTone" twoToneColor="#E83015" style={{ fontSize: "20px" }} />}
                                             </Card.Grid>))
                                         }
                                     </Card>

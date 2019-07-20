@@ -56,7 +56,7 @@ class Choice extends React.Component {
                             <h2 style={{ marginLeft: 40, color: 'white', fontSize: 25, minHeight: "6px", lineHeight: 6, overflow: "hidden" }}>
                                 {this.props.Id + 1}&nbsp;{this.props.state.title}
                             </h2>
-                            <Radio.Group style={{ color: 'white', marginLeft: 40, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.state.value} buttonStyle={"outline"}>
+                            <Radio.Group style={{ color: 'white', marginLeft: 40, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                 <Radio style={style} value={0}>
                                     <b>对</b>
                                 </Radio>
