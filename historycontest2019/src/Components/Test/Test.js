@@ -14,6 +14,7 @@ import bg9 from '../../img/background9.jpg';
 import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
 import BG from '../../img/图片2.jpg'
+import mark from '../../img/校徽实体.png'
 
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
@@ -64,11 +65,20 @@ class Test extends React.Component {
           this.state.question[i]=x
        })
     }
-    Next() {
+    Next(e) {
+      if(e){
         let x = this.state.focusOn;
         x++;
         if (x < 30) {
             this.setState({ focusOn: x })
+        }}
+        else{
+            setTimeout(() => {
+                let x = this.state.focusOn;
+                x++;
+                if (x < 30) {
+                    this.setState({ focusOn: x })}
+            }, 500);
         }
     }
     Prev() {
@@ -264,10 +274,10 @@ class Test extends React.Component {
                 <Layout style={{ overflow: "hidder" }}>
                     <Header>
                         <Row>
-                            <Col span={16} offset={1}>
-                                <h1 style={{ color: 'white' ,fontSize:"25px"}}>东南大学校史校情知识竞赛</h1>
+                            <Col span={16} offset={0}>
+                                <h1 style={{ color: 'white' ,fontSize:"25px"}}><img src={mark} height="45px" width="45px"/>&nbsp;东南大学校史校情知识竞赛</h1>
                             </Col>
-                            <Col span={6} offset={1}>
+                            <Col span={4} offset={3}>
                                 <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={29} sec={59} info={"  答题倒计时："}/>
                             </Col>
                         </Row>
@@ -281,7 +291,7 @@ class Test extends React.Component {
                             onTabClick={(x) => { this.setState({ focusOn: x }) }}
                             tabBarGutter='0'
                             tabPosition="bottom"
-                            style={{marginBottom:"0",marginLeft:"40px",textAlign:"center"}}>
+                            style={{marginBottom:"0",marginLeft:"0px",textAlign:"center"}}>
                             {this.state.question.map((x, i) => (
                                 <TabPane tab={!x.isFinish ? 
                                 <Badge dot={true} > <div style={{color: 'white'}}>{i + 1}</div></Badge> : 
@@ -291,13 +301,13 @@ class Test extends React.Component {
                                     style={{ textAlign: "left" }}
                                 >
 
-                                    <Col span={22} offset={1}>
+                                    {/* <Col span={22} offset={1}> */}
                                     {x.kind == "选择题" ?
                                         <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} 
                                         submit={this.submint}/>
                                         : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
                                     }
-                                    </Col>
+                                    {/* </Col> */}
                                 </TabPane>)
                             )
                             }

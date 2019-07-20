@@ -1,6 +1,7 @@
 import React from 'react';
-import "antd/dist/antd.css"
+import "antd/dist/antd.css";
 import { Icon, Button, Input, Modal, message, Dropdown, Menu } from 'antd';
+import bg from '../../img/VerifyCodeBG.png'
 
 class LoginModal extends React.Component {
     constructor(props) {
@@ -12,7 +13,9 @@ class LoginModal extends React.Component {
             username: '',
             password: '',
             toDo: "登录",
-            posted: false
+            posted: false,
+            ...this.initState(),
+            inputValue: "",
         }
         this.ToLogin = this.ToLogin.bind(this);
         this.close = this.close.bind(this);
@@ -20,113 +23,122 @@ class LoginModal extends React.Component {
         this.ToSignin = this.ToSignin.bind(this);
     }
     ToLogin() {
-        this.setState({ posted: true })
+        // this.setState({ posted: true })
+        let code = this.state.data.map((v) => String.fromCharCode(v > 57 && v < 84 ? v + 7 : (v < 57 ? v : v + 13)));
+        let codeString = code.join("");
         let that = this;
         let username = this.state.username;
         let password = this.state.password;
         let identity = this.state.attemp;
-
-
-        console.log("login");
-        message.success("登录成功！");
-
         //暂时的登陆函数
-        that.props.setState({
-            isWelcome: false,
-            isLogin: true,
-            isStudent: true,
-            isAllDone: false,
-            isAdmin: false,
-            isTeacher: false,
-            host: "",
-            userInfo:
-            {
-                name: '菜鸡',
-                username: "",
-                token: '',
-                access: -1,
-                score: -1
-            },
-            answer: []
-        })
+        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase()||1) {
+            console.log("login");
+            message.success("登录成功！");
+            that.props.setState({
+                isWelcome: false,
+                isLogin: true,
+                isStudent: true,
+                isAllDone: false,
+                isAdmin: false,
+                isTeacher: false,
+                host: "",
+                userInfo:
+                {
+                    name: '菜鸡',
+                    username: "",
+                    token: '',
+                    access: -1,
+                    score: -1
+                },
+                answer: []
+                
 
-
-
-        fetch('http://' + that.props.state.host + '/api/ui/login', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: JSON.stringify({
-                Username: username,
-                Password: password,
-                Identity: identity
+        // fetch('http://' + that.props.state.host + '/api/ui/login', {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     headers: {
+        //         "Content-Type": "application/x-www-form-urlencoded"
+        //     },
+        //     body: JSON.stringify({
+        //         Username: username,
+        //         Password: password,
+        //         Identity: identity
+        //     })
+        // }).then(
+        //     async res => {
+        //         if (res.status == 404) {
+        //             message.error("学号不存在");
+        //         }
+        //         else if (res.status == 204) {
+        //             message.error("用户名或密码错误");
+        //         }
+        //         else {
+        //             //学生登陆成功
+        //             let data = await res.json();
+        //             this.setState({ posted: false })
+        //             console.log("login");
+        //             message.success("登录成功！");
+        //             if (identity == "0") {
+        //                 if (data.Score == -1) {
+        //                     that.props.setState({
+        //                         isWelcome: false,
+        //                         isStudent: true,
+        //                         isAllDone: false,
+        //                         isLogin: true,
+        //                         username: this.state.username,
+        //                         userInfo: {
+        //                             name: data.Name,
+        //                             score: data.Score,
+        //                             access: 0
+        //                         }
+        //                     });
+        //                 }
+        //                 else {
+        //                     that.props.setState({
+        //                         isWelcome: false,
+        //                         isStudent: true,
+        //                         isAllDone: true,
+        //                         isLogin: true,
+        //                         username: this.state.username,
+        //                         userInfo: {
+        //                             name: data.Name,
+        //                             score: data.Score,
+        //                             access: 0
+        //                         }
+        //                     })
+        //                 }
+        //             }
+        //             else if (identity == "2") {
+        //                 that.props.setState({
+        //                     isWelcome: false,
+        //                     isTeacher: true,
+        //                     userInfo: {
+        //                         access: 2
+        //                     }
+        //                 })
+        //             }
+        //             else if (identity == "1") {
+        //                 that.props.setState({
+        //                     isWelcome: false,
+        //                     isAdmin: true,
+        //                     userInfo: {
+        //                         access: 1
+        //                     }
+        //                 })
+        //             }
+        //         }
+        //     })
             })
-        }).then(
-            async res => {
-                if (res.status == 404) {
-                    message.error("学号不存在");
-                }
-                else if (res.status == 204) {
-                    message.error("用户名或密码错误");
-                }
-                else {
-                    //学生登陆成功
-                    let data = await res.json();
-                    this.setState({ posted: false })
-                    console.log("login");
-                    message.success("登录成功！");
-                    if (identity == "0") {
-                        if (data.Score == -1) {
-                            that.props.setState({
-                                isWelcome: false,
-                                isStudent: true,
-                                isAllDone: false,
-                                isLogin: true,
-                                username: this.state.username,
-                                userInfo: {
-                                    name: data.Name,
-                                    score: data.Score,
-                                    access: 0
-                                }
-                            });
-                        }
-                        else {
-                            that.props.setState({
-                                isWelcome: false,
-                                isStudent: true,
-                                isAllDone: true,
-                                isLogin: true,
-                                username: this.state.username,
-                                userInfo: {
-                                    name: data.Name,
-                                    score: data.Score,
-                                    access: 0
-                                }
-                            })
-                        }
-                    }
-                    else if (identity == "2") {
-                        that.props.setState({
-                            isWelcome: false,
-                            isTeacher: true,
-                            userInfo: {
-                                access: 2
-                            }
-                        })
-                    }
-                    else if (identity == "1") {
-                        that.props.setState({
-                            isWelcome: false,
-                            isAdmin: true,
-                            userInfo: {
-                                access: 1
-                            }
-                        })
-                    }
-                }
-            })
+        }
+        else {
+            console.log("false");
+            this.setState({ ...this.initState(), refresh: false });
+            message.error("验证码错误")
+        }
+
+
+
+       
 
 
     }
@@ -140,6 +152,26 @@ class LoginModal extends React.Component {
     }
     signin() {
         this.setState({ toDo: "注册" });
+    }
+    initState() {
+        return {
+            data: this.getRandom(109, 48, 4),
+            rotate: this.getRandom(60, -60, 4),
+            fz: this.getRandom(15, 25, 4),
+            color: [this.getRandom(100, 200, 3), this.getRandom(100, 200, 3), this.getRandom(100, 200, 3), this.getRandom(100, 200, 3)]
+        }
+    }
+
+    getRandom(max, min, num) {
+        const asciiNum = ~~(Math.random() * (max - min + 1) + min)
+        if (!Boolean(num)) {
+            return asciiNum
+        }
+        const arr = []
+        for (let i = 0; i < num; i++) {
+            arr.push(this.getRandom(max, min))
+        }
+        return arr
     }
     render() {
         let login = <div id='modal'>
@@ -170,11 +202,51 @@ class LoginModal extends React.Component {
                         登录
               </Button>
                 ]}
-                visible={this.state.visible}>
-                <Input id="username" addonBefore=" 账户 " placeholder={this.state.attemp=="0"?"八位学号":"管理员账户"} allowClear onChange={(x, v) => { this.setState({ username: v }) }}></Input>
+                visible={this.state.visible}
+            >
+                <Input id="username" addonBefore=" 账户 " placeholder={this.state.attemp=="0"?"八位学号":"管理员账户"} allowClear onChange={(e) => { this.setState({ username: e.target.value }) }}></Input>
                 <p></p>
-                <Input.Password id="password" addonBefore=" 密码 " placeholder={this.state.attemp=="0"?"一卡通号码":"管理员密码"} allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
-                <p > <br></br>{this.state.attemp=="0"?
+                <Input.Password id="password" addonBefore=" 密码 " placeholder={this.state.attemp=="0"?"一卡通号码":"管理员密码"} allowClear onChange={(e) => { this.setState({ password: e.target.value }) }} />
+                <p></p>
+                <p style={{ marginRight: 0 }}>
+                    <Input style={{width:"70%"}}addonBefore="验证码" placeholder="不区分大小写" onChange={(e) => { this.setState({ inputValue: e.target.value }) }} 
+                    suffix ={
+                        <div style={{ width: 120, height: 30, backgroundImage: `url(${bg})`, textAlign: "center" }} >
+                        {this.state.data.map((v, i) =>
+                            <div
+                                key={i}
+                                className='itemStr'
+                                style={{
+                                    transform: `skewX(${this.state.rotate[i]}deg)`,
+                                    fontSize: `${this.state.fz[i]}px`,
+                                    color: `rgb(${this.state.color[i].toString()})`,
+                                    display: 'inline-block'
+                                }}
+                                onMouseEnter={() => this.setState({ refresh: true })}>
+                                {String.fromCharCode(v > 57 && v < 84 ? v + 7 : (v < 57 ? v : v + 13))}&nbsp;&nbsp;
+                                 </div>
+                        )}
+                        {this.state.refresh
+                            ?
+                            <div
+                                className='mask'
+                                onClick={() => {
+                                    this.setState({ ...this.initState(), refresh: false })
+                                }}
+                                onMouseLeave={() => { this.setState({ refresh: false }) }}
+                                style={{ fontSize: "10px" }}>
+                                看不清？点击此处刷新
+                                </div>
+                            :
+                            null
+                        }
+                    </div>
+                    }>
+                    </Input>
+                    
+                </p>
+                <p > <br></br>
+                {this.state.attemp=="0"?
                     <a onClick={()=>{this.setState({attemp:"1",toDo:"注册"})}}>
                         &nbsp;&nbsp;没有账号?
                     </a>:<div/>}
@@ -202,7 +274,42 @@ class LoginModal extends React.Component {
                 <Input id="username" addonBefore=" 账户 " placeholder="管理员账户" allowClear onChange={(x, v) => { this.setState({ username: v }) }}></Input>
                 <p></p>
                 <Input.Password id="password" addonBefore=" 密码 " placeholder="管理员密码" allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
-                <p> </p><br></br>
+                <p> </p>
+                <Input style={{width:"70%"}}addonBefore="验证码" placeholder="不区分大小写" onChange={(e) => { this.setState({ inputValue: e.target.value }) }} 
+                    suffix ={
+                        <div style={{ width: 120, height: 30, backgroundImage: `url(${bg})`, textAlign: "center" }} >
+                        {this.state.data.map((v, i) =>
+                            <div
+                                key={i}
+                                className='itemStr'
+                                style={{
+                                    transform: `skewX(${this.state.rotate[i]}deg)`,
+                                    fontSize: `${this.state.fz[i]}px`,
+                                    color: `rgb(${this.state.color[i].toString()})`,
+                                    display: 'inline-block'
+                                }}
+                                onMouseEnter={() => this.setState({ refresh: true })}>
+                                {String.fromCharCode(v > 57 && v < 84 ? v + 7 : (v < 57 ? v : v + 13))}&nbsp;&nbsp;
+                                 </div>
+                        )}
+                        {this.state.refresh
+                            ?
+                            <div
+                                className='mask'
+                                onClick={() => {
+                                    this.setState({ ...this.initState(), refresh: false })
+                                }}
+                                onMouseLeave={() => { this.setState({ refresh: false }) }}
+                                style={{ fontSize: "10px" }}>
+                                看不清？点击此处刷新
+                                </div>
+                            :
+                            null
+                        }
+                    </div>
+                    }>
+                    </Input>
+                <br></br>
             </Modal>
         </div>
         return (

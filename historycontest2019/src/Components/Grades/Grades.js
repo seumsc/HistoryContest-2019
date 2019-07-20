@@ -17,75 +17,81 @@ class Grades extends React.Component {
         
 
         this.logout = this.logout.bind(this);
-        test.question.forEach((x, i) => {
-            this.state.question[i] = x;
-        });
+        // test.question.forEach((x, i) => {
+        //     this.state.question[i] = x;
+        // });
     }
     componentWillMount() {
-    //     let that=this;
-    //     if (that.props.state.isAllDone) {
-    //         fetch("http://" + that.props.state.host + "/api/student/result_handin",
-    //             {
-    //                 method: 'POST',
-    //                 mode: 'cors',
-    //                 headers: {
-    //                     "Content-Type": "application/x-www-form-urlencoded"
-    //                 },
-    //                 body: JSON.stringify({
-    //                     Username: that.props.state.username,
-    //                 })
-    //             }
-    //         ).then((res)=> res.json()
-    //         ).then((data)=>{
-    //             data.Answer.forEach((x,i)=>{
-    //                 that.state.question[i].answer=x;
-    //             })
-    //         })
-    //     }
-    //     else{
-    //         fetch("http://" + that.props.state.host + "/api/student/result_handin",
-    //             {
-    //                 method: 'POST',
-    //                 mode: 'cors',
-    //                 headers: {
-    //                     "Content-Type": "application/x-www-form-urlencoded"
-    //                 },
-    //                 body: JSON.stringify({
-    //                     Username: that.props.state.username,
-    //                 })
-    //             }
-    //         ).then((res)=> res.json()
-    //         ).then(data=>{
-    //             for(let i=0;i<20;i++){
-    //                 that.state.question[i].title=data.Paper.Choice_question[i].text;
-    //                 that.state.question.choice=[
-    //                     {
-    //                         text:data.Paper.Choice_question[i].option[0],
-    //                         value:1
-    //                     },
-    //                     {
-    //                         text:data.Paper.Choice_question[i].option[1],
-    //                         value:2
-    //                     },
-    //                     {
-    //                         text:data.Paper.Choice_question[i].option[2],
-    //                         value:3
-    //                     },
-    //                     {
-    //                         text:data.Paper.Choice_question[i].option[3],
-    //                         value:4
-    //                     }
-    //                 ]
-    //                 that.state.question[i].value=data.Paper.Choice_question[i].value;
-    //                 that.state.question[i].answer=data.Answer.Choice_answer[i];
-    //             }
-    //             for(let i=20;i<30;i++){
-    //                 that.state.question[i].title=data.Paper.Judgment_question[i-20].text;
-    //                 that.state.question[i].value=data.Paper.Judgment_question[i-20].value;
-    //                 that.state.question[i].answer=data.Answer.Judgment_answer[i-20];
-    //             }
-    //         })
-    //     }
+        let that=this;
+        this.state.question.forEach((x,i)=>{
+            x.answer=test.question[i].answer;
+        })
+
+        // if (that.props.state.isAllDone) {
+        //     fetch("http://" + that.props.state.host + "/api/student/result_handin",
+        //         {
+        //             method: 'POST',
+        //             mode: 'cors',
+        //             headers: {
+        //                 "Content-Type": "application/x-www-form-urlencoded"
+        //             },
+        //             body: JSON.stringify({
+        //                 Username: that.props.state.username,
+        //             })
+        //         }
+        //     ).then((res)=> res.json()
+        //     ).then((data)=>{
+        //         data.Answer.forEach((x,i)=>{
+        //             that.state.question[i].answer=x;
+        //         })
+        //     })
+        // }
+        // else{
+        //     fetch("http://" + that.props.state.host + "/api/student/result",
+        //         {
+        //             method: 'POST',
+        //             mode: 'cors',
+        //             headers: {
+        //                 "Content-Type": "application/x-www-form-urlencoded"
+        //             },
+        //             body: JSON.stringify({
+        //                 Username: that.props.state.username,
+        //             })
+        //         }
+        //     ).then((res)=> res.json()
+        //     ).then(data=>{
+        //         for(let i=0;i<20;i++){
+        //             that.state.question.push({});
+        //             that.state.question[i].title=data.Paper.Choice_question[i].text;
+        //             that.state.question.choice=[
+        //                 {
+        //                     text:data.Paper.Choice_question[i].option[0],
+        //                     value:1
+        //                 },
+        //                 {
+        //                     text:data.Paper.Choice_question[i].option[1],
+        //                     value:2
+        //                 },
+        //                 {
+        //                     text:data.Paper.Choice_question[i].option[2],
+        //                     value:3
+        //                 },
+        //                 {
+        //                     text:data.Paper.Choice_question[i].option[3],
+        //                     value:4
+        //                 }
+        //             ]
+        //             that.state.question[i].value=data.Paper.Choice_question[i].value;
+        //             that.state.question[i].answer=data.Answer.Choice_answer[i];
+        //         }
+        //         for(let i=20;i<30;i++){
+        //             that.state.question.push({});
+        //             that.state.question[i].title=data.Paper.Judgment_question[i-20].text;
+        //             that.state.question[i].value=data.Paper.Judgment_question[i-20].value;
+        //             that.state.question[i].answer=data.Answer.Judgment_answer[i-20];
+        //         }
+        //     })
+        // }
      }
     onmouseover(i) {
         this.setState({ focusOn: i })
@@ -139,7 +145,7 @@ class Grades extends React.Component {
                             </Col>
                             <Col span={2}>
                                 <div style={{ marginTop: "15px" }}>
-                                    <Button ghost type="danger" onClick={this.logout}><Icon type="logout" />注销</Button>
+                                    <Button ghost type="danger" onClick={this.logout}><Icon type="logout" />退出</Button>
                                 </div>
                             </Col>
                         </Row>

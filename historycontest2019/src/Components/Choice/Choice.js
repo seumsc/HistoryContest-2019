@@ -28,7 +28,7 @@ class Choice extends React.Component {
     onchange(e) {
         this.setState({ value: e.target.value });
         this.props.setFinish(this.props.Id, e.target.value);
-        this.props.Next(this.props.Next);
+        this.props.Next(0);
     }
     render() {
         let style = {
@@ -47,7 +47,7 @@ class Choice extends React.Component {
                     width: "100%", height: "100%"
                 }}>
                     <Col span={4}></Col>
-                    <Col span={16}>
+                    <Col span={14} offset={1}>
                         <div style={{
                             backgroundColor: bg[this.props.Id % 11],
                             marginTop: 60,
@@ -58,9 +58,13 @@ class Choice extends React.Component {
                         }}>
                             <div style={{ height: 490 }}>
                                 <Row>
-                                    <Col span={2} ><p style={{ color: "white", fontSize: "60px", marginTop: "200px", marginLeft: "20px" }}>{this.props.Id + 1}</p></Col>
+                                    <Col span={2} >
+                                        <div style={{color:"white",fontSize:"60px",width:"90px",backgroundColor:"rgb(255,255,255,0.3)"}}><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
+                                        <div style={{  paddingTop: "75px", marginLeft: "20px" }}>
+                                        <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button> 
+                                        </div></Col>
                                     <Col span={20}>
-                                        <h2 style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 30 }}>
+                                        <h2 style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 50 }}>
                                             &nbsp;{this.props.state.title}
                                         </h2>
                                         <Radio.Group style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
@@ -81,7 +85,9 @@ class Choice extends React.Component {
                                     <Col span={2}>
                                         <div style={{marginTop:"230px"}}>
                                             {this.props.Id < 29 ?
-                                                <Button onClick={this.props.Next} size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
+                                                <Button onClick={()=>{this.props.Next(1
+                                                    )}} 
+                                                    size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
                                                 <Button type='primary' onClick={this.submit}>提交</Button>}
                                         </div>
                                     </Col>
