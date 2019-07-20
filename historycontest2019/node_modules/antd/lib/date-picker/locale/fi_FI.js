@@ -25,3 +25,4 @@ var locale = {
 
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=fi_FI.js.map

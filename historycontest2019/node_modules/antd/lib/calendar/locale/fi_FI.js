@@ -11,3 +11,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var _default = _fi_FI["default"];
 exports["default"] = _default;
+//# sourceMappingURL=fi_FI.js.map

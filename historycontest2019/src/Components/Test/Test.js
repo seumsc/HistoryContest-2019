@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Icon, Tabs, Button, Modal, Layout ,List} from 'antd';
+import { Row, Col, Icon, Tabs, Button, Modal, Layout ,Badge} from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
 import bg1 from '../../img/background1.png';
@@ -23,7 +23,7 @@ import { nullLiteral } from '@babel/types';
 let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
 const { TabPane } = Tabs;
 const { Header, Footer, Sider, Content } = Layout;
-
+const testQuestion=require("./question-test.json")
 class Test extends React.Component {
     constructor(props) {
         super(props);
@@ -60,112 +60,11 @@ class Test extends React.Component {
         this.Next = this.Next.bind(this);
         this.Prev = this.Prev.bind(this);
         this.submit = this.submit.bind(this);
+
         //测试初始化
-        this.state.question[0] = {
-          isFinish: false,
-          kind: "选择题",
-          title: "燃煤联合循环发电技术由哪个研究所长期研究计划",
-          choice: [{text:'东大建筑与环境研究所', value:2}, {text:'东大热能工程研究所',value:3}, {text:'东大能源与环境工程研究所',value:1}, {text:'东大动力研究所',value:4}],
-          isRight: false
-      }
-        this.state.question[1] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[2] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[3] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[4] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[5] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[6] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[7] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[8] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[9] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[10] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[11] = {
-            isFinish: false,
-            kind: "选择题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: [{text:'1902', value:2}, {text:'1988', value:3}, {text:'1905', value:1}, {text:'1900', value:4}],
-            isRight: false
-        }
-        this.state.question[20] = {
-            isFinish: false,
-            kind: "判断题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: ['√', '×'],
-            isRight: false
-        }
-        this.state.question[21] = {
-            isFinish: false,
-            kind: "判断题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: ['√', '×'],
-            isRight: false
-        }
-        this.state.question[22] = {
-            isFinish: false,
-            kind: "判断题",
-            title: "东南大学的历史最早可追溯至哪一年?",
-            choice: ['√', '×'],
-            isRight: false
-        }
+       testQuestion.question.forEach((x,i)=>{
+          this.state.question[i]=x
+       })
     }
     Next() {
         let x = this.state.focusOn;
@@ -213,19 +112,19 @@ class Test extends React.Component {
         //             that.state.question[i].title=data.test[i].text;
         //             let temp=[
         //                 {
-        //                     text:data.test[i].a,
+        //                     text:data.test[i].option[0],
         //                     value:1
         //                 },
         //                 {
-        //                     text:data.test[i].b,
+        //                     text:data.test[i].option[1],
         //                     value:2
         //                 },
         //                 {
-        //                     text:data.test[i].c,
+        //                     text:data.test[i].option[2],
         //                     value:3
         //                 },
         //                 {
-        //                     text:data.test[i].d,
+        //                     text:data.test[i].option[3],
         //                     value:4
         //                 }
         //             ]
@@ -243,25 +142,48 @@ class Test extends React.Component {
     }
     logout() {
         this.props.setState({
-            isWelcome: true,
-            isLogin: false,
-            isStudent: false,
-            isAdmin: false,
-            isTeacher: false,
-            userInfo:
-            {
-                name: '',
-                token: '',
-                access: -1,
-                score: 0
-            },
-            answer: {
-                choice: {},
-                true_false: {}
-            },
+          isWelcome:true,
+          isLogin:false,
+          isStudent:false,
+          isAllDone:false,
+          isAdmin:false,
+          isTeacher:false,
+          host:"",
+          userInfo:
+          {
+            name:'',
+            username:"",
+            token:'',
+            access:-1,
+            score:-1
+          },
+          answer:{
+          choice:{},
+          true_false:{}
+          },
         })
     }
     submit() {
+      this.props.setState({            
+        isWelcome:false,
+        isLogin:true,
+        isStudent:true,
+        isAllDone:true,
+        isAdmin:false,
+        isTeacher:false,
+        host:"",
+        userInfo:
+        {
+          name:'菜鸡',
+          username:"",
+          token:'',
+          access:-1,
+          score:90
+        },
+        answer:{
+        choice:{},
+        true_false:{}
+        }})
     //     //提交函数
     //     let that = this;
     //     let data={answer:[]};
@@ -288,106 +210,107 @@ class Test extends React.Component {
         this.setState({ question: x });
     }
     render() {
-        if (!this.state.isTesting) {
-            return (
-                <div style={{
-                    backgroundImage: `url(${BG})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    width: "100%", height: "100%",
-                    position: "absolute",
-                    top: "0px",
-                    bottom: "0px"
-                }}>
-                    <Modal
-                        visible={!this.state.isTesting}
-                        title="答题须知"
-                        centered={true}
-                        footer={[
-                            <Button type="primary" onClick={() => {
-                                let that = this;
-                                that.setState({ isTesting: true })
-                                // fetch("http://" + this.props.state.host + '/api/student/start',
-                                //     {
-                                //         method: 'POST',
-                                //         mode: 'cors',
-                                //         headers: {
-                                //             "Content-Type": "application/x-www-form-urlencoded"
-                                //         },
-                                //         body: JSON.stringify({
-                                //             Username: that.props.state.username,
-                                //         }).then(() => { that.setState({ isTesting: true }) })
-                                //     })
-                            }}>
-                                开始答题
-                      </Button>
-                        ]}>
-                        <b style={{fontSize:"18px",color:"#1890ff"}}>&nbsp;{this.props.state.userInfo.name}同学,你好!</b><br></br>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
+        // if (!this.state.isTesting) {
+        //     return (
+        //         <div style={{
+        //             backgroundImage: `url(${BG})`,
+        //             backgroundSize: 'cover',
+        //             backgroundPosition: 'center',
+        //             width: "100%", height: "100%",
+        //             position: "absolute",
+        //             top: "0px",
+        //             bottom: "0px"
+        //         }}>
+        //             <Modal
+        //                 visible={!this.state.isTesting}
+        //                 title="答题须知"
+        //                 centered={true}
+        //                 footer={[
+        //                     <Button type="primary" onClick={() => {
+        //                         let that = this;
+        //                         //temp
+        //                         that.setState({ isTesting: true })
 
-                        <ul style={{fontSize:"15px"}}>
-                        <li>本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
-                        <li>选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
-                        <li>答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</li>
-                        <li>在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
-                        <li>对本答题有疑问,&nbsp;可联系在场负责老师</li>
-                        </ul>
-                    </Modal>
-                </div>
-            )
-        }
+        //                         // fetch("http://" + this.props.state.host + '/api/student/start',
+        //                         //     {
+        //                         //         method: 'POST',
+        //                         //         mode: 'cors',
+        //                         //         headers: {
+        //                         //             "Content-Type": "application/x-www-form-urlencoded"
+        //                         //         },
+        //                         //         body: JSON.stringify({
+        //                         //             Username: that.props.state.username,
+        //                         //         }).then(() => { that.setState({ isTesting: true }) })
+        //                         //     })
+        //                     }}>
+        //                         开始答题
+        //               </Button>
+        //                 ]}>
+        //                 <b style={{fontSize:"18px",color:"#1890ff"}}>&nbsp;{this.props.state.userInfo.name}同学,你好!</b><br></br>
+        //                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
+
+        //                 <ul style={{fontSize:"15px"}}>
+        //                 <li>本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
+        //                 <li>选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
+        //                 <li>答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</li>
+        //                 <li>在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
+        //                 <li>对本答题有疑问,&nbsp;可联系在场负责老师</li>
+        //                 </ul>
+        //             </Modal>
+        //         </div>
+        //     )
+        // }
         return (
             <React.Fragment>
                 <Layout style={{ overflow: "hidder" }}>
                     <Header>
                         <Row>
-                            <Col span={2}></Col>
-                            <Col span={16}>
-                                <h1 style={{ color: 'white' }}>东南大学校史校情知识竞赛</h1>
+                            <Col span={16} offset={1}>
+                                <h1 style={{ color: 'white' ,fontSize:"25px"}}>东南大学校史校情知识竞赛</h1>
                             </Col>
-                            <Col span={6}>
-                                <Timer state={this.state} setState={this.setState.bind(this)} submit={this.submit}/>
+                            <Col span={6} offset={1}>
+                                <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={29} sec={59} info={"  答题倒计时："}/>
                             </Col>
                         </Row>
                     </Header>
-                    <Content style={{ backgroundColor: '#1C1C1C' }}>
-                        <Row>
-                            <Tabs activeKey={`${this.state.focusOn}`}
+                    <Content style={{ backgroundColor: 'rgb(17,17,19)' }}>
+                        <Row >
+                          <Col span={22} offset={1}>
+                            <Tabs className="background-1" 
+                            activeKey={`${this.state.focusOn}`}
                             animated='true'
                             onTabClick={(x) => { this.setState({ focusOn: x }) }}
                             tabBarGutter='0'
                             tabPosition="bottom"
-                            style={{ textAlign: "center" }}>
+                            style={{marginBottom:"0",marginLeft:"40px",textAlign:"center"}}>
                             {this.state.question.map((x, i) => (
-                                <TabPane tab={!x.isFinish ? <div style={{color: 'white'}}>{i + 1}</div> : <div style={{ backgroundColor: '#0089A7', backgroundSize:'cover',color: 'white', borderRadius:10}}>{i + 1}</div>}
+                                <TabPane tab={!x.isFinish ? 
+                                <Badge dot={true} > <div style={{color: 'white'}}>{i + 1}</div></Badge> : 
+                                <div style={{ color: 'white'}}>{i + 1}</div>}
                                     key={i}
                                     onChange={() => { this.done(i) }}
                                     style={{ textAlign: "left" }}
                                 >
-                                    <Col span={2}>
 
-                                    </Col>
-                                    <Col span={20}>
+                                    <Col span={22} offset={1}>
                                     {x.kind == "选择题" ?
                                         <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} 
                                         submit={this.submint}/>
                                         : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
                                     }
                                     </Col>
-                                    <Col span={2}>
-
-                                    </Col>
-                                </TabPane>))
+                                </TabPane>)
+                            )
                             }
                         </Tabs>
-                            
+                        </Col>
                         </Row>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微<br />版权所有©</Footer>
+                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微 &nbsp;版权所有©</Footer>
                 </Layout>
-            </React.Fragment>
-        )
+              </React.Fragment>
+              )
     }
-}
-
-export default Test
+  }
+  export default Test
+               

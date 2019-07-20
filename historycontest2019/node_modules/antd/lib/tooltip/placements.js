@@ -99,3 +99,4 @@ function getPlacements() {
   });
   return placementMap;
 }
+//# sourceMappingURL=placements.js.map

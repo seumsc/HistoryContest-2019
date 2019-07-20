@@ -9,3 +9,4 @@ var locale = {
 };
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=pl_PL.js.map

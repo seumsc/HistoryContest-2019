@@ -14,3 +14,4 @@ function getDataOrAriaProps(props) {
     return prev;
   }, {});
 }
+//# sourceMappingURL=getDataOrAriaProps.js.map

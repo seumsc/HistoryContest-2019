@@ -54,3 +54,4 @@ var _default = {
   }
 };
 exports["default"] = _default;
+//# sourceMappingURL=hu_HU.js.map

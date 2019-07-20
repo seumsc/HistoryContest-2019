@@ -54,3 +54,4 @@ function formatCountdown(value, config) {
   var diff = Math.max(target - current, 0);
   return formatTimeStr(diff, format);
 }
+//# sourceMappingURL=utils.js.map

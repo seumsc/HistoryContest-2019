@@ -58,3 +58,4 @@ function (_React$Component) {
 
 exports["default"] = MiniSelect;
 MiniSelect.Option = _select["default"].Option;
+//# sourceMappingURL=MiniSelect.js.map

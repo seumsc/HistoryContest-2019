@@ -44,44 +44,61 @@ class Choice extends React.Component {
                     backgroundImage: `url(${imgs[(this.props.Id % 11)]})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    width: "100%", height: "100%",
+                    width: "100%", height: "100%"
                 }}>
                     <Col span={4}></Col>
                     <Col span={16}>
                         <div style={{
                             backgroundColor: bg[this.props.Id % 11],
                             marginTop: 60,
-                            marginBottom: 60
+                            marginBottom: 60,
+                            backgroundSize:"cover",
+                            width:"100%",
+                            height:"100%"
                         }}>
-                            <div style={{ marginLeft: 80, overflow: "hidden", height: 160 }}>
-                                <h2 style={{ color: 'white', fontSize: 25, marginTop: 60, marginBottom: 60, marginRight: 80 }}>
-                                    {this.props.Id + 1}&nbsp;{this.props.state.title}
-                                </h2>
+                            <div style={{ height: 490 }}>
+                                <Row>
+                                    <Col span={2} ><p style={{ color: "white", fontSize: "60px", marginTop: "200px", marginLeft: "20px" }}>{this.props.Id + 1}</p></Col>
+                                    <Col span={20}>
+                                        <h2 style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 30 }}>
+                                            &nbsp;{this.props.state.title}
+                                        </h2>
+                                        <Radio.Group style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
+                                            <Radio style={style} value={this.props.state.choice[0].value}>
+                                                <b>A</b> &nbsp; {this.props.state.choice[0].text}
+                                            </Radio>
+                                            <Radio style={style} value={this.props.state.choice[1].value}>
+                                                <b >B</b> &nbsp; {this.props.state.choice[1].text}
+                                            </Radio>
+                                            <Radio style={style} value={this.props.state.choice[2].value}>
+                                                <b>C</b> &nbsp; {this.props.state.choice[2].text}
+                                            </Radio>
+                                            <Radio style={style} value={this.props.state.choice[3].value}>
+                                                <b>D</b> &nbsp; {this.props.state.choice[3].text}
+                                            </Radio>
+                                        </Radio.Group>
+                                    </Col>
+                                    <Col span={2}>
+                                        <div style={{marginTop:"230px"}}>
+                                            {this.props.Id < 29 ?
+                                                <Button onClick={this.props.Next} size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
+                                                <Button type='primary' onClick={this.submit}>提交</Button>}
+                                        </div>
+                                    </Col>
+                                    {/* <Row>
+                                            <Col span={16}></Col>
+                                            <Col span={3}>
+                                                {this.props.Id > 0 && <Button onClick={this.props.Prev}>上一题</Button>}
+                                            </Col>
+                                            <Col span={4} style={{ marginBottom: 40 }}>
+                                                {this.props.Id < 29 && <Button onClick={this.props.Next}>下一题</Button>}
+                                                {this.props.Id == 29 && <Button type='primary' onClick={this.submit}>提交</Button>}
+                                            </Col>
+
+                                        </Row> */}
+
+                                </Row>
                             </div>
-                            <Radio.Group style={{ color: 'white', marginLeft: 160, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
-                                <Radio style={style} value={this.props.state.choice[0].value}>
-                                    <b>A</b> &nbsp; {this.props.state.choice[0].text}
-                                </Radio>
-                                <Radio style={style} value={this.props.state.choice[1].value}>
-                                    <b >B</b> &nbsp; {this.props.state.choice[1].text}
-                                </Radio>
-                                <Radio style={style} value={this.props.state.choice[2].value}>
-                                    <b>C</b> &nbsp; {this.props.state.choice[2].text}
-                                </Radio>
-                                <Radio style={style} value={this.props.state.choice[3].value}>
-                                    <b>D</b> &nbsp; {this.props.state.choice[3].text}
-                                </Radio>
-                            </Radio.Group>
-                            <Row>
-                                <Col span={16}></Col>
-                                <Col span={3}>
-                                    {this.props.Id > 0 && <Button onClick={this.props.Prev}>上一题</Button>}
-                                </Col>
-                                <Col span={4} style={{ marginBottom: 40 }}>
-                                    {this.props.Id < 29 && <Button onClick={this.props.Next}>下一题</Button>}
-                                    {this.props.Id == 29 && <Button type='primary' onClick={this.submit}>提交</Button>}
-                                </Col>
-                            </Row>
                         </div>
                     </Col>
                     <Col span={4}></Col>

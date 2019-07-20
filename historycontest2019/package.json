@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.20.0",
+    "antd": "^3.20.4",
     "core-js": "^3.1.4",
     "rc-banner-anim": "^2.2.8",
+    "rc-texty": "^0.2.0",
     "rc-tween-one": "^2.4.1",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",

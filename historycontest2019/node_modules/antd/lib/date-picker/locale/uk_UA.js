@@ -24,3 +24,4 @@ var locale = {
 
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=uk_UA.js.map

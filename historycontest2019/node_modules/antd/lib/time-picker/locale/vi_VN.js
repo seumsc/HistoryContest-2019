@@ -9,3 +9,4 @@ var locale = {
 };
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=vi_VN.js.map

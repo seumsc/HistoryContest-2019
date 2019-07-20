@@ -80,3 +80,4 @@ function (_React$Component) {
 }(React.Component);
 
 exports["default"] = Operation;
+//# sourceMappingURL=operation.js.map

@@ -45,3 +45,4 @@ var _default = {
   }
 };
 exports["default"] = _default;
+//# sourceMappingURL=fr_FR.js.map

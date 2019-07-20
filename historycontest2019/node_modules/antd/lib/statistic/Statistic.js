@@ -62,3 +62,4 @@ var WrapperStatistic = (0, _configProvider.withConfigConsumer)({
 })(Statistic);
 var _default = WrapperStatistic;
 exports["default"] = _default;
+//# sourceMappingURL=Statistic.js.map

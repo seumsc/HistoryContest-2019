@@ -53,3 +53,4 @@ var _default = {
   }
 };
 exports["default"] = _default;
+//# sourceMappingURL=nb_NO.js.map

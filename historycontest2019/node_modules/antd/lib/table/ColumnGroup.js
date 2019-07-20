@@ -39,3 +39,4 @@ function (_React$Component) {
 
 exports["default"] = ColumnGroup;
 ColumnGroup.__ANT_TABLE_COLUMN_GROUP = true;
+//# sourceMappingURL=ColumnGroup.js.map

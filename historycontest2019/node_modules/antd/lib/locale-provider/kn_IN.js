@@ -61,3 +61,4 @@ var _default = {
   }
 };
 exports["default"] = _default;
+//# sourceMappingURL=kn_IN.js.map

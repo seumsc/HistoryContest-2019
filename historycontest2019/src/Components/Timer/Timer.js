@@ -1,13 +1,15 @@
 import React from 'react';
 import 'antd/dist/antd.css';
+import 'rc-texty/assets/index.css';
 import {Icon, notification} from 'antd';
+import Texty from 'rc-texty';
 
 class Timer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            min: 2,
-            sec: 59,
+            min: this.props.min,
+            sec: this.props.sec,
             isClocking: true
         }
     }
@@ -19,8 +21,7 @@ class Timer extends React.Component {
                 if (y == 0 && x == 0) {
                     clearInterval(this.timerId);
                     this.state.isClocking = false;
-                    this.props.setState({ isAllDone: false });
-                    this.props.submit();
+                    this.props.finish();
                 }
                 else if (x > 0) {
                     this.setState({ sec: x - 1 });
@@ -55,10 +56,10 @@ class Timer extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <p style={{ color: "white", fontSize: "20px" }}>
+                <div style={{ color: "white", fontSize: "20px" }} type="scaleY" mode="sync" >
                     {/* <Icon type="clock-circle" style={{ color: "rgb(248, 39, 39)", fontSize: "25px" }} /> */}
-                    &nbsp;&nbsp;答题倒计时：{this.state.min}分&nbsp;{this.state.sec}秒
-                </p>
+                    {this.props.info+this.state.min+" 分 "+this.state.sec+" 秒 "}
+                </div>
             </React.Fragment>
         )
     }

@@ -23,24 +23,39 @@ class LoginModal extends React.Component {
         this.ToSignin = this.ToSignin.bind(this);
     }
     ToLogin() {
-        let code=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : (v < 57 ? v : v + 13)));
-        let codeString=code.join("");
+        let code = this.state.data.map((v) => String.fromCharCode(v > 57 && v < 84 ? v + 7 : (v < 57 ? v : v + 13)));
+        let codeString = code.join("");
         let that = this;
         let username = this.state.username;
         let password = this.state.password;
         let identity = this.state.attemp;
         //暂时的登陆函数
-        if (codeString.toLowerCase()==this.state.inputValue.toLowerCase()) {
+        if (codeString.toLowerCase() == this.state.inputValue.toLowerCase()) {
             console.log("login");
             message.success("登录成功！");
             that.props.setState({
                 isWelcome: false,
-                isStudent: true,
                 isLogin: true,
-                username: that.state.username
+                isStudent: true,
+                isAllDone: false,
+                isAdmin: false,
+                isTeacher: false,
+                host: "",
+                userInfo:
+                {
+                    name: '菜鸡',
+                    username: "",
+                    token: '',
+                    access: -1,
+                    score: -1
+                },
+                answer: {
+                    choice: {},
+                    true_false: {}
+                }
             })
         }
-        else{
+        else {
             console.log("false");
             message.error("验证码错误")
         }
@@ -177,7 +192,7 @@ class LoginModal extends React.Component {
                 <p style={{ marginRight: 0 }}>
                     <Input placeholder="请输入验证码（不区分大小写）" onChange={(e) => { this.setState({ inputValue: e.target.value }) }}>
                     </Input>
-                    <div style={{ width: 120, height: 30, backgroundImage: `url(${bg})`, textAlign:"center" }} >
+                    <div style={{ width: 120, height: 30, backgroundImage: `url(${bg})`, textAlign: "center" }} >
                         {this.state.data.map((v, i) =>
                             <div
                                 key={i}

@@ -151,13 +151,18 @@ function (_React$Component) {
         return;
       }
 
+      var activeLink = _this.state.activeLink;
       var _this$props = _this.props,
           offsetTop = _this$props.offsetTop,
           bounds = _this$props.bounds;
 
-      _this.setState({
-        activeLink: _this.getCurrentAnchor(offsetTop, bounds)
-      });
+      var currentActiveLink = _this.getCurrentAnchor(offsetTop, bounds);
+
+      if (activeLink !== currentActiveLink) {
+        _this.setState({
+          activeLink: currentActiveLink
+        });
+      }
     };
 
     _this.handleScrollTo = function (link) {
@@ -273,7 +278,8 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var getContainer = this.props.getContainer;
-      this.scrollEvent = (0, _addEventListener["default"])(getContainer(), 'scroll', this.handleScroll);
+      this.scrollContainer = getContainer();
+      this.scrollEvent = (0, _addEventListener["default"])(this.scrollContainer, 'scroll', this.handleScroll);
       this.handleScroll();
     }
   }, {
@@ -286,6 +292,18 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
+      if (this.scrollEvent) {
+        var getContainer = this.props.getContainer;
+        var currentContainer = getContainer();
+
+        if (this.scrollContainer !== currentContainer) {
+          this.scrollContainer = currentContainer;
+          this.scrollEvent.remove();
+          this.scrollEvent = (0, _addEventListener["default"])(this.scrollContainer, 'scroll', this.handleScroll);
+          this.handleScroll();
+        }
+      }
+
       this.updateInk();
     }
   }, {
@@ -351,3 +369,4 @@ Anchor.defaultProps = {
 Anchor.childContextTypes = {
   antAnchor: PropTypes.object
 };
+//# sourceMappingURL=Anchor.js.map

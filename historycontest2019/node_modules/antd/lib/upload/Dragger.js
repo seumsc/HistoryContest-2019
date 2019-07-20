@@ -61,3 +61,4 @@ function (_React$Component) {
 }(React.Component);
 
 exports["default"] = Dragger;
+//# sourceMappingURL=Dragger.js.map

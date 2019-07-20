@@ -88,3 +88,4 @@ _Modal["default"].destroyAll = function () {
 
 var _default = _Modal["default"];
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

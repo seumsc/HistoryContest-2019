@@ -53,3 +53,4 @@ var locale = {
 
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=pt_PT.js.map

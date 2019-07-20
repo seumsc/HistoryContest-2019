@@ -86,3 +86,4 @@ LocaleReceiver.defaultProps = {
 LocaleReceiver.contextTypes = {
   antLocale: PropTypes.object
 };
+//# sourceMappingURL=LocaleReceiver.js.map

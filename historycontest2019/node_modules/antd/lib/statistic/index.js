@@ -14,3 +14,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 _Statistic["default"].Countdown = _Countdown["default"];
 var _default = _Statistic["default"];
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

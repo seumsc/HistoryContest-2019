@@ -26,3 +26,4 @@ locale.lang.ok = '确 定'; // All settings at:
 
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=zh_CN.js.map

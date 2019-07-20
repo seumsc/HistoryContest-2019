@@ -320,7 +320,7 @@ var RangeCalendar = function (_React$Component) {
               text: locale.backToToday
             })) : null,
             props.timePicker ? _react2['default'].createElement(_TimePickerButton2['default'], (0, _extends3['default'])({}, props, {
-              showTimePicker: showTimePicker,
+              showTimePicker: showTimePicker || mode[0] === 'time' && mode[1] === 'time',
               onOpenTimePicker: this.onOpenTimePicker,
               onCloseTimePicker: this.onCloseTimePicker,
               timePickerDisabled: !this.hasSelectedValue() || hoverValue.length

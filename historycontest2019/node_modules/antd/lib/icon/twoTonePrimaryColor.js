@@ -21,3 +21,4 @@ function getTwoToneColor() {
 
   return colors.primaryColor;
 }
+//# sourceMappingURL=twoTonePrimaryColor.js.map

@@ -25,3 +25,4 @@ var locale = {
 
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=nl_BE.js.map

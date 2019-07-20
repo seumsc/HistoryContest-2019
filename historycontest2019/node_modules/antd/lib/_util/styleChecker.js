@@ -21,3 +21,4 @@ var isFlexSupported = isStyleSupport(['flex', 'webkitFlex', 'Flex', 'msFlex']);
 exports.isFlexSupported = isFlexSupported;
 var _default = isStyleSupport;
 exports["default"] = _default;
+//# sourceMappingURL=styleChecker.js.map
