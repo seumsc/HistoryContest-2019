@@ -142,25 +142,48 @@ class Test extends React.Component {
     }
     logout() {
         this.props.setState({
-            isWelcome: true,
-            isLogin: false,
-            isStudent: false,
-            isAdmin: false,
-            isTeacher: false,
-            userInfo:
-            {
-                name: '',
-                token: '',
-                access: -1,
-                score: 0
-            },
-            answer: {
-                choice: {},
-                true_false: {}
-            },
+          isWelcome:true,
+          isLogin:false,
+          isStudent:false,
+          isAllDone:false,
+          isAdmin:false,
+          isTeacher:false,
+          host:"",
+          userInfo:
+          {
+            name:'',
+            username:"",
+            token:'',
+            access:-1,
+            score:-1
+          },
+          answer:{
+          choice:{},
+          true_false:{}
+          },
         })
     }
     submit() {
+      this.props.setState({            
+        isWelcome:false,
+        isLogin:true,
+        isStudent:true,
+        isAllDone:true,
+        isAdmin:false,
+        isTeacher:false,
+        host:"",
+        userInfo:
+        {
+          name:'菜鸡',
+          username:"",
+          token:'',
+          access:-1,
+          score:90
+        },
+        answer:{
+        choice:{},
+        true_false:{}
+        }})
     //     //提交函数
     //     let that = this;
     //     let data={answer:[]};
@@ -246,7 +269,7 @@ class Test extends React.Component {
                                 <h1 style={{ color: 'white' ,fontSize:"25px"}}>东南大学校史校情知识竞赛</h1>
                             </Col>
                             <Col span={6} offset={1}>
-                                <Timer state={this.state} setState={this.setState.bind(this)} submit={this.submit}/>
+                                <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={29} sec={59} info={"  答题倒计时："}/>
                             </Col>
                         </Row>
                     </Header>
@@ -268,10 +291,8 @@ class Test extends React.Component {
                                     onChange={() => { this.done(i) }}
                                     style={{ textAlign: "left" }}
                                 >
-                                    <Col span={2}>
 
-                                    </Col>
-                                    <Col span={20}>
+                                    <Col span={22} offset={1}>
                                     {x.kind == "选择题" ?
                                         <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} 
                                         submit={this.submint}/>

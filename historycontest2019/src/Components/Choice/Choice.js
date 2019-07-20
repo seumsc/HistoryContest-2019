@@ -51,7 +51,10 @@ class Choice extends React.Component {
                         <div style={{
                             backgroundColor: bg[this.props.Id % 11],
                             marginTop: 60,
-                            marginBottom: 60
+                            marginBottom: 60,
+                            backgroundSize:"cover",
+                            width:"100%",
+                            height:"100%"
                         }}>
                             <div style={{ height: 490 }}>
                                 <Row>

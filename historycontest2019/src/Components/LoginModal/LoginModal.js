@@ -26,14 +26,31 @@ class LoginModal extends React.Component {
         let password = this.state.password;
         let identity = this.state.attemp;
 
-        //暂时的登陆函数
+
         console.log("login");
         message.success("登录成功！");
+
+            //暂时的登陆函数
         that.props.setState({
-            isWelcome: false,
-            isStudent: true,
-            isLogin: true,
-            username: that.state.username
+            isWelcome:false,
+            isLogin:true,
+            isStudent:true,
+            isAllDone:false,
+            isAdmin:false,
+            isTeacher:false,
+            host:"",
+            userInfo:
+            {
+              name:'菜鸡',
+              username:"",
+              token:'',
+              access:-1,
+              score:-1
+            },
+            answer:{
+            choice:{},
+            true_false:{}
+            }
         })
 
 

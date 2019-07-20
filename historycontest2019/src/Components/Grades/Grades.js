@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Card, Row, Col, Layout, Icon, Radio } from 'antd';
-
+import { Card, Row, Col, Layout, Icon, Radio, Button } from 'antd';
+import Timer from "../Timer/Timer"
 import BG from '../../img/图片2.jpg'
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -33,12 +33,36 @@ class Grades extends React.Component {
             });
         }
         // this.onmouseover=this.onmouseover.bind(this);
+        this.logout = this.logout.bind(this);
         test.question.forEach((x, i) => {
             this.state.question[i] = x;
         });
     }
     onmouseover(i) {
         this.setState({ focusOn: i })
+    }
+    logout() {
+        this.props.setState({
+            isWelcome:true,
+            isLogin:false,
+            isStudent:false,
+            isAllDone:false,
+            isAdmin:false,
+            isTeacher:false,
+            host:"",
+            userInfo:
+            {
+              name:'',
+              username:"",
+              token:'',
+              access:-1,
+              score:-1
+            },
+            answer:{
+            choice:{},
+            true_false:{}
+            },
+        })
     }
     render() {
         let style = {
@@ -51,14 +75,28 @@ class Grades extends React.Component {
         return (
             <React.Fragment>
                 <Layout>
-                    <Header style={{ height: 100 }}>
-                        <h1 style={{ color: "white", textAlign: "center", fontSize: "40px", marginTop: 15, marginBottom: 30 }}>
-                            {this.props.state.userInfo.name}&nbsp;同学，你本次校史校情知识竞赛得分为&nbsp;
-                        <b style={{ color: "red", fontSize: "50px" }}>{this.props.state.userInfo.score}</b>
-                        </h1>
+                    <Header style={{ height: 80 }}>
+                        <Row>
+                            <Col span={14}>
+                                <h1 style={{ color: "white", fontSize: "30px", marginTop: 15, marginBottom: 30 }}>
+                                    {this.props.state.userInfo.name}&nbsp;同学，你本次校史校情知识竞赛得分为:&nbsp;&nbsp;
+                        <b style={{ color: "red", fontSize: "40px" }}>{this.props.state.userInfo.score}</b>
+                                </h1>
+                            </Col>
+                            <Col span={4} offset={4}>
+                                <div style={{ marginTop: "15px" }}>
+                                    <Timer min={2} sec={59} finish={this.logout} info={"距离自动注销 : "} />
+                                </div>
+                            </Col>
+                            <Col span={2}>
+                                <div style={{ marginTop: "15px" }}>
+                                    <Button ghost type="danger" onClick={this.logout}><Icon type="logout" />注销</Button>
+                                </div>
+                            </Col>
+                        </Row>
                     </Header>
                     <Content style={{ backgroundImage: `url(${BG})` }}>
-                        <Row style={{ marginTop: 80, marginBottom: 80 }}>
+                        <Row style={{ marginTop: 80, marginBottom: 60 }}>
                             <Col span={2}></Col>
                             <Col span={10}>
                                 <Card title="答题情况" headStyle={{ color: "white", fontSize: 25 }} hoverable="true" style={{ backgroundColor: "rgba(225,166,121,0.7)", color: "white" }}>
@@ -70,7 +108,7 @@ class Grades extends React.Component {
                                                 textAlign: 'center',
                                                 fontSize: '20px',
                                             }}>
-                                            {i + 1}&nbsp;{x.isRight ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <Icon type="close-circle" theme="twoTone" twoToneColor="#E83015" style={{ fontSize: "20px" }} />}
+                                            {i + 1}&nbsp;{x.value == x.answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <Icon type="close-circle" theme="twoTone" twoToneColor="#E83015" style={{ fontSize: "20px" }} />}
                                         </Card.Grid>))
                                     }
                                 </Card>

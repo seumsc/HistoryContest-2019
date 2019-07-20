@@ -12,12 +12,13 @@ class App extends React.Component{
       isWelcome:true,
       isLogin:false,
       isStudent:false,
+      isAllDone:false,
       isAdmin:false,
       isTeacher:false,
       host:"",
       userInfo:
       {
-        name:'菜鸡',
+        name:'zzz',
         username:"",
         token:'',
         access:-1,
@@ -36,14 +37,13 @@ class App extends React.Component{
   render(){
     return(
       <React.Fragment>
-        {/* <div id="index">
+        <div id="index">
               {this.state.isWelcome?<Welcome state={this.state} setState={this.appState}/>:<div/>}
               {this.state.isStudent&&this.state.userInfo.score==-1?<Test state={this.state} setState={this.appState}/>:<div/>}
-              {this.state.userInfo.score>0&&(this.state.userInfo.access==0)?<Grades state={this.state} setState={this.appState} />:<div/>}
               {this.state.isTeacher?<div/>:<div/>}
               {this.state.isAdmin?<div/>:<div/>}
-              </div> */}
-              <Grades state={this.state} setState={this.appState} />
+              {this.state.isAllDone&&this.state.userInfo.score>=0?<Grades state={this.state} setState={this.appState}/>:<div/> }
+              </div>
       </React.Fragment>
     )
   }
