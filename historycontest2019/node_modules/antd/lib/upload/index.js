@@ -14,3 +14,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 _Upload["default"].Dragger = _Dragger["default"];
 var _default = _Upload["default"];
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

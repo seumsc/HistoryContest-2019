@@ -199,3 +199,4 @@ Skeleton.defaultProps = {
 };
 var _default = Skeleton;
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

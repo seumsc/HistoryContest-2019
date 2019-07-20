@@ -25,3 +25,4 @@ locale.lang.ok = '確 定'; // All settings at:
 
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=zh_TW.js.map

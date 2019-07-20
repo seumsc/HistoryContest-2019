@@ -24,3 +24,4 @@ var locale = {
 
 var _default = locale;
 exports["default"] = _default;
+//# sourceMappingURL=ru_RU.js.map

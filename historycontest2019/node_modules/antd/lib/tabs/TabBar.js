@@ -114,3 +114,4 @@ TabBar.defaultProps = {
   animated: true,
   type: 'line'
 };
+//# sourceMappingURL=TabBar.js.map

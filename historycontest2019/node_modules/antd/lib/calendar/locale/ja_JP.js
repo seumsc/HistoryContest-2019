@@ -11,3 +11,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var _default = _ja_JP["default"];
 exports["default"] = _default;
+//# sourceMappingURL=ja_JP.js.map

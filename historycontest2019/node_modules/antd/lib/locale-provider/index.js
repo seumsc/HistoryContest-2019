@@ -108,3 +108,4 @@ LocaleProvider.defaultProps = {
 LocaleProvider.childContextTypes = {
   antLocale: PropTypes.object
 };
+//# sourceMappingURL=index.js.map

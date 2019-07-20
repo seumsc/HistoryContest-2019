@@ -13,3 +13,4 @@ function triggerEvent(el, type) {
     el.dispatchEvent(e);
   }
 }
+//# sourceMappingURL=triggerEvent.js.map

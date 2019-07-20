@@ -81,3 +81,4 @@ function (_React$Component) {
 }(React.Component);
 
 exports["default"] = CollapsePanel;
+//# sourceMappingURL=CollapsePanel.js.map

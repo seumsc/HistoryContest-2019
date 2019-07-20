@@ -2,6 +2,7 @@ import * as React from 'react';
 import { InputProps } from '../input';
 import { AbstractSelectProps, SelectValue, OptionProps, OptGroupProps } from '../select';
 import { ConfigConsumerProps } from '../config-provider';
+import { Omit } from '../_util/type';
 export interface DataSourceItemObject {
     value: string;
     text: string;
@@ -12,7 +13,7 @@ export interface AutoCompleteInputProps {
     value: any;
 }
 export declare type ValidInputElement = HTMLInputElement | HTMLTextAreaElement | React.ReactElement<AutoCompleteInputProps>;
-export interface AutoCompleteProps extends AbstractSelectProps {
+export interface AutoCompleteProps extends Omit<AbstractSelectProps, 'loading'> {
     value?: SelectValue;
     defaultValue?: SelectValue;
     dataSource?: DataSourceItemType[];

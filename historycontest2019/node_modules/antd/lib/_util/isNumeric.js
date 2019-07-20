@@ -11,3 +11,4 @@ var isNumeric = function isNumeric(value) {
 
 var _default = isNumeric;
 exports["default"] = _default;
+//# sourceMappingURL=isNumeric.js.map

@@ -53,3 +53,4 @@ var _default = {
   }
 };
 exports["default"] = _default;
+//# sourceMappingURL=sk_SK.js.map

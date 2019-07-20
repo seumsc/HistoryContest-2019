@@ -53,3 +53,4 @@ var _default = {
   }
 };
 exports["default"] = _default;
+//# sourceMappingURL=uk_UA.js.map

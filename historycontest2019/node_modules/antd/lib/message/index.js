@@ -155,3 +155,4 @@ var api = {
 api.warn = api.warning;
 var _default = api;
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

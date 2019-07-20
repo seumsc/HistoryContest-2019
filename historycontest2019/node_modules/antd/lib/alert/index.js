@@ -194,3 +194,4 @@ function (_React$Component) {
 }(React.Component);
 
 exports["default"] = Alert;
+//# sourceMappingURL=index.js.map

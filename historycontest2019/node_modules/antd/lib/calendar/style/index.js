@@ -7,3 +7,4 @@ require("./index.less");
 require("../../select/style");
 
 require("../../radio/style");
+//# sourceMappingURL=index.js.map

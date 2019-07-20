@@ -38,3 +38,4 @@ function (_React$Component) {
 }(React.Component);
 
 exports["default"] = Column;
+//# sourceMappingURL=Column.js.map

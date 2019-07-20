@@ -193,3 +193,4 @@ exports["default"] = BackTop;
 BackTop.defaultProps = {
   visibilityHeight: 400
 };
+//# sourceMappingURL=index.js.map

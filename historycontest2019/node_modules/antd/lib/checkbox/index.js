@@ -14,3 +14,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 _Checkbox["default"].Group = _Group["default"];
 var _default = _Checkbox["default"];
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

@@ -11,3 +11,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var _default = _Pagination["default"];
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

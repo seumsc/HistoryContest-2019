@@ -54,3 +54,4 @@ var _default = {
   }
 };
 exports["default"] = _default;
+//# sourceMappingURL=fi_FI.js.map

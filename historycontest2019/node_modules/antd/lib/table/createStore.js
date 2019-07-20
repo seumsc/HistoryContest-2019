@@ -37,3 +37,4 @@ function createStore(initialState) {
     subscribe: subscribe
   };
 }
+//# sourceMappingURL=createStore.js.map

@@ -25,3 +25,4 @@ function changeConfirmLocale(newLocale) {
 function getConfirmLocale() {
   return runtimeLocale;
 }
+//# sourceMappingURL=locale.js.map

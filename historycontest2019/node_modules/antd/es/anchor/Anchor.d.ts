@@ -52,6 +52,7 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
         activeLink: null;
     };
     private inkNode;
+    private scrollContainer;
     private links;
     private scrollEvent;
     private animating;

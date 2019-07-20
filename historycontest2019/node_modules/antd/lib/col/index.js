@@ -9,3 +9,4 @@ var _grid = require("../grid");
 
 var _default = _grid.Col;
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

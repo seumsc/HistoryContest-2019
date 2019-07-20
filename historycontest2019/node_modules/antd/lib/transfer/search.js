@@ -104,3 +104,4 @@ exports["default"] = Search;
 Search.defaultProps = {
   placeholder: ''
 };
+//# sourceMappingURL=search.js.map
