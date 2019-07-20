@@ -5,6 +5,7 @@ import Welcome from './Components/Welcome/Welcome';
 import LoginModal from './Components/LoginModal/LoginModal';
 import Test from './Components/Test/Test';
 import Grades from './Components/Grades/Grades';
+import VerifyCode from './Components/VerifyCode/VerifyCode';
 class App extends React.Component{
   constructor(props){
     super(props);

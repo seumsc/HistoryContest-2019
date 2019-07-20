@@ -1,6 +1,7 @@
 import React from 'react';
-import "antd/dist/antd.css"
+import "antd/dist/antd.css";
 import { Icon, Button, Input, Modal, message, Dropdown, Menu } from 'antd';
+import bg from '../../img/VerifyCodeBG.png'
 
 class LoginModal extends React.Component {
     constructor(props) {
@@ -12,7 +13,9 @@ class LoginModal extends React.Component {
             username: '',
             password: '',
             toDo: "登录",
-            posted:false
+            posted: false,
+            ...this.initState(),
+            inputValue: "",
         }
         this.ToLogin = this.ToLogin.bind(this);
         this.close = this.close.bind(this);
@@ -20,21 +23,27 @@ class LoginModal extends React.Component {
         this.ToSignin = this.ToSignin.bind(this);
     }
     ToLogin() {
-        this.setState({posted:true})
+        let code=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : (v < 57 ? v : v + 13)));
+        let codeString=code.join("");
         let that = this;
         let username = this.state.username;
         let password = this.state.password;
         let identity = this.state.attemp;
-
         //暂时的登陆函数
-        console.log("login");
-        message.success("登录成功！");
-        that.props.setState({
-            isWelcome: false,
-            isStudent: true,
-            isLogin: true,
-            username: that.state.username
-        })
+        if (codeString.toLowerCase()==this.state.inputValue.toLowerCase()) {
+            console.log("login");
+            message.success("登录成功！");
+            that.props.setState({
+                isWelcome: false,
+                isStudent: true,
+                isLogin: true,
+                username: that.state.username
+            })
+        }
+        else{
+            console.log("false");
+            message.error("验证码错误")
+        }
 
 
 
@@ -104,11 +113,31 @@ class LoginModal extends React.Component {
         this.props.setState({ isWelcome: false, isStudent: true, isLogin: true });
     }
     close() {
-        this.setState({ visible: false});
+        this.setState({ visible: false });
         this.props.close();
     }
     signin() {
         this.setState({ toDo: "注册" });
+    }
+    initState() {
+        return {
+            data: this.getRandom(109, 48, 4),
+            rotate: this.getRandom(60, -60, 4),
+            fz: this.getRandom(15, 25, 4),
+            color: [this.getRandom(100, 200, 3), this.getRandom(100, 200, 3), this.getRandom(100, 200, 3), this.getRandom(100, 200, 3)]
+        }
+    }
+
+    getRandom(max, min, num) {
+        const asciiNum = ~~(Math.random() * (max - min + 1) + min)
+        if (!Boolean(num)) {
+            return asciiNum
+        }
+        const arr = []
+        for (let i = 0; i < num; i++) {
+            arr.push(this.getRandom(max, min))
+        }
+        return arr
     }
     render() {
         let login = <div id='modal'>
@@ -122,9 +151,9 @@ class LoginModal extends React.Component {
                         </Menu >}>
                         <Button type="defult">
                             <Icon type="down" />
-                            {this.state.attemp==0&&"学生"}
-                            {this.state.attemp==2&&"辅导员"}
-                            {this.state.attemp==1&&"管理员"}
+                            {this.state.attemp == 0 && "学生"}
+                            {this.state.attemp == 2 && "辅导员"}
+                            {this.state.attemp == 1 && "管理员"}
                         </Button>
                     </Dropdown>}
                 visible={this.state.visible}
@@ -141,13 +170,48 @@ class LoginModal extends React.Component {
                 ]}
                 visible={this.state.visible}
             >
-                <Input id="username" addonBefore=" 账户 " placeholder="八位学号" allowClear onChange={(x, v) => { this.setState({ username: v }) }}></Input>
+                <Input id="username" addonBefore=" 账户 " placeholder="八位学号" allowClear onChange={(e) => { this.setState({ username: e.target.value }) }}></Input>
                 <p></p>
-                <Input.Password id="password" addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
+                <Input.Password id="password" addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(e) => { this.setState({ password: e.target.value }) }} />
+                <p></p>
+                <p style={{ marginRight: 0 }}>
+                    <Input placeholder="请输入验证码（不区分大小写）" onChange={(e) => { this.setState({ inputValue: e.target.value }) }}>
+                    </Input>
+                    <div style={{ width: 120, height: 30, backgroundImage: `url(${bg})`, textAlign:"center" }} >
+                        {this.state.data.map((v, i) =>
+                            <div
+                                key={i}
+                                className='itemStr'
+                                style={{
+                                    transform: `skewX(${this.state.rotate[i]}deg)`,
+                                    fontSize: `${this.state.fz[i]}px`,
+                                    color: `rgb(${this.state.color[i].toString()})`,
+                                    display: 'inline-block'
+                                }}
+                                onMouseEnter={() => this.setState({ refresh: true })}>
+                                {String.fromCharCode(v > 57 && v < 84 ? v + 7 : (v < 57 ? v : v + 13))}&nbsp;&nbsp;
+                                 </div>
+                        )}
+                        {this.state.refresh
+                            ?
+                            <div
+                                className='mask'
+                                onClick={() => {
+                                    this.setState({ ...this.initState(), refresh: false })
+                                }}
+                                onMouseLeave={() => { this.setState({ refresh: false }) }}
+                                style={{ fontSize: "10px" }}>
+                                看不清？点击此处刷新
+                                </div>
+                            :
+                            null
+                        }
+                    </div>
+                </p>
                 <p > <br></br>
                     <a onClick={this.signin}>
                         &nbsp;&nbsp;没有账号?
-          </a>
+                    </a>
                 </p>
 
             </Modal>
