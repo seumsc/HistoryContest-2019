@@ -12,7 +12,8 @@ class Grades extends React.Component {
         super(props);
         this.state = {
             question: this.props.state.answer,
-            focusOn: 0
+            focusOn: 0,
+            name:this.props.state.userInfo.name
         }
         
 
@@ -81,6 +82,7 @@ class Grades extends React.Component {
         //                     value:4
         //                 }
         //             ]
+        //             that.state.name=data.Name;
         //             that.state.question[i].value=data.Paper.Choice_question[i].value;
         //             that.state.question[i].answer=data.Answer.Choice_answer[i];
         //         }
@@ -113,10 +115,7 @@ class Grades extends React.Component {
                 access: -1,
                 score: -1
             },
-            answer: {
-                choice: {},
-                true_false: {}
-            },
+            answer: []
         })
     }
     render() {
@@ -134,7 +133,7 @@ class Grades extends React.Component {
                         <Row>
                             <Col span={14}>
                                 <h1 style={{ color: "white", fontSize: "30px", marginTop: 15, marginBottom: 30 }}>
-                                    {this.props.state.userInfo.name}&nbsp;同学，你本次校史校情知识竞赛得分为:&nbsp;&nbsp;
+                                    {this.state.name}&nbsp;同学，你本次校史校情知识竞赛得分为:&nbsp;&nbsp;
                         <b style={{ color: "red", fontSize: "40px" }}>{this.props.state.userInfo.score}</b>
                                 </h1>
                             </Col>

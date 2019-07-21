@@ -81,7 +81,7 @@ class Choice extends React.Component {
                                         <div style={{marginTop:"230px"}}>
                                             {this.props.Id < 29 ?
                                                 <Button onClick={()=>{this.props.Next(1)}} size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
-                                                <Button type='primary' onClick={this.props.submit}>提交</Button>}
+                                                <Button type='primary' ghost size="large" onClick={this.props.submit}>提交</Button>}
                                         </div>
                                     </Col>
 

@@ -51,84 +51,88 @@ class LoginModal extends React.Component {
                     score: -1
                 },
                 answer: []
-                
-
-        // fetch('http://' + that.props.state.host + '/api/ui/login', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: JSON.stringify({
-        //         Username: username,
-        //         Password: password,
-        //         Identity: identity
-        //     })
-        // }).then(
-        //     async res => {
-        //         if (res.status == 404) {
-        //             message.error("学号不存在");
-        //         }
-        //         else if (res.status == 204) {
-        //             message.error("用户名或密码错误");
-        //         }
-        //         else {
-        //             //学生登陆成功
-        //             let data = await res.json();
-        //             this.setState({ posted: false })
-        //             console.log("login");
-        //             message.success("登录成功！");
-        //             if (identity == "0") {
-        //                 if (data.Score == -1) {
-        //                     that.props.setState({
-        //                         isWelcome: false,
-        //                         isStudent: true,
-        //                         isAllDone: false,
-        //                         isLogin: true,
-        //                         username: this.state.username,
-        //                         userInfo: {
-        //                             name: data.Name,
-        //                             score: data.Score,
-        //                             access: 0
-        //                         }
-        //                     });
-        //                 }
-        //                 else {
-        //                     that.props.setState({
-        //                         isWelcome: false,
-        //                         isStudent: true,
-        //                         isAllDone: true,
-        //                         isLogin: true,
-        //                         username: this.state.username,
-        //                         userInfo: {
-        //                             name: data.Name,
-        //                             score: data.Score,
-        //                             access: 0
-        //                         }
-        //                     })
-        //                 }
-        //             }
-        //             else if (identity == "2") {
-        //                 that.props.setState({
-        //                     isWelcome: false,
-        //                     isTeacher: true,
-        //                     userInfo: {
-        //                         access: 2
-        //                     }
-        //                 })
-        //             }
-        //             else if (identity == "1") {
-        //                 that.props.setState({
-        //                     isWelcome: false,
-        //                     isAdmin: true,
-        //                     userInfo: {
-        //                         access: 1
-        //                     }
-        //                 })
-        //             }
-        //         }
-        //     })
             })
+
+        fetch('http://' + that.props.state.host + '/api/ui/login', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: JSON.stringify({
+                Username: username,
+                Password: password,
+                Identity: identity
+            })
+        }).then(
+            async res => {
+                if (res.status == 404) {
+                    message.error("学号不存在");
+                }
+                else if (res.status == 204) {
+                    message.error("用户名或密码错误");
+                }
+                else {
+                    //学生登陆成功
+                    let data = await res.json();
+                    this.setState({ posted: false })
+                    console.log("login");
+                    message.success("登录成功！");
+                    if (identity == "0") {
+                        if (data.Score == -1) {
+                            that.props.setState({
+                                isWelcome: false,
+                                isStudent: true,
+                                isAllDone: false,
+                                isLogin: true,
+                                userInfo: {
+                                    username: this.state.username,
+                                    name: data.Name,
+                                    score: data.Score,
+                                    token:data.Token,
+                                    access: 0
+                                }
+                            });
+                        }
+                        else {
+                            that.props.setState({
+                                isWelcome: false,
+                                isStudent: true,
+                                isAllDone: true,
+                                isLogin: true,
+                                userInfo: {
+                                    username: this.state.username,
+                                    name: data.Name,
+                                    score: data.Score,
+                                    token:data.Token,
+                                    access: 0
+                                }
+                            })
+                        }
+                    }
+                    else if (identity == "2") {
+                        that.props.setState({
+                            isWelcome: false,
+                            isTeacher: true,
+                            userInfo: {
+                                token:data.Token,
+                                access: 2
+                            }
+                        })
+                    }
+                    else if (identity == "1") {
+                        that.props.setState({
+                            isWelcome: false,
+                            isAdmin: true,
+                            userInfo: {
+                                token:data.Token,
+                                access: 1
+                            }
+                        })
+                    }
+                }
+            })
+
         }
         else {
             console.log("false");

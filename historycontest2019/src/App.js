@@ -5,15 +5,16 @@ import Welcome from './Components/Welcome/Welcome';
 import LoginModal from './Components/LoginModal/LoginModal';
 import Test from './Components/Test/Test';
 import Grades from './Components/Grades/Grades';
+import Admin from './Components/admin/admin'
 class App extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      isWelcome:true,
+      isWelcome:false,
       isLogin:false,
       isStudent:false,
       isAllDone:false,
-      isAdmin:false,
+      isAdmin:true,
       isTeacher:false,
       host:"",
       userInfo:
@@ -38,7 +39,7 @@ class App extends React.Component{
               {this.state.isWelcome?<Welcome state={this.state} setState={this.appState}/>:<div/>}
               {this.state.isStudent&&this.state.userInfo.score==-1?<Test state={this.state} setState={this.appState}/>:<div/>}
               {this.state.isTeacher?<div/>:<div/>}
-              {this.state.isAdmin?<div/>:<div/>}
+              {this.state.isAdmin?<Admin state={this.state} setState={this.appState}/>:<div/>}
               {this.state.isAllDone&&this.state.userInfo.score>=0?<Grades state={this.state} setState={this.appState}/>:<div/> }
               </div>
       </React.Fragment>

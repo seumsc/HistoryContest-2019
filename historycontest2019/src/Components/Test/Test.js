@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Icon, Tabs, Button, Modal, Layout ,Badge} from 'antd';
+import { Row, Col, Icon, Tabs, Button, Modal, Layout ,Badge,message} from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
 import bg1 from '../../img/background1.png';
@@ -31,7 +31,6 @@ class Test extends React.Component {
         this.state = {
             isTesting: false,
             isPaperGet: false,
-            isAllDone: false,
             focusOn: 0,
             pic: 0,
             question:[],
@@ -103,49 +102,50 @@ class Test extends React.Component {
     componentWillMount() {
       //试卷获取
       this.setState({isPaperGet:true})
-        // let that=this;
-        // fetch('http://'+that.props.state.host+'/api/student/test',{
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: JSON.stringify({
-        //         Username: that.props.state.username,
-        //     })
-        // }
-        // ).then(
-        //     res=>{return res.json()}
-        // ).then(
-        //     data=>{
-        //         for(let i=0;i<20;i++){
-        //             that.state.question[i].title=data.Paper.Choice_question[i].text;
-        //             let temp=[
-        //                 {
-        //                     text:data.Paper.Choice_question[i].option[0],
-        //                     value:1
-        //                 },
-        //                 {
-        //                     text:data.Paper.Choice_question[i].option[1],
-        //                     value:2
-        //                 },
-        //                 {
-        //                     text:data.Paper.Choice_question[i].option[2],
-        //                     value:3
-        //                 },
-        //                 {
-        //                     text:data.Paper.Choice_question[i].option[3],
-        //                     value:4
-        //                 }
-        //             ]
-        //             that.state.question[i].choice=this.Random(temp);
-        //         }
-        //         for(let i=20;i<30;i++){
-        //             that.state.question[i].title=data.Paper.Judgment_question[i-20].text;
-        //         }
-        //       that.setState({isPaperGet:true});
-        //     }
-        // )
+        let that=this;
+        fetch('http://'+that.props.state.host+'/api/student/test',{
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "authorization":this.state.userInfo.token,
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: JSON.stringify({
+                Username: that.props.state.username,
+            })
+        }
+        ).then(
+            res=>{return res.json()}
+        ).then(
+            data=>{
+                for(let i=0;i<20;i++){
+                    that.state.question[i].title=data.Paper.Choice_question[i].text;
+                    let temp=[
+                        {
+                            text:data.Paper.Choice_question[i].option[0],
+                            value:1
+                        },
+                        {
+                            text:data.Paper.Choice_question[i].option[1],
+                            value:2
+                        },
+                        {
+                            text:data.Paper.Choice_question[i].option[2],
+                            value:3
+                        },
+                        {
+                            text:data.Paper.Choice_question[i].option[3],
+                            value:4
+                        }
+                    ]
+                    that.state.question[i].choice=this.Random(temp);
+                }
+                for(let i=20;i<30;i++){
+                    that.state.question[i].title=data.Paper.Judgment_question[i-20].text;
+                }
+              that.setState({isPaperGet:true});
+            }
+        )
     }
 
     componentWillUnmount() {
@@ -192,24 +192,33 @@ class Test extends React.Component {
         answer:this.state.question
       })
 
-    //     //提交函数
-    //     let that = this;
-    //     let data={answer:[]};
-    //     this.state.question.forEach((x,i)=>{
-    //         data.Answer.push(x.value)
-    //     })
-    //     fetch("htttp://" + that.props.state.host + "/api/student/hangin",
-    //         {
-    //             method: 'POST',
-    //             mode: 'cors',
-    //             headers: {
-    //                 "Content-Type": "application/x-www-form-urlencoded"
-    //             },
-    //             body: JSON.stringify(data)
-    //         }.then((res)=>{that.setState({isAllDone:true});return res.json()}
-    //     ).then(()=>{console.log("handin successfully")}//data=>{that.props.setState({userInfo:{score:data.score}})}
-    //     )
-    //     )
+       // 提交函数
+        // let that = this;
+        // let data={Answer:[],username:this.props.state.userInfo.username};
+        // this.state.question.forEach((x,i)=>{
+        //     data.Answer.push(x.value)
+        // })
+        // fetch("htttp://" + that.props.state.host + "/api/student/hangin",
+        //     {
+        //         method: 'POST',
+        //         mode: 'cors',
+        //         headers: {
+        //             "Content-Type": "application/x-www-form-urlencoded"
+        //         },
+        //         body: JSON.stringify(data)
+        //     }.then(async (res)=>{
+        //         if(res.status==403){
+        //             message.warning("答题所用时间过短,请认真答题~")
+        //         }
+        //         else{
+        //         that.props.setState({isAllDone:true});
+        //         console.log("handin successfully")
+        //         let data=await res.json();
+        //         that.props.setState({userInfo:{score:data.Score}})
+        //         }
+        //     }
+        // )
+        // )
      }
     done(i, value) {
         let x = this.state.question;
