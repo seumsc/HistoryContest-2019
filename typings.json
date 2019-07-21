@@ -1,6 +1,6 @@
 {
-  "name": "SEU-History-Contest",
+  "name": "seu-historycontest-2019",
   "dependencies": {
-    "koa-logger": "registry:dt/koa-logger#2.0.0+20161219223325"
+    "koa": "registry:dt/koa#2.0.0+20170311193110"
   }
 }

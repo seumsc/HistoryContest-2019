@@ -1,0 +1,1 @@
+{"version":3,"file":"JudgmentQuestion.js","sourceRoot":"","sources":["../../src/entity/JudgmentQuestion.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,qCAA2E;AAG3E,IAAa,gBAAgB,GAA7B,MAAa,gBAAiB,SAAQ,oBAAU;CAS/C,CAAA;AAPG;IADC,gCAAsB,EAAE;;4CACf;AAGV;IADC,gBAAM,EAAE;;8CACG;AAGZ;IADC,gBAAM,EAAE;;gDACK;AARL,gBAAgB;IAD5B,gBAAM,EAAE;GACI,gBAAgB,CAS5B;AATY,4CAAgB"}

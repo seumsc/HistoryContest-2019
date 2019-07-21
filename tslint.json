@@ -1,0 +1,44 @@
+{
+    "extends": "tslint:recommended",
+    "defaultSeverity": "warn",
+    "rules": {
+        "quotemark": [true, "single", "avoid-escape"],
+        "semicolon": [true, "never", "ignore-interfaces"],
+        "indent":[true, "tabs", 4],
+        "typedef-whitespace": true,
+        "member-access": true,
+        "one-line": [
+            true,
+            "check-open-brace",
+            "check-catch",
+            "check-else",
+            "check-whitespace"
+        ],
+        "trailing-comma": [true, {
+            "multiline": {
+                "objects": "ignore",
+                "arrays": "never",
+                "functions": "never",
+                "typeLiterals": "ignore"
+            },
+            "esSpecCompliant": true
+        }],
+        "no-var-keyword": true,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-type"
+        ],
+        "prefer-const": false,
+        "ordered-imports": false,
+        "no-console": false
+    },
+    "rulesDirectory": []
+}
