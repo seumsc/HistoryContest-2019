@@ -3,15 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/node-xlsx": "^0.12.1",
     "antd": "^3.20.4",
     "core-js": "^3.1.4",
+    "js-xlsx": "^0.8.22",
+    "node-xlsx": "^0.15.0",
     "rc-banner-anim": "^2.2.8",
     "rc-texty": "^0.2.0",
     "rc-tween-one": "^2.4.1",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
     "react-dom": "^16.8.6",
-    "react-highlight-words": "^0.16.0",
+    "react-html-table-to-excel": "^2.0.0",
     "react-scripts": "3.0.1"
   },
   "scripts": {

@@ -1,10 +1,9 @@
 import React from 'react';
 import { Row, Col, Icon, Tabs, Button, Modal, Layout, Badge, Table, Descriptions, Input,Tag } from 'antd';
 import 'antd/dist/antd.css';
-import bg1 from '../../img/background1.png';
-
+import bg1 from '../../img/background1.png';    
 import mark from '../../img/校徽实体.png'
-import { async } from 'q';
+import xlsx from 'node-xlsx'
 
 const { Header, Footer, Sider, Content } = Layout;
 class Admin extends React.Component {
@@ -43,7 +42,7 @@ class Admin extends React.Component {
 
     }
     async get() {
-        const testdata=await require("./Students.json");
+        const testdata= await require("./Students.json");
         const testdata2=await require("./student.json");
         await testdata.forEach((x,i)=>{
             this.state.data.push({
@@ -66,10 +65,10 @@ class Admin extends React.Component {
         this.setState({});
     }
     register() {
-
+        //注册函数
     }
     reset() {
-
+        //修改密码函数
     }
     logout() {
         this.props.setState({
@@ -125,19 +124,22 @@ class Admin extends React.Component {
             </Button>
           </div>
         ),
+
         filterIcon: filtered => (
           <Icon type="search" size="large" style={{ color: filtered ? '#1890ff' : undefined }} />
         ),
+
         onFilter: (value, record) =>
-          record[dataIndex]
-            .includes(value),
+          record[dataIndex].includes(value),
+
         onFilterDropdownVisibleChange: visible => {
           if (visible) {
             setTimeout(() => this.searchInput.select());
           }
-        }
+        },
+          
       });
-    
+      
       handleSearch = (selectedKeys, confirm) => {
         confirm();
         this.setState({ searchText: selectedKeys[0] });

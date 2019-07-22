@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Card, Row, Col, Layout, Icon, Radio, Button } from 'antd';
+import { Card, Row, Col, Layout, Icon, Radio, Button, message } from 'antd';
 import Timer from "../Timer/Timer"
 import BG from '../../img/图片2.jpg'
 
@@ -13,9 +13,9 @@ class Grades extends React.Component {
         this.state = {
             question: this.props.state.answer,
             focusOn: 0,
-            name:this.props.state.userInfo.name
+            name: this.props.state.userInfo.name
         }
-        
+
 
         this.logout = this.logout.bind(this);
         // test.question.forEach((x, i) => {
@@ -23,78 +23,93 @@ class Grades extends React.Component {
         // });
     }
     componentWillMount() {
-        let that=this;
-        this.state.question.forEach((x,i)=>{
-            x.answer=test.question[i].answer;
+        //测试初始化
+        let that = this;
+        this.state.question.forEach((x, i) => {
+            x.answer = test.question[i].answer;
         })
-
+        //获取结果
         // if (that.props.state.isAllDone) {
         //     fetch("http://" + that.props.state.host + "/api/student/result_handin",
         //         {
         //             method: 'POST',
         //             mode: 'cors',
         //             headers: {
+        //                 "authorization": this.state.userInfo.token,
         //                 "Content-Type": "application/x-www-form-urlencoded"
         //             },
         //             body: JSON.stringify({
         //                 Username: that.props.state.username,
         //             })
         //         }
-        //     ).then((res)=> res.json()
-        //     ).then((data)=>{
-        //         data.Answer.forEach((x,i)=>{
-        //             that.state.question[i].answer=x;
-        //         })
+        //     ).then((res) => res.json()
+        //     ).then((data) => {
+        //         if (data.message = undefined) {
+        //             data.Answer.forEach((x, i) => {
+        //                 that.state.question[i].answer = x;
+        //             })
+        //         }
+        //         else {
+        //             message.error("登陆已过期");
+        //             this.props.logout();
+        //         }
         //     })
         // }
-        // else{
+        // else {
         //     fetch("http://" + that.props.state.host + "/api/student/result",
         //         {
         //             method: 'POST',
         //             mode: 'cors',
         //             headers: {
+        //                 "authorization": this.state.userInfo.token,
         //                 "Content-Type": "application/x-www-form-urlencoded"
         //             },
         //             body: JSON.stringify({
         //                 Username: that.props.state.username,
         //             })
         //         }
-        //     ).then((res)=> res.json()
-        //     ).then(data=>{
-        //         for(let i=0;i<20;i++){
-        //             that.state.question.push({});
-        //             that.state.question[i].title=data.Paper.Choice_question[i].text;
-        //             that.state.question.choice=[
-        //                 {
-        //                     text:data.Paper.Choice_question[i].option[0],
-        //                     value:1
-        //                 },
-        //                 {
-        //                     text:data.Paper.Choice_question[i].option[1],
-        //                     value:2
-        //                 },
-        //                 {
-        //                     text:data.Paper.Choice_question[i].option[2],
-        //                     value:3
-        //                 },
-        //                 {
-        //                     text:data.Paper.Choice_question[i].option[3],
-        //                     value:4
-        //                 }
-        //             ]
-        //             that.state.name=data.Name;
-        //             that.state.question[i].value=data.Paper.Choice_question[i].value;
-        //             that.state.question[i].answer=data.Answer.Choice_answer[i];
+        //     ).then((res) => res.json()
+        //     ).then(data => {
+        //         if (data.message == undefined) {
+        //             for (let i = 0; i < 20; i++) {
+        //                 that.state.question.push({});
+        //                 that.state.question[i].title = data.Paper.Choice_question[i].text;
+        //                 that.state.question.choice = [
+        //                     {
+        //                         text: data.Paper.Choice_question[i].option[0],
+        //                         value: 1
+        //                     },
+        //                     {
+        //                         text: data.Paper.Choice_question[i].option[1],
+        //                         value: 2
+        //                     },
+        //                     {
+        //                         text: data.Paper.Choice_question[i].option[2],
+        //                         value: 3
+        //                     },
+        //                     {
+        //                         text: data.Paper.Choice_question[i].option[3],
+        //                         value: 4
+        //                     }
+        //                 ]
+        //                 that.state.name = data.Name;
+        //                 that.state.question[i].value = data.Paper.Choice_question[i].value;
+        //                 that.state.question[i].answer = data.Answer.Choice_answer[i];
+        //             }
+        //             for (let i = 20; i < 30; i++) {
+        //                 that.state.question.push({});
+        //                 that.state.question[i].title = data.Paper.Judgment_question[i - 20].text;
+        //                 that.state.question[i].value = data.Paper.Judgment_question[i - 20].value;
+        //                 that.state.question[i].answer = data.Answer.Judgment_answer[i - 20];
+        //             }
         //         }
-        //         for(let i=20;i<30;i++){
-        //             that.state.question.push({});
-        //             that.state.question[i].title=data.Paper.Judgment_question[i-20].text;
-        //             that.state.question[i].value=data.Paper.Judgment_question[i-20].value;
-        //             that.state.question[i].answer=data.Answer.Judgment_answer[i-20];
+        //         else {
+        //             message.error("登陆已过期");
+        //             this.props.logout();
         //         }
         //     })
         // }
-     }
+    }
     onmouseover(i) {
         this.setState({ focusOn: i })
     }
