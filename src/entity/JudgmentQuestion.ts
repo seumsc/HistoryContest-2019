@@ -9,5 +9,5 @@ export class JudgmentQuestion extends BaseEntity{
     text:string;
 
     @Column()
-    answer:number;
+    answer:number;//0:×,1:√
 }

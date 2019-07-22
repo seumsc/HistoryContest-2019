@@ -1,0 +1,17 @@
+
+### 测试开始答题
+POST http://localhost:3000/api/student/start
+Content-Type: application/json
+
+{
+    "Name":"任栗晗",
+    "Username":"71118118"
+}
+
+### 测试获取试卷
+POST http://localhost:5000/api/student/test
+Content-Type: application/json
+
+{
+    "Username":"71118118"
+}

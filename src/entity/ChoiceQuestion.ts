@@ -9,18 +9,9 @@ export class ChoiceQuestion extends BaseEntity{
     @Column()
     text:string;
 
-    @Column()
-    a:string;
+    @Column({type:"simple-array"})
+    options:string[];
 
     @Column()
-    b:string;
-
-    @Column()
-    c:string;
-
-    @Column()
-    d:string;
-    
-    @Column()
-    answer:number;
+    answer:number;//1:A,2:B,3:C,4:D
 }

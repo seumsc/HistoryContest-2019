@@ -1,27 +1,26 @@
 import "reflect-metadata";
-import {createConnection,Connection, Repository,getRepository} from "typeorm";
+import {createConnection} from "typeorm";
 import * as Koa from 'koa';
 import * as Router from "koa-router";
+import * as bodyParser from "koa-bodyparser"
+import * as passport from "koa-passport"
 import{createKoaServer}from "routing-controllers"
 
-//import Entities
-import {Student}from "./entity/Student"
-import {Admin}from "./entity/Admin"
-import {Counsellor}from "./entity/Counsellor"
 //import Controllers
 import { StudentController } from "./controllers/StudentController";
 import { UIController } from "./controllers/UIController";
+import {AdminController} from "./controllers/AdminController"
 
  const app:Koa=createKoaServer({
       routePrefix:"/api",
       // controllers:["/src/controllers/*.ts"],
-    controllers:[UIController,StudentController],
+    controllers:[UIController,StudentController,AdminController],
  })
-// //  const app=new Koa();
+//初始化路由
  const router=new Router();
-
 app.use(router.routes()).use(router.allowedMethods());
-
+//初始化passport
+app.use(passport.initialize()).use(passport.session());
 
  app.use(async (ctx,next)=>{
     console.log("url:",ctx.url)
