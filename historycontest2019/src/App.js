@@ -34,7 +34,7 @@ class App extends React.Component{
     this.setState(obj);
 }
 logout() {
-  this.props.setState({
+  this.setState({
     isWelcome:true,
     isLogin:false,
     isStudent:false,

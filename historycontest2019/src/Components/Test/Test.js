@@ -104,57 +104,63 @@ class Test extends React.Component {
         })
 
         // 试卷获取
-        // this.setState({ isPaperGet: true })
-        // let that = this;
-        // fetch('http://' + that.props.state.host + '/api/student/test', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         "authorization": this.state.userInfo.token,
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: JSON.stringify({
-        //         Username: that.props.state.username,
-        //     })
-        // }
-        // ).then(
-        //     res => { return res.json() }
-        // ).then(
-        //     data => {
-        //         if (data.message == undefined) {
-        //             for (let i = 0; i < 20; i++) {
-        //                 that.state.question[i].title = data.Paper.Choice_question[i].text;
-        //                 let temp = [
-        //                     {
-        //                         text: data.Paper.Choice_question[i].option[0],
-        //                         value: 1
-        //                     },
-        //                     {
-        //                         text: data.Paper.Choice_question[i].option[1],
-        //                         value: 2
-        //                     },
-        //                     {
-        //                         text: data.Paper.Choice_question[i].option[2],
-        //                         value: 3
-        //                     },
-        //                     {
-        //                         text: data.Paper.Choice_question[i].option[3],
-        //                         value: 4
-        //                     }
-        //                 ]
-        //                 that.state.question[i].choice = this.Random(temp);
-        //             }
-        //             for (let i = 20; i < 30; i++) {
-        //                 that.state.question[i].title = data.Paper.Judgment_question[i - 20].text;
-        //             }
-        //             that.setState({ isPaperGet: true });
-        //         }
-        //         else{
-        //             message.error("登陆已过期");
-        //             this.props.logout();
-        //         }
-        //     }
-        // )
+        this.setState({ isPaperGet: true })
+        let that = this;
+        fetch('http://' + that.props.state.host + '/api/student/test', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "authorization": that.props.state.userInfo.token,
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: JSON.stringify({
+                Username: that.props.state.username,
+            })
+        }
+        ).then(
+            res => { return res.json() }
+        ).then(
+            data => {
+                if (data.message == undefined) {
+                    if (data.status == 403) {
+                        message.error("该用户已完成答题");
+                        that.props.logout();
+                    }
+                    else {
+                        for (let i = 0; i < 20; i++) {
+                            that.state.question[i].title = data.Paper.Choice_question[i].text;
+                            let temp = [
+                                {
+                                    text: data.Paper.Choice_question[i].option[0],
+                                    value: 1
+                                },
+                                {
+                                    text: data.Paper.Choice_question[i].option[1],
+                                    value: 2
+                                },
+                                {
+                                    text: data.Paper.Choice_question[i].option[2],
+                                    value: 3
+                                },
+                                {
+                                    text: data.Paper.Choice_question[i].option[3],
+                                    value: 4
+                                }
+                            ]
+                            that.state.question[i].choice = this.Random(temp);
+                        }
+                        for (let i = 20; i < 30; i++) {
+                            that.state.question[i].title = data.Paper.Judgment_question[i - 20].text;
+                        }
+                        that.setState({ isPaperGet: true });
+                    }
+                }
+                else {
+                    message.error("登陆已过期");
+                    this.props.logout();
+                }
+            }
+        )
     }
 
     componentWillUnmount() {
@@ -192,7 +198,7 @@ class Test extends React.Component {
         //         method: 'POST',
         //         mode: 'cors',
         //         headers: {
-        //             "authorization": this.state.userInfo.token,
+        //             "authorization": that.props.state.userInfo.token,
         //             "Content-Type": "application/x-www-form-urlencoded"
         //         },
         //         body: JSON.stringify(data)
@@ -239,7 +245,7 @@ class Test extends React.Component {
                         title="答题须知"
                         centered={true}
                         footer={[
-                            <Button type="primary" loading={!this.state.isPaperGet}
+                            <Button type="primary" //loading={!this.state.isPaperGet}
                                 onClick={() => {
                                     let that = this;
                                     //temp
@@ -250,7 +256,7 @@ class Test extends React.Component {
                                     //         method: 'POST',
                                     //         mode: 'cors',
                                     //         headers: {
-                                    //             "authorization": this.state.userInfo.token,
+                                    //             "authorization": that.props.state.userInfo.token,
                                     //             "Content-Type": "application/x-www-form-urlencoded"
                                     //         },
                                     //         body: JSON.stringify({

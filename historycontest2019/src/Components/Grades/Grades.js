@@ -16,11 +16,7 @@ class Grades extends React.Component {
             name: this.props.state.userInfo.name
         }
 
-
-        this.logout = this.logout.bind(this);
-        // test.question.forEach((x, i) => {
-        //     this.state.question[i] = x;
-        // });
+    
     }
     componentWillMount() {
         //测试初始化
@@ -35,7 +31,7 @@ class Grades extends React.Component {
         //             method: 'POST',
         //             mode: 'cors',
         //             headers: {
-        //                 "authorization": this.state.userInfo.token,
+        //                 "authorization": that.props.state.userInfo.token,
         //                 "Content-Type": "application/x-www-form-urlencoded"
         //             },
         //             body: JSON.stringify({
@@ -61,7 +57,7 @@ class Grades extends React.Component {
         //             method: 'POST',
         //             mode: 'cors',
         //             headers: {
-        //                 "authorization": this.state.userInfo.token,
+        //                 "authorization": that.props.state.userInfo.token,
         //                 "Content-Type": "application/x-www-form-urlencoded"
         //             },
         //             body: JSON.stringify({
@@ -113,26 +109,7 @@ class Grades extends React.Component {
     onmouseover(i) {
         this.setState({ focusOn: i })
     }
-    logout() {
-        this.props.setState({
-            isWelcome: true,
-            isLogin: false,
-            isStudent: false,
-            isAllDone: false,
-            isAdmin: false,
-            isTeacher: false,
-            host: "",
-            userInfo:
-            {
-                name: '',
-                username: "",
-                token: '',
-                access: -1,
-                score: -1
-            },
-            answer: []
-        })
-    }
+
     render() {
         let style = {
             display: 'block',
@@ -154,12 +131,12 @@ class Grades extends React.Component {
                             </Col>
                             <Col span={4} offset={4}>
                                 <div style={{ marginTop: "15px" }}>
-                                    <Timer min={2} sec={59} finish={this.logout} info={"距离自动注销 : "} />
+                                    <Timer min={2} sec={59} finish={this.props.logout} info={"距离自动注销 : "} />
                                 </div>
                             </Col>
                             <Col span={2}>
                                 <div style={{ marginTop: "15px" }}>
-                                    <Button ghost type="danger" onClick={this.logout}><Icon type="logout" />退出</Button>
+                                    <Button ghost type="danger" onClick={this.props.logout}><Icon type="logout" />退出</Button>
                                 </div>
                             </Col>
                         </Row>
