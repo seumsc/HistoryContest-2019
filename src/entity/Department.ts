@@ -1,21 +1,23 @@
-import { Entity,BaseEntity,PrimaryColumn,Column }from "typeorm"
-import { isDate } from "util";
+import { Entity,BaseEntity,PrimaryGeneratedColumn,Column }from "typeorm"
 
 @Entity()
 export class Department extends BaseEntity{
 
-    @PrimaryColumn()
-    id:number;
+    @PrimaryGeneratedColumn()
+    test:number;
 
+    @Column()
+    id:number;
+    
     @Column()
     name:string;
 
-    @Column()
+    @Column({default:0})
     average:number;
 
-    @Column()
+    @Column({default:0})
     tested_number:number;
     
-    @Column()
+    @Column({default:0})
     total_number:number;
 }

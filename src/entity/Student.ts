@@ -34,8 +34,11 @@ export class Student extends BaseEntity{
     @Column({default:null})//开始时间，格式为Date!!!!!!!
     time_start:Date;
 
-    @Column({type:"json",default:null})//答题试卷
-    paper:{Choice_question:ChoiceQuestion[],Judgment_question:JudgmentQuestion[]};
+    @Column({type:"simple-array",default:null})
+    choice_question:number[];
+
+    @Column({type:"simple-array",default:null})
+    judgment_question:number[];
 
     @Column({type:"simple-array",default:null})//选择题答题
     answers_choice:number[];

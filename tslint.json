@@ -38,7 +38,9 @@
         ],
         "prefer-const": false,
         "ordered-imports": false,
-        "no-console": false
+        "no-console": false,
+        "max-line-length": false,
+        "object-literal-sort-keys":false
     },
     "rulesDirectory": []
 }

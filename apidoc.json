@@ -3,5 +3,5 @@
     "title": "apidocs",
     "description": "Apidocs of History Contest for 2019 Students",
     "url" : "http://localhost:8080/apidoc",
-    "version": "0.0.1"
+    "version": "0.1.1"
 }
