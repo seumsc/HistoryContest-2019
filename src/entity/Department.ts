@@ -7,7 +7,7 @@ export class Department extends BaseEntity{
     test:number;
 
     @Column()
-    id:number;
+    id:string;
     
     @Column()
     name:string;

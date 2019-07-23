@@ -1,17 +1,18 @@
-import {Controller, Ctx, Post} from 'routing-controllers'
-import {ChoiceQuestion} from '../entity/ChoiceQuestion'
-import {JudgmentQuestion} from '../entity/JudgmentQuestion'
-import {Student} from '../entity/Student'
-import {Context} from 'koa'
-import {RandomArr} from '../utils/RandomArray'
+import { Controller, Ctx, Post, UseBefore } from 'routing-controllers'
+import { ChoiceQuestion } from '../entity/ChoiceQuestion'
+import { JudgmentQuestion } from '../entity/JudgmentQuestion'
+import { Student } from '../entity/Student'
+import { Context } from 'koa'
+import { RandomArr } from '../utils/RandomArray'
+import * as verify from '../config/Verify'
 
 @Controller('/student')
 export class StudentController {
 	/**
-	 * @api {post} /student/test 1. Post Student Test Paper
+	 * @api {post} /student/test Post a test paper to Student
 	 * @apiName post
 	 * @apiGroup StudentAPIs
-	 * @apiVersion 0.0.3
+	 * @apiVersion 0.2.1
 	 * @apiDescription By using this api, the front end can post a test paper
 	 * for the objected student.
 	 * If the student has not answered any paper, a randomly constructed paper
@@ -26,11 +27,38 @@ export class StudentController {
 	 * @apiError (403) {Context} ctx Return the context with a 403 status.
 	 * @apiError (403) {Number} ctx:status Return the error status.
 	 * @apiPermission student
+	 * @apiExample {fetch} Example usage:
+	 * fetch(http://server_host/api/student/test, {
+	 *     method: 'POST',
+	 *     mode: 'cors',
+	 *     headers: {
+	 *       "authorization": xxx.token,
+	 *       "Content-Type": "application/x-www-form-urlencoded"
+	 *     },
+	 *     body: JSON.stringify({
+	 *         Username: xxx.username
+	 *      }
+	 *     )
+	 *   }
+	 * )
+	 * @apiSuccessExample {json} Success-Response:
+	 * HTTP/1.1 200 Successfully Post Test Paper
+	 * {
+	 *   Paper: {
+	 *     Choice_question: [...],
+	 *     Judgment_question: [...]
+	 *   }
+	 * }
+	 * ctx.status = 200
+	 * @apiErrorExample {status} Error-Response:
+	 * HTTP/1.1 403 Test Paper Finished
+	 * ctx.status = 403
 	 */
+	@UseBefore(verify.verifyToken_Student, verify.verifyToken_Username)
 	@Post('/test')
 	public async post(@Ctx() ctx: Context) {
 		// 获取前端发送的用户名
-		let stu: Student = await await Student.findOne({username: ctx.request.body.Username})
+		let stu: Student = await await Student.findOne({ username: ctx.request.body.Username })
 		// 尚未答题
 		if (stu.score === -1) {
 			// 生成两个随机数组，应用为选择题和判断题的序号
@@ -38,9 +66,9 @@ export class StudentController {
 			let arr2: number[] = await RandomArr(100, 10)
 			// 通过数组获取选择题与判断题
 			let questionarr1: any[] = await ChoiceQuestion.findByIds(
-				arr, {select: ['text', 'options', 'answer']})
+				arr, { select: ['text', 'options', 'answer'] })
 			let questionarr2: any[] = await JudgmentQuestion.findByIds(
-				arr, {select: ['text', 'answer']})
+				arr, { select: ['text', 'answer'] })
 			// 将题目(包括题干，选项，答案)保存在用户的paper对象中
 			stu.paper.Choice_question = questionarr1
 			stu.paper.Judgment_question = questionarr2
@@ -50,7 +78,7 @@ export class StudentController {
 				Paper: {
 					Choice_question: await (
 						questionarr1.map(
-							a => {
+							(a) => {
 								delete a.answer
 								return a
 							}
@@ -74,10 +102,10 @@ export class StudentController {
 	}
 
 	/**
-	 * @api {post} /student/start 2. Enable Student to Start the Test
+	 * @api {post} /student/start Start Student's test
 	 * @apiName start
 	 * @apiGroup StudentAPIs
-	 * @apiVersion 0.0.3
+	 * @apiVersion 0.2.1
 	 * @apiDescription By using this api, the front end will tell the back end
 	 * the student's username. After that, the back end will record his/her start
 	 * time, which is used to supervise his/her total test time, and allow the
@@ -92,20 +120,43 @@ export class StudentController {
 	 * @apiError (403) {Context} ctx Return the context with an error.
 	 * @apiError (403) {KeyError} ctx:body The student's username is not found.
 	 * @apiPermission student
+	 * @apiExample {fetch} Example usage:
+	 * fetch(http://server_host/api/student/start, {
+	 *     method: 'POST',
+	 *     mode: 'cors',
+	 *     headers: {
+	 *       "authorization": xxx.token,
+	 *       "Content-Type": "application/x-www-form-urlencoded"
+	 *     },
+	 *     body: JSON.stringify({
+	 *         Username: xxx.username
+	 *      }
+	 *     )
+	 *   }
+	 * )
+	 * @apiSuccessExample {json} Success-Response:
+	 * HTTP/1.1 200 Accept Starting to Test
+	 * {
+	 *   msg: 'start testing'
+	 * }
+	 * ctx.status = 200
+	 * @apiErrorExample {error} Error-Response:
+	 * HTTP/1.1 403 Student Not Found
+	 * ctx.body = error
 	 */
 	@Post('/start')
 	public async start(@Ctx() ctx: Context) {
 		let d = new Date()
 		try {
-			await Student.findOne({username: ctx.request.body.Username})
-		.then(
-				async (stu) => {
-					stu.time_use = (d.getTime() - 1560000000000) / 1000
-					stu.time_start = new Date()
-					await Student.update(stu.id, stu)
-				}
-			)
-			ctx.body = {msg: 'start testing'}
+			await Student.findOne({ username: ctx.request.body.Username })
+				.then(
+					async (stu) => {
+						stu.time_use = (d.getTime() - 1560000000000) / 1000
+						stu.time_start = new Date()
+						await Student.update(stu.id, stu)
+					}
+				)
+			ctx.body = { msg: 'start testing' }
 		} catch (error) {
 			ctx.body = error
 		}
@@ -113,10 +164,10 @@ export class StudentController {
 	}
 
 	/**
-	 * @api {post} /student/handin 3. Enable Student to Handin his/her Paper
+	 * @api {post} /student/handin Handin Student's answers
 	 * @apiName handin
 	 * @apiGroup StudentAPIs
-	 * @apiVersion 0.0.2
+	 * @apiVersion 0.2.1
 	 * @apiDescription By using this api, the front end will tell the back end
 	 * the student's username and his/her answers. After that, the back end will
 	 * calculate his/her spent time. If the spent time is over 30 mins, we do not
@@ -133,11 +184,35 @@ export class StudentController {
 	 * @apiError (403) {Context} ctx Return the context with a 403 status.
 	 * @apiError (403) {Number} ctx:status Return the error status 403.
 	 * @apiPermission student
+	 * @apiExample {fetch} Example usage:
+	 * fetch(http://server_host/api/student/handin, {
+	 *     method: 'POST',
+	 *     mode: 'cors',
+	 *     headers: {
+	 *       "authorization": xxx.token,
+	 *       "Content-Type": "application/x-www-form-urlencoded"
+	 *     },
+	 *     body: JSON.stringify({
+	 *         Username: xxx.username
+	 *         Answers: xxx.answers
+	 *      }
+	 *     )
+	 *   }
+	 * )
+	 * @apiSuccessExample {json} Success-Response:
+	 * HTTP/1.1 200 Score Accessible
+	 * {
+	 *   Score: student.score
+	 * }
+	 * ctx.status = 200
+	 * @apiErrorExample {status} Error-Response:
+	 * HTTP/1.1 403 Over Time or Test Finished
+	 * ctx.status = 403
 	 */
 	@Post('/handin')
 	public async handin(@Ctx() ctx: Context) {
 		let d = new Date()
-		let stu: Student = await Student.findOne({username: ctx.request.body.Username})
+		let stu: Student = await Student.findOne({ username: ctx.request.body.Username })
 		if (
 			((stu.time_use !== -1) && ((d.getTime() - 1560000000000) / 1000 - stu.time_use > 1800)) ||
 			(stu.score !== -1)
@@ -146,25 +221,25 @@ export class StudentController {
 		} else {
 			stu.score = 0
 			for (let i = 0; i < 20; i += 1) {
-				if (ctx.request.body.answer[i] === stu.answers_choice[i]) {
+				if (ctx.request.body.Answer[i] === stu.answers_choice[i]) {
 					stu.score += 4
 				}
 			}
 			for (let i = 0; i < 10; i += 1) {
-				if (ctx.request.body.answer[i + 20] === stu.answers_judgment[i]) {
+				if (ctx.request.body.Answer[i + 20] === stu.answers_judgment[i]) {
 					stu.score += 2
 				}
 			}
 			await Student.update(stu.id, stu)
-			ctx.body = {Score: stu.score}
+			ctx.body = { Score: stu.score }
 		}
 	}
 
 	/**
-	 * @api {post} /student/result_handin 4. Enable Student to Check Correct Answers
+	 * @api {post} /student/result_handin Correct Student's answers
 	 * @apiName result1
 	 * @apiGroup StudentAPIs
-	 * @apiVersion 0.0.1
+	 * @apiVersion 0.2.1
 	 * @apiDescription By using this api, the front end will tell the back end
 	 * the student's username. After that, the back end will access the data base
 	 * and show the correct answers of his/her test paper.
@@ -175,22 +250,41 @@ export class StudentController {
 	 * @apiSuccess (200) {Number[]} ctx:body:Answer Return the correct answers in the
 	 * response body.
 	 * @apiPermission student
+	 * @apiExample {fetch} Example usage:
+	 * fetch(http://server_host/api/student/result_handin, {
+	 *     method: 'POST',
+	 *     mode: 'cors',
+	 *     headers: {
+	 *       "authorization": xxx.token,
+	 *       "Content-Type": "application/x-www-form-urlencoded"
+	 *     },
+	 *     body: JSON.stringify({
+	 *         Username: xxx.username
+	 *      }
+	 *     )
+	 *   }
+	 * )
+	 * @apiSuccessExample {json} Success-Response:
+	 * HTTP/1.1 200 Answers Accessible
+	 * {
+	 *   Answer: [...]
+	 * }
 	 */
 	@Post('/result_handin')
 	public async result1(@Ctx() ctx: Context) {
-		let stu: Student = await Student.findOne({username: ctx.request.body.Username})
-		let questionarr1 = await ChoiceQuestion.findByIds(stu.choice_question, {select: ['answer']})
-		let questionarr2 = await JudgmentQuestion.findByIds(stu.judgment_question, {select: ['answer']})
+		let stu: Student = await Student.findOne({ username: ctx.request.body.Username })
+		let questionarr1 = await ChoiceQuestion.findByIds(stu.choice_question, { select: ['answer'] })
+		let questionarr2 = await JudgmentQuestion.findByIds(stu.judgment_question, { select: ['answer'] })
 		let arr = await questionarr1.map((a) => a.answer)
 		let arr2 = await questionarr2.map((a) => a.answer)
-		ctx.body = {Answer: arr.concat(arr2)}
+		ctx.body = { Answer: arr.concat(arr2) }
 	}
 
 	/**
-	 * @api {post} /student/result 5. Enable Users to Check the Whole Test Products
+	 * @api {post} /student/result Output Student's all products
 	 * @apiName result
 	 * @apiGroup StudentAPIs
-	 * @apiVersion 0.0.1
+	 * @apiVersion 0.2.1
 	 * @apiDescription By using this api, the front end will tell the back end
 	 * the student's username. After that, the back end will access the data base
 	 * and show all products of the test to the user, including the student's
@@ -206,12 +300,39 @@ export class StudentController {
 	 * judgment answers of the student and the correct judgment answers of his/her test paper.
 	 * @apiSuccess (200) {Number} ctx:body:Score Return the score of the objected student.
 	 * @apiPermission student, admin, counsellor
+	 * @apiExample {fetch} Example usage:
+	 * fetch(http://server_host/api/student/result, {
+	 *     method: 'POST',
+	 *     mode: 'cors',
+	 *     headers: {
+	 *       "authorization": xxx.token,
+	 *       "Content-Type": "application/x-www-form-urlencoded"
+	 *     },
+	 *     body: JSON.stringify({
+	 *         Username: xxx.username
+	 *      }
+	 *     )
+	 *   }
+	 * )
+	 * @apiSuccessExample {json} Success-Response:
+	 * HTTP/1.1 200 Products Accessible
+	 * {
+	 *   Answer: {
+	 *     Choice_answers: [...],
+	 *     Judgment_answers: [...]
+	 *   },
+	 *   Paper: {
+	 *     Choice_question: [...],
+	 *     Judgment_question: [...]
+	 *   },
+	 *   Score: student.score
+	 * }
 	 */
 	@Post('/result')
 	public async result(@Ctx() ctx: Context) {
-		let stu: Student = await Student.findOne({username: ctx.request.body.Username})
-		let questionarr1: any[] = await ChoiceQuestion.findByIds(stu.choice_question, {select: ['text', 'options', 'answer']})
-		let questionarr2: any[] = await JudgmentQuestion.findByIds(stu.judgment_question, {select: ['text', 'answer']})
+		let stu: Student = await Student.findOne({ username: ctx.request.body.Username })
+		let questionarr1: any[] = await ChoiceQuestion.findByIds(stu.choice_question, { select: ['text', 'options', 'answer'] })
+		let questionarr2: any[] = await JudgmentQuestion.findByIds(stu.judgment_question, { select: ['text', 'answer'] })
 		ctx.body = {
 			Answer: {
 				Choice_answers: stu.answers_choice,
