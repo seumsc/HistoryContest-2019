@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Card, Row, Col, Layout, Icon, Radio, Button, message } from 'antd';
+import { Card, Row, Col, Layout, Icon, Radio, Button} from 'antd';
 import Timer from "../Timer/Timer"
 import BG from '../../img/图片2.jpg'
 
@@ -88,7 +88,7 @@ class Grades extends React.Component {
         //                         value: 4
         //                     }
         //                 ]
-        //                 that.state.name = data.Name;
+        //                
         //                 that.state.question[i].value = data.Paper.Choice_question[i].value;
         //                 that.state.question[i].answer = data.Answer.Choice_answer[i];
         //             }

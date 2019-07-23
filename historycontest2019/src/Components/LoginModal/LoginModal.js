@@ -1,6 +1,6 @@
 import React from 'react';
 import "antd/dist/antd.css";
-import { Icon, Button, Input, Modal, message, Dropdown, Menu, Form } from 'antd';
+import { Icon, Button, Input, Modal, message, Dropdown, Menu} from 'antd';
 import bg from '../../img/VerifyCodeBG.png'
 
 class LoginModal extends React.Component {
@@ -115,6 +115,9 @@ class LoginModal extends React.Component {
         //                         isTeacher: true,
         //                         userInfo: {
         //                             token: data.Token,
+        //                             name:data.Name,
+        //                             departId:data.Id,
+        //                             depart:data.Department,
         //                             access: 2
         //                         }
         //                     })
@@ -125,6 +128,8 @@ class LoginModal extends React.Component {
         //                         isAdmin: true,
         //                         userInfo: {
         //                             token: data.Token,
+        //                             name:data.Name, 
+        //                             depart:"竞赛"
         //                             access: 1
         //                         }
         //                     })
