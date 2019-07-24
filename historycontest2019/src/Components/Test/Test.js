@@ -118,63 +118,63 @@ class Test extends React.Component {
             this.state.question[i+20] = x
         })
         //试卷获取
-        this.setState({ isPaperGet: true })
-        let that = this;
-        fetch('http://' + that.props.state.host + '/api/student/test', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                "authorization": that.props.state.userInfo.token,
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: JSON.stringify({
-                Username: that.props.state.username,
-            })
-        }
-        ).then(
-            res => { return res.json()}
-        ).then(
-            data => {
-                if (data.message == undefined) {
-                    if (data.status == 403) {
-                        message.error("错误!该用户已完成答题");
-                        that.props.logout();
-                    }
-                    else {
-                        for (let i = 0; i < 20; i++) {
-                            that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]].title;
-                            let temp = [
-                                {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][0],
-                                    value: 1
-                                },
-                                {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][1],
-                                    value: 2
-                                },
-                                {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][2],
-                                    value: 3
-                                },
-                                {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][3],
-                                    value: 4
-                                }
-                            ]
-                            that.state.question[i].option = this.Random(temp);
-                        }
-                        for (let i = 20; i < 30; i++) {
-                            that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]].title;
-                        }
-                        that.setState({ isPaperGet: true });
-                    }
-                }
-                else {
-                    message.error("登陆已过期");
-                    this.props.logout();
-                }
-            }
-        )
+        // this.setState({ isPaperGet: true })
+        // let that = this;
+        // fetch('http://' + that.props.state.host + '/api/student/test', {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     headers: {
+        //         "authorization": that.props.state.userInfo.token,
+        //         "Content-Type": "application/x-www-form-urlencoded"
+        //     },
+        //     body: JSON.stringify({
+        //         Username: that.props.state.username,
+        //     })
+        // }
+        // ).then(
+        //     res => { return res.json()}
+        // ).then(
+        //     data => {
+        //         if (data.message == undefined) {
+        //             if (data.status == 403) {
+        //                 message.error("错误!该用户已完成答题");
+        //                 that.props.logout();
+        //             }
+        //             else {
+        //                 for (let i = 0; i < 20; i++) {
+        //                     that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]].title;
+        //                     let temp = [
+        //                         {
+        //                             text: allChoiceQuestion[data.Paper.Choice_question[i]][option][0],
+        //                             value: 1
+        //                         },
+        //                         {
+        //                             text: allChoiceQuestion[data.Paper.Choice_question[i]][option][1],
+        //                             value: 2
+        //                         },
+        //                         {
+        //                             text: allChoiceQuestion[data.Paper.Choice_question[i]][option][2],
+        //                             value: 3
+        //                         },
+        //                         {
+        //                             text: allChoiceQuestion[data.Paper.Choice_question[i]][option][3],
+        //                             value: 4
+        //                         }
+        //                     ]
+        //                     that.state.question[i].choice = this.Random(temp);
+        //                 }
+        //                 for (let i = 20; i < 30; i++) {
+        //                     that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]].title;
+        //                 }
+        //                 that.setState({ isPaperGet: true });
+        //             }
+        //         }
+        //         else {
+        //             message.error("登陆已过期");
+        //             this.props.logout();
+        //         }
+        //     }
+        // )
     }
 
     componentWillUnmount() {
