@@ -4,28 +4,40 @@ import { Row, Col, Icon, Tabs, Button, Modal, Layout, Badge, message } from 'ant
 import 'antd/dist/antd.css';
 import './Test.css';
 import bg1 from '../../img/background1.png';
-import bg2 from '../../img/background2.png';
-import bg3 from '../../img/background3.png';
-import bg4 from '../../img/background4.jpg';
-import bg5 from '../../img/background5.jpg';
-import bg6 from '../../img/background6.jpg';
-import bg7 from '../../img/background7.jpg';
-import bg8 from '../../img/background8.jpg';
-import bg9 from '../../img/background9.jpg';
-import bg10 from '../../img/background10.jpg';
-import bg11 from '../../img/background11.jpg';
+// import bg2 from '../../img/background2.png';
+// import bg3 from '../../img/background3.png';
+// import bg4 from '../../img/background4.jpg';
+// import bg5 from '../../img/background5.jpg';
+// import bg6 from '../../img/background6.jpg';
+// import bg7 from '../../img/background7.jpg';
+// import bg8 from '../../img/background8.jpg';
+// import bg9 from '../../img/background9.jpg';
+// import bg10 from '../../img/background10.jpg';
+// import bg11 from '../../img/background11.jpg';
 import BG from '../../img/图片2.jpg'
 import mark from '../../img/校徽实体.png'
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
 import TrueFalse from '../TrueFalse/TrueFalse';
+const bg2=React.lazy(()=>import ('../../img/background2.png'))
+const bg3=React.lazy(()=>import ('../../img/background3.png'))
+const bg4=React.lazy(()=>import ('../../img/background4.jpg'))
+const bg5=React.lazy(()=>import ('../../img/background5.jpg'))
+const bg6=React.lazy(()=>import ('../../img/background6.jpg'))
+const bg7=React.lazy(()=>import ('../../img/background7.jpg'))
+const bg8=React.lazy(()=>import ('../../img/background8.jpg'))
+const bg9=React.lazy(()=>import ('../../img/background9.jpg'))
+const bg10=React.lazy(()=>import ('../../img/background10.jpg'))
+const bg11=React.lazy(()=>import ('../../img/background11.jpg'))
+
 
 
 
 let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
 const { TabPane } = Tabs;
 const { Header, Footer, Sider, Content } = Layout;
-const testQuestion = require("./question-test.json")
+const allChoiceQuestion = require("./question-test1.json")
+const allJudgeQuestion = require("./question-test2.json")
 class Test extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +53,7 @@ class Test extends React.Component {
                 isFinish: false,
                 kind: "选择题",
                 title: "",
-                choice: [{}, {}, {}, {}],
+                option: [{}, {}, {}, {}],
                 value: -1
             });
         }
@@ -50,7 +62,7 @@ class Test extends React.Component {
                 isFinish: false,
                 kind: "判断题",
                 title: "",
-                choice: ['√', '×'],
+                option: ['√', '×'],
                 value: -1
             });
         }
@@ -99,68 +111,70 @@ class Test extends React.Component {
     }
     componentWillMount() {
         //测试初始化
-        testQuestion.question.forEach((x, i) => {
+        allChoiceQuestion.question.forEach((x, i) => {
             this.state.question[i] = x
         })
-
-        // 试卷获取
-        // this.setState({ isPaperGet: true })
-        // let that = this;
-        // fetch('http://' + that.props.state.host + '/api/student/test', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         "authorization": that.props.state.userInfo.token,
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: JSON.stringify({
-        //         Username: that.props.state.username,
-        //     })
-        // }
-        // ).then(
-        //     res => { return res.json() }
-        // ).then(
-        //     data => {
-        //         if (data.message == undefined) {
-        //             if (data.status == 403) {
-        //                 message.error("该用户已完成答题");
-        //                 that.props.logout();
-        //             }
-        //             else {
-        //                 for (let i = 0; i < 20; i++) {
-        //                     that.state.question[i].title = data.Paper.Choice_question[i].text;
-        //                     let temp = [
-        //                         {
-        //                             text: data.Paper.Choice_question[i].option[0],
-        //                             value: 1
-        //                         },
-        //                         {
-        //                             text: data.Paper.Choice_question[i].option[1],
-        //                             value: 2
-        //                         },
-        //                         {
-        //                             text: data.Paper.Choice_question[i].option[2],
-        //                             value: 3
-        //                         },
-        //                         {
-        //                             text: data.Paper.Choice_question[i].option[3],
-        //                             value: 4
-        //                         }
-        //                     ]
-        //                     that.state.question[i].choice = this.Random(temp);
-        //                 }
-        //                 for (let i = 20; i < 30; i++) {
-        //                     that.state.question[i].title = data.Paper.Judgment_question[i - 20].text;
-        //                 }
-        //                 that.setState({ isPaperGet: true });
-        //             }
-        //         }
-        //         else {
-        //             message.error("登陆已过期");
-        //             this.props.logout();
-        //         }
-        //     }
-        // )
+        allChoiceQuestion.question.forEach((x, i) => {
+            this.state.question[i+20] = x
+        })
+        //试卷获取
+        this.setState({ isPaperGet: true })
+        let that = this;
+        fetch('http://' + that.props.state.host + '/api/student/test', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "authorization": that.props.state.userInfo.token,
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: JSON.stringify({
+                Username: that.props.state.username,
+            })
+        }
+        ).then(
+            res => { return res.json()}
+        ).then(
+            data => {
+                if (data.message == undefined) {
+                    if (data.status == 403) {
+                        message.error("错误!该用户已完成答题");
+                        that.props.logout();
+                    }
+                    else {
+                        for (let i = 0; i < 20; i++) {
+                            that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]].title;
+                            let temp = [
+                                {
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][0],
+                                    value: 1
+                                },
+                                {
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][1],
+                                    value: 2
+                                },
+                                {
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][2],
+                                    value: 3
+                                },
+                                {
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][3],
+                                    value: 4
+                                }
+                            ]
+                            that.state.question[i].option = this.Random(temp);
+                        }
+                        for (let i = 20; i < 30; i++) {
+                            that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]].title;
+                        }
+                        that.setState({ isPaperGet: true });
+                    }
+                }
+                else {
+                    message.error("登陆已过期");
+                    this.props.logout();
+                }
+            }
+        )
     }
 
     componentWillUnmount() {
