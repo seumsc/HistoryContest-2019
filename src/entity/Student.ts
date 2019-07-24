@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, UpdateDateColumn} from "typeorm";
 import { SSL_OP_NO_COMPRESSION } from "constants";
 import {ChoiceQuestion} from "./ChoiceQuestion";
 import {JudgmentQuestion} from "./JudgmentQuestion"
@@ -45,4 +45,7 @@ export class Student extends BaseEntity{
 
     @Column({type:"simple-array",default:null})//判断题答题
     answers_judgment:number[];
+
+    @UpdateDateColumn()
+    updateDate:Date;
 }

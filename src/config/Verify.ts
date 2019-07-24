@@ -16,10 +16,6 @@ export async function verifyToken_Student(ctx,next){
             ctx.status = 200
             await next()
         }
-        else{ctx.status =400;
-            ctx.body={msg:"failed"}
-            return ctx
-            }
     } catch(err){
         ctx.body= err;
     }

@@ -30,11 +30,11 @@ export class StudentController{
         //将题目(包括题干，选项，答案)保存在用户的paper对象中
         stu.choice_question=arr;
         stu.judgment_question=arr2;
-        ctx.status=200;
+        ctx.body.status=200;
         //除去题目的答案属性输出，Paper属性对象含有Choice_question与Judgment_question两个属性分别为选择题数组，判断题数组
         ctx.body={Paper:{Choice_question:await (questionarr1.map(a=>{delete a.answer;return a})),Judgment_question:await (questionarr2.map(a=>{delete a.answer;return a}))}}
         await Student.update(stu.id,stu)}//更新用户数据
-        else{ctx.status=403}
+        else{ctx.body.status=403}
         return ctx;
     }
 
@@ -66,20 +66,20 @@ export class StudentController{
         let d=new Date()
         let stu:Student=await Student.findOne({username:ctx.request.body.Username})
         if(((stu.time_use!=-1)&&((d.getTime()-1560000000000)/1000-stu.time_use>1800))||(stu.score!=-1))
-        {ctx.status=403}
+        {ctx.body.status=403}
         else{
             stu.score=0;
             for(let i=0;i<20;i++)
             {
-                if(ctx.request.body.answer[i]==stu.answers_choice[i])
+                if(ctx.request.body.Answer[i]==stu.answers_choice[i])
                     stu.score+=4;
             }
             for(let i=0;i<10;i++)
             {
-                if(ctx.request.body.answer[i+20]==stu.answers_judgment[i])
+                if(ctx.request.body.Answer[i+20]==stu.answers_judgment[i])
                     stu.score+=2;
             }
-            let de=await Department.findOne({id:parseInt(stu.department)})
+            let de=await Department.findOne({id:stu.department})
             const n:number=de.average*de.tested_number;
             de.tested_number+=1;
             de.average=(n+stu.score)/de.tested_number;

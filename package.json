@@ -28,6 +28,17 @@
     "ts-node": "^8.3.0",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.18",
-    "typescript": "^3.5.3"
-  }
+    "typescript": "^3.5.3",
+    "validator": "^11.1.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HHHKKKHHH/HistoryContest-2019.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/HHHKKKHHH/HistoryContest-2019/issues"
+  },
+  "homepage": "https://github.com/HHHKKKHHH/HistoryContest-2019#readme"
 }

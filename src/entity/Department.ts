@@ -1,4 +1,4 @@
-import { Entity,BaseEntity,PrimaryGeneratedColumn,Column }from "typeorm"
+import { Entity,BaseEntity,PrimaryGeneratedColumn,Column,UpdateDateColumn }from "typeorm"
 
 @Entity()
 export class Department extends BaseEntity{
@@ -7,7 +7,7 @@ export class Department extends BaseEntity{
     test:number;
 
     @Column()
-    id:number;
+    id:string;
     
     @Column()
     name:string;
@@ -20,4 +20,7 @@ export class Department extends BaseEntity{
     
     @Column({default:0})
     total_number:number;
+
+    @UpdateDateColumn()
+    updatedDate:Date;
 }
