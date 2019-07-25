@@ -10,6 +10,8 @@ import { StudentController } from "./controllers/StudentController";
 import { UIController } from "./controllers/UIController";
 import {AdminController} from "./controllers/AdminController"
 import {Port}from "./config/config"
+import {Admin} from "./entity/Admin"
+
  const app:Koa=createKoaServer({
       routePrefix:"/api",
       // controllers:["/src/controllers/*.ts"],
@@ -32,6 +34,11 @@ app.listen(`${Port}`,()=>{
 })
 
 createConnection().then(async connection => {
-    console.log("connected successfully!") 
+  // let user=new Admin()
+  //   user.username="71118118";
+  //   user.password="213183580"
+  //   user.name="任栗晗"
+  //   Admin.save(user);  
+  console.log("connected successfully!") 
   })
 .catch(error => console.log(error))
