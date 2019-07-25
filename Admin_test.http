@@ -1,0 +1,16 @@
+POST http://localhost:5000/api/admin/getBydepartment
+Content-Type: application/json
+
+{
+    "department":"71"
+}
+
+###测试修改信息
+POST http://localhost:5000/api/admin/reset
+Content-Type: application/json
+
+{
+    "Username":"71118118",
+    "Name":"任栗晗",
+    "Password":"213183580"
+}
