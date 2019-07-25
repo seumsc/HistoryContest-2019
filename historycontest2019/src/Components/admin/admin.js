@@ -1,9 +1,10 @@
 import React from 'react';
-import { Row, Col, Icon, Button, Modal, Layout,  Table, Descriptions, Input, Tag, message, Dropdown, Menu } from 'antd';
+import { Row, Col, Icon, Button, Modal, Layout,  Table, Descriptions, Input, Tag, message, Dropdown, Menu,Popover } from 'antd';
 import 'antd/dist/antd.css';
 import mark from '../../img/校徽实体.png'
 
 const { Header, Footer, Sider, Content } = Layout;
+const departInfo = require("./departTest.json")
 class Admin extends React.Component {
     constructor(props) {
         super(props);
@@ -69,7 +70,11 @@ class Admin extends React.Component {
     }
     async get() {
         let that = this;
-        //测试
+        //测试院系数据
+        Object.keys(departInfo).map((inst,i)=>{
+            departInfo[inst]["均分"]=90.00;
+        })
+        //测试学生数据
         const testdata = await require("./Students.json");
         const testdata2 = await require("./student.json");
         let temp={};
@@ -388,7 +393,6 @@ class Admin extends React.Component {
                     }
                 },
             },
-
             {
                 title: "用时",
                 dataIndex: "用时",
@@ -400,7 +404,7 @@ class Admin extends React.Component {
                 },
             },
             {
-                title: "本院系排名",
+                title: "本院排名",
                 dataIndex: "排名",
                 key: "排名",
                 width: "12%",
@@ -411,11 +415,42 @@ class Admin extends React.Component {
                 title: "答题详情",
                 dataIndex: "答题详情",
                 key: "答题详情",
-                width: "30%",
+                width: "10%",
                 render(e) {
 
                 },
             },
+        ]
+        let titleDepart=[
+            {
+                title:"排名",
+                dataIndex:"排名",
+                key:"排名",
+                width:"20%",
+            },
+            {
+                title:"学院",
+                dataIndex:"学院",
+                key:"学院",
+                width:"60%",
+                // render:(data)=>(<div>
+                //     <Popover title="院系数据" trigger="hover" content={<div>
+                //     <p>均分: {departInfo[data].average}</p>
+                //     <p>总人数:{departInfo[data].num}</p>
+                //     </div>
+                //     }>
+                //         <Button type="default"  size="samll" ><Icon type="search"/></Button>
+                //     </Popover>
+                //     {data}
+                //     </div>
+                // )
+            },
+            {
+                title:"均分",
+                dataIndex:"均分",
+                key:"均分",
+                width:"20%"
+            }
         ]
         return (
             <React.Fragment>
@@ -457,7 +492,7 @@ class Admin extends React.Component {
                     visible={this.state.reset.Visible}
                 >
                     {this.state.reset.attemp == "修改一卡通" && <div>
-                        <p><Icon type="exclamation" />推荐先在详细列表中, 利用搜索功能确定该学生具体de 信息错误处</p>
+                        <p><Icon type="exclamation" />推荐先在详细列表中, 利用搜索功能确定该学生具体的信息错误处</p>
                         <Input id="username" addonBefore=" 姓名 " placeholder="需要修改的账户(姓名)" allowClear onChange={(e) => { this.setState({ reset: { name: e.target.value } }) }}></Input>
                         <p></p>
                         <Input id="username" addonBefore=" 账户 " placeholder="需要修改的账户(学号)" allowClear onChange={(e) => { this.setState({ reset: { username: e.target.value } }) }}></Input>
@@ -508,7 +543,14 @@ class Admin extends React.Component {
                     </Header>
                     <Content>
                         <Row>
-                            <Col span={20} offset={2}>
+                            <Col span={5}><Table columns={titleDepart} dataSource={Object.keys(departInfo).map((inst,i)=>(
+                                {
+                                    "学院":inst,
+                                    "排名":i,
+                                    "均分":departInfo[inst]["均分"]
+                                }
+                            ))}></Table></Col>
+                            <Col span={18} >
                                 <Descriptions bordered title={
                                     <Row>
                                         <Col span={5}><p style={{ fontSize: "30px", marginTop: '20px' }}>{this.state.depart}&nbsp;统计信息</p></Col>

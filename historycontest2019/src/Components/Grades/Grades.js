@@ -70,7 +70,7 @@ class Grades extends React.Component {
         //             for (let i = 0; i < 20; i++) {
         //                 that.state.question.push({});
         //                 that.state.question[i].title = data.Paper.Choice_question[i].text;
-        //                 that.state.question.choice = [
+        //                 that.state.question.option = [
         //                     {
         //                         text: data.Paper.Choice_question[i].option[0],
         //                         value: 1
@@ -168,17 +168,17 @@ class Grades extends React.Component {
                                 <Radio.Group style={{ color: 'white', marginLeft: 160, marginBottom: 40, minHeight: 250 }} value={this.state.question[this.state.focusOn].value} buttonStyle={"outline"}>
                                     {this.state.focusOn < 20 ?
                                         <div>
-                                            <Radio style={style} value={this.state.question[this.state.focusOn].choice[0].value}>
-                                                <b>A</b> &nbsp; {this.state.question[this.state.focusOn].choice[0].text}&nbsp;{this.state.question[this.state.focusOn].choice[0].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
+                                            <Radio style={style} value={this.state.question[this.state.focusOn].option [0].value}>
+                                                <b>A</b> &nbsp; {this.state.question[this.state.focusOn].option [0].text}&nbsp;{this.state.question[this.state.focusOn].option [0].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
                                             </Radio>
-                                            <Radio style={style} value={this.state.question[this.state.focusOn].choice[1].value}>
-                                                <b>B</b> &nbsp; {this.state.question[this.state.focusOn].choice[1].text}&nbsp;{this.state.question[this.state.focusOn].choice[1].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
+                                            <Radio style={style} value={this.state.question[this.state.focusOn].option [1].value}>
+                                                <b>B</b> &nbsp; {this.state.question[this.state.focusOn].option [1].text}&nbsp;{this.state.question[this.state.focusOn].option [1].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
                                             </Radio>
-                                            <Radio style={style} value={this.state.question[this.state.focusOn].choice[2].value}>
-                                                <b>C</b> &nbsp; {this.state.question[this.state.focusOn].choice[2].text}&nbsp;{this.state.question[this.state.focusOn].choice[2].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
+                                            <Radio style={style} value={this.state.question[this.state.focusOn].option [2].value}>
+                                                <b>C</b> &nbsp; {this.state.question[this.state.focusOn].option [2].text}&nbsp;{this.state.question[this.state.focusOn].option [2].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
                                             </Radio>
-                                            <Radio style={style} value={this.state.question[this.state.focusOn].choice[3].value}>
-                                                <b>D</b> &nbsp; {this.state.question[this.state.focusOn].choice[3].text}&nbsp;{this.state.question[this.state.focusOn].choice[3].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
+                                            <Radio style={style} value={this.state.question[this.state.focusOn].option [3].value}>
+                                                <b>D</b> &nbsp; {this.state.question[this.state.focusOn].option [3].text}&nbsp;{this.state.question[this.state.focusOn].option [3].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
                                             </Radio>
                                         </div> :
                                         <div>

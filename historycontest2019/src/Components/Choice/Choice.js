@@ -68,17 +68,17 @@ class Choice extends React.Component {
                                             &nbsp;{this.props.state.title}
                                         </h2>
                                         <Radio.Group style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
-                                            <Radio style={style} value={this.props.state.choice[0].value}>
-                                                <b>A</b> &nbsp; {this.props.state.choice[0].text}
+                                            <Radio style={style} value={this.props.state.option[0].value}>
+                                                <b>A</b> &nbsp; {this.props.state.option[0].text}
                                             </Radio>
-                                            <Radio style={style} value={this.props.state.choice[1].value}>
-                                                <b >B</b> &nbsp; {this.props.state.choice[1].text}
+                                            <Radio style={style} value={this.props.state.option[1].value}>
+                                                <b >B</b> &nbsp; {this.props.state.option[1].text}
                                             </Radio>
-                                            <Radio style={style} value={this.props.state.choice[2].value}>
-                                                <b>C</b> &nbsp; {this.props.state.choice[2].text}
+                                            <Radio style={style} value={this.props.state.option[2].value}>
+                                                <b>C</b> &nbsp; {this.props.state.option[2].text}
                                             </Radio>
-                                            <Radio style={style} value={this.props.state.choice[3].value}>
-                                                <b>D</b> &nbsp; {this.props.state.choice[3].text}
+                                            <Radio style={style} value={this.props.state.option[3].value}>
+                                                <b>D</b> &nbsp; {this.props.state.option[3].text}
                                             </Radio>
                                         </Radio.Group>
                                     </Col>

@@ -111,11 +111,13 @@ class Test extends React.Component {
     }
     componentWillMount() {
         //测试初始化
-        allChoiceQuestion.question.forEach((x, i) => {
-            this.state.question[i] = x
+        allChoiceQuestion.forEach((x, i) => {
+            this.state.question[i] = x;
+            this.state.question[i].value=-1;
         })
-        allChoiceQuestion.question.forEach((x, i) => {
-            this.state.question[i+20] = x
+        allJudgeQuestion.forEach((x, i) => {
+            this.state.question[i+20] = x;
+            this.state.question[i+20].value=-1;
         })
         //试卷获取
         // this.setState({ isPaperGet: true })
@@ -162,9 +164,11 @@ class Test extends React.Component {
         //                         }
         //                     ]
         //                     that.state.question[i].choice = this.Random(temp);
+        //                     that.state.question[i].value=-1;
         //                 }
         //                 for (let i = 20; i < 30; i++) {
         //                     that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]].title;
+        //                     that.state.question[i+20].value=-1;
         //                 }
         //                 that.setState({ isPaperGet: true });
         //             }
