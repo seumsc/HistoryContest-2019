@@ -18,6 +18,7 @@ export class UIController{
 //s,a,c
     @Post("/login")
     async post_login(@Ctx() ctx:Context){
+        ctx.header.set('Access-Control-Allow-Origin','*');
         switch (ctx.request.body.Identity)
         {
             case '0':

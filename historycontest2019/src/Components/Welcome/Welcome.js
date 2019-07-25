@@ -77,7 +77,7 @@ class Welcome extends React.Component{
                     <p></p>
 
             </header>
-            <LoginModal state={this.state}  setState={this.props.setState} close={this.closModal}/>
+            <LoginModal state={this.state}  host={this.props.state.host}setState={this.props.setState} close={this.closModal}/>
         </div>
         );
         let x=(this.state.logining?login: origin);

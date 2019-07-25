@@ -11,13 +11,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isWelcome: false,
+      isWelcome: true,
       isLogin: false,
       isStudent: false,
       isAllDone: false,
-      isAdmin: true,
+      isAdmin: false,
       isTeacher: false,
-      host: "127.0.0.1",
+      host: "loaclhost:6553",
       userInfo:
       {
         name: 'zzz',
@@ -44,7 +44,6 @@ class App extends React.Component {
       isAllDone: false,
       isAdmin: false,
       isTeacher: false,
-      host: "",
       userInfo:
       {
         name: '',

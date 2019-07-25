@@ -30,33 +30,33 @@ class LoginModal extends React.Component {
         let password = this.state.password;
         let identity = this.state.attemp;
         //暂时的登陆函数
-        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase() || 1) {
-            console.log("login");
-            message.success("登录成功！");
-            that.props.setState({
-                isWelcome: false,
-                isLogin: true,
-                isStudent: true,
-                isAllDone: false,
-                isAdmin: false,
-                isTeacher: false,
-                host: "",
-                userInfo:
-                {
-                    name: '菜鸡',
-                    username: "",
-                    token: '',
-                    access: -1,
-                    score: -1
-                },
-                answer: []
-            })
-
-            fetch('http://' + that.props.state.host + '/api/ui/login', {
+        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase() ||1) {
+            // console.log("login");
+            // message.success("登录成功！");
+            // that.props.setState({
+            //     isWelcome: false,
+            //     isLogin: true,
+            //     isStudent: true,
+            //     isAllDone: false,
+            //     isAdmin: false,
+            //     isTeacher: false,
+            //     host: "",
+            //     userInfo:
+            //     {
+            //         name: '菜鸡',
+            //         username: "",
+            //         token: '',
+            //         access: -1,
+            //         score: -1
+            //     },
+            //     answer: []
+            // })
+            this.setState({ posted: true})
+            fetch("http://" + that.props.host + '/api/ui/login', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     Username: username,
@@ -65,6 +65,7 @@ class LoginModal extends React.Component {
                 })
             }).then(
                 async res => {
+                    that.setState({ posted: false })
                     if (res.status == 404) {
                         message.error("学号不存在");
                     }
@@ -73,8 +74,7 @@ class LoginModal extends React.Component {
                     }
                     else {
                         //学生登陆成功
-                        let data = await res.json();
-                        this.setState({ posted: false })
+                        let data = await res.json();                      
                         console.log("login");
                         message.success("登录成功！");
                         if (identity == "0") {
@@ -135,7 +135,7 @@ class LoginModal extends React.Component {
                             })
                         }
                     }
-                })
+                }).catch(err=>{console.log(err)})
 
         }
         else {
