@@ -17,7 +17,7 @@ class App extends React.Component {
       isAllDone: false,
       isAdmin: true,
       isTeacher: false,
-      host: "",
+      host: "127.0.0.1",
       userInfo:
       {
         name: 'zzz',
