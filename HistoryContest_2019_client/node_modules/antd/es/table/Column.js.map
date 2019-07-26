@@ -1,0 +1,1 @@
+{"version":3,"sources":["table/Column.jsx"],"names":["React","Column","Component"],"mappings":";;;;;;;;;;;;;;AAAA,OAAO,KAAKA,KAAZ,MAAuB,OAAvB;;IACqBC,M;;;;;;;;;;;;EAAeD,KAAK,CAACE,S;;SAArBD,M","sourcesContent":["import * as React from 'react';\nexport default class Column extends React.Component {\n}\n"],"file":"Column.js"}

@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_1 = require("../index");
+/**
+ * Registers an action to be executed when POST request comes on a given route.
+ * Must be applied on a controller action.
+ */
+function Post(route) {
+    return function (object, methodName) {
+        index_1.getMetadataArgsStorage().actions.push({
+            type: "post",
+            target: object.constructor,
+            method: methodName,
+            route: route
+        });
+    };
+}
+exports.Post = Post;
+
+//# sourceMappingURL=Post.js.map

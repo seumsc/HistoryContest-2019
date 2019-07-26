@@ -1,0 +1,41 @@
+{
+  "name": "historycontest2019",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/memory-cache": "^0.2.0",
+    "@types/node-xlsx": "^0.12.1",
+    "antd": "^3.20.4",
+    "core-js": "^3.1.4",
+    "js-xlsx": "^0.8.22",
+    "node-xlsx": "^0.15.0",
+    "rc-banner-anim": "^2.2.8",
+    "rc-texty": "^0.2.0",
+    "rc-tween-one": "^2.4.1",
+    "react": "^16.8.6",
+    "react-app-polyfill": "^1.0.1",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

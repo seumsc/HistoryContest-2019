@@ -1,0 +1,8 @@
+/**
+ * Defines a class as a controller.
+ * Each decorated controller method is served as a controller action.
+ * Controller actions are executed when request come.
+ *
+ * @param baseRoute Extra path you can apply as a base route to all controller actions
+ */
+export declare function Controller(baseRoute?: string): Function;
