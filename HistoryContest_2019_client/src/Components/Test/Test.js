@@ -36,7 +36,7 @@ const bg11=React.lazy(()=>import ('../../img/background11.jpg'))
 let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
 const { TabPane } = Tabs;
 const { Header, Footer, Sider, Content } = Layout;
-const allChoiceQuestion = require("./question-test1.json")
+const allChoiceQuestion = require("./choice_question.json")
 const allJudgeQuestion = require("./question-test2.json")
 class Test extends React.Component {
     constructor(props) {
@@ -147,19 +147,19 @@ class Test extends React.Component {
                             that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]].title;
                             let temp = [
                                 {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][0],
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]]["option"][0],
                                     value: 1
                                 },
                                 {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][1],
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]]["option"][1],
                                     value: 2
                                 },
                                 {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][2],
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]]["option"][2],
                                     value: 3
                                 },
                                 {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][3],
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]]["option"][3],
                                     value: 4
                                 }
                             ]
@@ -207,7 +207,7 @@ class Test extends React.Component {
 
         //提交函数
         let that = this;
-        let data={Answer:[],username:this.props.state.userInfo.username};
+        let data={Answer:[],Username:this.props.state.userInfo.username};
         this.state.question.forEach((x,i)=>{
             data.Answer.push(x.value)
         })
@@ -220,16 +220,16 @@ class Test extends React.Component {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
-            }.then(async (res)=>{
+            }).then(async (res)=>{
                 if(res.status==403){
-                    message.warning("答题所用时间过短,请认真答题~")
+                    message.warning("非法答题时间(过长或过短)")
                 }
-                else{
+                else{  
                     let data=await res.json();
                     if(data.message==undefined){
                     that.props.setState({isAllDone:true});
                     console.log("handin successfully");
-                    message.success("提交成功!")
+                    message.success("提交成功!");
                     that.props.setState({userInfo:{score:data.Score}})
                     }
                     else{
@@ -239,7 +239,7 @@ class Test extends React.Component {
                 }
             }
         )
-        )
+        
     }
     done(i, value) {
         let x = this.state.question;
@@ -257,7 +257,8 @@ class Test extends React.Component {
                     width: "100%", height: "100%",
                     position: "absolute",
                     top: "0px",
-                    bottom: "0px"
+                    bottom: "0px",
+                    minWidth:"700px"
                 }}>
                     <Modal
                         visible={!this.state.isTesting}
@@ -280,7 +281,7 @@ class Test extends React.Component {
                                             },
                                             body: JSON.stringify({
                                                 Username: that.props.state.username,
-                                            }).then((data) => {
+                                            })}).then((data) => {
                                                 if (data.message == undefined) {
                                                     that.setState({ isTesting: true })
                                                 }
@@ -289,7 +290,7 @@ class Test extends React.Component {
                                                     this.props.logout();
                                                 }
                                             })
-                                        })
+                                        
                                 }}>
                                 开始答题
                       </Button>
@@ -310,7 +311,7 @@ class Test extends React.Component {
         }
         return (
             <React.Fragment>
-                <Layout style={{ overflow: "hidder" }}>
+                <Layout style={{ overflow: "hidder",minWidth:"1000px"}}>
                     <Header>
                         <Row>
                             <Col span={16} offset={0}>

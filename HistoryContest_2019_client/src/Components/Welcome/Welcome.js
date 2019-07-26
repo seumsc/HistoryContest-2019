@@ -25,7 +25,7 @@ class Welcome extends React.Component{
     
     render(){
         let origin = (
-        <div className="WEL" >
+        <div className="WEL" style={{minWidth:"500px"}}>
             <header className="welcome" 
             id="background" 
             style = {{backgroundImage:`url(${bg1})`,                  
