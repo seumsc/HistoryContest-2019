@@ -120,65 +120,65 @@ class Test extends React.Component {
             this.state.question[i+20].value=-1;
         })
         //试卷获取
-        // this.setState({ isPaperGet: true })
-        // let that = this;
-        // fetch('http://' + that.props.state.host + '/api/student/test', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         "authorization": that.props.state.userInfo.token,
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: JSON.stringify({
-        //         Username: that.props.state.username,
-        //     })
-        // }
-        // ).then(
-        //     res => { return res.json()}
-        // ).then(
-        //     data => {
-        //         if (data.message == undefined) {
-        //             if (data.status == 403) {
-        //                 message.error("错误!该用户已完成答题");
-        //                 that.props.logout();
-        //             }
-        //             else {
-        //                 for (let i = 0; i < 20; i++) {
-        //                     that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]].title;
-        //                     let temp = [
-        //                         {
-        //                             text: allChoiceQuestion[data.Paper.Choice_question[i]][option][0],
-        //                             value: 1
-        //                         },
-        //                         {
-        //                             text: allChoiceQuestion[data.Paper.Choice_question[i]][option][1],
-        //                             value: 2
-        //                         },
-        //                         {
-        //                             text: allChoiceQuestion[data.Paper.Choice_question[i]][option][2],
-        //                             value: 3
-        //                         },
-        //                         {
-        //                             text: allChoiceQuestion[data.Paper.Choice_question[i]][option][3],
-        //                             value: 4
-        //                         }
-        //                     ]
-        //                     that.state.question[i].choice = this.Random(temp);
-        //                     that.state.question[i].value=-1;
-        //                 }
-        //                 for (let i = 20; i < 30; i++) {
-        //                     that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]].title;
-        //                     that.state.question[i+20].value=-1;
-        //                 }
-        //                 that.setState({ isPaperGet: true });
-        //             }
-        //         }
-        //         else {
-        //             message.error("登陆已过期");
-        //             this.props.logout();
-        //         }
-        //     }
-        // )
+        this.setState({ isPaperGet: true })
+        let that = this;
+        fetch('http://' + that.props.state.host + '/api/student/test', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "authorization": that.props.state.userInfo.token,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Username: that.props.state.username,
+            })
+        }
+        ).then(
+            res => { return res.json()}
+        ).then(
+            data => {
+                if (data.message == undefined) {
+                    if (data.status == 403) {
+                        message.error("错误!该用户已完成答题");
+                        that.props.logout();
+                    }
+                    else {
+                        for (let i = 0; i < 20; i++) {
+                            that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]].title;
+                            let temp = [
+                                {
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][0],
+                                    value: 1
+                                },
+                                {
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][1],
+                                    value: 2
+                                },
+                                {
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][2],
+                                    value: 3
+                                },
+                                {
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]][option][3],
+                                    value: 4
+                                }
+                            ]
+                            that.state.question[i].choice = this.Random(temp);
+                            that.state.question[i].value=-1;
+                        }
+                        for (let i = 20; i < 30; i++) {
+                            that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]].title;
+                            that.state.question[i+20].value=-1;
+                        }
+                        that.setState({ isPaperGet: true });
+                    }
+                }
+                else {
+                    message.error("登陆已过期");
+                    this.props.logout();
+                }
+            }
+        )
     }
 
     componentWillUnmount() {
@@ -186,60 +186,60 @@ class Test extends React.Component {
 
     submit() {
         //暂时的提交函数
-        this.props.setState({
-            isWelcome: false,
-            isLogin: true,
-            isStudent: true,
-            isAllDone: true,
-            isAdmin: false,
-            isTeacher: false,
-            host: "",
-            userInfo:
-            {
-                name: '菜鸡',
-                username: "",
-                token: '',
-                access: -1,
-                score: 90
-            },
-            answer: this.state.question
-        })
+        // this.props.setState({
+        //     isWelcome: false,
+        //     isLogin: true,
+        //     isStudent: true,
+        //     isAllDone: true,
+        //     isAdmin: false,
+        //     isTeacher: false,
+        //     host: "",
+        //     userInfo:
+        //     {
+        //         name: '菜鸡',
+        //         username: "",
+        //         token: '',
+        //         access: -1,
+        //         score: 90
+        //     },
+        //     answer: this.state.question
+        // })
 
         //提交函数
-        // let that = this;
-        // let data={Answer:[],username:this.props.state.userInfo.username};
-        // this.state.question.forEach((x,i)=>{
-        //     data.Answer.push(x.value)
-        // })
-        // fetch("htttp://" + that.props.state.host + "/api/student/hangin",
-        //     {
-        //         method: 'POST',
-        //         mode: 'cors',
-        //         headers: {
-        //             "authorization": that.props.state.userInfo.token,
-        //             "Content-Type": "application/x-www-form-urlencoded"
-        //         },
-        //         body: JSON.stringify(data)
-        //     }.then(async (res)=>{
-        //         if(res.status==403){
-        //             message.warning("答题所用时间过短,请认真答题~")
-        //         }
-        //         else{
-        //             let data=await res.json();
-        //             if(data.message==undefined){
-        //             that.props.setState({isAllDone:true});
-        //             console.log("handin successfully");
-        //             message.success("提交成功!")
-        //             that.props.setState({userInfo:{score:data.Score}})
-        //             }
-        //             else{
-        //                 message.error("登陆已过期");
-        //                 this.props.logout();
-        //             }
-        //         }
-        //     }
-        // )
-        // )
+        let that = this;
+        let data={Answer:[],username:this.props.state.userInfo.username};
+        this.state.question.forEach((x,i)=>{
+            data.Answer.push(x.value)
+        })
+        fetch("htttp://" + that.props.state.host + "/api/student/hangin",
+            {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "authorization": that.props.state.userInfo.token,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }.then(async (res)=>{
+                if(res.status==403){
+                    message.warning("答题所用时间过短,请认真答题~")
+                }
+                else{
+                    let data=await res.json();
+                    if(data.message==undefined){
+                    that.props.setState({isAllDone:true});
+                    console.log("handin successfully");
+                    message.success("提交成功!")
+                    that.props.setState({userInfo:{score:data.Score}})
+                    }
+                    else{
+                        message.error("登陆已过期");
+                        this.props.logout();
+                    }
+                }
+            }
+        )
+        )
     }
     done(i, value) {
         let x = this.state.question;
@@ -268,28 +268,28 @@ class Test extends React.Component {
                                 onClick={() => {
                                     let that = this;
                                     //temp
-                                    that.setState({ isTesting: true })
+                                    // that.setState({ isTesting: true })
                                     //开始函数
-                                    // fetch("http://" + this.props.state.host + '/api/student/start',
-                                    //     {
-                                    //         method: 'POST',
-                                    //         mode: 'cors',
-                                    //         headers: {
-                                    //             "authorization": that.props.state.userInfo.token,
-                                    //             "Content-Type": "application/x-www-form-urlencoded"
-                                    //         },
-                                    //         body: JSON.stringify({
-                                    //             Username: that.props.state.username,
-                                    //         }).then((data) => {
-                                    //             if (data.message == undefined) {
-                                    //                 that.setState({ isTesting: true })
-                                    //             }
-                                    //             else {
-                                    //                 message.error("登陆已过期");
-                                    //                 this.props.logout();
-                                    //             }
-                                    //         })
-                                    //     })
+                                    fetch("http://" + this.props.state.host + '/api/student/start',
+                                        {
+                                            method: 'POST',
+                                            mode: 'cors',
+                                            headers: {
+                                                "authorization": that.props.state.userInfo.token,
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify({
+                                                Username: that.props.state.username,
+                                            }).then((data) => {
+                                                if (data.message == undefined) {
+                                                    that.setState({ isTesting: true })
+                                                }
+                                                else {
+                                                    message.error("登陆已过期");
+                                                    this.props.logout();
+                                                }
+                                            })
+                                        })
                                 }}>
                                 开始答题
                       </Button>
