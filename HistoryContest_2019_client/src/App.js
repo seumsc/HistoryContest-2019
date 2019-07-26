@@ -64,7 +64,7 @@ class App extends React.Component {
             {this.state.isStudent && this.state.userInfo.score == -1 ? <Test state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
             {this.state.isTeacher ? <div /> : <div />}
             {this.state.isAdmin ? <Admin state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
-            {this.state.isAllDone && this.state.userInfo.score >= 0 ? <Grades state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
+            { this.state.userInfo.score >= 0 ? <Grades state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
           </Suspense>
         </div>
       </React.Fragment>

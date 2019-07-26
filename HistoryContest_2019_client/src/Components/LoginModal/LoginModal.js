@@ -97,7 +97,7 @@ class LoginModal extends React.Component {
                                 that.props.setState({
                                     isWelcome: false,
                                     isStudent: true,
-                                    isAllDone: true,
+                                    isAllDone: false,
                                     isLogin: true,
                                     userInfo: {
                                         username: this.state.username,
@@ -140,6 +140,7 @@ class LoginModal extends React.Component {
         }
         else {
             console.log("false");
+            that.setState({ posted: false })
             this.setState({ ...this.initState(), refresh: false });
             message.error("验证码错误")
         }

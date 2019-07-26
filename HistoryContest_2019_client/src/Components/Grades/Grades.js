@@ -1,110 +1,117 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Card, Row, Col, Layout, Icon, Radio, Button} from 'antd';
+import { Card, Row, Col, Layout, Icon, Radio, Button,message,Skeleton} from 'antd';
 import Timer from "../Timer/Timer"
 import BG from '../../img/图片2.jpg'
 
 const { Header, Footer, Sider, Content } = Layout;
 const RadioGroup = Radio.Group;
 const test = require("./question-test.json")
+const allChoiceQuestion = require("../../data/choice_question.json")
+const allJudgeQuestion = require("../../data/judgment_question.json")
 class Grades extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             question: this.props.state.answer,
             focusOn: 0,
-            name: this.props.state.userInfo.name
+            name: this.props.state.userInfo.name,
+            messageGet:false
         }
 
     
     }
     componentWillMount() {
-        //测试初始化
         let that = this;
-        this.state.question.forEach((x, i) => {
-            x.answer = test.question[i].answer;
-        })
+        //测试初始化
+         
+        // this.state.question.forEach((x, i) => {
+        //     x.answer = test.question[i].answer;
+        // })
         //获取结果
-        // if (that.props.state.isAllDone) {
-        //     fetch("http://" + that.props.state.host + "/api/student/result_handin",
-        //         {
-        //             method: 'POST',
-        //             mode: 'cors',
-        //             headers: {
-        //                 "authorization": that.props.state.userInfo.token,
-        //                 "Content-Type": "application/x-www-form-urlencoded"
-        //             },
-        //             body: JSON.stringify({
-        //                 Username: that.props.state.username,
-        //             })
-        //         }
-        //     ).then((res) => res.json()
-        //     ).then((data) => {
-        //         if (data.message = undefined) {
-        //             data.Answer.forEach((x, i) => {
-        //                 that.state.question[i].answer = x;
-        //             })
-        //         }
-        //         else {
-        //             message.error("登陆已过期");
-        //             this.props.logout();
-        //         }
-        //     })
-        // }
-        // else {
-        //     fetch("http://" + that.props.state.host + "/api/student/result",
-        //         {
-        //             method: 'POST',
-        //             mode: 'cors',
-        //             headers: {
-        //                 "authorization": that.props.state.userInfo.token,
-        //                 "Content-Type": "application/x-www-form-urlencoded"
-        //             },
-        //             body: JSON.stringify({
-        //                 Username: that.props.state.username,
-        //             })
-        //         }
-        //     ).then((res) => res.json()
-        //     ).then(data => {
-        //         if (data.message == undefined) {
-        //             for (let i = 0; i < 20; i++) {
-        //                 that.state.question.push({});
-        //                 that.state.question[i].title = data.Paper.Choice_question[i].text;
-        //                 that.state.question.option = [
-        //                     {
-        //                         text: data.Paper.Choice_question[i].option[0],
-        //                         value: 1
-        //                     },
-        //                     {
-        //                         text: data.Paper.Choice_question[i].option[1],
-        //                         value: 2
-        //                     },
-        //                     {
-        //                         text: data.Paper.Choice_question[i].option[2],
-        //                         value: 3
-        //                     },
-        //                     {
-        //                         text: data.Paper.Choice_question[i].option[3],
-        //                         value: 4
-        //                     }
-        //                 ]
-        //                
-        //                 that.state.question[i].value = data.Paper.Choice_question[i].value;
-        //                 that.state.question[i].answer = data.Answer.Choice_answer[i];
-        //             }
-        //             for (let i = 20; i < 30; i++) {
-        //                 that.state.question.push({});
-        //                 that.state.question[i].title = data.Paper.Judgment_question[i - 20].text;
-        //                 that.state.question[i].value = data.Paper.Judgment_question[i - 20].value;
-        //                 that.state.question[i].answer = data.Answer.Judgment_answer[i - 20];
-        //             }
-        //         }
-        //         else {
-        //             message.error("登陆已过期");
-        //             this.props.logout();
-        //         }
-        //     })
-        // }
+        if (that.props.state.isAllDone) {
+            fetch("http://" + that.props.state.host + "/api/student/result_handin",
+                {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        "authorization": that.props.state.userInfo.token,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        Username: that.props.state.userInfo.username,
+                    })
+                }
+            ).then((res) => res.json()
+            ).then((data) => {
+                that.setState({messageGet:true});
+                if (data.message = undefined) {
+                    data.Answer.forEach((x, i) => {
+                        that.state.question[i].answer = x;
+                    })
+                }
+                else {
+                    message.error("登陆已过期");
+                    this.props.logout();
+                }
+            })
+        }
+        else {
+            fetch("http://" + that.props.state.host + "/api/student/result",
+                {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        "authorization": that.props.state.userInfo.token,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        Username: that.props.state.userInfo.username,
+                    })
+                }
+            ).then((res) => res.json()
+            ).then(data => {
+                
+                if (data.message == undefined) {
+                    that.setState({messageGet:true});
+                    for (let i = 0; i < 20; i++) {
+                        that.state.question.push({});
+                        that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]-1]["title"];
+                        that.state.question.option = [
+                            {
+                                text: allChoiceQuestion[data.Paper.Choice_question[i]-1]["option"][0],
+                                value: 1
+                            },
+                            {
+                                text: allChoiceQuestion[data.Paper.Choice_question[i]-1]["option"][1],
+                                value: 2
+                            },
+                            {
+                                text: allChoiceQuestion[data.Paper.Choice_question[i]-1]["option"][2],
+                                value: 3
+                            },
+                            {
+                                text: allChoiceQuestion[data.Paper.Choice_question[i]-1]["option"][3],
+                                value: 4
+                            }
+                        ]
+                       
+                        that.state.question[i].value = data.User_answer[i];
+                        that.state.question[i].answer = data.Answer.Choice_answers[i];
+                    }
+                    for (let i = 20; i < 30; i++) {
+                        that.state.question.push({});
+                        that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]-1]["title"];
+                        that.state.question[i].value = data.User_answer[i];
+                        that.state.question[i].answer = data.Answer.Judgment_answers[i - 20];
+                    }
+                }
+                else {
+                    message.error("登陆已过期");
+                    this.props.logout();
+                }
+            }).catch((err)=>{console.log(err)})
+        }
     }
     onmouseover(i) {
         this.setState({ focusOn: i })
@@ -126,7 +133,7 @@ class Grades extends React.Component {
                             <Col span={14}>
                                 <h1 style={{ color: "white", fontSize: "30px", marginTop: 15, marginBottom: 30 }}>
                                     {this.state.name}&nbsp;同学，你本次校史校情知识竞赛得分为:&nbsp;&nbsp;
-                        <b style={{ color: "red", fontSize: "40px" }}>{this.props.state.userInfo.score}</b>
+                                <b style={{ color: "red", fontSize: "40px" }}>{this.props.state.userInfo.score}</b>
                                 </h1>
                             </Col>
                             <Col span={4} offset={4}>
@@ -145,7 +152,7 @@ class Grades extends React.Component {
                         <Row style={{ marginTop: 80, marginBottom: 60 }}>
                             <Col span={2}></Col>
                             <Col span={10}>
-                                <Card title="答题情况" headStyle={{ color: "white", fontSize: 25 }} hoverable="true" style={{ backgroundColor: "rgba(225,166,121,0.7)", color: "white" }}>
+                                <Card loading={!this.state.messageGet} title="答题情况" headStyle={{ color: "white", fontSize: 25 }} hoverable="true" style={{ backgroundColor: "rgba(225,166,121,0.7)", color: "white" }}>
                                     {this.state.question.map((x, i) => (
                                         <Card.Grid className={"question" + i}
                                             onMouseOver={() => this.onmouseover(i)}
@@ -160,6 +167,7 @@ class Grades extends React.Component {
                                 </Card>
                             </Col>
                             <Col span={10} style={{ backgroundColor: "rgba(225,166,121,0.7)", marginTop: 70 }}>
+                                <Skeleton loading={!this.state.messageGet}>
                                 <div style={{ marginLeft: 80, overflow: "hidden", height: 160 }}>
                                     <h2 style={{ color: 'white', fontSize: 25, marginTop: 60, marginBottom: 60, marginRight: 80 }}>
                                         {this.state.focusOn + 1}&nbsp;{this.state.question[this.state.focusOn].title}<br />
@@ -190,6 +198,7 @@ class Grades extends React.Component {
                                             </Radio>
                                         </div>}
                                 </Radio.Group>
+                                </Skeleton>
                             </Col>
                             <Col span={2}>
 
