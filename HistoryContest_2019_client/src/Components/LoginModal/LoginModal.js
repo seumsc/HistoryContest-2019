@@ -97,7 +97,7 @@ class LoginModal extends React.Component {
                                 that.props.setState({
                                     isWelcome: false,
                                     isStudent: true,
-                                    isAllDone: true,
+                                    isAllDone: false,
                                     isLogin: true,
                                     userInfo: {
                                         username: this.state.username,

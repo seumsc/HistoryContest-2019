@@ -46,6 +46,9 @@ export class Student extends BaseEntity{
     @Column({type:"simple-array",default:null})//判断题答题
     answers_judgment:number[];
 
+    @Column({type:"simple-array",default:null})
+    answers:number[];
+
     @UpdateDateColumn()
     updateDate:Date;
 }

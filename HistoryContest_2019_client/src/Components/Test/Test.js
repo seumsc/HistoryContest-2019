@@ -36,8 +36,8 @@ const bg11=React.lazy(()=>import ('../../img/background11.jpg'))
 let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
 const { TabPane } = Tabs;
 const { Header, Footer, Sider, Content } = Layout;
-const allChoiceQuestion = require("./choice_question.json")
-const allJudgeQuestion = require("./question-test2.json")
+const allChoiceQuestion = require("../../data/choice_question.json")
+const allJudgeQuestion = require("../../data/judgment_question.json")
 class Test extends React.Component {
     constructor(props) {
         super(props);
@@ -111,14 +111,14 @@ class Test extends React.Component {
     }
     componentWillMount() {
         //测试初始化
-        allChoiceQuestion.forEach((x, i) => {
-            this.state.question[i] = x;
-            this.state.question[i].value=-1;
-        })
-        allJudgeQuestion.forEach((x, i) => {
-            this.state.question[i+20] = x;
-            this.state.question[i+20].value=-1;
-        })
+        // allChoiceQuestion.forEach((x, i) => {
+        //     this.state.question[i] = x;
+        //     this.state.question[i].value=-1;
+        // })
+        // allJudgeQuestion.forEach((x, i) => {
+        //     this.state.question[i+20] = x;
+        //     this.state.question[i+20].value=-1;
+        // })
         //试卷获取
         this.setState({ isPaperGet: true })
         let that = this;
@@ -130,7 +130,7 @@ class Test extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                Username: that.props.state.username,
+                Username: that.props.state.userInfo.username,
             })
         }
         ).then(
@@ -144,31 +144,31 @@ class Test extends React.Component {
                     }
                     else {
                         for (let i = 0; i < 20; i++) {
-                            that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]].title;
+                            that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]-1]["title"];
                             let temp = [
                                 {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]]["option"][0],
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]-1]["options"][0],
                                     value: 1
                                 },
                                 {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]]["option"][1],
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]-1]["options"][1],
                                     value: 2
                                 },
                                 {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]]["option"][2],
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]-1]["options"][2],
                                     value: 3
                                 },
                                 {
-                                    text: allChoiceQuestion[data.Paper.Choice_question[i]]["option"][3],
+                                    text: allChoiceQuestion[data.Paper.Choice_question[i]-1]["options"][3],
                                     value: 4
                                 }
                             ]
-                            that.state.question[i].choice = this.Random(temp);
+                            that.state.question[i].option = this.Random(temp);
                             that.state.question[i].value=-1;
                         }
                         for (let i = 20; i < 30; i++) {
-                            that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]].title;
-                            that.state.question[i+20].value=-1;
+                            that.state.question[i].title =allJudgeQuestion[data.Paper.Judgment_question[i - 20]-1]["title"];
+                            that.state.question[i].value=-1;
                         }
                         that.setState({ isPaperGet: true });
                     }
@@ -211,7 +211,7 @@ class Test extends React.Component {
         this.state.question.forEach((x,i)=>{
             data.Answer.push(x.value)
         })
-        fetch("htttp://" + that.props.state.host + "/api/student/hangin",
+        fetch("http://" + that.props.state.host + "/api/student/handin",
             {
                 method: 'POST',
                 mode: 'cors',
@@ -230,7 +230,7 @@ class Test extends React.Component {
                     that.props.setState({isAllDone:true});
                     console.log("handin successfully");
                     message.success("提交成功!");
-                    that.props.setState({userInfo:{score:data.Score}})
+                    that.props.setState({userInfo:{score:data.Score},answer:that.state.question})
                     }
                     else{
                         message.error("登陆已过期");
@@ -280,7 +280,7 @@ class Test extends React.Component {
                                                 "Content-Type": "application/json"
                                             },
                                             body: JSON.stringify({
-                                                Username: that.props.state.username,
+                                                Username: that.props.state.userInfo.username,
                                             })}).then((data) => {
                                                 if (data.message == undefined) {
                                                     that.setState({ isTesting: true })

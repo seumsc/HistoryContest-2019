@@ -29,14 +29,14 @@ class Timer extends React.Component {
                 else {
                     this.setState({ sec: 59, min: y - 1 });
                 }
-                if (y == 1 && x == 0) {
+                if (y == 1 && x == 0&&this.props.info=="  答题倒计时：") {
                     notification.open({
                         message: "时间还有1分钟",
                         description: "距离自动交卷只剩1分钟了哦，同学要加油啦",
                         icon: <Icon type="clock-circle" style={{ color: "rgb(248, 39, 39)" }} />
                     })
                 }
-                else if (y == 10 && x == 0) {
+                else if (y == 10 && x == 0&&this.props.info=="  答题倒计时：") {
                     notification.open({
                         message: "时间还有10分钟",
                         description: "距离自动交卷还有10分钟，同学要加油啦",
