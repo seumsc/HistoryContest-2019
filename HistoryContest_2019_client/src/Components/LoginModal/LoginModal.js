@@ -140,6 +140,7 @@ class LoginModal extends React.Component {
         }
         else {
             console.log("false");
+            that.setState({ posted: false })
             this.setState({ ...this.initState(), refresh: false });
             message.error("验证码错误")
         }
