@@ -8,7 +8,7 @@ import { Counsellor } from "../entity/Counsellor";
 import {Key} from "../utils/keys"
 import * as jwt from "jsonwebtoken"
 import * as verify from "../config/Verify"
-import { get } from "https";
+import { response } from "express";
 @Controller("/ui")
 export class UIController{
 
@@ -18,7 +18,6 @@ export class UIController{
 //s,a,c
     @Post("/login")
     async post_login(@Ctx() ctx:Context){
-        ctx.header.set('Access-Control-Allow-Origin','*');
         switch (ctx.request.body.Identity)
         {
             case '0':
