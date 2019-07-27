@@ -9,8 +9,8 @@ class LoginModal extends React.Component {
         this.state = {
             visible: true,
             attemp: "0",
-            username: '',
-            password: '',
+            username: '1',
+            password: '1',
             toDo: "登录",
             posted: false,
             ...this.initState(),
@@ -41,14 +41,11 @@ class LoginModal extends React.Component {
             //     isAdmin: false,
             //     isTeacher: false,
             //     host: "",
-            //     userInfo:
-            //     {
             //         name: '菜鸡',
             //         username: "",
             //         token: '',
             //         access: -1,
             //         score: -1
-            //     },
             //     answer: []
             // })
             this.setState({ posted: true})
@@ -69,7 +66,7 @@ class LoginModal extends React.Component {
                     if (res.status == 404) {
                         message.error("学号不存在");
                     }
-                    else if (res.status == 204) {
+                    else if (res.status == 403) {
                         message.error("用户名或密码错误");
                     }
                     else {
@@ -82,56 +79,63 @@ class LoginModal extends React.Component {
                                 that.props.setState({
                                     isWelcome: false,
                                     isStudent: true,
-                                    isAllDone: false,
                                     isLogin: true,
-                                    userInfo: {
+                                    username:this.state.username,
+                                    token:data.Token,
+     
                                         username: this.state.username,
-                                        name: data.Name,
-                                        score: data.Score,
+                                        name: data.Name,   
+                                        score: data.Score,                                     
                                         token: data.Token,
                                         access: 0
-                                    }
+
                                 });
+                                // that.props.setState({
+                                //     isWelcome: false,
+                                //     isStudent: true,
+                                //     isLogin: true,
+                                //         score: data.Score,
+
+                                // })
                             }
                             else {
                                 that.props.setState({
                                     isWelcome: false,
                                     isStudent: true,
-                                    isAllDone: false,
                                     isLogin: true,
-                                    userInfo: {
                                         username: this.state.username,
-                                        name: data.Name,
                                         score: data.Score,
+                                        name: data.Name,
                                         token: data.Token,
                                         access: 0
-                                    }
                                 })
+                                // that.props.setState({
+                                //     isWelcome: false,
+                                //     isStudent: true,
+                                //     isLogin: true,
+                                //         score: data.Score,
+                                // })
                             }
                         }
                         else if (identity == "2") {
                             that.props.setState({
                                 isWelcome: false,
                                 isTeacher: true,
-                                userInfo: {
                                     token: data.Token,
                                     name: data.Name,
                                     departId: data.Id,
                                     depart: data.Department,
                                     access: 2
-                                }
                             })
                         }
                         else if (identity == "1") {
                             that.props.setState({
                                 isWelcome: false,
                                 isAdmin: true,
-                                userInfo: {
                                     token: data.Token,
                                     name: data.Name,
                                     depart: "竞赛",
                                     access: 1
-                                }
                             })
                         }
                     }
@@ -210,10 +214,10 @@ class LoginModal extends React.Component {
             >
                 <Input id="username" addonBefore=" 账户 " prefix={<Icon type="user" />} placeholder={this.state.attemp == "0" ? "八位学号" : "管理员账户"} allowClear onChange={(e) => { this.setState({ username: e.target.value }) }}></Input>
                 <p></p>
-                <Input.Password id="password" addonBefore=" 密码 " prefix={<Icon type="lock" />} placeholder={this.state.attemp == "0" ? "一卡通号码" : "管理员密码"} allowClear onChange={(e) => { this.setState({ password: e.target.value }) }} />
+                <Input.Password id="password" addonBefore=" 密码 " onPressEnter={this.ToLogin} prefix={<Icon type="lock" />} placeholder={this.state.attemp == "0" ? "一卡通号码" : "管理员密码"} allowClear onChange={(e) => { this.setState({ password: e.target.value }) }} />
                 <p></p>
                 <p style={{ marginRight: 0 }}>
-                    <Input style={{ width: "70%" }} addonBefore="验证码" placeholder="不区分大小写" onChange={(e) => { this.setState({ inputValue: e.target.value }) }}
+                    <Input style={{ width: "70%" }} addonBefore="验证码" onPressEnter={this.ToLogin} placeholder="不区分大小写" onChange={(e) => { this.setState({ inputValue: e.target.value }) }}
                         suffix={
                             <div style={{ width: 120, height: 30, backgroundImage: `url(${bg})`, textAlign: "center" }} >
                                 {this.state.data.map((v, i) =>
@@ -276,9 +280,9 @@ class LoginModal extends React.Component {
             >
                 <Input id="username" addonBefore=" 账户 " placeholder="管理员账户" allowClear onChange={(x, v) => { this.setState({ username: v }) }}></Input>
                 <p></p>
-                <Input.Password id="password" addonBefore=" 密码 " placeholder="管理员密码" allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
+                <Input.Password id="password" addonBefore=" 密码 " onPressEnter={this.ToLogin} placeholder="管理员密码" allowClear onChange={(x, v) => { this.setState({ password: v }) }} />
                 <p> </p>
-                <Input style={{ width: "70%" }} addonBefore="验证码" placeholder="不区分大小写" onChange={(e) => { this.setState({ inputValue: e.target.value }) }}
+                <Input style={{ width: "70%" }} addonBefore="验证码" onPressEnter={this.ToLogin} placeholder="不区分大小写" onChange={(e) => { this.setState({ inputValue: e.target.value }) }}
                     suffix={
                         <div style={{ width: 120, height: 30, backgroundImage: `url(${bg})`, textAlign: "center" }} >
                             {this.state.data.map((v, i) =>

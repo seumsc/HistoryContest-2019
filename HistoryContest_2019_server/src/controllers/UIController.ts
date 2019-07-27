@@ -22,7 +22,7 @@ export class UIController{
         {
             case '0':
                 const stu=await Student.findOne({username:ctx.request.body.Username});
-                let department1=await Department.findOne({id:stu.department})
+                
                 if(!stu)
                 {
                     ctx.status=404
@@ -32,6 +32,7 @@ export class UIController{
                 }
                 else
                 {
+                    let department1=await Department.findOne({id:stu.department})
                     const payload = {identity:stu.identity,username:stu.username,score:stu.score }
                     const token=jwt.sign(payload,Key,{expiresIn:3600});
                     ctx.status=200

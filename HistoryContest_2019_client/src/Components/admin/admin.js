@@ -13,7 +13,7 @@ class Admin extends React.Component {
             displayData: [],
             departData: [],
             num: 150,
-            depart: this.props.state.userInfo.depart,
+            depart: this.props.state.depart,
             average: 90,
             numOfDone: 80,
             searchText: '',
@@ -143,12 +143,12 @@ class Admin extends React.Component {
         //         method: 'POST',
         //         mode: 'cors',
         //         headers: {
-        //             "authorization": that.props.state.userInfo.token,
+        //             "authorization": that.props.state.token,
         //             "Content-Type": "application/x-www-form-urlencoded"
         //         },
         //         body: JSON.stringify({
-        //             Username: that.props.state.userInfo.username,
-        //             Department: that.props.state.userInfo.id
+        //             Username: that.props.state.username,
+        //             Department: that.props.state.id
         //         })
         //     }).then(res => res.json()
         //     ).then(data => {
@@ -186,7 +186,7 @@ class Admin extends React.Component {
         //         method: 'POST',
         //         mode: 'cors',
         //         headers: {
-        //             "authorization": that.props.state.userInfo.token,
+        //             "authorization": that.props.state.token,
         //             "Content-Type": "application/x-www-form-urlencoded"
         //         },
         //         body: JSON.stringify({
@@ -232,7 +232,7 @@ class Admin extends React.Component {
         //     method: 'POST',
         //     mode: 'cors',
         //     headers: {
-        //         "authorization": that.props.state.userInfo.token,
+        //         "authorization": that.props.state.token,
         //         "Content-Type": "application/x-www-form-urlencoded"
         //     },
         //     body: JSON.stringify({

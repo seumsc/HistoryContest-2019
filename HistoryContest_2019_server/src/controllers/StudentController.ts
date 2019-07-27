@@ -16,7 +16,7 @@ export class StudentController{
 //后端判断是否已有得分，有则403报错
 //后端随机生成选择题与判断题序号并保存，返回题目与选项           {Paper:{Choice_question:ChoiceQuestion[],Judgment_question:JudgmentQuestion[]}}
 //student
-    // @UseBefore(verify.verifyToken_Student,verify.verifyToken_Username)
+     @UseBefore(verify.verifyToken_Student,verify.verifyToken_Username)
     @Post("/test")
     async post( @Ctx() ctx:Context){
         let stu:Student=await await Student.findOne({username:ctx.request.body.Username})//获取前端发送的用户名
