@@ -131,3 +131,23 @@ export async function verifyToken_Username(ctx,next){
         return ctx;
     }
 }
+
+export async function verifyToken_Score(ctx,next){
+    const dataString = ctx.header.authorization;
+    try{
+        const dataArr = dataString.split(' ');
+        const token =dataArr[1];
+
+        let playload = await jwt.verify(token,Key)
+        const data=playload;
+        if(data.score==-1)
+        {
+            ctx.status=200;
+            await next();
+        }else{ctx.status=403;
+                ctx.body={msg:"非法访问"}}
+        }catch(err){
+        ctx.body= err;
+        return ctx;
+    }
+}
