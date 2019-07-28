@@ -19,16 +19,16 @@ import mark from '../../img/校徽实体.png'
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
 import TrueFalse from '../TrueFalse/TrueFalse';
-const bg2=React.lazy(()=>import ('../../img/background2.png'))
-const bg3=React.lazy(()=>import ('../../img/background3.png'))
-const bg4=React.lazy(()=>import ('../../img/background4.jpg'))
-const bg5=React.lazy(()=>import ('../../img/background5.jpg'))
-const bg6=React.lazy(()=>import ('../../img/background6.jpg'))
-const bg7=React.lazy(()=>import ('../../img/background7.jpg'))
-const bg8=React.lazy(()=>import ('../../img/background8.jpg'))
-const bg9=React.lazy(()=>import ('../../img/background9.jpg'))
-const bg10=React.lazy(()=>import ('../../img/background10.jpg'))
-const bg11=React.lazy(()=>import ('../../img/background11.jpg'))
+const bg2 = React.lazy(() => import('../../img/background2.png'))
+const bg3 = React.lazy(() => import('../../img/background3.png'))
+const bg4 = React.lazy(() => import('../../img/background4.jpg'))
+const bg5 = React.lazy(() => import('../../img/background5.jpg'))
+const bg6 = React.lazy(() => import('../../img/background6.jpg'))
+const bg7 = React.lazy(() => import('../../img/background7.jpg'))
+const bg8 = React.lazy(() => import('../../img/background8.jpg'))
+const bg9 = React.lazy(() => import('../../img/background9.jpg'))
+const bg10 = React.lazy(() => import('../../img/background10.jpg'))
+const bg11 = React.lazy(() => import('../../img/background11.jpg'))
 
 
 
@@ -111,14 +111,31 @@ class Test extends React.Component {
     }
     componentWillMount() {
         //测试初始化
-        // allChoiceQuestion.forEach((x, i) => {
-        //     this.state.question[i] = x;
-        //     this.state.question[i].value=-1;
-        // })
-        // allJudgeQuestion.forEach((x, i) => {
-        //     this.state.question[i+20] = x;
-        //     this.state.question[i+20].value=-1;
-        // })
+        // for (let i = 0; i < 20; i++) {
+        //     this.state.question[i].title = allChoiceQuestion[i]["title"];
+        //     this.state.question[i].option=
+        //     [
+        //         {
+        //             text: allChoiceQuestion[i]["options"][0],
+        //             value: 1
+        //         },
+        //         {
+        //             text: allChoiceQuestion[i]["options"][1],
+        //             value: 2
+        //         },
+        //         {
+        //             text: allChoiceQuestion[i]["options"][2],
+        //             value: 3
+        //         },
+        //         {
+        //             text: allChoiceQuestion[i]["options"][3],
+        //             value: 4
+        //         }
+        //     ]
+        // }
+        // for (let i = 20; i < 30; i++) {
+        //     this.state.question[i].title = allJudgeQuestion[i-20]["title"];
+        // }
         //试卷获取
         this.setState({ isPaperGet: true })
         let that = this;
@@ -137,7 +154,8 @@ class Test extends React.Component {
             res => { return res.json()}
         ).then(
             data => {
-                if (data.message == undefined) {
+                if (data["message"] == undefined) {
+                    console.log(data.message)
                     if (data.status == 403) {
                         message.error("错误!该用户已完成答题");
                         that.props.logout();
@@ -175,6 +193,7 @@ class Test extends React.Component {
                     }
                 }
                 else {
+                    console.log("out")
                     message.error("登陆已过期");
                     this.props.logout();
                 }
@@ -209,8 +228,8 @@ class Test extends React.Component {
 
         //提交函数
         let that = this;
-        let data={Answer:[],Username:this.props.state.username};
-        this.state.question.forEach((x,i)=>{
+        let data = { Answer: [], Username: this.props.state.username };
+        this.state.question.forEach((x, i) => {
             data.Answer.push(x.value)
         })
         fetch("http://" + that.props.state.host + "/api/student/handin",
@@ -222,26 +241,26 @@ class Test extends React.Component {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
-            }).then(async (res)=>{
-                if(res.status==403){
+            }).then(async (res) => {
+                if (res.status == 403) {
                     message.warning("非法答题时间(过长或过短)")
                 }
-                else{  
-                    let data=await res.json();
-                    if(data.message==undefined){           
-                    console.log("handin successfully");
-                    message.success("提交成功!");
-                    that.props.setState({isAllDone:true,answer:that.state.question})
-                    that.props.setState({score:data.Score})
+                else {
+                    let data = await res.json();
+                    if (data.message == undefined) {
+                        console.log("handin successfully");
+                        message.success("提交成功!");
+                        that.props.setState({ isAllDone: true, answer: that.state.question })
+                        that.props.setState({ score: data.Score })
                     }
-                    else{
+                    else {
                         message.error("登陆已过期");
                         this.props.logout();
                     }
                 }
             }
-        )
-        
+            )
+
     }
     done(i, value) {
         let x = this.state.question;
@@ -292,7 +311,7 @@ class Test extends React.Component {
                                                     this.props.logout();
                                                 }
                                             })
-                                        
+
                                 }}>
                                 开始答题
                       </Button>
@@ -313,7 +332,7 @@ class Test extends React.Component {
         }
         return (
             <React.Fragment>
-                <Layout style={{ overflow: "hidder",minWidth:"1000px"}}>
+                <Layout style={{ overflow: "hidder", minWidth: "1000px" }}>
                     <Header>
                         <Row>
                             <Col span={16} offset={0}>
@@ -344,7 +363,7 @@ class Test extends React.Component {
                                         >
 
                                             {/* <Col span={22} offset={1}> */}
-                                            {x.kind == "选择题" ?
+                                            {x.kind=="选择题" ?
                                                 <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev}
                                                     submit={this.submint} />
                                                 : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />

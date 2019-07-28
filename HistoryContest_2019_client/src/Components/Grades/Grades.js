@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Card, Row, Col, Layout, Icon, Radio, Button,message,Skeleton,Result} from 'antd';
+import { Card, Row, Col, Layout, Icon, Radio, Button,message,Skeleton,Result,Progress} from 'antd';
 import Timer from "../Timer/Timer"
 import BG from '../../img/图片2.jpg'
 
@@ -116,6 +116,7 @@ class Grades extends React.Component {
     }
     onmouseover(i) {
         this.setState({ focusOn: i })
+        console.log(Number(this.state.question[this.state.focusOn].value));
     }
 
     render() {
@@ -186,15 +187,15 @@ class Grades extends React.Component {
                                                 <b>A</b> &nbsp; {this.state.question[this.state.focusOn].option[0].text}&nbsp;
                                                 {this.state.question[this.state.focusOn].option[0].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
                                             </Radio>
-                                            <Radio style={style} value={Number(this.state.question[this.state.focusOn].option[0].value)}>
+                                            <Radio style={style} value={Number(this.state.question[this.state.focusOn].option[1].value)}>
                                                 <b>B</b> &nbsp; {this.state.question[this.state.focusOn].option[1].text}&nbsp;
                                                 {this.state.question[this.state.focusOn].option[1].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
                                             </Radio>
-                                            <Radio style={style} value={Number(this.state.question[this.state.focusOn].option[0].value)}>
+                                            <Radio style={style} value={Number(this.state.question[this.state.focusOn].option[2].value)}>
                                                 <b>C</b> &nbsp; {this.state.question[this.state.focusOn].option[2].text}&nbsp;
                                                 {this.state.question[this.state.focusOn].option[2].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
                                             </Radio>
-                                            <Radio style={style} value={Number(this.state.question[this.state.focusOn].option[0].value)}>
+                                            <Radio style={style} value={Number(this.state.question[this.state.focusOn].option[3].value)}>
                                                 <b>D</b> &nbsp; {this.state.question[this.state.focusOn].option[3].text}&nbsp;
                                                 {this.state.question[this.state.focusOn].option[3].value == this.state.question[this.state.focusOn].answer ? <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} /> : <div />}
                                             </Radio>

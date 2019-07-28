@@ -9,8 +9,8 @@ class LoginModal extends React.Component {
         this.state = {
             visible: true,
             attemp: "0",
-            username: '1',
-            password: '1',
+            username: '',
+            password: '',
             toDo: "登录",
             posted: false,
             ...this.initState(),
@@ -30,7 +30,7 @@ class LoginModal extends React.Component {
         let password = this.state.password;
         let identity = this.state.attemp;
         //暂时的登陆函数
-        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase() ||1) {
+        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase() || 1) {
             // console.log("login");
             // message.success("登录成功！");
             // that.props.setState({
@@ -48,7 +48,7 @@ class LoginModal extends React.Component {
             //         score: -1
             //     answer: []
             // })
-            this.setState({ posted: true})
+            this.setState({ posted: true })
             fetch("http://" + that.props.host + '/api/ui/login', {
                 method: 'POST',
                 mode: 'cors',
@@ -64,14 +64,14 @@ class LoginModal extends React.Component {
                 async res => {
                     that.setState({ posted: false })
                     if (res.status == 404) {
-                        message.error("学号不存在");
+                        message.error("用户名不存在");
                     }
                     else if (res.status == 403) {
                         message.error("用户名或密码错误");
                     }
                     else {
                         //学生登陆成功
-                        let data = await res.json();                      
+                        let data = await res.json();
                         console.log("login");
                         message.success("登录成功！");
                         if (identity == "0") {
@@ -80,14 +80,13 @@ class LoginModal extends React.Component {
                                     isWelcome: false,
                                     isStudent: true,
                                     isLogin: true,
-                                    username:this.state.username,
-                                    token:data.Token,
-     
-                                        username: this.state.username,
-                                        name: data.Name,   
-                                        score: data.Score,                                     
-                                        token: data.Token,
-                                        access: 0
+                                    username: this.state.username,
+                                    token: data.Token,
+                                    username: this.state.username,
+                                    name: data.Name,
+                                    score: data.Score,
+                                    token: data.Token,
+                                    access: 0
 
                                 });
                                 // that.props.setState({
@@ -103,11 +102,11 @@ class LoginModal extends React.Component {
                                     isWelcome: false,
                                     isStudent: true,
                                     isLogin: true,
-                                        username: this.state.username,
-                                        score: data.Score,
-                                        name: data.Name,
-                                        token: data.Token,
-                                        access: 0
+                                    username: this.state.username,
+                                    score: data.Score,
+                                    name: data.Name,
+                                    token: data.Token,
+                                    access: 0
                                 })
                                 // that.props.setState({
                                 //     isWelcome: false,
@@ -121,25 +120,25 @@ class LoginModal extends React.Component {
                             that.props.setState({
                                 isWelcome: false,
                                 isTeacher: true,
-                                    token: data.Token,
-                                    name: data.Name,
-                                    departId: data.Id,
-                                    depart: data.Department,
-                                    access: 2
+                                token: data.Token,
+                                name: data.Name,
+                                departId: data.Id,
+                                depart: data.Department,
+                                access: 2
                             })
                         }
                         else if (identity == "1") {
                             that.props.setState({
                                 isWelcome: false,
                                 isAdmin: true,
-                                    token: data.Token,
-                                    name: data.Name,
-                                    depart: "竞赛",
-                                    access: 1
+                                token: data.Token,
+                                name: data.Name,
+                                depart: "竞赛",
+                                access: 1
                             })
                         }
                     }
-                }).catch(err=>{console.log(err)})
+                }).catch(err => { console.log(err) })
 
         }
         else {

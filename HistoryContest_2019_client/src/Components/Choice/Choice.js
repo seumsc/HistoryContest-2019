@@ -64,9 +64,9 @@ class Choice extends React.Component {
                                         <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button> 
                                         </div></Col>
                                     <Col span={20}>
-                                        <h2 style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 50 }}>
+                                        <p style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 50 }}>
                                             &nbsp;{this.props.state.title}
-                                        </h2>
+                                        </p>
                                         <Radio.Group style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                             <Radio style={style} value={this.props.state.option[0].value}>
                                                 <b>A</b> &nbsp; {this.props.state.option[0].text}

@@ -47,7 +47,7 @@ class Choice extends React.Component {
                     width: "100%", height: "100%"
                 }}>
                     <Col span={4}></Col>
-                    <Col span={16}>
+                    <Col span={14} offset={1}>
                         <div style={{
                             backgroundColor: bg[this.props.Id % 11],
                             marginTop: 60,
