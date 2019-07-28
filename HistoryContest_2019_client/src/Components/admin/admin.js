@@ -180,7 +180,7 @@ class Admin extends React.Component {
             }).then(res => res.json()
             ).then(data => {
                 Object.keys(data).forEach((inst) => {
-                    if (data[inst] != []) {
+                    if (!data[inst].length==0) {
                         data[inst].sort((a, b) => { return b.score - a.score })
                         data[inst].forEach((per, rank) => {
                             per.rank = rank + 1;
@@ -218,7 +218,7 @@ class Admin extends React.Component {
                 mode: 'cors',
                 headers: {
                     "authorization": that.props.state.token,
-                    "Content-Type": "application/x-www-form-urlencoded"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     Name:that.state.register.name,

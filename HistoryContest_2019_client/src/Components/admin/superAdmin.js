@@ -76,8 +76,8 @@ class Super extends React.Component {
             methods: "GET",
             mode:"cors",
             headers: {
-                "authorization": that.props.state.token,
-                "Content-Type": "application/json"
+                "authorization": that.props.state.token
+                //"Content-Type": "application/json"
             }
         }).then((res)=>{return res.json()}
         ).then((data)=>{
@@ -159,14 +159,14 @@ class Super extends React.Component {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-                    "authorization": that.props.state.token,
-                    "Content-Type": "application/json"
+                    "authorization": that.props.state.token
+                    //"Content-Type": "application/json"
                 },
             
             }).then(res => res.json()
             ).then(data => {
                 Object.keys(data).forEach((inst) => {
-                    if (data[inst] != []) {
+                    if (!data[inst].length == 0) {
                         data[inst].sort((a, b) => { return b.score - a.score })
                         data[inst].forEach((per, rank) => {
                             per.rank = rank + 1;
@@ -204,7 +204,7 @@ class Super extends React.Component {
                 mode: 'cors',
                 headers: {
                     "authorization": that.props.state.token,
-                    "Content-Type": "application/x-www-form-urlencoded"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     Name:that.state.register.name,

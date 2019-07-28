@@ -16,12 +16,38 @@ const d=require("../Data/Student_test_2014.json")
 
  @Controller("/admin")
 export class AdminController{
-    // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+     @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/getBydepartment")
     async get_department(@Ctx() ctx:Context){   
         let department=await Department.findOne({id:ctx.request.body.Department})
         ctx.body=department;
-        ctx.body=require("../utils/information.json")
+        ctx.body={
+            "建筑学院":[],
+            "吴健雄学院":[],
+            "机械工程学院":[],
+            "能源与环境学院":[],
+            "材料科学与工程学院":[],
+            "土木工程学院":[],
+            "交通学院":[],
+            "自动化学院":[],
+            "电气工程学院":[],
+            "仪器科学与工程学院":[],
+            "化学化工学院":[],
+            "信息科学与工程学院":[],
+            "电子科学与工程学院":[],
+            "计算机科学与工程学院":[],
+            "软件学院":[],
+            "网络空间安全学院":[],
+            "物理学院":[],
+            "经济管理学院":[],
+            "公共卫生学院":[],
+            "人文学院":[],
+            "艺术学院":[],
+            "医学院":[],
+            "生物科学与医学工程学院":[],
+            "外国语学院":[]
+        }
+    
         ctx.body[department.name]=await Student.find({select:["name","username","score","time_use","password"],where:{department:ctx.request.body.Department}})
         // ctx.body={Students:await Student.find({select:["name","username","score","time_use","password"],where:{department:ctx.request.body.Department}}),Tested:department.tested_number,Total:department.total_number}
         return ctx;
@@ -29,7 +55,7 @@ export class AdminController{
 /**
  *  获取全部院系的均分，排名
  */
-    // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+     @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Get("/get_alldepartments")
     async get_alldepartment(@Ctx() ctx:Context){
         ctx.body={Departments:await Department.find({order:{average:"DESC"},select:["name","average","tested_number","total_number"]})}
@@ -37,7 +63,7 @@ export class AdminController{
     }
 
 //获取全部院系的学生姓名，用户名，得分
-    // @UseBefore(verify.verifyToken_Admin,verify.verifyToken_Username)
+     @UseBefore(verify.verifyToken_Admin,verify.verifyToken_Username)
     @Get("/get_allstudents")
     async get_allstudent(@Ctx() ctx:Context){
         let department=await Department.find();
@@ -56,7 +82,7 @@ export class AdminController{
 //后端返回注册状况                                     200:注册成功，400:用户名或密码格式不正确，403:用户已存在
 //a,c
 @Post("/register")
-// @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+ @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
 async post_register(@Ctx() ctx:Context){
     switch (ctx.request.body.Identity)
     {
@@ -140,7 +166,7 @@ async post_register(@Ctx() ctx:Context){
  *  前端发送用户名，姓名            {Username:string,Name:string,Password:string}
  *  后端保存用户修改后信息
  *  @access  admin，counsellor*/
-   // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+    @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_name")
     async reset_name(@Ctx() ctx:Context){
     let student=await Student.findOne({username:ctx.request.body.Username})
@@ -153,7 +179,7 @@ async post_register(@Ctx() ctx:Context){
  *  前端发送姓名，一卡通            {Username:string,Name:string,Password:string}
  *  后端保存用户修改后信息
  *  @access  admin，counsellor*/
-   // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+    @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_username")
     async reset_username(@Ctx() ctx:Context){
     let student=await Student.findOne({name:ctx.request.body.Name,password:ctx.request.body.Password})
@@ -166,7 +192,7 @@ async post_register(@Ctx() ctx:Context){
  *  前端发送学号            {Username:string,Name:string,Password:string}
  *  后端保存用户修改后信息
  *  @access  admin，counsellor*/
-   // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+    @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_password")
     async reset_password(@Ctx() ctx:Context){
     let student=await Student.findOne({username:ctx.request.body.Username})

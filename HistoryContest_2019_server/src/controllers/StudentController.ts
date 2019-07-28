@@ -67,11 +67,15 @@ export class StudentController{
     async handin(@Ctx() ctx:Context){
         let date=new Date()
         let student:Student=await Student.findOne({username:ctx.request.body.Username})
-        if(((student.time_use!=-1)&&((date.getTime()-1560000000000)/1000-student.time_use>1800))||(student.score!=-1))
+        student.time_use=(date.getTime()-1560000000000)/1000-student.time_use;
+        if(((student.time_use>1800)||(student.score!=-1)))
         {ctx.status=403}
-        else
+        else 
+        if(student.time_use<180)
+        {
+           ctx.body={msg:"答题时间过短,请认真答题"}; 
+        }else
             {
-            student.time_use=(date.getTime()-1560000000000)/1000-student.time_use;
             student.score=0;
             for(let i=0;i<20;i++)
             {
@@ -93,18 +97,7 @@ export class StudentController{
             ctx.body={Score:student.score}
         }
         return ctx;
-    }
 
-//交卷后返回答案
-//前端发送用户名                   {Username:String}
-//后端返回答案                    {Answer:Number[]}
-//student
-
-    @Post("/result_handin")
-    async result_handin(@Ctx() ctx:Context){
-        let student:Student=await Student.findOne({username:ctx.request.body.Username})
-        ctx.body={Answer:student.answers_choice.concat(student.answers_judgment)}
-        return ctx;
     }
 
 //查分

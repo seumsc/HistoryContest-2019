@@ -29,7 +29,7 @@ class Grades extends React.Component {
         if (this.props.state.isAllDone) {
             this.state.question=this.props.state.answer;
             this.state.name=this.props.state.name;
-            fetch("http://" + that.props.state.host + "/api/student/result_handin",
+            fetch("http://" + that.props.state.host + "/api/student/result",
                 {
                     method: 'POST',
                     mode: 'cors',
@@ -42,9 +42,12 @@ class Grades extends React.Component {
             ).then((res) => res.json()
             ).then((data) => {
                 if (data.message == undefined) {
-                    data.Answer.forEach((x, i) => {
-                        that.state.question[i].answer = x;
+                    data.Answer.Choice_answers.forEach((x, i) => {
+                            that.state.question[i].answer=x;
                     })
+                    data.Answer.Judgment_answers.forEach((x,i) => {
+                        that.state.question[i+20].answer=x;
+                    });
                 that.setState({messageGet:true});
                 }
                 else {

@@ -243,15 +243,20 @@ class Test extends React.Component {
                 body: JSON.stringify(data)
             }).then(async (res) => {
                 if (res.status == 403) {
-                    message.warning("非法答题时间(过长或过短)")
+                    message.warning("非法答题!")
                 }
                 else {
                     let data = await res.json();
                     if (data.message == undefined) {
+                        if(data.msg=="答题时间过短,请认真答题"){
+                            message.warning("答题时间过短,请认真答题")
+                        }
+                        else{
                         console.log("handin successfully");
                         message.success("提交成功!");
                         that.props.setState({ isAllDone: true, answer: that.state.question })
                         that.props.setState({ score: data.Score })
+                        }
                     }
                     else {
                         message.error("登陆已过期");
@@ -290,7 +295,7 @@ class Test extends React.Component {
                                 onClick={() => {
                                     let that = this;
                                     //temp
-                                    // that.setState({ isTesting: true })
+                                    //  
                                     //开始函数
                                     fetch("http://" + this.props.state.host + '/api/student/start',
                                         {

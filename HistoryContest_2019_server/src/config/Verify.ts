@@ -90,7 +90,7 @@ export async function verifyToken_Username(ctx,next){
         switch(data.identity)
         {
             case '0':
-                const stu=await Student.findOne({username:ctx.request.body.Username});
+                const stu=await Student.findOne({username:data.username});
                 if(!stu)
                 {
                     ctx.status=400
@@ -102,7 +102,7 @@ export async function verifyToken_Username(ctx,next){
                 }
                 break;
             case '1':
-                    const admin=await Admin.findOne({username:ctx.request.body.Username});
+                    const admin=await Admin.findOne({username:data.username});
                     if(!admin)
                     {
                         ctx.status=400
@@ -114,7 +114,7 @@ export async function verifyToken_Username(ctx,next){
                     }
                     break;
             case '2':
-                    const counsellor=await Counsellor.findOne({username:ctx.request.body.Username});
+                    const counsellor=await Counsellor.findOne({username:data.username});
                     if(!counsellor)
                     {
                         ctx.status=400
@@ -131,6 +131,7 @@ export async function verifyToken_Username(ctx,next){
         return ctx;
     }
 }
+
 
 export async function verifyToken_Score(ctx,next){
     const dataString = ctx.header.authorization;
