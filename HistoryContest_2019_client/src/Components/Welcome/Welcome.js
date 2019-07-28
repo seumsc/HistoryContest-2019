@@ -22,8 +22,10 @@ class Welcome extends React.Component{
     closModal(){
         this.setState({logining:false});
     }
-    
-    render(){
+    componentWillUnmount(){
+        console.log(this.props.state.username)
+    }
+    render(){   
         let origin = (
         <div className="WEL" style={{minWidth:"500px"}}>
             <header className="welcome" 

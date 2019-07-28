@@ -126,11 +126,11 @@ class Test extends React.Component {
             method: 'POST',
             mode: 'cors',
             headers: {
-                "authorization": that.props.state.userInfo.token,
+                "authorization": that.props.state.token,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                Username: that.props.state.userInfo.username,
+                Username: that.props.state.username,
             })
         }
         ).then(
@@ -143,6 +143,7 @@ class Test extends React.Component {
                         that.props.logout();
                     }
                     else {
+                        //that.props.state.answer=data.Choice_question.concat(data.Judgment_question)
                         for (let i = 0; i < 20; i++) {
                             that.state.question[i].title = allChoiceQuestion[data.Paper.Choice_question[i]-1]["title"];
                             let temp = [
@@ -182,6 +183,7 @@ class Test extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log(this.props.state.username)
     }
 
     submit() {
@@ -194,20 +196,20 @@ class Test extends React.Component {
         //     isAdmin: false,
         //     isTeacher: false,
         //     host: "",
-        //     userInfo:
-        //     {
+
+
         //         name: '菜鸡',
         //         username: "",
         //         token: '',
         //         access: -1,
         //         score: 90
-        //     },
+
         //     answer: this.state.question
         // })
 
         //提交函数
         let that = this;
-        let data={Answer:[],Username:this.props.state.userInfo.username};
+        let data={Answer:[],Username:this.props.state.username};
         this.state.question.forEach((x,i)=>{
             data.Answer.push(x.value)
         })
@@ -216,21 +218,21 @@ class Test extends React.Component {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
-                    "authorization": that.props.state.userInfo.token,
+                    "authorization": that.props.state.token,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
             }).then(async (res)=>{
                 if(res.status==403){
-                    message.warning("答题所用时间过短,请认真答题~")
+                    message.warning("非法答题时间(过长或过短)")
                 }
                 else{  
                     let data=await res.json();
-                    if(data.message==undefined){
-                    that.props.setState({isAllDone:true});
+                    if(data.message==undefined){           
                     console.log("handin successfully");
                     message.success("提交成功!");
-                    that.props.setState({userInfo:{score:data.Score},answer:that.state.question})
+                    that.props.setState({isAllDone:true,answer:that.state.question})
+                    that.props.setState({score:data.Score})
                     }
                     else{
                         message.error("登陆已过期");
@@ -276,11 +278,11 @@ class Test extends React.Component {
                                             method: 'POST',
                                             mode: 'cors',
                                             headers: {
-                                                "authorization": that.props.state.userInfo.token,
+                                                "authorization": that.props.state.token,
                                                 "Content-Type": "application/json"
                                             },
                                             body: JSON.stringify({
-                                                Username: that.props.state.userInfo.username,
+                                                Username: that.props.state.username,
                                             })}).then((data) => {
                                                 if (data.message == undefined) {
                                                     that.setState({ isTesting: true })
@@ -295,7 +297,7 @@ class Test extends React.Component {
                                 开始答题
                       </Button>
                         ]}>
-                        <b style={{ fontSize: "18px", color: "#1890ff" }}>&nbsp;{this.props.state.userInfo.name}同学,你好!</b><br></br>
+                        <b style={{ fontSize: "18px", color: "#1890ff" }}>&nbsp;{this.props.state.name}同学,你好!</b><br></br>
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
 
                         <ul style={{ fontSize: "15px" }}>

@@ -1,0 +1,25 @@
+{
+    "RECORDS": [
+        {
+            "id": "1",
+            "name": "任栗晗",
+            "username": "71118118",
+            "password": "213183580",
+            "identity": "1"
+        },
+        {
+            "id": "2",
+            "name": "黄开鸿",
+            "username": "09018316",
+            "password": "213181432",
+            "identity": "1"
+        },
+        {
+            "id": "3",
+            "name": "张心睿",
+            "username": "71118102",
+            "password": "213181711",
+            "identity": "1"
+        }
+    ]
+}

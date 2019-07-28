@@ -1,0 +1,20 @@
+{
+  "name": "historycontest2019",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node HistoryContest_2019_server/src/app.ts,cd ./HistoryContest_2019_client,react-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HHHKKKHHH/HistoryContest-2019.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HHHKKKHHH/HistoryContest-2019/issues"
+  },
+  "homepage": "https://github.com/HHHKKKHHH/HistoryContest-2019#readme"
+}

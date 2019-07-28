@@ -1,6 +1,7 @@
 import React,{Suspense} from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
+import {Result} from 'antd'
 const Welcome = React.lazy(() => import('./Components/Welcome/Welcome'));
 const Test = React.lazy(() => import('./Components/Test/Test'));
 const Grades = React.lazy(() => import('./Components/Grades/Grades'));
@@ -18,16 +19,14 @@ class App extends React.Component {
       isAdmin: false,
       isTeacher: false,
       host: "localhost:6553",
-      userInfo:
-      {
         name: 'zzz',
         username: "",
         depart: "",
         departId: -1,
         token: '',
         access: -1,
-        score: -1
-      },
+        score: -1,
+  
       answer: [],
     }
     this.appState = this.appState.bind(this);
@@ -44,14 +43,11 @@ class App extends React.Component {
       isAllDone: false,
       isAdmin: false,
       isTeacher: false,
-      userInfo:
-      {
         name: '',
         username: "",
         token: '',
         access: -1,
-        score: -1
-      },
+        score: -1,
       answer: []
     })
   }
@@ -61,10 +57,10 @@ class App extends React.Component {
         <div id="index">
           <Suspense fallback={<div style={{width:"100%",height:"100%",backgroundColor:"black"}}></div>}>
             {this.state.isWelcome ? <Welcome state={this.state} setState={this.appState} /> : <div />}
-            {this.state.isStudent && this.state.userInfo.score == -1 ? <Test state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
+            {this.state.isStudent && this.state.score == -1 ? <Test state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
             {this.state.isTeacher ? <div /> : <div />}
             {this.state.isAdmin ? <Admin state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
-            { this.state.userInfo.score >= 0 ? <Grades state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
+            {this.state.score >= 0 ? <Grades state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
           </Suspense>
         </div>
       </React.Fragment>
