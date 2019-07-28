@@ -366,14 +366,12 @@ class Test extends React.Component {
                                             onChange={() => { this.done(i) }}
                                             style={{ textAlign: "left" }}
                                         >
-
-                                            {/* <Col span={22} offset={1}> */}
                                             {x.kind=="选择题" ?
                                                 <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev}
                                                     submit={this.submint} />
                                                 : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
                                             }
-                                            {/* </Col> */}
+
                                         </TabPane>)
                                     )
                                     }
