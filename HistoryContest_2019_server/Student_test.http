@@ -1,6 +1,6 @@
 
 ### 测试开始答题
-POST http://localhost:3000/api/student/start
+POST http://localhost:6553/api/student/start
 Content-Type: application/json
 
 {

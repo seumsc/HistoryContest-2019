@@ -16,10 +16,11 @@ const d=require("../Data/Student_test_2014.json")
 
  @Controller("/admin")
 export class AdminController{
-    @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+    // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/getBydepartment")
     async get_department(@Ctx() ctx:Context){   
         let department=await Department.findOne({id:ctx.request.body.Department})
+        ctx.body=department;
         ctx.body=require("../utils/information.json")
         ctx.body[department.name]=await Student.find({select:["name","username","score","time_use","password"],where:{department:ctx.request.body.Department}})
         // ctx.body={Students:await Student.find({select:["name","username","score","time_use","password"],where:{department:ctx.request.body.Department}}),Tested:department.tested_number,Total:department.total_number}
@@ -28,20 +29,20 @@ export class AdminController{
 /**
  *  获取全部院系的均分，排名
  */
-    @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
-    @Get("/get_alldepartment")
+    // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+    @Get("/get_alldepartments")
     async get_alldepartment(@Ctx() ctx:Context){
         ctx.body={Departments:await Department.find({order:{average:"DESC"},select:["name","average","tested_number","total_number"]})}
+        return ctx;
     }
 
 //获取全部院系的学生姓名，用户名，得分
-    @UseBefore(verify.verifyToken_Admin,verify.verifyToken_Username)
-    @Get("/get_allstudent")
+    // @UseBefore(verify.verifyToken_Admin,verify.verifyToken_Username)
+    @Get("/get_allstudents")
     async get_allstudent(@Ctx() ctx:Context){
         let department=await Department.find();
         ctx.body=data
         for(let i=0;i<department.length;i++){
-            console.log(department[i].id)
             ctx.body[department[i].name]=await Student.find({select:["name","username","score","time_use","password"],where:{department:department[i].id}})      
         }
         return ctx;
@@ -139,7 +140,7 @@ async post_register(@Ctx() ctx:Context){
  *  前端发送用户名，姓名            {Username:string,Name:string,Password:string}
  *  后端保存用户修改后信息
  *  @access  admin，counsellor*/
-    @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+   // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_name")
     async reset_name(@Ctx() ctx:Context){
     let student=await Student.findOne({username:ctx.request.body.Username})
@@ -152,7 +153,7 @@ async post_register(@Ctx() ctx:Context){
  *  前端发送姓名，一卡通            {Username:string,Name:string,Password:string}
  *  后端保存用户修改后信息
  *  @access  admin，counsellor*/
-    @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+   // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_username")
     async reset_username(@Ctx() ctx:Context){
     let student=await Student.findOne({name:ctx.request.body.Name,password:ctx.request.body.Password})
@@ -165,7 +166,7 @@ async post_register(@Ctx() ctx:Context){
  *  前端发送学号            {Username:string,Name:string,Password:string}
  *  后端保存用户修改后信息
  *  @access  admin，counsellor*/
-    @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+   // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_password")
     async reset_password(@Ctx() ctx:Context){
     let student=await Student.findOne({username:ctx.request.body.Username})

@@ -6,6 +6,7 @@ const Welcome = React.lazy(() => import('./Components/Welcome/Welcome'));
 const Test = React.lazy(() => import('./Components/Test/Test'));
 const Grades = React.lazy(() => import('./Components/Grades/Grades'));
 const Admin = React.lazy(() => import('./Components/admin/admin'));
+const Super = React.lazy(() => import('./Components/admin/superAdmin'));
 
 
 class App extends React.Component {
@@ -21,8 +22,8 @@ class App extends React.Component {
       host: "localhost:6553",
         name: 'zzz',
         username: "",
-        depart: "",
-        departId: -1,
+        depart: "计算机科学与技术",
+        departId: "09",
         token: '',
         access: -1,
         score: -1,
@@ -58,8 +59,8 @@ class App extends React.Component {
           <Suspense fallback={<div style={{width:"100%",height:"100%",backgroundColor:"black"}}></div>}>
             {this.state.isWelcome ? <Welcome state={this.state} setState={this.appState} /> : <div />}
             {this.state.isStudent && this.state.score == -1 ? <Test state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
-            {this.state.isTeacher ? <div /> : <div />}
-            {this.state.isAdmin ? <Admin state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
+            {this.state.isTeacher ? <Admin state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
+            {this.state.isAdmin ? <Super state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
             {this.state.score >= 0 ? <Grades state={this.state} setState={this.appState} logout={this.logout} /> : <div />}
           </Suspense>
         </div>

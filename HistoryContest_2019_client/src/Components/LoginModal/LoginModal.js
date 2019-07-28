@@ -122,6 +122,7 @@ class LoginModal extends React.Component {
                                 isTeacher: true,
                                 token: data.Token,
                                 name: data.Name,
+                                username:this.state.username,
                                 departId: data.Id,
                                 depart: data.Department,
                                 access: 2
@@ -133,7 +134,7 @@ class LoginModal extends React.Component {
                                 isAdmin: true,
                                 token: data.Token,
                                 name: data.Name,
-                                depart: "竞赛",
+                                username:this.state.username,
                                 access: 1
                             })
                         }

@@ -71,6 +71,7 @@ export class StudentController{
         {ctx.status=403}
         else
             {
+            student.time_use=(date.getTime()-1560000000000)/1000-student.time_use;
             student.score=0;
             for(let i=0;i<20;i++)
             {

@@ -5,7 +5,7 @@ import mark from '../../img/校徽实体.png'
 
 const { Header, Footer, Sider, Content } = Layout;
 //const departInfo = require("./departTest.json")
-class Admin extends React.Component {
+class Super extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,11 +13,6 @@ class Admin extends React.Component {
             displayData: [],
             departData: [],
             departList:[],
-            num: -1,
-            depart: this.props.state.depart,
-            average: -1,
-            numOfDone: -1,
-            rank:-1,
             searchText: '',
             loading: false,
             departVisible:false,
@@ -93,12 +88,6 @@ class Admin extends React.Component {
                     "排名":rank+1,
                     "均分":inst.average
                 }
-                if(inst.name==that.props.state.depart){
-                    that.state.average=inst.average;
-                    that.state.numOfDone=inst.tested_number;
-                    that.state.num=inst.total_number;
-                    that.state.rank=rank+1;      
-                }
             })
         })
         //测试学生数据
@@ -165,18 +154,15 @@ class Admin extends React.Component {
         //测试结束
 
         this.setState({loading:true});
-        fetch("http://" + that.props.state.host + "/api/admin/getBydepartment",
+        fetch("http://" + that.props.state.host + "/api/admin/get_allstudents",
             {
-                method: 'POST',
+                method: 'GET',
                 mode: 'cors',
                 headers: {
                     "authorization": that.props.state.token,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    Username: that.props.state.username,
-                    Department: that.props.state.departId
-                })
+            
             }).then(res => res.json()
             ).then(data => {
                 Object.keys(data).forEach((inst) => {
@@ -439,6 +425,7 @@ class Admin extends React.Component {
                 width: "12%",
                 ...this.getColumnSearchProps("排名"),
                 sorter: (a, b) => a["排名"] - b["排名"],
+                defaultSortOrder:'ascend'
             },
             {
                 title: "答题详情",
@@ -588,7 +575,7 @@ class Admin extends React.Component {
                                 <Descriptions bordered title={
                                     <Row>
                                         <Col span={10}>
-                                            <p style={{ fontSize: "30px", marginTop: '20px' }}>{this.state.depart}学院&nbsp;统计信息</p>
+                                            <p style={{ fontSize: "30px", marginTop: '20px' }}>竞赛统计信息</p>
                                             <Button type="primary" size="small" onClick={()=>{this.setState({departVisible:true})}}><Icon type="menu-unfold" /> 全校院系排名</Button>
                                             </Col>
                                         
@@ -620,10 +607,6 @@ class Admin extends React.Component {
                                 }
                                 layout="vertical"
                                 column={4}>
-                                    <Descriptions.Item label="总人数">{this.state.num}</Descriptions.Item>
-                                    <Descriptions.Item label="已完成人数">{this.state.numOfDone}</Descriptions.Item>
-                                    <Descriptions.Item label="平均分">{this.state.average}</Descriptions.Item>
-                                    <Descriptions.Item label="院系均分排名">{this.state.rank}</Descriptions.Item>
                                 </Descriptions>
                                 <Table
                                     columns={title}
@@ -654,5 +637,5 @@ class Admin extends React.Component {
     }
 }
 
-export default Admin
+export default Super
 
