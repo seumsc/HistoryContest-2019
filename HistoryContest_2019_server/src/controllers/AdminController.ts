@@ -57,81 +57,81 @@ export class AdminController{
 @Post("/register")
 // @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
 async post_register(@Ctx() ctx:Context){
-    // switch (ctx.request.body.Identity)
-    // {
-    //     case '0':
-    //         let stu=new Student();
-    //         stu.identity='0';
-    //         stu.username=ctx.request.body.Username
-    //         stu.name=ctx.request.body.Name
-    //         stu.password=ctx.request.body.Password
-    //         stu.department=stu.username[0]+stu.username[1]
-    //         stu.score=-1
-    //         const Stu=await Student.findOne({username:ctx.request.body.Username});
-    //         if((!isPasswordValid(stu.password))||(!isUsernameValid(stu.username))){
-    //             ctx.status=400
-    //         }
-    //         else if(!Stu)
-    //         {
-    //             Student.save(stu);
-    //             let department=await Department.findOne({id:stu.department})
-    //             department.total_number+=1;
-    //             Department.update(department.test,department)
-    //             ctx.status=200
-    //         }
-    //         else {
-    //             ctx.status=403
-    //         }
-    //         break;
-    //     case '1':
-    //         let admin=new Admin()
-    //         admin.identity="1"
-    //         admin.username=ctx.request.body.Username
-    //         admin.name=ctx.request.body.Name
-    //         admin.password=ctx.request.body.Password
-    //         const Ad=await Admin.findOne({username:ctx.request.body.Username})
-    //         if((!isPasswordValid(admin.password))||(!isUsernameValid(admin.username))){
-    //             ctx.status=400
-    //         }
-    //         else if(!Ad)
-    //         {
-    //             Admin.save(admin);
-    //             ctx.status=200
-    //         }
-    //         else {
-    //             ctx.status=403
-    //         }
-    //         break;
-    //     case '2':
-    //         let counsellor=new Counsellor()
-    //         counsellor.identity="2";
-    //         counsellor.username=ctx.request.body.Username
-    //         counsellor.name=ctx.request.body.Name
-    //         counsellor.password=ctx.request.body.Password
-    //         counsellor.department=counsellor.username[0]+counsellor.username[1]
-    //         const Cou=await Counsellor.findOne({username:ctx.request.body.Username})
-    //         if((!isPasswordValid(counsellor.password))||(!isUsernameValid(counsellor.username))){
-    //             ctx.status=400
-    //         }
-    //         else if(!Cou)
-    //         {
-    //             Counsellor.save(counsellor);
-    //             ctx.status=200
-    //         }
-    //         else {
-    //             ctx.status=403
-    //         }
-    //         break;
-    // }
-    d.students.forEach(element => {
-        let stu=new Student()
-        stu.name=element.Name;
-        stu.username=element.Username;
-        stu.password=element.Password;
-        stu.department=stu.username[0]+stu.username[1]
-        Student.save(stu)
-    });
-    ctx.body={msg:"successful"}
+    switch (ctx.request.body.Identity)
+    {
+        case '0':
+            let stu=new Student();
+            stu.identity='0';
+            stu.username=ctx.request.body.Username
+            stu.name=ctx.request.body.Name
+            stu.password=ctx.request.body.Password
+            stu.department=stu.username[0]+stu.username[1]
+            stu.score=-1
+            const Stu=await Student.findOne({username:ctx.request.body.Username});
+            if((!isPasswordValid(stu.password))||(!isUsernameValid(stu.username))){
+                ctx.status=400
+            }
+            else if(!Stu)
+            {
+                Student.save(stu);
+                let department=await Department.findOne({id:stu.department})
+                department.total_number+=1;
+                Department.update(department.test,department)
+                ctx.status=200
+            }
+            else {
+                ctx.status=403
+            }
+            break;
+        case '1':
+            let admin=new Admin()
+            admin.identity="1"
+            admin.username=ctx.request.body.Username
+            admin.name=ctx.request.body.Name
+            admin.password=ctx.request.body.Password
+            const Ad=await Admin.findOne({username:ctx.request.body.Username})
+            if((!isPasswordValid(admin.password))||(!isUsernameValid(admin.username))){
+                ctx.status=400
+            }
+            else if(!Ad)
+            {
+                Admin.save(admin);
+                ctx.status=200
+            }
+            else {
+                ctx.status=403
+            }
+            break;
+        case '2':
+            let counsellor=new Counsellor()
+            counsellor.identity="2";
+            counsellor.username=ctx.request.body.Username
+            counsellor.name=ctx.request.body.Name
+            counsellor.password=ctx.request.body.Password
+            counsellor.department=counsellor.username[0]+counsellor.username[1]
+            const Cou=await Counsellor.findOne({username:ctx.request.body.Username})
+            if((!isPasswordValid(counsellor.password))||(!isUsernameValid(counsellor.username))){
+                ctx.status=400
+            }
+            else if(!Cou)
+            {
+                Counsellor.save(counsellor);
+                ctx.status=200
+            }
+            else {
+                ctx.status=403
+            }
+            break;
+    }
+    // d.students.forEach(element => {
+    //     let student=new Student()
+    //     student.name=element.Name;
+    //     student.username=element.Username;
+    //     student.password=element.Password;
+    //     student.department=student.username[0]+student.username[1]
+    //     Student.save(student)
+    // });
+    // ctx.body={msg:"successful"}
     return ctx;
 }
 
