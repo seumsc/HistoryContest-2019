@@ -1,6 +1,7 @@
 {
   "name": "historycontest2019",
   "version": "0.1.0",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@types/memory-cache": "^0.2.0",

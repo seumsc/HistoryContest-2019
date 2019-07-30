@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Radio, Button, Col } from 'antd';
 import 'antd/dist/antd.css';
+import QueueAnim from 'rc-queue-anim';
 import bg1 from '../../img/background1.png';
 import bg2 from '../../img/background2.png';
 import bg3 from '../../img/background3.png';
@@ -64,18 +65,22 @@ class Choice extends React.Component {
                                         <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button> 
                                         </div></Col>
                                     <Col span={20}>
-                                        <h2 style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 30 }}>
+                                        <QueueAnim delay={200}
+                                            animConfig={[
+                                                { opacity: [1, 0], translateX: [0,80] }
+                                              ]}>
+                                        <h2 key="1" style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 30 }}>
                                             &nbsp;{this.props.state.title}
                                         </h2>
-                                        <Radio.Group style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
+                                        <Radio.Group key="2" style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                             <Radio style={style} value={1}>
                                                 <b>正确</b> 
                                             </Radio>
                                             <Radio style={style} value={0}>
                                                 <b >错误</b> 
-                                            </Radio>
-                                            
+                                            </Radio>               
                                         </Radio.Group>
+                                        </QueueAnim>
                                     </Col>
                                     <Col span={2}>
                                         <div style={{marginTop:"230px"}}>

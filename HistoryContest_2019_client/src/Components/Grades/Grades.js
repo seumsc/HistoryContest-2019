@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Card, Row, Col, Layout, Icon, Radio, Button,message,Skeleton,Result,Progress} from 'antd';
+import { Card, Row, Col, Layout, Icon, Radio, Button,message,Skeleton,Result,notification} from 'antd';
 import Timer from "../Timer/Timer"
 import BG from '../../img/图片2.jpg'
 
@@ -22,22 +22,17 @@ class Grades extends React.Component {
     
     componentWillMount() {
         const that = this;
-        let data={
-            Username:that.props.state.username //this.props.state.userInfo.username,
-        }
         console.log(that.props.state.username)
         if (this.props.state.isAllDone) {
             this.state.question=this.props.state.answer;
             this.state.name=this.props.state.name;
             fetch("http://" + that.props.state.host + "/api/student/result",
                 {
-                    method: 'POST',
+                    method: 'GET',
                     mode: 'cors',
                     headers: {
-                        "authorization": that.props.state.token,//that.props.state. .token,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
+                        "authorization": that.props.state.token
+                    }
                 }
             ).then((res) => res.json()
             ).then((data) => {
@@ -48,10 +43,16 @@ class Grades extends React.Component {
                     data.Answer.Judgment_answers.forEach((x,i) => {
                         that.state.question[i+20].answer=x;
                     });
+                    notification.open({
+                        placement:"bottomRight",
+                        message: "恭喜!答题已完成",
+                        description: "请记得在离开前,点击右上角退出按钮手动注销哦",
+                        icon: <Icon type="check" style={{ color: "rgb(248, 39, 39)" }} />
+                    })
                 that.setState({messageGet:true});
                 }
                 else {
-                    message.error("登陆已过期");
+                    message.error("登陆已过期",1.5);
                     this.props.logout();
                 }
             })
@@ -60,15 +61,11 @@ class Grades extends React.Component {
         else {
             fetch("http://" + that.props.state.host + "/api/student/result",
                 {
-                    method: 'POST',
+                    method: 'GET',
                     mode: 'cors',
                     headers: {
-                        "authorization": that.props.state.token,
-                        "Content-Type": "application/json"
+                        "authorization": that.props.state.token
                     },
-                    body: JSON.stringify({
-                        Username: that.props.state.username,
-                    })
                 }
             ).then((res) => res.json()
             ).then(async data => {             
@@ -106,14 +103,20 @@ class Grades extends React.Component {
                         temp[i].value = data.User_answer[i];
                         temp[i].answer = data.Answer.Judgment_answers[i - 20];
                     }
+                    notification.open({
+                        placement:"bottomRight",
+                        message: "答题已完成",
+                        description: "可查看你的答题情况",
+                        icon: <Icon type="check" style={{ color:"#1890ff"  }} />
+                    })
                     that.setState({question:temp});
-                    console.log(that.state.question)
                 }
                 else {
-                    message.error("登陆已过期");
+                    message.error("登陆已过期",1.5);
                     this.props.logout();
                 }
                 that.setState({messageGet:true});
+                
             }).catch((err)=>{console.log(err)})
         }
     }

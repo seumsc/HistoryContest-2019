@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Radio, Button, Col } from 'antd';
 import 'antd/dist/antd.css';
+import QueueAnim from 'rc-queue-anim';
 import bg1 from '../../img/background1.png';
 import bg2 from '../../img/background2.png';
 import bg3 from '../../img/background3.png';
@@ -12,7 +13,6 @@ import bg8 from '../../img/background8.jpg';
 import bg9 from '../../img/background9.jpg';
 import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
-
 const RadioGroup = Radio.Group;
 let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
 let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(98,89,44,0.7)', 'rgba(102, 153, 161,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(46,169,223, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(215,185,142,0.7)', 'rgba(46,169,223,0.7)']
@@ -64,10 +64,14 @@ class Choice extends React.Component {
                                         <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button> 
                                         </div></Col>
                                     <Col span={20}>
-                                        <p style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 50 }}>
+                                        <QueueAnim delay={200}
+                                           animConfig={[
+                                            { opacity: [1, 0], translateX: [0,80] }
+                                          ]}>
+                                        <p key="title" style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 50 }}>
                                             &nbsp;{this.props.state.title}
                                         </p>
-                                        <Radio.Group style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
+                                        <Radio.Group key="choice" style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                             <Radio style={style} value={this.props.state.option[0].value}>
                                                 <b>A</b> &nbsp; {this.props.state.option[0].text}
                                             </Radio>
@@ -81,6 +85,7 @@ class Choice extends React.Component {
                                                 <b>D</b> &nbsp; {this.props.state.option[3].text}
                                             </Radio>
                                         </Radio.Group>
+                                        </QueueAnim>
                                     </Col>
                                     <Col span={2}>
                                         <div style={{marginTop:"230px"}}>

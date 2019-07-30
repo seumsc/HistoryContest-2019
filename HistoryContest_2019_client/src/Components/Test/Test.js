@@ -131,15 +131,11 @@ class Test extends React.Component {
         this.setState({ isPaperGet: true })
         let that = this;
         fetch('http://' + that.props.state.host + '/api/student/test', {
-            method: 'POST',
+            method: 'GET',
             mode: 'cors',
             headers: {
                 "authorization": that.props.state.token,
-                "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                Username: that.props.state.username,
-            })
         }
         ).then(
             res => { return res.json()}
@@ -148,7 +144,7 @@ class Test extends React.Component {
                 if (data["message"] == undefined) {
                     console.log(data.message)
                     if (data.status == 403) {
-                        message.error("错误!该用户已完成答题");
+                        message.error("错误!该用户已完成答题",1.5);
                         that.props.logout();
                     }
                     else {
@@ -185,7 +181,7 @@ class Test extends React.Component {
                 }
                 else {
                     console.log("out")
-                    message.error("登陆已过期");
+                    message.error("登陆已过期",1.5);
                     this.props.logout();
                 }
             }
@@ -234,23 +230,23 @@ class Test extends React.Component {
                 body: JSON.stringify(data)
             }).then(async (res) => {
                 if (res.status == 403) {
-                    message.warning("非法答题!")
+                    message.warning("非法答题!",1.5)
                 }
                 else {
                     let data = await res.json();
                     if (data.message == undefined) {
                         if(data.msg=="答题时间过短,请认真答题"){
-                            message.warning("答题时间过短,请认真答题")
+                            message.warning("答题时间过短,请认真答题",1)
                         }
                         else{
                         console.log("handin successfully");
-                        message.success("提交成功!");
+                        message.success("提交成功!",1.5);
                         that.props.setState({ isAllDone: true, answer: that.state.question })
                         that.props.setState({ score: data.Score })
                         }
                     }
                     else {
-                        message.error("登陆已过期");
+                        message.error("登陆已过期",1.5);
                         this.props.logout();
                     }
                 }
@@ -290,20 +286,19 @@ class Test extends React.Component {
                                     //开始函数
                                     fetch("http://" + this.props.state.host + '/api/student/start',
                                         {
-                                            method: 'POST',
+                                            method: 'GET',
                                             mode: 'cors',
                                             headers: {
-                                                "authorization": that.props.state.token,
-                                                "Content-Type": "application/json"
+                                                "authorization": that.props.state.token
                                             },
-                                            body: JSON.stringify({
-                                                Username: that.props.state.username,
-                                            })}).then((data) => {
+                                        }
+                                        ).then((data) => {
                                                 if (data.message == undefined) {
+                                                    message.success("答题开始,加油!",1.5)
                                                     that.setState({ isTesting: true })
                                                 }
                                                 else {
-                                                    message.error("登陆已过期");
+                                                    message.error("登陆已过期",1.5);
                                                     this.props.logout();
                                                 }
                                             })
@@ -316,17 +311,17 @@ class Test extends React.Component {
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
 
                         <ul style={{ fontSize: "15px" }}>
-                            <QueueAnim delay={210}>
+
                             <li key="1">本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
-                            </QueueAnim><QueueAnim delay={210}>
+
                             <li key="2">选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
-                            </QueueAnim><QueueAnim delay={210}>
+
                             <li key="3">答题时限为<b>3分钟-30分钟</b>,&nbsp;3分钟之前无法交卷,&nbsp;30分钟时自动交卷</li>
-                            </QueueAnim><QueueAnim delay={210}>
+
                             <li key="4">在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
-                            </QueueAnim><QueueAnim delay={210}>
+
                             <li key="5">对本答题系统有疑问,&nbsp;可联系在场负责老师</li>
-                            </QueueAnim>
+
                         </ul>
                     </Modal>
                 </div>
@@ -337,12 +332,14 @@ class Test extends React.Component {
                 <Layout style={{ overflow: "hidder", minWidth: "1000px" }}>
                     <Header>
                         <Row>
-                            <Col span={16} offset={0}>
+                            <QueueAnim delay={100} duration={700}>
+                            <Col span={16} offset={0} key="1">
                                 <h1 style={{ color: 'white', fontSize: "25px" }}><img src={mark} height="45px" width="45px" />&nbsp;东南大学校史校情知识竞赛</h1>
                             </Col>
-                            <Col span={4} offset={3}>
+                            <Col span={4} offset={3} key="2">
                                 <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={29} sec={59} info={"  答题倒计时："} />
                             </Col>
+                            </QueueAnim>
                         </Row>
                     </Header>
                     <Content style={{ backgroundColor: 'rgb(17,17,19)' }}>

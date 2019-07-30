@@ -3,7 +3,7 @@ import { Row, Col, Icon, Button, Modal, Layout,  Table, Descriptions, Input, Tag
 import 'antd/dist/antd.css';
 import mark from '../../img/校徽实体.png'
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 //const departInfo = require("./departTest.json")
 class Admin extends React.Component {
     constructor(props) {
@@ -168,16 +168,11 @@ class Admin extends React.Component {
         this.setState({loading:true});
         fetch("http://" + that.props.state.host + "/api/admin/getBydepartment",
             {
-                method: 'POST',
+                method: 'GET',
                 mode: 'cors',
                 headers: {
-                    "authorization": that.props.state.token,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    Username: that.props.state.username,
-                    Department: that.props.state.departId
-                })
+                    "authorization": that.props.state.token
+                }
             }).then(res => res.json()
             ).then(data => {
                 Object.keys(data).forEach((inst) => {
@@ -229,7 +224,7 @@ class Admin extends React.Component {
             }).then(res=>res.json()
                 ).then(data=>{
                     if(data.status==200){
-                        message.success("注册成功");
+                        message.success("注册成功",1.5);
                         that.get();
                         that.setState({register:{post:false}})
                         setTimeout(() => {
@@ -237,11 +232,11 @@ class Admin extends React.Component {
                         }, 400);
                     }
                     else if(data.status==403){
-                        message.warning("该用户(学号)已存在");
+                        message.warning("该用户(学号)已存在",1.5);
                         that.setState({register:{post:false}})
                     }
                     else if(data.status==400){
-                        message.warning("用户名或密码格式不正确");
+                        message.warning("用户名或密码格式不正确",1.5);
                         that.setState({register:{post:false}})
                     }
                 })
@@ -279,10 +274,10 @@ class Admin extends React.Component {
         ).then((data)=>{
             if(data.msg==undefined){
                 that.setState({reset:{post:false}});
-                message.error("修改失败,请检查后重试");
+                message.error("修改失败,请检查后重试",1.5);
             }
             else{
-                message.success("修改成功");
+                message.success("修改成功",1.5);
                 that.setState({reset:{post:false}});
                 setTimeout(()=>{that.setState({reset:{Visible:false}})},400)
             }

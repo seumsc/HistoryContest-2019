@@ -64,16 +64,16 @@ class LoginModal extends React.Component {
                 async res => {
                     that.setState({ posted: false })
                     if (res.status == 404) {
-                        message.error("用户名不存在");
+                        message.error("用户名不存在",1);
                     }
                     else if (res.status == 403) {
-                        message.error("用户名或密码错误");
+                        message.error("用户名或密码错误",1);
                     }
                     else {
                         //学生登陆成功
                         let data = await res.json();
                         console.log("login");
-                        message.success("登录成功！");
+                        message.success("登录成功！",1.0);
                         if (identity == "0") {
                             if (data.Score == -1) {
                                 that.props.setState({
@@ -146,7 +146,7 @@ class LoginModal extends React.Component {
             console.log("false");
             that.setState({ posted: false })
             this.setState({ ...this.initState(), refresh: false });
-            message.error("验证码错误")
+            message.error("验证码错误",1)
         }
     }
 

@@ -22,7 +22,7 @@ export class UIController{
         {
             case '0':
                 const stu=await Student.findOne({username:ctx.request.body.Username});
-                let department1=await Department.findOne({id:stu.department})
+                
                 if(!stu)
                 {
                     ctx.status=404
@@ -32,6 +32,7 @@ export class UIController{
                 }
                 else
                 {
+                    let department1=await Department.findOne({id:stu.department})
                     const payload = {identity:stu.identity,username:stu.username,score:stu.score }
                     const token=jwt.sign(payload,Key,{expiresIn:3600});
                     ctx.status=200
@@ -78,54 +79,28 @@ export class UIController{
     }
 
 
+    // @Get("/getadminall")
+    // async get_admin_all(@Ctx() ctx:Context){
+    //     ctx.body={admin: await Admin.find({select:["name","username"]})}
+    //     return ctx;
+    //     // return await Admin.find()
+    // }
 
-    @Get("/im")
-    @UseBefore(verify.verifyToken_Student)
-    async get_im(@Ctx() ctx:Context){
-        ctx.body= {msg:"fsdafasdfa"}
-        return ctx;
+    // @Get("/getstudentall")
+    // async get_student_all(@Ctx() ctx:Context){
+    //     ctx.body={student:await Student.find({select:["name","username","department","score","time_use","time_start"]})}
+    //     return ctx;
+    // }
+
+    // @Post("/add_department")
+    // async add1(@Ctx() ctx:Context){
+    //     let department=new Department()
+    //     department.id=ctx.request.body.Id;
+    //     department.name=ctx.request.body.Name;
+    //     if(ctx.request.body.Total)
+    //     {department.total_number=ctx.request.body.Total}
+    //     Department.save(department)
+    //     return ctx;
+    // }
+
 }
-
-    @Get("/getadminall")
-    async get_admin_all(@Ctx() ctx:Context){
-        ctx.body={admin: await Admin.find({select:["name","username"]})}
-        return ctx;
-        // return await Admin.find()
-    }
-
-    @Get("/getstudentall")
-    async get_student_all(@Ctx() ctx:Context){
-        ctx.body={student:await Student.find({select:["name","username","department","score","time_use","time_start"]})}
-        return ctx;
-    }
-
-    @Post("/add_department")
-    async add1(@Ctx() ctx:Context){
-        let department=new Department()
-        department.id=ctx.request.body.Id;
-        department.name=ctx.request.body.Name;
-        if(ctx.request.body.Total)
-        {department.total_number=ctx.request.body.Total}
-        Department.save(department)
-        return ctx;
-    }
-
-    @Get("/get_alld")
-    async get2(@Ctx() ctx:Context)
-    {
-        ctx.body={department:await Department.find({order:{id:"ASC"}})}
-        return ctx;
-    }
-
-    @Post("/resetd")
-    async reset(@Ctx() ctx:Context){
-        let department=await Department.findOne({test:ctx.request.body.test})
-        department.id=ctx.request.body.id
-        ctx.body=department
-        Department.update(department.test,department)
-        return ctx;
-    }
-}
-
-
-
