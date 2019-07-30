@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,OACE,iBACF,CACA,YACE,oBAAqB,CACrB,oBACF,CACA,mCAEE,eACF","file":"4.e6e3eed4.chunk.css","sourcesContent":[".texty {\r\n  position: relative;\r\n}\r\n.texty span {\r\n  display: inline-block;\r\n  white-space: pre-wrap;\r\n}\r\n.texty.mask-bottom,\r\n.texty.mask-top {\r\n  overflow: hidden;\r\n}\r\n"]}
