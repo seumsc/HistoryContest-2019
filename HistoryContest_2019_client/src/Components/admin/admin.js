@@ -98,8 +98,9 @@ class Admin extends React.Component {
                     that.state.numOfDone=inst.tested_number;
                     that.state.num=inst.total_number;
                     that.state.rank=rank+1;      
-                }
+                }  
             })
+            that.setState({loading:false});
         })
         //测试学生数据
         // const testdata = await require("./Students.json");
@@ -648,6 +649,7 @@ class Admin extends React.Component {
                             </Col>
                         </Row>
                     </Content>
+                    <Footer style={{ textAlign: 'center' }}>版权所有©</Footer>
                 </Layout>
             </React.Fragment>
         )

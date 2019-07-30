@@ -2,15 +2,15 @@ import React from 'react';
 import "antd/dist/antd.css";
 import { Icon, Button, Input, Modal, message, Dropdown, Menu } from 'antd';
 import bg from '../../img/VerifyCodeBG.png'
-
+import QueueAnim from 'rc-queue-anim';
 class LoginModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: true,
             attemp: "0",
-            username: '',
-            password: '',
+            username: '09018316',
+            password: '213181432',
             toDo: "登录",
             posted: false,
             ...this.initState(),
@@ -183,7 +183,8 @@ class LoginModal extends React.Component {
     }
     render() {
         let login = <div id='modal'>
-            <Modal
+            <Modal visible={this.props.visible}
+                destroyOnClose={true}
                 title={
                     <Dropdown overlay={
                         <Menu>
@@ -212,11 +213,12 @@ class LoginModal extends React.Component {
                 ]}
                 visible={this.state.visible}
             >
-                <Input id="username" addonBefore=" 账户 " prefix={<Icon type="user" />} placeholder={this.state.attemp == "0" ? "八位学号" : "管理员账户"} allowClear onChange={(e) => { this.setState({ username: e.target.value }) }}></Input>
-                <p></p>
-                <Input.Password id="password" addonBefore=" 密码 " onPressEnter={this.ToLogin} prefix={<Icon type="lock" />} placeholder={this.state.attemp == "0" ? "一卡通号码" : "管理员密码"} allowClear onChange={(e) => { this.setState({ password: e.target.value }) }} />
-                <p></p>
-                <p style={{ marginRight: 0 }}>
+                <QueueAnim delay={180}>
+                <Input key="username" id="username" addonBefore=" 账户 " prefix={<Icon type="user" />} placeholder={this.state.attemp == "0" ? "八位学号" : "管理员账户"} allowClear onChange={(e) => { this.setState({ username: e.target.value }) }}></Input>
+                </QueueAnim><p></p><QueueAnim delay={180}>
+                <Input.Password key="password" id="password" addonBefore=" 密码 " onPressEnter={this.ToLogin} prefix={<Icon type="lock" />} placeholder={this.state.attemp == "0" ? "一卡通号码" : "管理员密码"} allowClear onChange={(e) => { this.setState({ password: e.target.value }) }} />
+                </QueueAnim><p></p><QueueAnim delay={180}>
+                <p  key="check" style={{ marginRight: 0 }}>
                     <Input style={{ width: "70%" }} addonBefore="验证码" onPressEnter={this.ToLogin} placeholder="不区分大小写" onChange={(e) => { this.setState({ inputValue: e.target.value }) }}
                         suffix={
                             <div style={{ width: 120, height: 30, backgroundImage: `url(${bg})`, textAlign: "center" }} >
@@ -252,7 +254,7 @@ class LoginModal extends React.Component {
                         }>
                     </Input>
 
-                </p>
+                </p></QueueAnim>
                 <p > <br></br>
                     {this.state.attemp == "0" ?
                         <a onClick={() => { this.setState({ attemp: "1", toDo: "注册" }) }}>

@@ -89,6 +89,7 @@ class Super extends React.Component {
                     "均分":inst.average
                 }
             })
+            that.setState({loading:false});
         })
         //测试学生数据
         // const testdata = await require("./Students.json");
@@ -631,6 +632,7 @@ class Super extends React.Component {
                             </Col>
                         </Row>
                     </Content>
+                    <Footer style={{ textAlign: 'center' }}>版权所有©</Footer>
                 </Layout>
             </React.Fragment>
         )

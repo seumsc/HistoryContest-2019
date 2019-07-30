@@ -1,24 +1,15 @@
-import { nullLiteral } from '@babel/types';
+
 import React from 'react';
-import { Row, Col, Icon, Tabs, Button, Modal, Layout, Badge, message } from 'antd';
+import { Row, Col, Tabs, Button, Modal, Layout, Badge, message,Skeleton } from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
 import bg1 from '../../img/background1.png';
-// import bg2 from '../../img/background2.png';
-// import bg3 from '../../img/background3.png';
-// import bg4 from '../../img/background4.jpg';
-// import bg5 from '../../img/background5.jpg';
-// import bg6 from '../../img/background6.jpg';
-// import bg7 from '../../img/background7.jpg';
-// import bg8 from '../../img/background8.jpg';
-// import bg9 from '../../img/background9.jpg';
-// import bg10 from '../../img/background10.jpg';
-// import bg11 from '../../img/background11.jpg';
 import BG from '../../img/图片2.jpg'
 import mark from '../../img/校徽实体.png'
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
 import TrueFalse from '../TrueFalse/TrueFalse';
+import QueueAnim from 'rc-queue-anim';
 const bg2 = React.lazy(() => import('../../img/background2.png'))
 const bg3 = React.lazy(() => import('../../img/background3.png'))
 const bg4 = React.lazy(() => import('../../img/background4.jpg'))
@@ -35,7 +26,7 @@ const bg11 = React.lazy(() => import('../../img/background11.jpg'))
 
 let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
 const { TabPane } = Tabs;
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 const allChoiceQuestion = require("../../data/choice_question.json")
 const allJudgeQuestion = require("../../data/judgment_question.json")
 class Test extends React.Component {
@@ -291,7 +282,7 @@ class Test extends React.Component {
                         title="答题须知"
                         centered={true}
                         footer={[
-                            <Button type="primary" //loading={!this.state.isPaperGet}
+                            <Button type="primary" loading={!this.state.isPaperGet}
                                 onClick={() => {
                                     let that = this;
                                     //temp
@@ -325,11 +316,17 @@ class Test extends React.Component {
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
 
                         <ul style={{ fontSize: "15px" }}>
-                            <li>本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
-                            <li>选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
-                            <li>答题时限为<b>30分钟</b>,&nbsp;时间用完自动交卷</li>
-                            <li>在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
-                            <li>对本答题有疑问,&nbsp;可联系在场负责老师</li>
+                            <QueueAnim delay={210}>
+                            <li key="1">本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
+                            </QueueAnim><QueueAnim delay={210}>
+                            <li key="2">选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
+                            </QueueAnim><QueueAnim delay={210}>
+                            <li key="3">答题时限为<b>3分钟-30分钟</b>,&nbsp;3分钟之前无法交卷,&nbsp;30分钟时自动交卷</li>
+                            </QueueAnim><QueueAnim delay={210}>
+                            <li key="4">在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
+                            </QueueAnim><QueueAnim delay={210}>
+                            <li key="5">对本答题系统有疑问,&nbsp;可联系在场负责老师</li>
+                            </QueueAnim>
                         </ul>
                     </Modal>
                 </div>

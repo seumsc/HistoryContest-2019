@@ -10,6 +10,7 @@
     "js-xlsx": "^0.8.22",
     "node-xlsx": "^0.15.0",
     "rc-banner-anim": "^2.2.8",
+    "rc-queue-anim": "^1.6.12",
     "rc-texty": "^0.2.0",
     "rc-tween-one": "^2.4.1",
     "react": "^16.8.6",

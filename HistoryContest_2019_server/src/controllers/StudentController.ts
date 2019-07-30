@@ -8,7 +8,6 @@ import { Context } from "koa";
 import {RandomArr}from "../utils/RandomArray"
 import * as verify from "../config/Verify"
 import { Department } from "../entity/Department";
-import { userInfo } from "os";
 @Controller("/student")
 export class StudentController{
 
@@ -19,24 +18,23 @@ export class StudentController{
 //student
     @UseBefore(verify.verifyToken_Student,verify.verifyToken_Username)
     @Post("/test")
-    async test( @Ctx() ctx:Context){
-        let student:Student=await await Student.findOne({username:ctx.request.body.Username})//获取前端发送的用户名
-        if(student.score==-1){
+    async post( @Ctx() ctx:Context){
+        let stu:Student=await await Student.findOne({username:ctx.request.body.Username})//获取前端发送的用户名
+        if(stu.score==-1){
         //生成两个随机数组，应用为选择题和判断题的序号
-        const choice_id:number[]=await RandomArr(20,20)
-        const judgment_id:number[]=await RandomArr(10,10)
-        //将题目id保存在用户的paper对象中
-        let Cq=await ChoiceQuestion.findByIds(choice_id,{select:["answer"]})
-        let Jq=await JudgmentQuestion.findByIds(judgment_id,{select:["answer"]})
-        student.choice_question=choice_id;
-        student.judgment_question=judgment_id;
-        student.answers_choice=Cq.map(a=>a.answer)
-        student.answers_judgment=Jq.map(a=>a.answer)
-        ctx.status=200;
+        const arr:number[]=await RandomArr(200,20)
+        const arr2:number[]=await RandomArr(100,10)
+        //通过数组获取选择题与判断题
+        let questionarr1:any[]=await ChoiceQuestion.findByIds(arr,{select:["text","options","answer"]});
+        let questionarr2:any[]=await JudgmentQuestion.findByIds(arr,{select:["text","answer"]});
+        //将题目(包括题干，选项，答案)保存在用户的paper对象中
+        stu.choice_question=arr;
+        stu.judgment_question=arr2;
+        ctx.body.status=200;
         //除去题目的答案属性输出，Paper属性对象含有Choice_question与Judgment_question两个属性分别为选择题数组，判断题数组
-        ctx.body={Paper:{Choice_question:choice_id,Judgment_question:judgment_id}}
-        await Student.update(student.id,student)}//更新用户数据
-        else{ctx.status=403}
+        ctx.body={Paper:{Choice_question:await (questionarr1.map(a=>{delete a.answer;return a})),Judgment_question:await (questionarr2.map(a=>{delete a.answer;return a}))}}
+        await Student.update(stu.id,stu)}//更新用户数据
+        else{ctx.body.status=403}
         return ctx;
     }
 
@@ -44,15 +42,16 @@ export class StudentController{
 //前端返回用户名                      {Username:String}
 //后端保存时间(s)在time_use,保存开始时间(Data)在time_start中
 //student
-    @UseBefore(verify.verifyToken_Student,verify.verifyToken_Score)
     @Post("/start")
     async start(@Ctx() ctx:Context){
-        let date=new Date()
-        let student=await Student.findOne({username:ctx.request.body.Username})
-        student.time_use=(date.getTime()-1560000000000)/1000;
-        student.time_start=new Date;
-        await Student.update(student.id,student);
-        ctx.body={msg:"start testing"}
+        let d=new Date()
+       try{await Student.findOne({username:ctx.request.body.Username})
+        .then(
+            async stu =>{stu.time_use=(d.getTime()-1560000000000)/1000;
+            stu.time_start=new Date;
+            await Student.update(stu.id,stu);})
+        ctx.body={msg:"start testing",}}
+        catch(error){ctx.body=error}
         return ctx;
     }
 
@@ -62,57 +61,57 @@ export class StudentController{
 //后端判断当前时间(s)与开始时间(time_use)相差是否超过1800s(30min)，合法即进行改卷
 //后端返回分数 
 //student                      {Score:Number}
-    @UseBefore(verify.verifyToken_Student,verify.verifyToken_Score)
     @Post("/handin")
     async handin(@Ctx() ctx:Context){
-        let date=new Date()
-        let student:Student=await Student.findOne({username:ctx.request.body.Username})
-        student.time_use=(date.getTime()-1560000000000)/1000-student.time_use;
-        if(((student.time_use>1800)||(student.score!=-1)))
-        {ctx.status=403}
-        else 
-        if(student.time_use<180)
-        {
-           ctx.body={msg:"答题时间过短,请认真答题"}; 
-        }else
-            {
-            student.score=0;
+        let d=new Date()
+        let stu:Student=await Student.findOne({username:ctx.request.body.Username})
+        if(((stu.time_use!=-1)&&((d.getTime()-1560000000000)/1000-stu.time_use>1800))||(stu.score!=-1))
+        {ctx.body.status=403}
+        else{
+            stu.score=0;
             for(let i=0;i<20;i++)
             {
-                if(ctx.request.body.Answer[i]==student.answers_choice[i])
-                    student.score+=4;
+                if(ctx.request.body.Answer[i]==stu.answers_choice[i])
+                    stu.score+=4;
             }
             for(let i=0;i<10;i++)
             {
-                if(ctx.request.body.Answer[i+20]==student.answers_judgment[i])
-                    student.score+=2;
+                if(ctx.request.body.Answer[i+20]==stu.answers_judgment[i])
+                    stu.score+=2;
             }
-            student.answers=ctx.request.body.Answer;
-            let department=await Department.findOne({id:student.department})
-            const n:number=department.average*department.tested_number;
-            department.tested_number+=1;
-            department.average=(n+student.score)/department.tested_number;
-            await Department.update(department.test,department)
-            await Student.update(student.id,student)
-            ctx.body={Score:student.score}
+            let de=await Department.findOne({id:stu.department})
+            const n:number=de.average*de.tested_number;
+            de.tested_number+=1;
+            de.average=(n+stu.score)/de.tested_number;
+            await Department.update(de.test,de)
+            await Student.update(stu.id,stu)
+            ctx.body={Score:stu.score}
         }
-        return ctx;
+    }
 
+//交卷后返回答案
+//前端发送用户名                   {Username:String}
+//后端返回答案                    {Answer:Number[]}
+//student
+    @Post("/result_handin")
+    async result1(@Ctx() ctx:Context){
+        let stu:Student=await Student.findOne({username:ctx.request.body.Username})
+        let questionarr1=await ChoiceQuestion.findByIds(stu.choice_question,{select:["answer"]});
+        let questionarr2=await JudgmentQuestion.findByIds(stu.judgment_question,{select:["answer"]});
+        let arr=await questionarr1.map(a=>a.answer)
+        let arr2=await questionarr2.map(a=>a.answer)
+        ctx.body={Answer:arr.concat(arr2)}
     }
 
 //查分
 //前端发送用户名                  {Username:String}
-//后端返回整套试卷，分数与答案    {Paper:{Choice_question:number[],Judgment_question:number[]}，Score:Number,Answer:{Choice_answers:number[],Judgment_answers:number[]}}
+//后端返回整套试卷，分数与答案    {Paper:{Choice_question:ChoiceQuestion[],Judgment_question:JudgmentQuestion[]}，Score:Number,Answer:{Choice_answers:number[],Judgment_answers:number[]}}
 //student,admin,counsellor
 @Post("/result")
     async result(@Ctx() ctx:Context){
-        let student:Student=await Student.findOne({username:ctx.request.body.Username})
-
-        ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
-        Score:student.score,
-        Answer:{Choice_answers:student.answers_choice,Judgment_answers:student.answers_judgment},
-        User_answer:student.answers
-    }
-    return ctx;
+        let stu:Student=await Student.findOne({username:ctx.request.body.Username})
+        let questionarr1:any[]=await ChoiceQuestion.findByIds(stu.choice_question,{select:["text","options","answer"]});
+        let questionarr2:any[]=await JudgmentQuestion.findByIds(stu.judgment_question,{select:["text","answer"]});
+        ctx.body={Paper:{Choice_question:questionarr1,Judgment_question:questionarr2},Score:stu.score,Answer:{Choice_answers:stu.answers_choice,Judgment_answers:stu.answers_judgment}}
     }
 }
