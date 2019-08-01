@@ -10,7 +10,7 @@ import{createKoaServer}from "routing-controllers"
 import { StudentController } from "./controllers/StudentController";
 import { UIController } from "./controllers/UIController";
 import {AdminController} from "./controllers/AdminController"
-import {Port}from "./config/config"
+import {Port}from "./config/conf"
  const app:Koa=createKoaServer({
       routePrefix:"/api",
       // controllers:["/src/controllers/*.ts"],

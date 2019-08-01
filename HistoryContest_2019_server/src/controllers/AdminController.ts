@@ -8,8 +8,7 @@ import * as verify from "../config/Verify"
 import {isPasswordValid,isUsernameValid}from "../utils/isValid"
 import * as jwt from "jsonwebtoken"
 import {Key} from "../utils/keys"
-const data=require("../utils/information.json")
-const d=require("../Data/Student_test_2014.json")
+import * as nodeExcel from "excel-export"
 /** 
  *  前端发送院系序号                           {Department:string}
  *  后端返回该院系所有用户的姓名，用户名，得分
@@ -27,8 +26,7 @@ const d=require("../Data/Student_test_2014.json")
         let playload = await jwt.verify(token,Key)
         const data=playload;
         let department=await Department.findOne({id:data.department})
-        console.log(department)
-        if(!ctx.request.headers['If-Modified-Since']||ctx.request.headers['If-Modified-Since']!=department.updatedDate)
+        if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=department.updatedDate)
         {ctx.body={
             "建筑学院":[],
             "吴健雄学院":[],
@@ -82,7 +80,32 @@ const d=require("../Data/Student_test_2014.json")
     @Get("/get_allstudents")
     async get_allstudent(@Ctx() ctx:Context){
         let department=await Department.find();
-        ctx.body=data
+        ctx.body={
+            "建筑学院":[],
+            "吴健雄学院":[],
+            "机械工程学院":[],
+            "能源与环境学院":[],
+            "材料科学与工程学院":[],
+            "土木工程学院":[],
+            "交通学院":[],
+            "自动化学院":[],
+            "电气工程学院":[],
+            "仪器科学与工程学院":[],
+            "化学化工学院":[],
+            "信息科学与工程学院":[],
+            "电子科学与工程学院":[],
+            "计算机科学与工程学院":[],
+            "软件工程学院":[],
+            "网络空间安全学院":[],
+            "物理学院":[],
+            "经济管理学院":[],
+            "公共卫生学院":[],
+            "人文学院":[],
+            "艺术学院":[],
+            "医学院":[],
+            "生物科学与医学工程学院":[],
+            "外国语学院":[]
+        }
         for(let i=0;i<department.length;i++){
             ctx.body[department[i].name]=await Student.find({select:["name","username","score","time_use","password"],where:{department:department[i].id}})      
         }
@@ -217,5 +240,67 @@ async post_register(@Ctx() ctx:Context){
 
 
 }
-
+    // @Get("/excelBydepartment")
+    // async excel_department(@Ctx() ctx:Context){
+    //     const dataString = ctx.header.authorization;
+    //     const dataArr = dataString.split(' ');
+    //     const token =dataArr[1];
+    //     let playload = await jwt.verify(token,Key)
+    //     const data=playload;
+    //     let department=await Department.findOne({id:data.department})
+    //     let alldata=new Array();
+    //     const origindata=await Student.find({select:["name","username","score","time_use","password"],where:{department:data.department}})
+    //     origindata.forEach(element => {
+    //         let arr=new Array();
+    //         arr.push(element.name)
+    //         arr.push(element.username)
+    //         arr.push(element.password)
+    //         arr.push(element.score)
+    //         arr.push(element.time_use)
+    //         alldata.push(arr)
+    //     });
+    //     let conf={stylesXmlFile:undefined,name:undefined,cols:undefined,rows:undefined}
+    //     conf.name=department.name;
+    //     conf.cols=[
+    //         {
+    //             caption:"姓名",
+    //             type:"string"
+    //         },{
+    //             caption:"学号",
+    //             type:"string"
+    //         },{
+    //             caption:"一卡通",
+    //             type:"string"
+    //         },{
+    //             caption:"得分",
+    //             type:"number",
+    //             beforeCellWrite:(row,cellData,eOpt)=>{
+    //                 if(cellData==-1){
+    //                     eOpt.cellType="string";
+    //                     return "N/A"}
+    //                 else{
+    //                     return cellData;
+    //                 }}
+    //         },{
+    //             caption:"用时",
+    //             type:"string",
+    //             beforeCellWrite:(row,cellData)=>{
+    //                 if(parseInt(cellData)>1800)
+    //                 {return "N/A"}else{
+    //                 let s:string=`${parseInt(cellData)/60}分${parseInt(cellData)%60}秒`;
+    //                 return s;}
+    //             }
+    //         }
+    //     ]
+    //     conf.rows=alldata;
+    //     // const result=nodeExcel.execute();
+    //     // let exceldata=new Buffer(result,'binary')
+    //     // ctx.response.set({
+    //     //     // "Content-Type":"application/vnd.openxmlformats;charset=utf-8",
+    //     //     "Content-Type":"application/octet-stream",
+    //     //     "Content-Disposition":"attachment; filename=" + "Report.xlsx"
+    //     // })
+    //     // ctx.body=exceldata;
+    //     return ctx;
+    // }
 }

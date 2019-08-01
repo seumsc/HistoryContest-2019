@@ -2,8 +2,18 @@ import React from 'react';
 import { Row, Col, Icon, Button, Modal, Layout,  Table, Descriptions, Input, Tag, message, Dropdown, Menu,Drawer } from 'antd';
 import 'antd/dist/antd.css';
 import mark from '../../img/校徽实体.png'
-
+import * as xlsx from "node-xlsx"
+import * as nodeExcel from "excel-export"
 const { Header, Footer, Content } = Layout;
+
+function toArrayBuffer(buf) {
+    var ab = new ArrayBuffer(buf.length);
+    var view = new Uint8Array(ab);
+    for (var i = 0; i < buf.length; ++i) {
+        view[i] = buf[i];
+    }
+    return ab;
+}
 //const departInfo = require("./departTest.json")
 class Admin extends React.Component {
     constructor(props) {
@@ -46,30 +56,97 @@ class Admin extends React.Component {
         this.exportByExcel = this.exportByExcel.bind(this);
     }
     async exportByExcel() {
-        // let headers = ["院系", "姓名", "学号", "一卡通", "成绩", "用时", "排名"];
-        // let output = [];
+        // let confs=new Array();
         // this.setState({export:{loading:true}});
         // await Object.keys(this.state.origionData).forEach((inst, i) => {          
-        //         let temp = [];
-        //         this.state.origionData[inst].forEach((x) => {
-        //             temp.push([inst, x.name, x.username, x.password, x.score, x.time_use, x.rank])
+        //         let alldata=new Array()
+        //         this.state.origionData[inst].forEach((element) => {
+        //             let arr=new Array();
+        //             arr.push(element.name)
+        //             arr.push(element.username)
+        //             arr.push(element.password)
+        //             arr.push(element.score)
+        //             arr.push(element.time_use)
+        //             alldata.push(arr)
         //         })
-        //         output.push({
-        //             name: inst,
-        //             data: temp
-        //         });       
+        //         let conf={
+        //             stylesXmlFile:"styles.xml",
+        //             name:inst,
+        //             cols:[
+        //                         {
+        //                             caption:"姓名",
+        //                             type:"string"
+        //                         },{
+        //                             caption:"学号",
+        //                             type:"string"
+        //                         },{
+        //                             caption:"一卡通",
+        //                             type:"string"
+        //                         },{
+        //                             caption:"得分",
+        //                             type:"number",
+        //                             beforeCellWrite:(row,cellData,eOpt)=>{
+        //                                 if(cellData==-1){
+        //                                     eOpt.cellType="string";
+        //                                     return "N/A"}
+        //                                 else{
+        //                                     return cellData;
+        //                                 }}
+        //                         },{
+        //                             caption:"用时",
+        //                             type:"string",
+        //                             beforeCellWrite:(row,cellData)=>{
+        //                                 if(parseInt(cellData)>1800)
+        //                                 {return "N/A"}else{
+        //                                 let s=`${parseInt(cellData)/60}分${parseInt(cellData)%60}秒`;
+        //                                 return s;}
+        //                             }
+        //                         }
+        //                     ],
+        //             rows:alldata
+        //         }
+        //         confs.push(conf)
         // })
-        // let result = xlsx.build(output);
-        // fs.writeFile("D:\\1.xlsx",result,function(err){
-        //     if(err){
-        //         throw err;
-        //     }
-        //     else{
-        //     console.log("success")
-        //     }
-        // });
-        // this.setState({export:{loading:false}});
-        // message.success("excel文件已导出")
+        // let output=nodeExcel.execute(confs);
+        // let resultbuffer=new Buffer(output,'binary')
+        let headers = ["姓名", "学号", "一卡通", "成绩", "用时", "排名"];
+        let output = [];
+        this.setState({export:{loading:true}});
+        await Object.keys(this.state.origionData).forEach((inst, i) => {          
+                let temp = [];
+                this.state.origionData[inst].forEach((element) => {
+                    let arr=new Array();
+                    arr.push(element.name)
+                    arr.push(element.username)
+                    arr.push(element.password)
+                    if(element.score==-1){
+                        arr.push("N/A")}
+                    else{
+                        arr.push(element.score);
+                    }
+                    if(parseInt(element.time_use)>1800||parseInt(element.time_use)<300)
+                        {arr.push("N/A")}else{
+                        let s=`${parseInt(element.time_use)/60}分${parseInt(element.time_use)%60}秒`;
+                        arr.push(s)}
+                    temp.push(arr)
+                })
+                output.push({
+                    
+                    name: inst,
+                    data: temp
+                });       
+        })
+        let result = xlsx.build(output);
+        let blob =new Blob([result])
+        let blobUrl=window.URL.createObjectURL(blob);
+        let a=document.getElementById('a_id');
+        let filename=`rank.xlsx`;
+        a.href=blobUrl;
+        a.download=filename;
+        a.click();
+        window.URL.revokeObjectURL(blobUrl);
+        this.setState({export:{loading:false}});
+        message.success("excel文件已导出")
     }
     async get() {
         let that = this;
@@ -634,6 +711,7 @@ class Admin extends React.Component {
                                                 </Col>
                                                 <Col span={2} offset={18}>
                                                     <Button type="primary" size="default" onClick={this.exportByExcel} loading={this.state.export.loading}>导出为<Icon type="file-excel" /></Button>
+                                                    <a id='a_id'></a>
                                                 </Col>
                                             </Row>
                                         )

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "excel-export": "^0.5.1"
+  }
+}
