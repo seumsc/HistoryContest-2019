@@ -177,6 +177,18 @@ async post_register(@Ctx() ctx:Context){
     return ctx;
 }
 
+@UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+@Post("/getByUsername")
+    async getByUsername(@Ctx() ctx:Context){
+        let student:Student=await Student.findOne({username:ctx.request.body.Username})
+        ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
+        Score:student.score,
+        Answer:{Choice_answers:student.answers_choice,Judgment_answers:student.answers_judgment},
+        User_answer:student.answers
+    }
+    return ctx;
+    }
+
 /**
  *  前端发送用户名，姓名            {Username:string,Name:string,Password:string}
  *  后端保存用户修改后信息
