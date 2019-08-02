@@ -3,8 +3,7 @@ import 'antd/dist/antd.css';
 import { Card, Row, Col, Layout, Icon, Radio, Button,message,Skeleton,Result,notification} from 'antd';
 import Timer from "../Timer/Timer"
 import BG from '../../img/图片2.jpg'
-
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 const allChoiceQuestion = require("../../data/choice_question.json")
 const allJudgeQuestion = require("../../data/judgment_question.json")
 class Grades extends React.Component {
@@ -110,12 +109,12 @@ class Grades extends React.Component {
                         icon: <Icon type="check" style={{ color:"#1890ff"  }} />
                     })
                     that.setState({question:temp});
+                    that.setState({messageGet:true});
                 }
                 else {
                     message.error("登陆已过期",1.5);
                     this.props.logout();
-                }
-                that.setState({messageGet:true});
+                }         
                 
             }).catch((err)=>{console.log(err)})
         }
@@ -180,7 +179,6 @@ class Grades extends React.Component {
                                 </Card>
                             </Col>
                             <Col span={10} style={{ backgroundColor: "rgba(225,166,121,0.7)", marginTop: 70 }}>
-                                <Skeleton loading={!this.state.messageGet} active >
                                 <div style={{ marginLeft: 80, overflow: "hidden", height: 160 }}>
                                     <h2 style={{ color: 'white', fontSize: 25, marginTop: 60, marginBottom: 60, marginRight: 80 }} >
                                         {this.state.focusOn + 1}&nbsp;{this.state.question[this.state.focusOn].title}<br />
@@ -215,7 +213,6 @@ class Grades extends React.Component {
                                             </Radio>
                                         </div>}
                                 </Radio.Group>
-                                </Skeleton>
                             </Col>
                             <Col span={2}>
 

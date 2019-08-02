@@ -48,6 +48,7 @@ class LoginModal extends React.Component {
             //         score: -1
             //     answer: []
             // })
+            if(username.length==8&&password.length==9){
             this.setState({ posted: true })
             fetch("http://" + that.props.host + '/api/ui/login', {
                 method: 'POST',
@@ -64,16 +65,16 @@ class LoginModal extends React.Component {
                 async res => {
                     that.setState({ posted: false })
                     if (res.status == 404) {
-                        message.error("用户名不存在",1);
+                        message.error("用户名不存在!",1);
                     }
                     else if (res.status == 403) {
-                        message.error("用户名或密码错误",1);
+                        message.error("用户名或密码错误!",1);
                     }
                     else {
                         //学生登陆成功
                         let data = await res.json();
                         console.log("login");
-                        message.success("登录成功！",1.0);
+                        message.success("登录成功",1.0);
                         if (identity == "0") {
                             if (data.Score == -1) {
                                 that.props.setState({
@@ -141,7 +142,11 @@ class LoginModal extends React.Component {
                     }
                 }).catch(err => { console.log(err) })
 
-        }
+        
+    }
+    else{
+        message.error("账户或密码格式不符!")
+    }}
         else {
             console.log("false");
             that.setState({ posted: false })
