@@ -2,13 +2,12 @@ import { Student } from "../entity/Student";
 import {Counsellor}from "../entity/Counsellor"
 import {Admin} from "../entity/Admin"
 import {Department} from "../entity/Department"
-import {Controller,Ctx,Post, Get, UseBefore} from "routing-controllers"
-import { Context } from "vm";
+import {Controller,Ctx,Post, Get, UseBefore, QueryParam} from "routing-controllers"
+import { Context } from "koa";
 import * as verify from "../config/Verify"
 import {isPasswordValid,isUsernameValid}from "../utils/isValid"
 import * as jwt from "jsonwebtoken"
 import {Key} from "../utils/keys"
-import * as nodeExcel from "excel-export"
 /** 
  *  前端发送院系序号                           {Department:string}
  *  后端返回该院系所有用户的姓名，用户名，得分
@@ -26,7 +25,7 @@ import * as nodeExcel from "excel-export"
         let playload = await jwt.verify(token,Key)
         const data=playload;
         let department=await Department.findOne({id:data.department})
-        if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=department.updatedDate)
+        if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${department.updatedDate}`)
         {ctx.body={
             "建筑学院":[],
             "吴健雄学院":[],
@@ -55,7 +54,7 @@ import * as nodeExcel from "excel-export"
         }
         ctx.body[department.name]=await Student.find({select:["name","username","score","time_use","password"],where:{department:data.department}})
         ctx.response.set({
-            'Last-Modified':department.updatedDate,
+            'Last-Modified':`${department.updatedDate}`,
             'Cache-Control':"no-cache"
         })
         return ctx;
@@ -200,16 +199,35 @@ async post_register(@Ctx() ctx:Context){
     return ctx;
 }
 
+// @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
+// @Post("/getByUsername")
+//     async getByUsername(@Ctx() ctx:Context){
+//         let student:Student=await Student.findOne({username:ctx.request.body.Username})
+//         ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
+//         Score:student.score,
+//         Answer:{Choice_answers:student.answers_choice,Judgment_answers:student.answers_judgment},
+//         User_answer:student.answers
+//     }
+//     return ctx;
+//     }
 @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
-@Post("/getByUsername")
-    async getByUsername(@Ctx() ctx:Context){
-        let student:Student=await Student.findOne({username:ctx.request.body.Username})
-        ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
-        Score:student.score,
-        Answer:{Choice_answers:student.answers_choice,Judgment_answers:student.answers_judgment},
-        User_answer:student.answers
-    }
-    return ctx;
+@Get("/result")
+    async getByUsername(@QueryParam("id") id:string,@Ctx() ctx:Context){
+        let student=await Student.findOne({username:id})
+        if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${student.updateDate}`){
+            ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
+            Score:student.score,
+            Answer:{Choice_answers:student.answers_choice,Judgment_answers:student.answers_judgment},
+            User_answer:student.answers}
+            ctx.response.set({
+            'Last-Modified':`${student.updateDate}`,
+            'Cache-Control':"no-cache"
+        })
+        return ctx;}
+        else{
+            ctx.status=304;
+            return ctx;
+        }
     }
 
 /**
@@ -252,67 +270,5 @@ async post_register(@Ctx() ctx:Context){
 
 
 }
-    // @Get("/excelBydepartment")
-    // async excel_department(@Ctx() ctx:Context){
-    //     const dataString = ctx.header.authorization;
-    //     const dataArr = dataString.split(' ');
-    //     const token =dataArr[1];
-    //     let playload = await jwt.verify(token,Key)
-    //     const data=playload;
-    //     let department=await Department.findOne({id:data.department})
-    //     let alldata=new Array();
-    //     const origindata=await Student.find({select:["name","username","score","time_use","password"],where:{department:data.department}})
-    //     origindata.forEach(element => {
-    //         let arr=new Array();
-    //         arr.push(element.name)
-    //         arr.push(element.username)
-    //         arr.push(element.password)
-    //         arr.push(element.score)
-    //         arr.push(element.time_use)
-    //         alldata.push(arr)
-    //     });
-    //     let conf={stylesXmlFile:undefined,name:undefined,cols:undefined,rows:undefined}
-    //     conf.name=department.name;
-    //     conf.cols=[
-    //         {
-    //             caption:"姓名",
-    //             type:"string"
-    //         },{
-    //             caption:"学号",
-    //             type:"string"
-    //         },{
-    //             caption:"一卡通",
-    //             type:"string"
-    //         },{
-    //             caption:"得分",
-    //             type:"number",
-    //             beforeCellWrite:(row,cellData,eOpt)=>{
-    //                 if(cellData==-1){
-    //                     eOpt.cellType="string";
-    //                     return "N/A"}
-    //                 else{
-    //                     return cellData;
-    //                 }}
-    //         },{
-    //             caption:"用时",
-    //             type:"string",
-    //             beforeCellWrite:(row,cellData)=>{
-    //                 if(parseInt(cellData)>1800)
-    //                 {return "N/A"}else{
-    //                 let s:string=`${parseInt(cellData)/60}分${parseInt(cellData)%60}秒`;
-    //                 return s;}
-    //             }
-    //         }
-    //     ]
-    //     conf.rows=alldata;
-    //     // const result=nodeExcel.execute();
-    //     // let exceldata=new Buffer(result,'binary')
-    //     // ctx.response.set({
-    //     //     // "Content-Type":"application/vnd.openxmlformats;charset=utf-8",
-    //     //     "Content-Type":"application/octet-stream",
-    //     //     "Content-Disposition":"attachment; filename=" + "Report.xlsx"
-    //     // })
-    //     // ctx.body=exceldata;
-    //     return ctx;
-    // }
+   
 }

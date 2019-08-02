@@ -10,7 +10,6 @@ import { Context } from "koa";
 import {RandomArr}from "../utils/RandomArray"
 import * as verify from "../config/Verify"
 import { Department } from "../entity/Department";
-import { userInfo } from "os";
 @Controller("/student")
 export class StudentController{
 
@@ -123,11 +122,16 @@ export class StudentController{
         let playload = await jwt.verify(token,Key)
         const data=playload;
         let student:Student=await Student.findOne({username:data.username})
+        if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${student.updateDate}`){
         ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
         Score:student.score,
         Answer:{Choice_answers:student.answers_choice,Judgment_answers:student.answers_judgment},
-        User_answer:student.answers
-    }
+        User_answer:student.answers}
+        ctx.response.set({
+            'Last-Modified':`${student.updateDate}`,
+            'Cache-Control':"no-cache"
+        })   
     return ctx;
     }
+}
 }

@@ -775,17 +775,25 @@ class Super extends React.Component {
                                             onDoubleClick: (event) => {
                                                 let that = this;
                                                 this.setState((state)=>({grade: { Visible:true, question:state.grade.question, loading: true } }))
-                                                fetch("http://" + that.props.state.host + "/api/admin/getByUsername",
+                                                // fetch("http://" + that.props.state.host + "/api/admin/getByUsername",
+                                                //     {
+                                                //         method: 'POST',
+                                                //         mode: 'cors',
+                                                //         headers: {
+                                                //             "authorization": that.props.state.token,
+                                                //             "Content-Type": "application/json"
+                                                //         },
+                                                //         body: JSON.stringify({
+                                                //             Username: record["学号"]
+                                                //         })
+                                                //     }
+                                                fetch(`http://${that.props.state.host}/api/admin/result?id=${record["学号"]}`,
                                                     {
-                                                        method: 'POST',
+                                                        method: 'GET',
                                                         mode: 'cors',
                                                         headers: {
                                                             "authorization": that.props.state.token,
-                                                            "Content-Type": "application/json"
-                                                        },
-                                                        body: JSON.stringify({
-                                                            Username: record["学号"]
-                                                        })
+                                                        }
                                                     }
                                                 ).then((res) => res.json()
                                                 ).then(async data => {
