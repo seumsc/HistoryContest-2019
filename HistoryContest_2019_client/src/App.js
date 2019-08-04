@@ -20,8 +20,8 @@ class App extends React.Component {
       isAdmin: false,
       isTeacher: false,
       host: "192.168.31.96:6553",
-        name: 'zzz',
-        username: "",
+        name: 'hkh',
+        username: "09018316",
         depart: "",
         departId: "",
         token: '',
@@ -55,7 +55,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div id="index">
+        <div id="index" className="app">
           <Suspense fallback={<div style={{width:"100%",height:"100%",backgroundColor:"black"}}></div>}>
             {this.state.isWelcome ? <Welcome state={this.state} setState={this.appState} /> : <div />}
             {this.state.isStudent && this.state.score == -1 ? <Test state={this.state} setState={this.appState} logout={this.logout} /> : <div />}

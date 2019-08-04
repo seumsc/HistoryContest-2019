@@ -45,8 +45,8 @@ class Welcome extends React.Component {
                         animConfig={[
                             { opacity: [1, 0], translateY: [0, 50] },
                         ]}>
-                        <b key="1" className="sma"><img src={seu} height="100px" width="300px"></img></b><br></br>
-                        <b key="2" className="top"><img src={words} height="140px" width="936px"></img><br></br> </b>
+                        <b key="1" className="sma"><img src={seu} height="30%" width="32%"></img></b><br></br>
+                        <b key="2" className="top"><img src={words} height="45%" width="90%"></img><br></br> </b>
                         <p key="space1"></p>
                     </QueueAnim>
                     <QueueAnim animConfig={[

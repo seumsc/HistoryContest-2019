@@ -21,11 +21,11 @@
   .login-button {
     background-color:rgb(251,226,81,0.5);
     color:white;height:50px;width:210px;
-    font-size:25px;border-radius:20px;border:none;
+    font-size:40%;border-radius:20px;border:none;
   }
   
   .login-button:hover{
     background-color:rgb(251,226,81,0.9);
     color:white;height:50px;width:210px;
-    font-size:25px;border-radius:20px;border:none;
+    font-size:40%;border-radius:20px;border:none;
   }

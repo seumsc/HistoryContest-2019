@@ -261,80 +261,80 @@ class Test extends React.Component {
         this.setState({ question: x });
     }
     render() {
-        if (!this.state.isTesting) {
-            return (
-                <div style={{
-                    backgroundImage: `url(${BG})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    width: "100%", height: "100%",
-                    position: "absolute",
-                    top: "0px",
-                    bottom: "0px",
-                    minWidth:"700px"
-                }}>
-                    <Modal
-                        visible={!this.state.isTesting}
-                        title="答题须知"
-                        centered={true}
-                        footer={[
-                            <Button type="primary" loading={!this.state.isPaperGet}
-                                onClick={() => {
-                                    let that = this;
-                                    //temp
-                                    //  
-                                    //开始函数
-                                    fetch("http://" + this.props.state.host + '/api/student/start',
-                                        {
-                                            method: 'GET',
-                                            mode: 'cors',
-                                            headers: {
-                                                "authorization": that.props.state.token
-                                            },
-                                        }
-                                        ).then((data) => {
-                                                if (data.message == undefined) {
-                                                    message.success("答题开始,加油!",1.5)
-                                                    that.setState({ isTesting: true })
-                                                }
-                                                else {
-                                                    message.error("登陆已过期",1.5);
-                                                    this.props.logout();
-                                                }
-                                            })
+        // if (!this.state.isTesting) {
+        //     return (
+        //         <div style={{
+        //             backgroundImage: `url(${BG})`,
+        //             backgroundSize: 'cover',
+        //             backgroundPosition: 'center',
+        //             width: "100%", height: "100%",
+        //             position: "absolute",
+        //             top: "0px",
+        //             bottom: "0px",
+        //             minWidth:"700px"
+        //         }}>
+        //             <Modal
+        //                 visible={!this.state.isTesting}
+        //                 title="答题须知"
+        //                 centered={true}
+        //                 footer={[
+        //                     <Button type="primary" loading={!this.state.isPaperGet}
+        //                         onClick={() => {
+        //                             let that = this;
+        //                             //temp
+        //                             //  
+        //                             //开始函数
+        //                             fetch("http://" + this.props.state.host + '/api/student/start',
+        //                                 {
+        //                                     method: 'GET',
+        //                                     mode: 'cors',
+        //                                     headers: {
+        //                                         "authorization": that.props.state.token
+        //                                     },
+        //                                 }
+        //                                 ).then((data) => {
+        //                                         if (data.message == undefined) {
+        //                                             message.success("答题开始,加油!",1.5)
+        //                                             that.setState({ isTesting: true })
+        //                                         }
+        //                                         else {
+        //                                             message.error("登陆已过期",1.5);
+        //                                             this.props.logout();
+        //                                         }
+        //                                     })
 
-                                }}>
-                                开始答题
-                      </Button>
-                        ]}>
-                        <b style={{ fontSize: "18px", color: "#1890ff" }}>&nbsp;{this.props.state.name}同学,你好!</b><br></br>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
+        //                         }}>
+        //                         开始答题
+        //               </Button>
+        //                 ]}>
+        //                 <b style={{ fontSize: "18px", color: "#1890ff" }}>&nbsp;{this.props.state.name}同学,你好!</b><br></br>
+        //                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来到校史校情竞赛答题!</p><p></p>
 
-                        <ul style={{ fontSize: "15px" }}>
+        //                 <ul style={{ fontSize: "15px" }}>
 
-                            <li key="1">本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
+        //                     <li key="1">本答题共有<b>30道题</b>,&nbsp;其中有<b>20道选择题,&nbsp;10道判断题</b></li>
 
-                            <li key="2">选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
+        //                     <li key="2">选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
 
-                            <li key="3">答题时限为<b>3分钟-30分钟</b>,&nbsp;3分钟之前无法交卷,&nbsp;30分钟时自动交卷</li>
+        //                     <li key="3">答题时限为<b>3分钟-30分钟</b>,&nbsp;3分钟之前无法交卷,&nbsp;30分钟时自动交卷</li>
 
-                            <li key="4">在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
+        //                     <li key="4">在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
 
-                            <li key="5">对本答题系统有疑问,&nbsp;可联系在场负责老师</li>
+        //                     <li key="5">对本答题系统有疑问,&nbsp;可联系在场负责老师</li>
 
-                        </ul>
-                    </Modal>
-                </div>
-            )
-        }
+        //                 </ul>
+        //             </Modal>
+        //         </div>
+        //     )
+        // }
         return (
             <React.Fragment>
-                <Layout style={{ overflow: "hidder", minWidth: "1000px" ,height:"100%"}}>
+                <Layout style={{ overflow: "hidder", minWidth: "800px" }}>
                     <Header>
                         <Row>
                             <QueueAnim delay={100} duration={700}>
                             <Col span={16} offset={0} key="1">
-                                <h1 style={{ color: 'white', fontSize: "calc(15px + 2vmin)" }}><img src={mark} height="45px" width="45px" />&nbsp;东南大学校史校情知识竞赛</h1>
+                                <h1 style={{ color: 'white', fontSize: "calc(15px + 2vmin)" }}><img src={mark} height="50px" width="50px" />&nbsp;东南大学校史校情知识竞赛</h1>
                             </Col>
                             <Col span={4} offset={3} key="2">
                                 <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={29} sec={59} info={"  答题倒计时："} />
@@ -351,7 +351,7 @@ class Test extends React.Component {
                                     onTabClick={(x) => { this.setState({ focusOn: x }) }}
                                     tabBarGutter='0'
                                     tabPosition="bottom"
-                                    style={{ marginBottom: "0", marginLeft: "0px", textAlign: "center" }}>
+                                    style={{  textAlign: "center" }}>
                                     {this.state.question.map((x, i) => (
                                         <TabPane tab={!x.isFinish ?
                                             <Badge dot={true} > <div style={{ color: 'white' }}>{i + 1}</div></Badge> :
@@ -362,7 +362,7 @@ class Test extends React.Component {
                                         >
                                             {x.kind=="选择题" ?
                                                 <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev}
-                                                    submit={this.submint} />
+                                                    submit={this.submit} />
                                                 : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
                                             }
 

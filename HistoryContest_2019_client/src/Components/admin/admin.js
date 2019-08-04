@@ -305,9 +305,6 @@ class Admin extends React.Component {
         else if (that.state.reset.attemp == "修改一卡通") {
             add = "/api/admin/reset_password"
         }
-        console.log(that.state.reset.name);
-        console.log(that.state.reset.username);
-        console.log(that.state.reset.password);
         fetch("http://" + that.props.state.host + add, {
             method: 'POST',
             mode: 'cors',
@@ -499,9 +496,12 @@ class Admin extends React.Component {
                 key: "答题详情",
                 width: "10%",
                 render(username, col) {
+                    if(col["成绩"]==-1)
+                    return "";
+                    else{
                     let toGrade =
                         <a >双击展开</a>
-                    return toGrade;
+                    return toGrade;}
                 },
                 align: "center"
             },
