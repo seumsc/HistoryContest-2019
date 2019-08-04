@@ -60,7 +60,7 @@ class Choice extends React.Component {
                             <div style={{ height: 620 ,overflow:"hidden"}}>
                                 <Row>
                                     <Col span={2} >
-                                        <div style={{backgroundColor:"rgb(255,255,255,0.3)",color:"white",fontSize:"80px",width:"90px"}} ><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
+                                        <div style={{backgroundColor:"rgba(255,255,255,0.3)",color:"white",fontSize:"80px",width:"90px"}} ><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
                                         <div style={{  paddingTop: "90px", marginLeft: "20px" }}>
                                         <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button> 
                                         </div></Col>

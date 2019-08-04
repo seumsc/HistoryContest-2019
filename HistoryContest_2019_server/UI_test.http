@@ -1,7 +1,7 @@
 ### 测试登陆功能
 
 
-POST  http://localhost:5000/api/ui/login
+POST  http://localhost:6553/api/ui/login
 Content-Type: application/json
 
 {

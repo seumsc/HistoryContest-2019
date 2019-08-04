@@ -2,15 +2,13 @@ import "reflect-metadata";
 import {createConnection} from "typeorm";
 import * as Koa from 'koa';
 import * as Router from "koa-router";
-import * as bodyParser from "koa-bodyparser"
-import * as passport from "koa-passport"
 import * as cors from "koa2-cors"
 import{createKoaServer}from "routing-controllers"
 //import Controllers
 import { StudentController } from "./controllers/StudentController";
 import { UIController } from "./controllers/UIController";
 import {AdminController} from "./controllers/AdminController"
-import {Port}from "./config/config"
+import {Port}from "./config/conf"
  const app:Koa=createKoaServer({
       routePrefix:"/api",
       // controllers:["/src/controllers/*.ts"],
@@ -18,7 +16,9 @@ import {Port}from "./config/config"
  })
 //初始化路由
 const router=new Router();
-
+let redis=require("../src/config/redis")
+// redis.hmset(`1`,{username:"71118118",password:"213183580"},err=>{console.log(err)})
+// redis.hget(`1`,"username",(err,object)=>{console.log(object)})
 app.use(cors({
   origin: '*',
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],

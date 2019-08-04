@@ -10,6 +10,15 @@ import { taggedTemplateExpression } from '@babel/types';
 const allChoiceQuestion = require("../../data/choice_question.json")
 const allJudgeQuestion = require("../../data/judgment_question.json")
 const { Header, Footer, Content } = Layout;
+
+function toArrayBuffer(buf) {
+    var ab = new ArrayBuffer(buf.length);
+    var view = new Uint8Array(ab);
+    for (var i = 0; i < buf.length; ++i) {
+        view[i] = buf[i];
+    }
+    return ab;
+}
 //const departInfo = require("./departTest.json")
 class Admin extends React.Component {
     constructor(props) {
@@ -774,6 +783,7 @@ class Admin extends React.Component {
                                                 <Col span={2} offset={18}>
                                                     <a id="a_id"></a>
                                                     <Button type="primary" size="default" onClick={this.exportByExcel} loading={this.state.export.loading}>导出为<Icon type="file-excel" /></Button>
+                                                    <a id='a_id'></a>
                                                 </Col>
                                             </Row>
                                         )
@@ -784,17 +794,25 @@ class Admin extends React.Component {
                                             onDoubleClick: (event) => {
                                                 let that = this;
                                                 this.setState((state)=>({grade: { Visible:true, question:state.grade.question, loading: true } }))
-                                                fetch("http://" + that.props.state.host + "/api/admin/getByUsername",
+                                                // fetch("http://" + that.props.state.host + "/api/admin/getByUsername",
+                                                //     {
+                                                //         method: 'POST',
+                                                //         mode: 'cors',
+                                                //         headers: {
+                                                //             "authorization": that.props.state.token,
+                                                //             "Content-Type": "application/json"
+                                                //         },
+                                                //         body: JSON.stringify({
+                                                //             Username: record["学号"]
+                                                //         })
+                                                //     }
+                                                fetch(`http://${that.props.state.host}/api/admin/result?id=${record["学号"]}`,
                                                     {
-                                                        method: 'POST',
+                                                        method: 'GET',
                                                         mode: 'cors',
                                                         headers: {
                                                             "authorization": that.props.state.token,
-                                                            "Content-Type": "application/json"
-                                                        },
-                                                        body: JSON.stringify({
-                                                            Username: record["学号"]
-                                                        })
+                                                        }
                                                     }
                                                 ).then((res) => res.json()
                                                 ).then(async data => {

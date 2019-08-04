@@ -3,7 +3,6 @@ import {Key} from "../utils/keys"
 import { Student } from "../entity/Student";
 import { Admin } from "../entity/Admin";
 import { Counsellor } from "../entity/Counsellor";
-
 //验证是否为学生
 export async function verifyToken_Student(ctx,next){
     const dataString = ctx.header.authorization;

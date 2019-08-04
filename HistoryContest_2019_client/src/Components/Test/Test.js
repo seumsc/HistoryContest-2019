@@ -285,7 +285,7 @@ class Test extends React.Component {
         //                             //  
         //                             //开始函数
         //                             fetch("http://" + this.props.state.host + '/api/student/start',
-        //                                 {
+        //                                   {
         //                                     method: 'GET',
         //                                     mode: 'cors',
         //                                     headers: {
