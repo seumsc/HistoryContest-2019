@@ -2,8 +2,6 @@ import "reflect-metadata";
 import {createConnection} from "typeorm";
 import * as Koa from 'koa';
 import * as Router from "koa-router";
-import * as bodyParser from "koa-bodyparser"
-import * as passport from "koa-passport"
 import * as cors from "koa2-cors"
 import{createKoaServer}from "routing-controllers"
 //import Controllers
@@ -18,7 +16,9 @@ import {Port}from "./config/conf"
  })
 //初始化路由
 const router=new Router();
-
+let redis=require("../src/config/redis")
+// redis.hmset(`1`,{username:"71118118",password:"213183580"},err=>{console.log(err)})
+// redis.hget(`1`,"username",(err,object)=>{console.log(object)})
 app.use(cors({
   origin: '*',
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],

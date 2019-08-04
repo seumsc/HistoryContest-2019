@@ -9,9 +9,4 @@ Content-Type: application/json
 }
 
 ### 测试获取试卷
-POST http://localhost:5000/api/student/test
-Content-Type: application/json
-
-{
-    "Username":"71118118"
-}
+GET http://localhost:6553/api/student/test
