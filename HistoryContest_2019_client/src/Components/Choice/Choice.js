@@ -33,10 +33,10 @@ class Choice extends React.Component {
     render() {
         let style = {
             display: 'block',
-            height: '50px',
-            lineHeight: '50px',
+            height: '70px',
+            lineHeight: '70px',
             color: 'white',
-            fontSize: '20px',
+            fontSize: '25px',
         }
         return (
             <React.Fragment>
@@ -44,7 +44,8 @@ class Choice extends React.Component {
                     backgroundImage: `url(${imgs[(this.props.Id % 11)]})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    width: "100%", height: "100%"
+                    width: "100%", height: "100%",
+                    overflow:"hidden"
                 }}>
                     <Col span={4}></Col>
                     <Col span={14} offset={1}>
@@ -54,13 +55,13 @@ class Choice extends React.Component {
                             marginBottom: 60,
                             backgroundSize:"cover",
                             width:"100%",
-                            height:"100%"
+                            height:"100%",
                         }}>
-                            <div style={{ height: 490 }}>
+                            <div style={{ height: 620 ,overflow:"hidden"}}>
                                 <Row>
                                     <Col span={2} >
-                                        <div style={{color:"white",fontSize:"60px",width:"90px",backgroundColor:"rgb(255,255,255,0.3)"}}><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
-                                        <div style={{  paddingTop: "75px", marginLeft: "20px" }}>
+                                        <div style={{backgroundColor:"rgba(255,255,255,0.3)",color:"white",fontSize:"80px",width:"90px"}} ><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
+                                        <div style={{  paddingTop: "90px", marginLeft: "20px" }}>
                                         <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button> 
                                         </div></Col>
                                     <Col span={20}>
@@ -68,27 +69,29 @@ class Choice extends React.Component {
                                            animConfig={[
                                             { opacity: [1, 0], translateX: [0,80] }
                                           ]}>
-                                        <p key="title" style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 50 }}>
+                                        <div style={{ marginTop: 95, marginBottom: 60, marginLeft: 50,height:100 }}>
+                                        <p key="title" style={{ color: 'white', fontSize: 35 }}>
                                             &nbsp;{this.props.state.title}
                                         </p>
-                                        <Radio.Group key="choice" style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
+                                        </div>
+                                        <Radio.Group key="choice" style={{ color: 'white', marginLeft: 130, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                             <Radio style={style} value={this.props.state.option[0].value}>
-                                                <b>A</b> &nbsp; {this.props.state.option[0].text}
+                                                <b style={{fontSize:30}}>A</b> &nbsp; {this.props.state.option[0].text}
                                             </Radio>
                                             <Radio style={style} value={this.props.state.option[1].value}>
-                                                <b >B</b> &nbsp; {this.props.state.option[1].text}
+                                                <b style={{fontSize:30}}>B</b> &nbsp; {this.props.state.option[1].text}
                                             </Radio>
                                             <Radio style={style} value={this.props.state.option[2].value}>
-                                                <b>C</b> &nbsp; {this.props.state.option[2].text}
+                                                <b style={{fontSize:30}}>C</b> &nbsp; {this.props.state.option[2].text}
                                             </Radio>
                                             <Radio style={style} value={this.props.state.option[3].value}>
-                                                <b>D</b> &nbsp; {this.props.state.option[3].text}
+                                                <b style={{fontSize:30}}>D</b> &nbsp; {this.props.state.option[3].text}
                                             </Radio>
                                         </Radio.Group>
                                         </QueueAnim>
                                     </Col>
                                     <Col span={2}>
-                                        <div style={{marginTop:"230px"}}>
+                                        <div style={{marginTop:"290px"}}>
                                             {this.props.Id < 29 ?
                                                 <Button onClick={()=>{this.props.Next(1
                                                     )}} 

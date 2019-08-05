@@ -13,15 +13,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isWelcome: true,
+      isWelcome: false,
       isLogin: false,
-      isStudent: false,
+      isStudent: true,
       isAllDone: false,
       isAdmin: false,
       isTeacher: false,
-      host: "127.0.0.1:6553",
-        name: 'zzz',
-        username: "",
+      host: "localhost:6553",
+        name: 'hkh',
+        username: "09018316",
         depart: "",
         departId: "",
         token: '',
@@ -55,7 +55,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div id="index">
+        <div id="index" className="app">
           <Suspense fallback={<div style={{width:"100%",height:"100%",backgroundColor:"black"}}></div>}>
             {this.state.isWelcome ? <Welcome state={this.state} setState={this.appState} /> : <div />}
             {this.state.isStudent && this.state.score == -1 ? <Test state={this.state} setState={this.appState} logout={this.logout} /> : <div />}

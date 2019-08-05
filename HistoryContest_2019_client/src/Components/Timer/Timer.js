@@ -56,7 +56,7 @@ class Timer extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div style={{ color: "white", fontSize: "20px" }} type="scaleY" mode="sync" >
+                <div style={{ color: "white", fontSize: "calc(5px + 2vmin)" }} type="scaleY" mode="sync" >
                     {/* <Icon type="clock-circle" style={{ color: "rgb(248, 39, 39)", fontSize: "25px" }} /> */}
                     {this.props.info+this.state.min+" 分 "+this.state.sec+" 秒 "}
                 </div>
