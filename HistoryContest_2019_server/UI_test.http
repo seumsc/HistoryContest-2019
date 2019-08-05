@@ -5,21 +5,21 @@ POST  http://localhost:6553/api/ui/login
 Content-Type: application/json
 
 {
-    "Identity":"1",
+    "Identity":"2",
     "Username":"71118118",
     "Password":"213183580"
 }
 ###
 GET http://localhost:5000/api/ui/im
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjEiLCJ1c2VybmFtZSI6IjcxMTE4MTE4IiwiaWF0IjoxNTYzNzI3ODYzLCJleHAiOjE1NjM3MzE0NjN9.1lA_GGCT1OqQU1RvKSTkOpx4miuAqdAiX_QUG6TfNns
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjAiLCJ1c2VybmFtZSI6IjcxMTE4MTE4Iiwic2NvcmUiOiI0IiwiaWF0IjoxNTY0OTI5MTI5LCJleHAiOjE1NjQ5MzI3Mjl9.c7oH22EyHoObHKaisFBaC7-YawgkYomFgWmVqPEIF7w
 
 ### 测试get_admin
 
 get http://localhost:5000/api/ui/getadminall
 
 ### 测试get_student
-GET http://localhost:5000/api/ui/getstudentall
+GET http://localhost:6553/api/ui/redis
 
 ### 测试注册
 post http://localhost:5000/api/ui/register

@@ -60,8 +60,8 @@ const redis =require("../config/redis")
             let students=await redis.smembers(`department${department.id}`)
             let arr=new Array()
             for(let i=0;i<students.length;i++)
-            {
-                let object=await redis.hgetall(`student:${students[i]}`)
+            {   
+                let object=eval(`(${await redis.get(`student:${students[i]}`)})`)
                 let test={
                 name:object.name,
                 username:object.username,
@@ -175,7 +175,7 @@ const redis =require("../config/redis")
             let arr=new Array()
             for(let j=0;j<students.length;j++)
             {
-                let object=await redis.hgetall(`student:${students[j]}`)
+                let object:Student=eval(`(${await redis.get(`student:${students[j]}`)})`)
                 let test={
                 name:object.name,
                 username:object.username,
@@ -210,14 +210,14 @@ async post_register(@Ctx() ctx:Context){
             stu.password=ctx.request.body.Password
             stu.department=stu.username[0]+stu.username[1]
             stu.score=-1
-            const Stu=await redis.hgetall(`student:${ctx.request.body.Username}`)
+            const Stu=eval(`(${await redis.get(`student:${ctx.request.body.Username}`)})`)
             if((!isPasswordValid(stu.password))||(!isUsernameValid(stu.username))){
                 ctx.status=400
             }
             else if(!Stu)
             {
                 Student.save(stu);
-                redis.hmset(`student:${stu.username}`,stu)
+                redis.set(`student:${stu.username}`,JSON.stringify(stu))
                 let department:Department=await redis.hgetall(`department:${stu.department}`)
                 department.total_number+=1;
                 Department.update(department.test,department)
@@ -296,10 +296,10 @@ async post_register(@Ctx() ctx:Context){
 @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
 @Get("/result")
     async getByUsername(@QueryParam("id") id:string,@Ctx() ctx:Context){
-        let student:Student=await redis.hgetall(`student:${id}`)
+        let student=eval(`(${await redis.get(`student:${id}`)})`)
             if(!student){
                 student=(await Student.findOne({username:id}));
-                redis.hmset(`student:${id}`,student)
+                redis.set(`student:${id}`,JSON.stringify(student))
             }
         if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${student.updateDate}`){
             ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
@@ -345,15 +345,14 @@ async post_register(@Ctx() ctx:Context){
     @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_name")
     async reset_name(@Ctx() ctx:Context){
-    let student=undefined
-    redis.hgetall(`student:${ctx.request.body.Username}`,async(err,object)=>{student=object})
+    let student=eval(`(${await redis.get(`student:${ctx.request.body.Username}`)})`)
     if(!student){
             student=(await Student.findOne({username:ctx.request.body.Username}));
-            redis.hmset(`student:${ctx.request.body.Username}`,student)
+            redis.set(`student:${ctx.request.body.Username}`,JSON.stringify(student))
     }
     student.name=ctx.request.body.Name
     await Student.update(student.id,student)
-    redis.hmset(`student:${ctx.request.body.Username}`,student)
+    redis.set(`student:${ctx.request.body.Username}`,JSON.stringify(student))
     return ctx.body={msg:"successfully reset"};
     }
 
@@ -367,7 +366,7 @@ async post_register(@Ctx() ctx:Context){
     let student=await Student.findOne({name:ctx.request.body.Name,password:ctx.request.body.Password})
     student.username=ctx.request.body.Username
     await Student.update(student.id,student)
-    redis.hmset(`student:${ctx.request.body.Username}`,student)
+    redis.set(`student:${ctx.request.body.Username}`,JSON.stringify(student))
     return ctx.body={msg:"successfully reset"};
 }
 
@@ -378,14 +377,13 @@ async post_register(@Ctx() ctx:Context){
     @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_password")
     async reset_password(@Ctx() ctx:Context){
-    let student=undefined
-    redis.hgetall(`student:${ctx.request.body.Username}`,async(err,object)=>{student=object})
+    let student=eval(`(${await redis.get(`student:${ctx.request.body.Username}`)})`)
     if(!student){
         student=(await Student.findOne({username:ctx.request.body.Username}));
         redis.hmset(`student:${ctx.request.body.Username}`,student)
     }
     student.password=ctx.request.body.Password
     await Student.update(student.id,student)
-    redis.hmset(`student:${ctx.request.body.Username}`,student)
+    redis.set(`student:${ctx.request.body.Username}`,JSON.stringify(student))
     return ctx.body={msg:"successfully reset"};
 }}
