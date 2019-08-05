@@ -10,11 +10,7 @@ Content-Type: application/json
 
 ### 测试获取试卷
 GET http://localhost:6553/api/student/result
-<<<<<<< HEAD
 
 
 GET http://localhost:6553/api/student/
 Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjAiLCJ1c2VybmFtZSI6IjA5MDE4MzE2Iiwic2NvcmUiOiItMSIsImlhdCI6MTU2NDk3NDExMiwiZXhwIjoxNTY0OTc3NzEyfQ.j8UQ602R9Unz-9ZbW3CjiUWkUvrTUnumVFgq2KdQERs"
-=======
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjAiLCJ1c2VybmFtZSI6IjcxMTE4MTE4Iiwic2NvcmUiOjQsImlhdCI6MTU2NDk3NjYxNCwiZXhwIjoxNTY0OTgwMjE0fQ.1nAmCdy1ng7eNKgZiiMFAY5YK4dfBgU6d15_nEEIsV4
->>>>>>> b9216a2520154832b5b5af74d30bfe565d25bb0a
