@@ -26,10 +26,10 @@ export class StudentController{
         const token =dataArr[1];
         let playload = await jwt.verify(token,Key)
         const data=playload;
-        let student:Student=await redis.hgetall(`student:${data.username}`)
+        let student:Student=eval(`(${await redis.get(`student:${data.username}`)})`)
             if(!student){
                 student=(await Student.findOne({username:data.username}));
-                redis.hmset(`student:${data.username}`,student)
+                redis.set(`student:${data.username}`,JSON.stringify(student))
             }
             if(student.score==-1){
             //生成两个随机数组，应用为选择题和判断题的序号
@@ -52,7 +52,7 @@ export class StudentController{
             //除去题目的答案属性输出，Paper属性对象含有Choice_question与Judgment_question两个属性分别为选择题数组，判断题数组
             ctx.body={Paper:{Choice_question:choice_id,Judgment_question:judgment_id}}
             await Student.update(student.id,student)
-            redis.hmset(`student:${data.username}`,student)}//更新用户数据
+            redis.set(`student:${data.username}`,JSON.stringify(student))}//更新用户数据
             else{ctx.status=403}
             
         // if(!student){
@@ -103,15 +103,15 @@ export class StudentController{
         const token =dataArr[1];
         let playload = await jwt.verify(token,Key)
         const data=playload;
-        let student:Student=await redis.hgetall(`student:${data.username}`)
+        let student:Student=eval(`(${await redis.get(`student:${data.username}`)})`)
         if(!student){
             student=(await Student.findOne({username:data.username}));
-            await redis.hmset(`student:${data.username}`,student)
+            await redis.set(`student:${data.username}`,JSON.stringify(student))
         }
         student.time_use=(date.getTime()-1560000000000)/1000;
         student.time_start=new Date;
         Student.update(student.id,student);
-        redis.hmset(`student:${data.username}`,student,(err)=>{console.log(err)})
+        redis.set(`student:${data.username}`,JSON.stringify(student),(err)=>{console.log(err)})
         // let student=undefined
         // redis.hgetall(`student:${data.username}`,async(err,object)=>{student=object})
         // if(!student){
@@ -142,7 +142,7 @@ export class StudentController{
         const token =dataArr[1];
         let playload = await jwt.verify(token,Key)
         const data=playload;
-        let student:Student=await redis.hgetall(`student:${data.username}`)
+        let student:Student=eval(`(${await redis.get(`student:${data.username}`)})`)
         // let student:Student=undefined
         // await redis.hgetall(`student:${data.username}`,async(err,object)=>{student=object})
         // if(!student){
@@ -183,7 +183,7 @@ export class StudentController{
         // }
         if(!student){
             student=await Student.findOne({username:data.username});
-            redis.hmset(`student:${data.username}`,student)
+            redis.set(`student:${data.username}`,JSON.stringify(student))
         }
         if((((date.getTime()-1560000000000)/1000-student.time_use>1800)||(student.score!=-1)))
         {ctx.status=403}
@@ -214,7 +214,7 @@ export class StudentController{
                 Department.update(object.test,object)
             })
             Student.update(student.id,student)
-            redis.hmset(`student:${data.username}`,student)
+            redis.set(`student:${data.username}`,JSON.stringify(student))
             ctx.body={Score:student.score}
         }
         return ctx;
@@ -226,8 +226,7 @@ export class StudentController{
 //后端返回整套试卷，分数与答案    {Paper:{Choice_question:number[],Judgment_question:number[]}，Score:Number,Answer:{Choice_answers:number[],Judgment_answers:number[]}}
 //student,admin,counsellor
 @Get("/result")
-    async result(@Ctx() ctx:Context){
-        try{
+async result(@Ctx() ctx:Context){
         const dataString = ctx.header.authorization;
         const dataArr = dataString.split(' ');
         const token =dataArr[1];
@@ -249,18 +248,11 @@ export class StudentController{
         //         'Cache-Control':"no-cache"
         //     })}
         // })
-        let student=await redis.hgetall(`student:${data.username}`)
-        student.choice_question=student.choice_question.split(',')
-        student.judgment_question=student.judgment_question.split(',')
-        student.answers_choice=student.answers_choice.split(',')
-        student.answers_judgment=student.answers_judgment.split(',')
-        student.answers=student.answers.split(',')
-        
+        let student:Student=eval(`(${await redis.get(`student:${data.username}`)})`)
         if(!student){
             student=(await Student.findOne({username:data.username}));
-            redis.hmset(`student:${data.username}`,student)
+            redis.set(`student:${data.username}`,JSON.stringify(student))
         }
-        // let student = await Student.findOne({username:data.username})
         if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${student.updateDate}`){
         ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
         Score:student.score,
@@ -269,7 +261,8 @@ export class StudentController{
         ctx.response.set({
             'Last-Modified':`${student.updateDate}`,
             'Cache-Control':"no-cache"
-        })}}catch(err){ctx.response.set({e:err})}
+        })}
+        else{ctx.status=304}
     return ctx;
     }
 }

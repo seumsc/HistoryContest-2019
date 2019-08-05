@@ -1,9 +1,6 @@
-POST http://localhost:6553/api/admin/getBydepartment
-Content-Type: application/json
+GET http://localhost:6553/api/admin/getBydepartment
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjIiLCJ1c2VybmFtZSI6IjcxMTE4MTE4IiwiZGVwYXJ0bWVudCI6IjcxIiwiaWF0IjoxNTY0OTc3NzgyLCJleHAiOjE1NjQ5ODEzODJ9.PZClzelNf3ixW3YoiQtlSqMXWOdG29SPrGxiHLRGcm4
 
-{
-    "Username":"09018316","Department":"09"
-}
 
 ###测试修改信息
 POST http://localhost:6553/api/admin/reset
