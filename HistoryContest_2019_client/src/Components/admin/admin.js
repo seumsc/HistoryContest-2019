@@ -820,6 +820,8 @@ class Admin extends React.Component {
                                                         let temp = [];
                                                         for (let i = 0; i < 20; i++) {
                                                             temp.push({ title: "" });
+                                                            console.log(allChoiceQuestion)
+                                                            console.log(data.Paper.Choice_question)
                                                             temp[i].title = allChoiceQuestion[data.Paper.Choice_question[i] - 1]["title"];
                                                             temp[i].option = await [
                                                                 {
@@ -857,7 +859,7 @@ class Admin extends React.Component {
                                                         message.error("登陆已过期", 1.5);
                                                         that.props.logout();
                                                     }
-                                                }).catch((err) => { console.log(err) })
+                                                })
                                             }
                                         }
                                     }}

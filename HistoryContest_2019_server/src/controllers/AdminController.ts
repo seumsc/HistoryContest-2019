@@ -296,7 +296,12 @@ async post_register(@Ctx() ctx:Context){
 @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
 @Get("/result")
     async getByUsername(@QueryParam("id") id:string,@Ctx() ctx:Context){
-        let student:Student=await redis.hgetall(`student:${id}`)
+        let student=await redis.hgetall(`student:${id}`)
+        student.choice_question=student.choice_question.split(',')
+        student.judgment_question=student.judgment_question.split(',')
+        student.answers_choice=student.answers_choice.split(',')
+        student.answers_judgment=student.answers_judgment.split(',')
+        student.answers=student.answers.split(',')
             if(!student){
                 student=(await Student.findOne({username:id}));
                 redis.hmset(`student:${id}`,student)

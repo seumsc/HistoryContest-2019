@@ -18,7 +18,7 @@ export class StudentController{
 //后端判断是否已有得分，有则403报错
 //后端随机生成选择题与判断题序号并保存，返回题目与选项           {Paper:{Choice_question:ChoiceQuestion[],Judgment_question:JudgmentQuestion[]}}
 //student
-    // @UseBefore(verify.verifyToken_Student,verify.verifyToken_Username)
+     //@UseBefore(verify.verifyToken_Student,verify.verifyToken_Username)
     @Get("/test")
     async test( @Ctx() ctx:Context){
         const dataString = ctx.header.authorization;
@@ -94,7 +94,7 @@ export class StudentController{
 //前端返回用户名                      {Username:String}
 //后端保存时间(s)在time_use,保存开始时间(Data)在time_start中
 //student
-    @UseBefore(verify.verifyToken_Student,verify.verifyToken_Score)
+    //@UseBefore(verify.verifyToken_Student,verify.verifyToken_Score)
     @Get("/start")
     async start(@Ctx() ctx:Context){
         let date=new Date()
@@ -133,7 +133,7 @@ export class StudentController{
 //后端判断当前时间(s)与开始时间(time_use)相差是否超过1800s(30min)，合法即进行改卷
 //后端返回分数 
 //student                      {Score:Number}
-    @UseBefore(verify.verifyToken_Student,verify.verifyToken_Score)
+    //@UseBefore(verify.verifyToken_Student,verify.verifyToken_Score)
     @Post("/handin")
     async handin(@Ctx() ctx:Context){
         let date=new Date()
@@ -227,6 +227,7 @@ export class StudentController{
 //student,admin,counsellor
 @Get("/result")
     async result(@Ctx() ctx:Context){
+        try{
         const dataString = ctx.header.authorization;
         const dataArr = dataString.split(' ');
         const token =dataArr[1];
@@ -248,11 +249,18 @@ export class StudentController{
         //         'Cache-Control':"no-cache"
         //     })}
         // })
-        let student:Student=await redis.hgetall(`student:${data.username}`)
+        let student=await redis.hgetall(`student:${data.username}`)
+        student.choice_question=student.choice_question.split(',')
+        student.judgment_question=student.judgment_question.split(',')
+        student.answers_choice=student.answers_choice.split(',')
+        student.answers_judgment=student.answers_judgment.split(',')
+        student.answers=student.answers.split(',')
+        
         if(!student){
             student=(await Student.findOne({username:data.username}));
             redis.hmset(`student:${data.username}`,student)
         }
+        // let student = await Student.findOne({username:data.username})
         if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${student.updateDate}`){
         ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
         Score:student.score,
@@ -261,7 +269,7 @@ export class StudentController{
         ctx.response.set({
             'Last-Modified':`${student.updateDate}`,
             'Cache-Control':"no-cache"
-        })}   
+        })}}catch(err){ctx.response.set({e:err})}
     return ctx;
     }
 }

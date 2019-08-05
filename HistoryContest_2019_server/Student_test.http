@@ -9,4 +9,8 @@ Content-Type: application/json
 }
 
 ### 测试获取试卷
-GET http://localhost:6553/api/student/test
+GET http://localhost:6553/api/student/result
+
+
+GET http://localhost:6553/api/student/
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjAiLCJ1c2VybmFtZSI6IjA5MDE4MzE2Iiwic2NvcmUiOiItMSIsImlhdCI6MTU2NDk3NDExMiwiZXhwIjoxNTY0OTc3NzEyfQ.j8UQ602R9Unz-9ZbW3CjiUWkUvrTUnumVFgq2KdQERs"
