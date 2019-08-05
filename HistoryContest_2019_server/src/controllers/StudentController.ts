@@ -40,6 +40,8 @@ export class StudentController{
             // let Jq=await JudgmentQuestion.findByIds(judgment_id,{select:["answer"]})
             // student.answers_choice=Cq.map(a=>a.answer)
             // student.answers_judgment=Jq.map(a=>a.answer)
+            student.answers_choice=[]
+            student.answers_judgment=[]
             choice_id.forEach(async element => {
                 student.answers_choice.push(await redis.hget(`choice:${element}`,'answer'))
             });

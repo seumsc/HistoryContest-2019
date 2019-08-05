@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal,Radio,Card,Row, Col, Icon, Button, Layout, Table, Descriptions, Input, Tag, message, Dropdown, Menu, Drawer } from 'antd';
+import { Modal, Radio, Card, Row, Col, Icon, Button, Layout, Table, Descriptions, Input, Tag, message, Dropdown, Menu, Drawer } from 'antd';
 import 'antd/dist/antd.css';
 import mark from '../../img/校徽实体.png'
 import xlsx from 'node-xlsx'
@@ -14,10 +14,10 @@ class Super extends React.Component {
             origionData: {},
             displayData: [],
             departData: [],
-            departList:[],
+            departList: [],
             searchText: '',
             loading: false,
-            departVisible:false,
+            departVisible: false,
             register: {
                 Visible: false,
                 post: false,
@@ -34,7 +34,7 @@ class Super extends React.Component {
                 attemp: ""
             },
             export: {
-                loading:false
+                loading: false
             },
             grade: {
                 loading: false,
@@ -47,34 +47,34 @@ class Super extends React.Component {
         this.register = this.register.bind(this);
         this.reset = this.reset.bind(this);
         this.exportByExcel = this.exportByExcel.bind(this);
-        for(let i=0;i<30;i++){
+        for (let i = 0; i < 30; i++) {
             this.state.grade.question.push({
-                title:"",
-                option:[{text:"",value:1},{text:"",value:2},{text:"",value:3},{text:"",value:4}],
-                answer:"",
-                value:"",
+                title: "",
+                option: [{ text: "", value: 1 }, { text: "", value: 2 }, { text: "", value: 3 }, { text: "", value: 4 }],
+                answer: "",
+                value: "",
             })
         }
     }
     async exportByExcel() {
-        let departHeaders=["学院","均分","总人数","完成人数","排名"];
+        let departHeaders = ["学院", "均分", "总人数", "完成人数", "排名"];
         let headers = ["姓名", "学号", "一卡通", "成绩", "用时", "排名"];
-        let output =  new Array();
+        let output = new Array();
         this.setState({ export: { loading: true } });
-        let departFace=new Array();
+        let departFace = new Array();
         departFace.push(departHeaders);
-        await this.state.departData.map((inst,rank)=>{
-            departFace.push([inst["学院"],inst["均分"],inst["总人数"],inst["完成人数"],rank+1])
+        await this.state.departData.map((inst, rank) => {
+            departFace.push([inst["学院"], inst["均分"], inst["总人数"], inst["完成人数"], rank + 1])
         })
         output.push({
-            name:"总览",
-            data:departFace
+            name: "总览",
+            data: departFace
         })
         await Object.keys(this.state.origionData).forEach((inst, i) => {//每一学院
             if (!this.state.origionData[inst].length == 0) {
-                let data = this.state.departData.filter((v)=>{return v["学院"]==inst});
-                let temp =  new Array();
-                temp.push(["学院:",inst,"均分:",data[0]["均分"],"排名:",data[0]["排名"]])
+                let data = this.state.departData.filter((v) => { return v["学院"] == inst });
+                let temp = new Array();
+                temp.push(["学院:", inst, "均分:", data[0]["均分"], "排名:", data[0]["排名"]])
                 temp.push(headers);
                 this.state.origionData[inst].forEach((element) => {//每一行(每一位学生)
                     let arr = new Array();
@@ -107,7 +107,7 @@ class Super extends React.Component {
             }
         })
         let result = xlsx.build(output);
-       
+
         let blob = new Blob([result])
         let blobUrl = window.URL.createObjectURL(blob);
         let a = document.getElementById('a_id');
@@ -125,26 +125,26 @@ class Super extends React.Component {
         // Object.keys(departInfo).map((inst,i)=>{
         //     departInfo[inst]["均分"]=90.00;
         // })
-        fetch("http://"+that.props.state.host+"/api/admin/get_alldepartments",{
+        fetch("http://" + that.props.state.host + "/api/admin/get_alldepartments", {
             methods: "GET",
-            mode:"cors",
+            mode: "cors",
             headers: {
                 "authorization": that.props.state.token
                 //"Content-Type": "application/json"
             }
-        }).then((res)=>{return res.json()}
-        ).then((data)=>{
-            data.Departments.map((inst,rank)=>{
+        }).then((res) => { return res.json() }
+        ).then((data) => {
+            data.Departments.map((inst, rank) => {
                 that.state.departData.push(new Object);
-                that.state.departData[rank]={
-                    "学院":inst.name,
-                    "排名":rank+1,
-                    "均分":inst.average,
-                    "总人数":inst.total_number,
-                    "完成人数":inst.tested_number   
+                that.state.departData[rank] = {
+                    "学院": inst.name,
+                    "排名": rank + 1,
+                    "均分": inst.average,
+                    "总人数": inst.total_number,
+                    "完成人数": inst.tested_number
                 }
             })
-            that.setState({loading:false});
+            that.setState({ loading: false });
         })
         //测试学生数据
         // const testdata = await require("./Students.json");
@@ -209,7 +209,7 @@ class Super extends React.Component {
         //  that.setState({origionData:data,loading:false});
         //测试结束
 
-        this.setState({loading:true});
+        this.setState({ loading: true });
         fetch("http://" + that.props.state.host + "/api/admin/get_allstudents",
             {
                 method: 'GET',
@@ -218,7 +218,7 @@ class Super extends React.Component {
                     "authorization": that.props.state.token
                     //"Content-Type": "application/json"
                 },
-            
+
             }).then(res => res.json()
             ).then(data => {
                 Object.keys(data).forEach((inst) => {
@@ -228,25 +228,38 @@ class Super extends React.Component {
                             per.rank = rank + 1;
                         })
                         that.state.departList.push({
-                            text:inst,
-                            value:inst
+                            text: inst,
+                            value: inst
                         })
                     }
                     data[inst].forEach((v) => {
-                        that.state.displayData.push({
-                            "学号": v.username,
-                            "姓名": v.name,
-                            "一卡通": v.password,
-                            "院系": inst,
-                            "用时": v.time_use,
-                            "成绩": v.score,
-                            "排名": v.rank
-                        })
+                        if (v.score == -1) {
+                            that.state.displayData.push({
+                                "学号": v.username,
+                                "姓名": v.name,
+                                "一卡通": v.password,
+                                "院系": inst,
+                                "用时": v.time_use,
+                                "成绩": v.score,
+                                "排名": -1
+                            })
+                        }
+                        else {
+                            that.state.displayData.push({
+                                "学号": v.username,
+                                "姓名": v.name,
+                                "一卡通": v.password,
+                                "院系": inst,
+                                "用时": v.time_use,
+                                "成绩": v.score,
+                                "排名": v.rank
+                            })
+                        }
                     })
                 }
                 )
                 that.state.origionData = data;
-                that.setState({loading:false});
+                that.setState({ loading: false });
             }
             )
     }
@@ -263,45 +276,45 @@ class Super extends React.Component {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    Name:that.state.register.name,
+                    Name: that.state.register.name,
                     Username: that.state.register.username,
-                    Password:that.state.register.password
+                    Password: that.state.register.password
                 })
-            }).then(res=>res.json()
-                ).then(data=>{
-                    if(data.status==200){
-                        message.success("注册成功",1.5);
-                        that.get();
-                        that.setState({register:{post:false}})
-                        setTimeout(() => {
-                            that.setState({register:{Visible:false}})
-                        }, 400);
-                    }
-                    else if(data.status==403){
-                        message.warning("该用户(学号)已存在",1.5);
-                        that.setState({register:{post:false}})
-                    }
-                    else if(data.status==400){
-                        message.warning("用户名或密码格式不正确",1.5);
-                        that.setState({register:{post:false}})
-                    }
-                })
+            }).then(res => res.json()
+            ).then(data => {
+                if (data.status == 200) {
+                    message.success("注册成功", 1.5);
+                    that.get();
+                    that.setState({ register: { post: false } })
+                    setTimeout(() => {
+                        that.setState({ register: { Visible: false } })
+                    }, 400);
+                }
+                else if (data.status == 403) {
+                    message.warning("该用户(学号)已存在", 1.5);
+                    that.setState({ register: { post: false } })
+                }
+                else if (data.status == 400) {
+                    message.warning("用户名或密码格式不正确", 1.5);
+                    that.setState({ register: { post: false } })
+                }
+            })
     }
     reset() {
         //修改信息
-        let that=this;
-        this.setState({reset:{post:true}});
-        let add="";
-        if(that.state.reset.attemp=="修改姓名"){
-            add="/api/admin/reset_name"
+        let that = this;
+        this.setState({ reset: { post: true } });
+        let add = "";
+        if (that.state.reset.attemp == "修改姓名") {
+            add = "/api/admin/reset_name"
         }
-        else if(that.state.reset.attemp=="修改学号"){
-            add="/api/admin/reset_username"
+        else if (that.state.reset.attemp == "修改学号") {
+            add = "/api/admin/reset_username"
         }
-        else if(that.state.reset.attemp=="修改一卡通"){
-            add="/api/admin/reset_password"
+        else if (that.state.reset.attemp == "修改一卡通") {
+            add = "/api/admin/reset_password"
         }
-        fetch("http://"+that.props.state.host+add,{
+        fetch("http://" + that.props.state.host + add, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -309,20 +322,20 @@ class Super extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                Name:that.state.reset.name,
+                Name: that.state.reset.name,
                 Username: that.state.reset.username,
-                Password:that.state.reset.password
+                Password: that.state.reset.password
             })
-        }).then((res)=>res.json()
-        ).then((data)=>{
-            if(data.msg==undefined){
-                that.setState({reset:{post:false}});
-                message.error("修改失败,请检查后重试",1.5);
+        }).then((res) => res.json()
+        ).then((data) => {
+            if (data.msg == undefined) {
+                that.setState({ reset: { post: false } });
+                message.error("修改失败,请检查后重试", 1.5);
             }
-            else{
-                message.success("修改成功",1.5);
-                that.setState({reset:{post:false}});
-                setTimeout(()=>{that.setState({reset:{Visible:false}})},400)
+            else {
+                message.success("修改成功", 1.5);
+                that.setState({ reset: { post: false } });
+                setTimeout(() => { that.setState({ reset: { Visible: false } }) }, 400)
             }
         })
     }
@@ -396,7 +409,7 @@ class Super extends React.Component {
                 onFilter: (value, record) => {
                     return record["院系"] == value;
                 },
-                align:"center"
+                align: "center"
             },
             {
                 title: "姓名",
@@ -404,7 +417,7 @@ class Super extends React.Component {
                 key: "姓名",
                 width: "10%",
                 ...this.getColumnSearchProps("姓名"),
-                align:"center"
+                align: "center"
             },
             {
                 title: "学号",
@@ -413,7 +426,7 @@ class Super extends React.Component {
                 width: "12%",
                 sorter: (a, b) => a["学号"] - b["学号"],
                 ...this.getColumnSearchProps("学号"),
-                align:"center"
+                align: "center"
             },
             {
                 title: "一卡通",
@@ -421,7 +434,7 @@ class Super extends React.Component {
                 key: "一卡通",
                 width: "12%",
                 ...this.getColumnSearchProps("一卡通"),
-                align:"center"
+                align: "center"
             },
 
             {
@@ -459,7 +472,7 @@ class Super extends React.Component {
                         return <Tag color="#f50">未答题</Tag>
                     }
                 },
-                align:"center"
+                align: "center"
             },
             {
                 title: "用时",
@@ -468,14 +481,14 @@ class Super extends React.Component {
                 width: "10%",
                 sorter: (a, b) => a["用时"] - b["用时"],
                 render(h) {
-                    if(h>=0){
-                        return h + " s";
+                    if (h >= 0) {
+                        return `${parseInt(h)} s`;
                     }
-                    else{
-                        return "无"
+                    else {
+                        return ""
                     }
                 },
-                align:"center"
+                align: "center"
             },
             {
                 title: "本院排名",
@@ -483,8 +496,15 @@ class Super extends React.Component {
                 key: "排名",
                 width: "10%",
                 sorter: (a, b) => a["排名"] - b["排名"],
-                defaultSortOrder:'ascend',
-                align:"center"
+                align: "center",
+                render(h) {
+                    if(h==-1){
+                        return ""
+                    }
+                    else {
+                        return h
+                    }
+                },
             },
             {
                 title: "答题详情",
@@ -492,30 +512,31 @@ class Super extends React.Component {
                 key: "答题详情",
                 width: "10%",
                 render(username, col) {
-                    if(col["成绩"]==-1)
-                    return "";
-                    else{
-                    let toGrade =
-                        <a >双击展开</a>
-                    return toGrade;}
+                    if (col["成绩"] == -1)
+                        return "";
+                    else {
+                        let toGrade =
+                            <a >双击展开</a>
+                        return toGrade;
+                    }
                 },
                 align: "center"
             },
         ]
-        let titleDepart=[
+        let titleDepart = [
             {
-                title:"排名",
-                dataIndex:"排名",
-                key:"排名",
-                width:"20%",
-                align:"center"
+                title: "排名",
+                dataIndex: "排名",
+                key: "排名",
+                width: "20%",
+                align: "center"
             },
             {
-                title:"学院",
-                dataIndex:"学院",
-                key:"学院",
-                width:"60%",
-                align:"center"
+                title: "学院",
+                dataIndex: "学院",
+                key: "学院",
+                width: "60%",
+                align: "center"
                 // render:(data)=>(<div>
                 //     <Popover title="院系数据" trigger="hover" content={<div>
                 //     <p>均分: {departInfo[data].average}</p>
@@ -529,11 +550,11 @@ class Super extends React.Component {
                 // )
             },
             {
-                title:"均分",
-                dataIndex:"均分",
-                key:"均分",
-                width:"20%",
-                align:"center"
+                title: "均分",
+                dataIndex: "均分",
+                key: "均分",
+                width: "20%",
+                align: "center"
             }
         ];
         let style = {
@@ -546,44 +567,44 @@ class Super extends React.Component {
         return (
             <React.Fragment>
                 <Drawer
-                title="院系总览"
-                placement="left"
-                closable={true}
-                onClose={()=>{this.setState({departVisible:false})}}
-                visible={this.state.departVisible}
-                width="400px"
-                keyboard={true}
+                    title="院系总览"
+                    placement="left"
+                    closable={true}
+                    onClose={() => { this.setState({ departVisible: false }) }}
+                    visible={this.state.departVisible}
+                    width="400px"
+                    keyboard={true}
                 >
-                <Table columns={titleDepart} dataSource={this.state.departData}></Table>
+                    <Table columns={titleDepart} dataSource={this.state.departData}></Table>
                 </Drawer>
                 <Modal
                     visible={this.state.grade.Visible}
                     title={`答题详情`}
                     footer={[
-                        <Button type="primary" onClick={()=>this.setState((state)=>({grade:{Visible:false,question:state.grade.question,loading:false}}))}>离开</Button>
+                        <Button type="primary" onClick={() => this.setState((state) => ({ grade: { Visible: false, question: state.grade.question, loading: false } }))}>离开</Button>
                     ]}
-                    onCancel={()=>this.setState((state)=>({grade:{Visible:false,question:state.grade.question,loading:false}}))}>
+                    onCancel={() => this.setState((state) => ({ grade: { Visible: false, question: state.grade.question, loading: false } }))}>
                     <Row >
                         <Col >
-                            <Card loading={this.state.grade.loading}   hoverable="true" 
-                            style={{ backgroundColor: "white", color: "black" }} size="small">
+                            <Card loading={this.state.grade.loading} hoverable="true"
+                                style={{ backgroundColor: "white", color: "black" }} size="small">
                                 {this.state.grade.question.map((x, i) => (
-                                    <Card.Grid 
+                                    <Card.Grid
                                         key={i}
-                                        onClick={() => this.setState({focusOn:i})}
+                                        onClick={() => this.setState({ focusOn: i })}
                                         style={{
                                             width: '15%',
                                             fontSize: '12px',
-                                            textAlign:"center",
-                                            height:"5%"
+                                            textAlign: "center",
+                                            height: "5%"
                                         }}>
-                                        {i+1}{x.value == x.answer ? <Icon  size="small" type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} />
-                                            : <Icon type="close-circle" theme="twoTone" twoToneColor="#E83015" size="small"style={{ fontSize: "20px" }} />}
+                                        {i + 1}{x.value == x.answer ? <Icon size="small" type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} />
+                                            : <Icon type="close-circle" theme="twoTone" twoToneColor="#E83015" size="small" style={{ fontSize: "20px" }} />}
                                     </Card.Grid>))
                                 }
                             </Card>
                         </Col>
-                        <Col  style={{ backgroundColor: "white", }}>
+                        <Col style={{ backgroundColor: "white", }}>
                             <div style={{ marginLeft: 0, overflow: "hidden", height: 120 }}>
                                 <h2 style={{ color: 'black', fontSize: "18px", marginTop: 30, marginBottom: 60, marginRight: 80 }} >
                                     {this.state.focusOn + 1}&nbsp;{this.state.grade.question[this.state.focusOn].title}<br />
@@ -638,11 +659,11 @@ class Super extends React.Component {
               </Button>
                     ]}
                     visible={this.state.register.Visible}
-                >   <Input id="name" addonBefore=" 姓名 " placeholder="注册姓名" allowClear onChange={(e) => { this.state.register.name=e.target.value}}></Input>
+                >   <Input id="name" addonBefore=" 姓名 " placeholder="注册姓名" allowClear onChange={(e) => { this.state.register.name = e.target.value }}></Input>
                     <p></p>
-                    <Input id="username" addonBefore=" 账户 " placeholder="学号" allowClear onChange={(e) => { this.state.register.username=e.target.value }}></Input>
+                    <Input id="username" addonBefore=" 账户 " placeholder="学号" allowClear onChange={(e) => { this.state.register.username = e.target.value }}></Input>
                     <p></p>
-                    <Input.Password id="password" addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(e) => { this.state.register.password=e.target.value }} />
+                    <Input.Password id="password" addonBefore=" 密码 " placeholder="一卡通号码" allowClear onChange={(e) => { this.state.register.password = e.target.value }} />
                     <p></p>
 
                 </Modal>
@@ -663,34 +684,34 @@ class Super extends React.Component {
                 >
                     {this.state.reset.attemp == "修改一卡通" && <div>
                         <p><Icon type="exclamation" />推荐先在详细列表中, 利用搜索功能确定该学生具体的信息错误处</p>
-                        <Input id="username" addonBefore=" 姓名 " placeholder="需要修改的账户(姓名)" allowClear onChange={(e) => { this.state.reset.name=e.target.value }}></Input>
+                        <Input id="username" addonBefore=" 姓名 " placeholder="需要修改的账户(姓名)" allowClear onChange={(e) => { this.state.reset.name = e.target.value }}></Input>
                         <p></p>
-                        <Input id="username" addonBefore=" 账户 " placeholder="需要修改的账户(学号)" allowClear onChange={(e) => { this.state.reset.username=e.target.value }}></Input>
+                        <Input id="username" addonBefore=" 账户 " placeholder="需要修改的账户(学号)" allowClear onChange={(e) => { this.state.reset.username = e.target.value }}></Input>
                         <p></p>
                         <p></p>
-                        <Input id="password" addonBefore=" 一卡通修改为 " placeholder="修改值" allowClear onChange={(e) => { this.state.reset.password=e.target.value }} ></Input>
+                        <Input id="password" addonBefore=" 一卡通修改为 " placeholder="修改值" allowClear onChange={(e) => { this.state.reset.password = e.target.value }} ></Input>
                         <p></p>
                     </div>
                     }
                     {this.state.reset.attemp == "修改姓名" && <div>
                         <p><Icon type="exclamation" />推荐先在详细列表中, 利用搜索功能确定该学生具体信息错误处</p>
-                        <Input id="username" addonBefore=" 学号 " placeholder="需要修改的账户(学号)" allowClear onChange={(e) => { this.state.reset.username=e.target.value }}></Input>
+                        <Input id="username" addonBefore=" 学号 " placeholder="需要修改的账户(学号)" allowClear onChange={(e) => { this.state.reset.username = e.target.value }}></Input>
                         <p></p>
-                        <Input id="username" addonBefore=" 一卡通 " placeholder="需要修改的账户(一卡通)" allowClear onChange={(e) => { this.state.reset.password=e.target.value }}></Input>
+                        <Input id="username" addonBefore=" 一卡通 " placeholder="需要修改的账户(一卡通)" allowClear onChange={(e) => { this.state.reset.password = e.target.value }}></Input>
                         <p></p>
                         <p></p>
-                        <Input id="password" addonBefore=" 姓名修改为 " placeholder="修改值" allowClear onChange={(e) => { this.state.reset.name=e.target.value }} ></Input>
+                        <Input id="password" addonBefore=" 姓名修改为 " placeholder="修改值" allowClear onChange={(e) => { this.state.reset.name = e.target.value }} ></Input>
                         <p></p>
                     </div>
                     }
                     {this.state.reset.attemp == "修改学号" && <div>
                         <p><Icon type="exclamation" />推荐先在详细列表中, 利用搜索功能确定该学生具体信息错误处</p>
-                        <Input id="username" addonBefore=" 姓名 " placeholder="需要修改的账户(姓名)" allowClear onChange={(e) => { this.state.reset.name=e.target.value }}></Input>
+                        <Input id="username" addonBefore=" 姓名 " placeholder="需要修改的账户(姓名)" allowClear onChange={(e) => { this.state.reset.name = e.target.value }}></Input>
                         <p></p>
-                        <Input id="username" addonBefore=" 一卡通 " placeholder="需要修改的账户(一卡通)" allowClear onChange={(e) => { this.state.reset.password=e.target.value }}></Input>
+                        <Input id="username" addonBefore=" 一卡通 " placeholder="需要修改的账户(一卡通)" allowClear onChange={(e) => { this.state.reset.password = e.target.value }}></Input>
                         <p></p>
                         <p></p>
-                        <Input id="password" addonBefore=" 学号修改为 " placeholder="修改值" allowClear onChange={(e) => { this.state.reset.username=e.target.value }} ></Input>
+                        <Input id="password" addonBefore=" 学号修改为 " placeholder="修改值" allowClear onChange={(e) => { this.state.reset.username = e.target.value }} ></Input>
                         <p></p>
 
                     </div>
@@ -702,11 +723,11 @@ class Super extends React.Component {
                     <Header>
                         <Row>
                             <Col span={12}>
-                                <h1 style={{ color: 'white', fontSize: "25px" }}><img src={mark} height="45px" width="45px" />&nbsp;校史校情知识竞赛&nbsp;&nbsp;管理系统</h1><br/>
-                                
+                                <h1 style={{ color: 'white', fontSize: "25px" }}><img src={mark} height="45px" width="45px" />&nbsp;校史校情知识竞赛&nbsp;&nbsp;管理系统</h1><br />
+
                             </Col>
                             <Col span={2} offset={8}>
-                                <Button ghost type="primary" onClick={this.get}><Icon type="redo" spin={this.state.loading}/>刷新</Button>
+                                <Button ghost type="primary" onClick={this.get}><Icon type="redo" spin={this.state.loading} />刷新</Button>
                             </Col> <Col span={2} >
                                 <Button ghost type="dashed" onClick={this.props.logout}><Icon type="logout" />退出</Button>
                             </Col>
@@ -719,9 +740,9 @@ class Super extends React.Component {
                                     <Row>
                                         <Col span={10}>
                                             <p style={{ fontSize: "30px", marginTop: '20px' }}>竞赛统计信息</p>
-                                            <Button type="primary" size="small" onClick={()=>{this.setState({departVisible:true})}}><Icon type="menu-unfold" /> 全校院系排名</Button>
-                                            </Col>
-                                        
+                                            <Button type="primary" size="small" onClick={() => { this.setState({ departVisible: true }) }}><Icon type="menu-unfold" /> 全校院系排名</Button>
+                                        </Col>
+
                                         <Col span={2} offset={9}>
                                             <div style={{ marginTop: '20px' }}><Button type="primary" size="large"
                                                 onClick={() => { this.setState({ register: { Visible: true } }) }}>
@@ -748,8 +769,8 @@ class Super extends React.Component {
                                         </Col>
                                     </Row>
                                 }
-                                layout="vertical"
-                                column={4}>
+                                    layout="vertical"
+                                    column={4}>
                                 </Descriptions>
                                 <Table
                                     columns={title}
@@ -773,76 +794,80 @@ class Super extends React.Component {
                                         let that = this;
                                         return {
                                             onDoubleClick: (event) => {
-                                                let that = this;
-                                                this.setState((state)=>({grade: { Visible:true, question:state.grade.question, loading: true } }))
-                                                // fetch("http://" + that.props.state.host + "/api/admin/getByUsername",
-                                                //     {
-                                                //         method: 'POST',
-                                                //         mode: 'cors',
-                                                //         headers: {
-                                                //             "authorization": that.props.state.token,
-                                                //             "Content-Type": "application/json"
-                                                //         },
-                                                //         body: JSON.stringify({
-                                                //             Username: record["学号"]
-                                                //         })
-                                                //     }
-                                                fetch(`http://${that.props.state.host}/api/admin/result?id=${record["学号"]}`,
-                                                    {
-                                                        method: 'GET',
-                                                        mode: 'cors',
-                                                        headers: {
-                                                            "authorization": that.props.state.token,
+                                                if (record["成绩"] == -1) { }
+                                                else {
+                                                    let that = this;
+                                                    this.setState((state) => ({ grade: { Visible: true, question: state.grade.question, loading: true } }))
+                                                    // fetch("http://" + that.props.state.host + "/api/admin/getByUsername",
+                                                    //     {
+                                                    //         method: 'POST',
+                                                    //         mode: 'cors',
+                                                    //         headers: {
+                                                    //             "authorization": that.props.state.token,
+                                                    //             "Content-Type": "application/json"
+                                                    //         },
+                                                    //         body: JSON.stringify({
+                                                    //             Username: record["学号"]
+                                                    //         })
+                                                    //     }
+                                                    fetch(`http://${that.props.state.host}/api/admin/result?id=${record["学号"]}`,
+                                                        {
+                                                            method: 'GET',
+                                                            mode: 'cors',
+                                                            headers: {
+                                                                "authorization": that.props.state.token,
+                                                            }
                                                         }
-                                                    }
-                                                ).then((res) => res.json()
-                                                ).then(async data => {
-                                                    if (data.message == undefined) {
-                                                        let temp = [];
-                                                        for (let i = 0; i < 20; i++) {
-                                                            temp.push({ title: "" });
-                                                            temp[i].title = allChoiceQuestion[data.Paper.Choice_question[i] - 1]["title"];
-                                                            temp[i].option = await [
-                                                                {
-                                                                    text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][0],
-                                                                    value: 1
-                                                                },
-                                                                {
-                                                                    text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][1],
-                                                                    value: 2
-                                                                },
-                                                                {
-                                                                    text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][2],
-                                                                    value: 3
-                                                                },
-                                                                {
-                                                                    text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][3],
-                                                                    value: 4
-                                                                }
-                                                            ]
-                                                            temp[i].value = data.User_answer[i];
-                                                            temp[i].answer = data.Answer.Choice_answers[i];
-                                                        }
+                                                    ).then((res) => res.json()
+                                                    ).then(async data => {
+                                                        if (data.message == undefined) {
+                                                            let temp = [];
+                                                            for (let i = 0; i < 20; i++) {
+                                                                temp.push({ title: "" });
+                                                                temp[i].title = allChoiceQuestion[data.Paper.Choice_question[i] - 1]["title"];
+                                                                temp[i].option = await [
+                                                                    {
+                                                                        text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][0],
+                                                                        value: 1
+                                                                    },
+                                                                    {
+                                                                        text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][1],
+                                                                        value: 2
+                                                                    },
+                                                                    {
+                                                                        text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][2],
+                                                                        value: 3
+                                                                    },
+                                                                    {
+                                                                        text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][3],
+                                                                        value: 4
+                                                                    }
+                                                                ]
+                                                                temp[i].value = data.User_answer[i];
+                                                                temp[i].answer = data.Answer.Choice_answers[i];
+                                                            }
 
-                                                        for (let i = 20; i < 30; i++) {
-                                                            temp.push({ title: "" });
-                                                            temp[i].title = allJudgeQuestion[data.Paper.Judgment_question[i - 20] - 1]["title"];
-                                                            temp[i].value = data.User_answer[i];
-                                                            temp[i].answer = data.Answer.Judgment_answers[i - 20];
+                                                            for (let i = 20; i < 30; i++) {
+                                                                temp.push({ title: "" });
+                                                                temp[i].title = allJudgeQuestion[data.Paper.Judgment_question[i - 20] - 1]["title"];
+                                                                temp[i].value = data.User_answer[i];
+                                                                temp[i].answer = data.Answer.Judgment_answers[i - 20];
+                                                            }
+                                                            that.state.grade.question = temp;
+                                                            that.setState((state) => ({ grade: { Visible: true, question: state.grade.question, loading: false } }))
+                                                            console.log(this.state.grade.question[this.state.focusOn])
                                                         }
-                                                        that.state.grade.question=temp;
-                                                        that.setState((state)=>({grade: { Visible:true, question:state.grade.question, loading: false} }))
-                                                        console.log(this.state.grade.question[this.state.focusOn])
-                                                    }
-                                                    else {
-                                                        message.error("登陆已过期", 1.5);
-                                                        that.props.logout();
-                                                    }
-                                                }).catch((err) => { console.log(err) })
+                                                        else {
+                                                            message.error("登陆已过期", 1.5);
+                                                            that.props.logout();
+                                                        }
+                                                    }).catch((err) => { console.log(err) })
+                                                }
                                             }
                                         }
                                     }}
                                 >
+
 
                                 </Table>
                             </Col>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal,Radio,Card,Row, Col, Icon, Button, Layout, Table, Descriptions, Input, Tag, message, Dropdown, Menu, Drawer } from 'antd';
+import { Modal, Radio, Card, Row, Col, Icon, Button, Layout, Table, Descriptions, Input, Tag, message, Dropdown, Menu, Drawer } from 'antd';
 import 'antd/dist/antd.css';
 import mark from '../../img/校徽实体.png'
 import xlsx from 'node-xlsx'
@@ -66,12 +66,12 @@ class Admin extends React.Component {
         this.register = this.register.bind(this);
         this.reset = this.reset.bind(this);
         this.exportByExcel = this.exportByExcel.bind(this);
-        for(let i=0;i<30;i++){
+        for (let i = 0; i < 30; i++) {
             this.state.grade.question.push({
-                title:"",
-                option:[{text:"",value:1},{text:"",value:2},{text:"",value:3},{text:"",value:4}],
-                answer:"",
-                value:"",
+                title: "",
+                option: [{ text: "", value: 1 }, { text: "", value: 2 }, { text: "", value: 3 }, { text: "", value: 4 }],
+                answer: "",
+                value: "",
             })
         }
     }
@@ -244,16 +244,28 @@ class Admin extends React.Component {
                             value: inst
                         })
                         data[inst].forEach((v) => {
-                            that.state.displayData.push({
-                                "学号": v.username,
-                                "姓名": v.name,
-                                "一卡通": v.password,
-                                "院系": inst,
-                                "用时": v.time_use,
-                                "成绩": v.score,
-                                "排名": v.rank,
-                                "答题详情": v.username
-                            })
+                            if (v.score == -1) {
+                                that.state.displayData.push({
+                                    "学号": v.username,
+                                    "姓名": v.name,
+                                    "一卡通": v.password,
+                                    "院系": inst,
+                                    "用时": v.time_use,
+                                    "成绩": v.score,
+                                    "排名": -1
+                                })
+                            }
+                            else {
+                                that.state.displayData.push({
+                                    "学号": v.username,
+                                    "姓名": v.name,
+                                    "一卡通": v.password,
+                                    "院系": inst,
+                                    "用时": v.time_use,
+                                    "成绩": v.score,
+                                    "排名": v.rank
+                                })
+                            }
                         })
                     }
                 }
@@ -483,10 +495,10 @@ class Admin extends React.Component {
                 sorter: (a, b) => a["用时"] - b["用时"],
                 render(h) {
                     if (h >= 0) {
-                        return h + " s";
+                        return `${parseInt(h)} s`;
                     }
                     else {
-                        return "无"
+                        return ""
                     }
                 },
                 align: "center"
@@ -497,7 +509,15 @@ class Admin extends React.Component {
                 key: "排名",
                 width: "10%",
                 sorter: (a, b) => a["排名"] - b["排名"],
-                align: "center"
+                align: "center",
+                render(h) {
+                    if(h==-1){
+                        return ""
+                    }
+                    else {
+                        return h
+                    }
+                },
             },
             {
                 title: "答题详情",
@@ -505,12 +525,13 @@ class Admin extends React.Component {
                 key: "答题详情",
                 width: "10%",
                 render(username, col) {
-                    if(col["成绩"]==-1)
-                    return "";
-                    else{
-                    let toGrade =
-                        <a >双击展开</a>
-                    return toGrade;}
+                    if (col["成绩"] == -1)
+                        return "";
+                    else {
+                        let toGrade =
+                            <a >双击展开</a>
+                        return toGrade;
+                    }
                 },
                 align: "center"
             },
@@ -521,7 +542,15 @@ class Admin extends React.Component {
                 dataIndex: "排名",
                 key: "排名",
                 width: "20%",
-                align: "center"
+                align: "center",
+                render(h) {
+                    if(h==-1){
+                        return ""
+                    }
+                    else {
+                        return h
+                    }
+                },
             },
             {
                 title: "学院",
@@ -573,30 +602,30 @@ class Admin extends React.Component {
                     visible={this.state.grade.Visible}
                     title={`答题详情`}
                     footer={[
-                        <Button type="primary" onClick={()=>this.setState((state)=>({grade:{Visible:false,question:state.grade.question,loading:false}}))}>离开</Button>
+                        <Button type="primary" onClick={() => this.setState((state) => ({ grade: { Visible: false, question: state.grade.question, loading: false } }))}>离开</Button>
                     ]}
-                    onCancel={()=>this.setState((state)=>({grade:{Visible:false,question:state.grade.question,loading:false}}))}>
+                    onCancel={() => this.setState((state) => ({ grade: { Visible: false, question: state.grade.question, loading: false } }))}>
                     <Row >
                         <Col >
-                            <Card loading={this.state.grade.loading}   hoverable="true" 
-                            style={{ backgroundColor: "white", color: "black" }} size="small">
+                            <Card loading={this.state.grade.loading} hoverable="true"
+                                style={{ backgroundColor: "white", color: "black" }} size="small">
                                 {this.state.grade.question.map((x, i) => (
-                                    <Card.Grid 
+                                    <Card.Grid
                                         key={i}
-                                        onClick={() => this.setState({focusOn:i})}
+                                        onClick={() => this.setState({ focusOn: i })}
                                         style={{
                                             width: '15%',
                                             fontSize: '12px',
-                                            textAlign:"center",
-                                            height:"5%"
+                                            textAlign: "center",
+                                            height: "5%"
                                         }}>
-                                        {i+1}{x.value == x.answer ? <Icon  size="small" type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} />
-                                            : <Icon type="close-circle" theme="twoTone" twoToneColor="#E83015" size="small"style={{ fontSize: "20px" }} />}
+                                        {i + 1}{x.value == x.answer ? <Icon size="small" type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: "20px" }} />
+                                            : <Icon type="close-circle" theme="twoTone" twoToneColor="#E83015" size="small" style={{ fontSize: "20px" }} />}
                                     </Card.Grid>))
                                 }
                             </Card>
                         </Col>
-                        <Col  style={{ backgroundColor: "white", }}>
+                        <Col style={{ backgroundColor: "white", }}>
                             <div style={{ marginLeft: 0, overflow: "hidden", height: 120 }}>
                                 <h2 style={{ color: 'black', fontSize: "18px", marginTop: 30, marginBottom: 60, marginRight: 80 }} >
                                     {this.state.focusOn + 1}&nbsp;{this.state.grade.question[this.state.focusOn].title}<br />
@@ -792,74 +821,77 @@ class Admin extends React.Component {
                                         let that = this;
                                         return {
                                             onDoubleClick: (event) => {
-                                                let that = this;
-                                                this.setState((state)=>({grade: { Visible:true, question:state.grade.question, loading: true } }))
-                                                // fetch("http://" + that.props.state.host + "/api/admin/getByUsername",
-                                                //     {
-                                                //         method: 'POST',
-                                                //         mode: 'cors',
-                                                //         headers: {
-                                                //             "authorization": that.props.state.token,
-                                                //             "Content-Type": "application/json"
-                                                //         },
-                                                //         body: JSON.stringify({
-                                                //             Username: record["学号"]
-                                                //         })
-                                                //     }
-                                                fetch(`http://${that.props.state.host}/api/admin/result?id=${record["学号"]}`,
-                                                    {
-                                                        method: 'GET',
-                                                        mode: 'cors',
-                                                        headers: {
-                                                            "authorization": that.props.state.token,
+                                                if (record["成绩"] == -1) { }
+                                                else {
+                                                    let that = this;
+                                                    this.setState((state) => ({ grade: { Visible: true, question: state.grade.question, loading: true } }))
+                                                    // fetch("http://" + that.props.state.host + "/api/admin/getByUsername",
+                                                    //     {
+                                                    //         method: 'POST',
+                                                    //         mode: 'cors',
+                                                    //         headers: {
+                                                    //             "authorization": that.props.state.token,
+                                                    //             "Content-Type": "application/json"
+                                                    //         },
+                                                    //         body: JSON.stringify({
+                                                    //             Username: record["学号"]
+                                                    //         })
+                                                    //     }
+                                                    fetch(`http://${that.props.state.host}/api/admin/result?id=${record["学号"]}`,
+                                                        {
+                                                            method: 'GET',
+                                                            mode: 'cors',
+                                                            headers: {
+                                                                "authorization": that.props.state.token,
+                                                            }
                                                         }
-                                                    }
-                                                ).then((res) => res.json()
-                                                ).then(async data => {
-                                                    if (data.message == undefined) {
-                                                        let temp = [];
-                                                        for (let i = 0; i < 20; i++) {
-                                                            temp.push({ title: "" });
-                                                            console.log(allChoiceQuestion)
-                                                            console.log(data.Paper.Choice_question)
-                                                            temp[i].title = allChoiceQuestion[data.Paper.Choice_question[i] - 1]["title"];
-                                                            temp[i].option = await [
-                                                                {
-                                                                    text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][0],
-                                                                    value: 1
-                                                                },
-                                                                {
-                                                                    text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][1],
-                                                                    value: 2
-                                                                },
-                                                                {
-                                                                    text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][2],
-                                                                    value: 3
-                                                                },
-                                                                {
-                                                                    text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][3],
-                                                                    value: 4
-                                                                }
-                                                            ]
-                                                            temp[i].value = data.User_answer[i];
-                                                            temp[i].answer = data.Answer.Choice_answers[i];
-                                                        }
+                                                    ).then((res) => res.json()
+                                                    ).then(async data => {
+                                                        if (data.message == undefined) {
+                                                            let temp = [];
+                                                            for (let i = 0; i < 20; i++) {
+                                                                temp.push({ title: "" });
+                                                                console.log(allChoiceQuestion)
+                                                                console.log(data.Paper.Choice_question)
+                                                                temp[i].title = allChoiceQuestion[data.Paper.Choice_question[i] - 1]["title"];
+                                                                temp[i].option = await [
+                                                                    {
+                                                                        text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][0],
+                                                                        value: 1
+                                                                    },
+                                                                    {
+                                                                        text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][1],
+                                                                        value: 2
+                                                                    },
+                                                                    {
+                                                                        text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][2],
+                                                                        value: 3
+                                                                    },
+                                                                    {
+                                                                        text: allChoiceQuestion[data.Paper.Choice_question[i] - 1]["options"][3],
+                                                                        value: 4
+                                                                    }
+                                                                ]
+                                                                temp[i].value = data.User_answer[i];
+                                                                temp[i].answer = data.Answer.Choice_answers[i];
+                                                            }
 
-                                                        for (let i = 20; i < 30; i++) {
-                                                            temp.push({ title: "" });
-                                                            temp[i].title = allJudgeQuestion[data.Paper.Judgment_question[i - 20] - 1]["title"];
-                                                            temp[i].value = data.User_answer[i];
-                                                            temp[i].answer = data.Answer.Judgment_answers[i - 20];
+                                                            for (let i = 20; i < 30; i++) {
+                                                                temp.push({ title: "" });
+                                                                temp[i].title = allJudgeQuestion[data.Paper.Judgment_question[i - 20] - 1]["title"];
+                                                                temp[i].value = data.User_answer[i];
+                                                                temp[i].answer = data.Answer.Judgment_answers[i - 20];
+                                                            }
+                                                            that.state.grade.question = temp;
+                                                            that.setState((state) => ({ grade: { Visible: true, question: state.grade.question, loading: false } }))
+                                                            console.log(this.state.grade.question[this.state.focusOn])
                                                         }
-                                                        that.state.grade.question=temp;
-                                                        that.setState((state)=>({grade: { Visible:true, question:state.grade.question, loading: false} }))
-                                                        console.log(this.state.grade.question[this.state.focusOn])
-                                                    }
-                                                    else {
-                                                        message.error("登陆已过期", 1.5);
-                                                        that.props.logout();
-                                                    }
-                                                })
+                                                        else {
+                                                            message.error("登陆已过期", 1.5);
+                                                            that.props.logout();
+                                                        }
+                                                    })
+                                                }
                                             }
                                         }
                                     }}

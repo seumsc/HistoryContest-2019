@@ -119,45 +119,45 @@ export class UIController{
     @Get("/redis")
     async test(@Ctx() ctx:Context){
         //从mysql中向redis录入院系信息
-        // let department=await Department.find()
-        // department.forEach(element => {
-        //     redis.hmset(`department:${element.id}`,element)
-        //     redis.sadd(`department`,`${element.id}`)
-        // });
+        let department=await Department.find()
+        department.forEach(element => {
+            redis.hmset(`department:${element.id}`,element)
+            redis.sadd(`department`,`${element.id}`)
+        });
         //从mysql中向redis录入学生信息
-        // let student=await Student.find()
-        // student.forEach(element =>{
-        //     redis.set(`student:${element.username}`,JSON.stringify(element))
-        //     redis.sadd(`student`,`${element.username}`)
-        // })
+        let student=await Student.find()
+        student.forEach(element =>{
+            redis.set(`student:${element.username}`,JSON.stringify(element))
+            redis.sadd(`student`,`${element.username}`)
+        })
         //从mysql中向redis录入辅导员信息
-        // let counsellor=await Counsellor.find()
-        // counsellor.forEach(element =>{
-        //     redis.hmset(`counsellor:${element.username}`,element)
-        //     redis.sadd(`counsellor`,`${element.username}`)
-        // })
+        let counsellor=await Counsellor.find()
+        counsellor.forEach(element =>{
+            redis.hmset(`counsellor:${element.username}`,element)
+            redis.sadd(`counsellor`,`${element.username}`)
+        })
         //从mysql中向redis录入管理员信息
-        // let admin=await Admin.find()
-        // admin.forEach(element =>{
-        //     redis.hmset(`admin:${element.username}`,element)
-        //     redis.sadd(`admin`,`${element.username}`)
-        // })
+        let admin=await Admin.find()
+        admin.forEach(element =>{
+            redis.hmset(`admin:${element.username}`,element)
+            redis.sadd(`admin`,`${element.username}`)
+        })
         //从mysql中向redis录入题目信息
-        // let choice=await ChoiceQuestion.find()
-        // let judge=await JudgmentQuestion.find()
-        // choice.forEach(element =>{
-        //     redis.hmset(`choice:${element.id}`,element)
-        //     redis.sadd(`choice`,`${element.id}`)
-        // })
-        // judge.forEach(element =>{
-        //     redis.hmset(`choice:${element.id}`,element)
-        //     redis.sadd(`choice`,`${element.id}`)
-        // })
+        let choice=await ChoiceQuestion.find()
+        let judge=await JudgmentQuestion.find()
+        choice.forEach(element =>{
+            redis.hmset(`choice:${element.id}`,element)
+            redis.sadd(`choice`,`${element.id}`)
+        })
+        judge.forEach(element =>{
+            redis.hmset(`choice:${element.id}`,element)
+            redis.sadd(`choice`,`${element.id}`)
+        })
         //为学生划分院系
-        // let b=await Student.find();
-        // b.forEach(element=>{
-        //     redis.sadd(`department${element.department}`,element.username)
-        // })
+        let b=await Student.find();
+        b.forEach(element=>{
+            redis.sadd(`department${element.department}`,element.username)
+        })
         ctx.body={msg:"succ"}
         return ctx;
     }
