@@ -57,7 +57,7 @@ class Choice extends React.Component {
                             width:"100%",
                             height:"100%",
                         }}>
-                            <div style={{ height: 620 ,overflow:"hidden"}}>
+                            <div style={{ height: 650 ,overflow:"hidden"}}>
                                 <Row>
                                     <Col span={2} >
                                         <div style={{backgroundColor:"rgba(255,255,255,0.3)",color:"white",fontSize:"80px",width:"110px",height:"110px"}} ><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>

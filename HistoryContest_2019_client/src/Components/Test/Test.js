@@ -351,6 +351,8 @@ class Test extends React.Component {
                                     onTabClick={(x) => { this.setState({ focusOn: x }) }}
                                     tabBarGutter='0'
                                     tabPosition="bottom"
+                                    size="large"
+                                    tabBarGutter="11px"
                                     style={{  textAlign: "center" }}>
                                     {this.state.question.map((x, i) => (
                                         <TabPane tab={!x.isFinish ?
