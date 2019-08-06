@@ -97,7 +97,7 @@ class Choice extends React.Component {
                                                 <Button onClick={()=>{this.props.Next(1
                                                     )}} 
                                                     size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
-                                                <Button type='primary' onClick={this.submit}>提交</Button>}
+                                                <Button type='primary' size="large" onClick={this.props.submit}>提交</Button>}
                                         </div>
                                     </Col>
 
