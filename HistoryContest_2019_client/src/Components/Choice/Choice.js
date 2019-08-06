@@ -60,20 +60,26 @@ class Choice extends React.Component {
                             <div style={{ height: 620 ,overflow:"hidden"}}>
                                 <Row>
                                     <Col span={2} >
-                                        <div style={{backgroundColor:"rgba(255,255,255,0.3)",color:"white",fontSize:"80px",width:"90px"}} ><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
-                                        <div style={{  paddingTop: "90px", marginLeft: "20px" }}>
+                                        <div style={{backgroundColor:"rgba(255,255,255,0.3)",color:"white",fontSize:"80px",width:"110px",height:"110px"}} ><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
+                                        <div style={{  paddingTop: "180px", marginLeft: "20px" }}>
                                         <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button> 
                                         </div></Col>
                                     <Col span={20}>
+                                     
+                                        <div style={{ marginTop: 95, marginBottom: 60, marginLeft: 50,height:100 }}>
                                         <QueueAnim delay={200}
                                            animConfig={[
                                             { opacity: [1, 0], translateX: [0,80] }
                                           ]}>
-                                        <div style={{ marginTop: 95, marginBottom: 60, marginLeft: 50,height:100 }}>
                                         <p key="title" style={{ color: 'white', fontSize: 35 }}>
                                             &nbsp;{this.props.state.title}
                                         </p>
+                                        </QueueAnim>
                                         </div>
+                                        <QueueAnim delay={400}
+                                           animConfig={[
+                                            { opacity: [1, 0], translateX: [0,120] }
+                                          ]}>
                                         <Radio.Group key="choice" style={{ color: 'white', marginLeft: 130, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                             <Radio style={style} value={this.props.state.option[0].value}>
                                                 <b style={{fontSize:30}}>A</b> &nbsp; {this.props.state.option[0].text}
@@ -115,7 +121,6 @@ class Choice extends React.Component {
                             </div>
                         </div>
                     </Col>
-                    <Col span={4}></Col>
                 </Row>
             </React.Fragment>
         )

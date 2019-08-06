@@ -34,18 +34,19 @@ class Choice extends React.Component {
     render() {
         let style = {
             display: 'block',
-            height: '50px',
-            lineHeight: '50px',
+            height: '80px',
+            lineHeight: '80px',
             color: 'white',
-            fontSize: '20px'
+            fontSize: '50px'
         }
         return (
             <React.Fragment>
-                <Row style={{
+             <Row style={{
                     backgroundImage: `url(${imgs[(this.props.Id % 11)]})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    width: "100%", height: "100%"
+                    width: "100%", height: "100%",
+                    overflow:"hidden"
                 }}>
                     <Col span={4}></Col>
                     <Col span={14} offset={1}>
@@ -55,38 +56,48 @@ class Choice extends React.Component {
                             marginBottom: 60,
                             backgroundSize:"cover",
                             width:"100%",
-                            height:"100%"
+                            height:"100%",
                         }}>
-                            <div style={{ height: 490 }}>
+                            <div style={{ height: 620 ,overflow:"hidden"}}>
                                 <Row>
-                                <Col span={2} >
-                                        <div style={{color:"white",fontSize:"60px",width:"90px",backgroundColor:"rgb(255,255,255,0.3)"}}><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
-                                        <div style={{  paddingTop: "75px", marginLeft: "20px" }}>
+                                    <Col span={2} >
+                                    <div style={{backgroundColor:"rgba(255,255,255,0.3)",color:"white",fontSize:"80px",width:"110px",height:"110px"}} ><p style={{textAlign:"center"}}>{this.props.Id+1}</p></div>
+                                        <div style={{  paddingTop: "180px", marginLeft: "20px" }}>
                                         <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button> 
                                         </div></Col>
                                     <Col span={20}>
+                                     
+                                        <div style={{ marginTop: 95, marginBottom: 60, marginLeft: 50,height:80 }}>
                                         <QueueAnim delay={200}
-                                            animConfig={[
-                                                { opacity: [1, 0], translateX: [0,80] }
-                                              ]}>
-                                        <h2 key="1" style={{ color: 'white', fontSize: 25, marginTop: 80, marginBottom: 60, marginLeft: 30 }}>
+                                           animConfig={[
+                                            { opacity: [1, 0], translateX: [0,80] }
+                                          ]}>
+                                        <p key="title" style={{ color: 'white', fontSize: 35 }}>
                                             &nbsp;{this.props.state.title}
-                                        </h2>
+                                        </p>
+                                        </QueueAnim>
+                                        </div>
+                                        <QueueAnim delay={400}
+                                           animConfig={[
+                                            { opacity: [1, 0], translateX: [0,120] }
+                                          ]}>
                                         <Radio.Group key="2" style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                             <Radio style={style} value={1}>
-                                                <b>正确</b> 
+                                                <b style={{fontSize:"30px"}}>&nbsp;&nbsp;正&nbsp;确</b> 
                                             </Radio>
                                             <Radio style={style} value={0}>
-                                                <b >错误</b> 
+                                                <b style={{fontSize:"30px"}}>&nbsp;&nbsp;错&nbsp;误</b> 
                                             </Radio>               
                                         </Radio.Group>
                                         </QueueAnim>
                                     </Col>
                                     <Col span={2}>
-                                        <div style={{marginTop:"230px"}}>
+                                        <div style={{marginTop:"290px"}}>
                                             {this.props.Id < 29 ?
-                                                <Button onClick={()=>{this.props.Next(1)}} size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
-                                                <Button type='primary'  size="large" onClick={this.props.submit}>交卷</Button>}
+                                                <Button onClick={()=>{this.props.Next(1
+                                                    )}} 
+                                                    size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
+                                                <Button type='primary' onClick={this.submit}>提交</Button>}
                                         </div>
                                     </Col>
 
@@ -94,7 +105,6 @@ class Choice extends React.Component {
                             </div>
                         </div>
                     </Col>
-                    <Col span={4}></Col>
                 </Row>
             </React.Fragment>
         )
