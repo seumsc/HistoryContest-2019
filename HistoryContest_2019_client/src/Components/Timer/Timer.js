@@ -2,7 +2,6 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import 'rc-texty/assets/index.css';
 import {Icon, notification} from 'antd';
-import Texty from 'rc-texty';
 
 class Timer extends React.Component {
     constructor(props) {

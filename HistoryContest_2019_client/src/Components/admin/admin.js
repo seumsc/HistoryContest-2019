@@ -144,6 +144,7 @@ class Admin extends React.Component {
             }
         }).then((res) => { return res.json() }
         ).then((data) => {
+            this.state.departData=new Array;
             data.Departments.map((inst, rank) => {
                 that.state.departData.push(new Object);
                 that.state.departData[rank] = {
@@ -233,6 +234,7 @@ class Admin extends React.Component {
                 }
             }).then(res => res.json()
             ).then(data => {
+                this.state.displayData=new Array;
                 Object.keys(data).forEach((inst) => {
                     if (!data[inst].length == 0) {
                         data[inst].sort((a, b) => { return b.score - a.score })
