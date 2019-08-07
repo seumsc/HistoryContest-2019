@@ -7,3 +7,32 @@
         background-image: -o-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
         background-image: radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
        }                  
+
+       /* .ant-radio-button-wrapper {
+         position: relative;
+         display: inline-block;
+         height: 32px;
+         margin: 0;
+         padding: 0 15px;
+         color: rgba(255,255,255,0.65) !important;
+         line-height: 30px;
+         background: #fff;
+         border: 0px !important;
+         cursor: pointer;
+         -webkit-transition: color 0.3s, background 0.3s, border-color 0.3s;
+         transition: color 0.3s, background 0.3s, border-color 0.3s;
+       }
+
+       .ant-radio-button-wrapper:hover {
+         position: relative;
+         color: #1890ff !important;
+       }
+
+       .ant-radio-button-wrapper-checked {
+         z-index: 1;
+         color: #1890ff !important;
+         border: 0px !important;
+         background: #fff;
+         -webkit-box-shadow: -1px 0 0 0 #1890ff;
+                 box-shadow: -1px 0 0 0 #1890ff;
+       } */

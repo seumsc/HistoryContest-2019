@@ -333,10 +333,10 @@ class Test extends React.Component {
                     <Header>
                         <Row>
                             <QueueAnim delay={100} duration={700}>
-                            <Col span={16} offset={0} key="1">
+                            <Col span={10} offset={1} key="1">
                                 <h1 style={{ color: 'white', fontSize: "calc(15px + 2vmin)" }}><img src={mark} height="50px" width="50px" />&nbsp;东南大学校史校情知识竞赛</h1>
                             </Col>
-                            <Col span={4} offset={3} key="2">
+                            <Col span={4} offset={8} key="2">
                                 <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={29} sec={59} info={"  答题倒计时："} />
                             </Col>
                             </QueueAnim>
