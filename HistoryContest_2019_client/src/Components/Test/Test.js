@@ -349,14 +349,16 @@ class Test extends React.Component {
                                     activeKey={`${this.state.focusOn}`}
                                     animated='true'
                                     onTabClick={(x) => { this.setState({ focusOn: x }) }}
-                                    tabBarGutter='0'
+                                    tabBarGutter="8px"
+                                    tabBarStyle={{
+                                        fontSize:"50px"
+                                    }}
                                     tabPosition="bottom"
                                     size="large"
-                                    tabBarGutter="11px"
                                     style={{  textAlign: "center" }}>
                                     {this.state.question.map((x, i) => (
                                         <TabPane tab={!x.isFinish ?
-                                            <Badge dot={true} > <div style={{ color: 'white' }}>{i + 1}</div></Badge> :
+                                            <Badge dot={true} > <div style={{ color: 'white' ,fontSize:"18px"}}>{i + 1}</div></Badge> :
                                             <div style={{ color: 'white' }}>{i + 1}</div>}
                                             key={i}
                                             onChange={() => { this.done(i) }}

@@ -50,5 +50,5 @@
             box-shadow: -1px 0 0 0 rgba(255,255,255,0);
   }
   .ant-radio-button-wrapper-checked:focus-within {
-    outline: 0px solid rgba(24, 144, 255, 0.06);
+    outline: 0px solid rgba(24, 144, 255, 1);
   }
