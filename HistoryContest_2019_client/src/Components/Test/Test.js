@@ -142,7 +142,6 @@ class Test extends React.Component {
         ).then(
             data => {
                 if (data["message"] == undefined) {
-                    console.log(data.message)
                     if (data.status == 403) {
                         message.error("错误!该用户已完成答题",1.5);
                         that.props.logout();

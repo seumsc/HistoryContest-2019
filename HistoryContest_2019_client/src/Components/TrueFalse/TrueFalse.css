@@ -15,15 +15,15 @@
 
   .ant-radio-button-wrapper:hover {
     position: relative;
-    color: rgba(24,144,255,0.5) !important;
+    color: rgba(24,144,255,1)  !important;
   }
 
   .ant-radio-button-wrapper-checked {
     z-index: 1;
-    color: rgba(24,144,255,1) !important;
-    border: 0px  !important;
+    color: rgb(19, 95, 165)!important;
+    border: 3px  !important;
     background: #fff;
-    border-color: rgba(255,255,255,0) !important;
+    border-color: rgba(24,144,255,0.5)!important;
     -webkit-box-shadow: -1px 0 0 0 rgba(255,255,255,0);
             box-shadow: -1px 0 0 0 rgba(255,255,255,0);
   }
