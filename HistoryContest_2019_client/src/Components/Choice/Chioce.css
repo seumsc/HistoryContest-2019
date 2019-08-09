@@ -15,7 +15,7 @@
 
   .ant-radio-button-wrapper:hover {
     position: relative;
-    color: rgba(24,144,255,0.5) !important;
+    color: rgba(24,144,255,0.8) !important;
   }
 
   .ant-radio-button-wrapper-checked {
@@ -51,4 +51,8 @@
   }
   .ant-radio-button-wrapper-checked:focus-within {
     outline: 0px solid rgba(24, 144, 255, 1);
+  }
+
+  .test{
+    color: rgba(59, 54, 25, 0.78)
   }

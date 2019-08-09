@@ -141,9 +141,9 @@ class Grades extends React.Component {
                     <Header style={{ height: 80 }}>
                         <Row>
                             <Col span={14}>
-                                <h1 style={{ color: "white", fontSize: "30px", marginTop: 15, marginBottom: 30 }}>
-                                    {this.state.name}&nbsp;同学，你本次校史校情知识竞赛得分为:&nbsp;&nbsp;
-                                <b style={{ color: "red", fontSize: "40px" }}>{this.props.state.score}</b>
+                                <h1 style={{ color: "white", fontSize: "40px", marginTop: 15, marginBottom: 30 }}>
+                                    {this.props.state.name}&nbsp;同学，你本次校史校情知识竞赛得分为:&nbsp;&nbsp;
+                                <b style={{ color: "red", fontSize: "50px" }}>{this.props.state.score}</b>
                                 </h1>
                             </Col>
                             <Col span={4} offset={4}>
@@ -153,16 +153,16 @@ class Grades extends React.Component {
                             </Col>
                             <Col span={2}>
                                 <div style={{ marginTop: "15px" }}>
-                                    <Button ghost type="danger" onClick={this.props.logout}><Icon type="logout" />退出</Button>
+                                    <Button ghost type="danger" onClick={this.props.logout}><Icon type="logout" size="large"/>退出</Button>
                                 </div>
                             </Col>
                         </Row>
                     </Header>
-                    <Content style={{ backgroundImage: `url(${BG})` }}>
-                        <Row style={{ marginTop: 80, marginBottom: 60 }}>
-                            <Col span={2}></Col>
-                            <Col span={10}>
-                                <Card loading={!this.state.messageGet} title="答题情况" headStyle={{ color: "white", fontSize: 25 }} hoverable="true" style={{ backgroundColor: "rgba(225,166,121,0.7)", color: "white" }}>
+                    <Content style={{ backgroundImage: `url(${BG})` ,height:"830px"}}>
+                        <Row style={{ marginTop: 120, marginBottom: 60 }}>
+                            <Col span={4}></Col>
+                            <Col span={8}>
+                                <Card loading={!this.state.messageGet} title="答题详情" headStyle={{ color: "white", fontSize: 25,textAlign:"center" }} hoverable="true" style={{ backgroundColor: "rgba(225,166,121,0.7)", color: "white" }}>
                                     {this.state.question.map((x, i) => (
                                         <Card.Grid className={"question" + i}
                                             key={i}
@@ -178,7 +178,7 @@ class Grades extends React.Component {
                                     }
                                 </Card>
                             </Col>
-                            <Col span={10} style={{ backgroundColor: "rgba(225,166,121,0.7)", marginTop: 70 }}>
+                            <Col span={8} style={{ backgroundColor: "rgba(225,166,121,0.7)", marginTop: 71,height:470 }}>
                                 <div style={{ marginLeft: 80, overflow: "hidden", height: 160 }}>
                                     <h2 style={{ color: 'white', fontSize: 25, marginTop: 60, marginBottom: 60, marginRight: 80 }} >
                                         {this.state.focusOn + 1}&nbsp;{this.state.question[this.state.focusOn].title}<br />

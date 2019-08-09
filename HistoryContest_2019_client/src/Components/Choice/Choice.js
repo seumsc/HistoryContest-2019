@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Radio, Button, Col } from 'antd';
 import 'antd/dist/antd.css';
-import  './Chioce.css'
+import './Chioce.css'
 import QueueAnim from 'rc-queue-anim';
 import bg1 from '../../img/background1.png';
 import bg2 from '../../img/background2.png';
@@ -16,7 +16,8 @@ import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
 const RadioGroup = Radio.Group;
 let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
-let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(98,89,44,0.7)', 'rgba(102, 153, 161,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(46,169,223, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(215,185,142,0.7)', 'rgba(46,169,223,0.7)']
+//let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(98,89,44,0.7)', 'rgba(102, 153, 161,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(46,169,223, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(215,185,142,0.7)', 'rgba(46,169,223,0.7)']
+let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(59, 54, 25, 0.7)', 'rgba(98,89,44,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(14, 90, 122, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(215,185,142,0.7)', 'rgba(46,169,223,0.7)']
 
 class Choice extends React.Component {
     constructor(props) {
@@ -46,8 +47,8 @@ class Choice extends React.Component {
             //fontSize: '25px',
             backgroundColor: "rgba(255,255,255,0)",
             fontSize: 30,
-            border:"0",
-            overflow:"hidden"
+            border: "0",
+            overflow: "hidden"
         }
         return (
             <React.Fragment>
@@ -57,7 +58,7 @@ class Choice extends React.Component {
                     backgroundPosition: 'center',
                     width: "100%", height: "100%",
                     overflow: "hidden",
-                    border:"0px"
+                    border: "0px"
                 }}>
                     <Col span={4}></Col>
                     <Col span={14} offset={1}>

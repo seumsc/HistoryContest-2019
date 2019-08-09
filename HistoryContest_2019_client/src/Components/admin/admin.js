@@ -850,6 +850,14 @@ class Admin extends React.Component {
                                                     ).then((res) => res.json()
                                                     ).then(async data => {
                                                         if (data.message == undefined) {
+                                                            for (let i = 0; i < 30; i++) {
+                                                                that.state.grade.question.push({
+                                                                    title: "",
+                                                                    option: [{ text: "", value: 1 }, { text: "", value: 2 }, { text: "", value: 3 }, { text: "", value: 4 }],
+                                                                    answer: "",
+                                                                    value: "",
+                                                                })
+                                                            }
                                                             let temp = [];
                                                             for (let i = 0; i < 20; i++) {
                                                                 temp.push({ title: "" });
