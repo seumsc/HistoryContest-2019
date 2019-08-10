@@ -8,29 +8,29 @@ import{createKoaServer}from "routing-controllers"
 import { StudentController } from "./controllers/StudentController";
 import { UIController } from "./controllers/UIController";
 import {AdminController} from "./controllers/AdminController"
+import {redis_all,redis_user} from "../src/utils/tools"
 import {Port}from "./config/conf"
  const app:Koa=createKoaServer({
       routePrefix:"/api",
       // controllers:["/src/controllers/*.ts"],
     controllers:[UIController,StudentController,AdminController],
  })
+const redis=require('../src/config/redis')
 //初始化路由
 const router=new Router();
-let redis=require("../src/config/redis")
-// redis.hmset(`1`,{username:"71118118",password:"213183580"},err=>{console.log(err)})
-// redis.hget(`1`,"username",(err,object)=>{console.log(object)})
-app.use(cors({
+
+//为跨域进行cors设置
+app.use(async(ctx,next)=> {cors({
   origin: '*',
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,
   credentials: true,
   allowMethods: ['GET', 'POST', 'DELETE'],
   allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
-}))
-
+})
+  await next()
+})
 app.use(router.routes()).use(router.allowedMethods());
-//初始化passport
-// app.use(passport.initialize()).use(passport.session());
 
 app.use(async (ctx,next)=>{
     console.log("url:",ctx.url)
@@ -43,6 +43,9 @@ app.listen(`${Port}`,()=>{
 })
 
 createConnection().then(async connection => {
-    console.log("connected successfully!") 
-  })
+  console.log("connected successfully!") 
+  redis_all();
+})
 .catch(error => console.log(error))
+
+setInterval(redis_user,600000)

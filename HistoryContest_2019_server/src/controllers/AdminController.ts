@@ -10,10 +10,9 @@ import * as jwt from "jsonwebtoken"
 import {Key} from "../utils/keys"
 const redis =require("../config/redis")
 /** 
- *  前端发送院系序号                           {Department:string}
- *  后端返回该院系所有用户的姓名，用户名，得分
- *  {Students:{name:string,username:string,score:number}[],Tested:number,Total:number,Departments:{name:string,average:number}[]}
- *  @access admin,counsellor*/
+ * @method Get
+ * @access admin,counsellor
+ * 获取某院系所有用户的姓名，学号，一卡通，得分，答题用时*/
 
  @Controller("/admin")
  export class AdminController{
@@ -30,7 +29,7 @@ const redis =require("../config/redis")
             department=await Department.findOne({id:data.department});
             redis.hmset(`department:${data.department}`,department)
         }
-        // if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${department.updatedDate}`)
+        if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${department.updatedDate}`)
              {ctx.body={
             "建筑学院":[],
             "吴健雄学院":[],
@@ -72,72 +71,33 @@ const redis =require("../config/redis")
                 arr.push(test)
             }
         ctx.body[department.name]=arr
-        // ctx.response.set({
-        //     'Last-Modified':`${department.updatedDate}`,
-        //     'Cache-Control':"no-cache"
-        // })
+        ctx.response.set({
+            'Last-Modified':`${department.updatedDate}`,
+            'Cache-Control':"no-cache"
+        })
         }
-    //     else {
-    //     ctx.status=304;
-    // }
+        else {
+        ctx.status=304;
+    }
         return ctx;
-    //     let department=undefined
-    //     redis.hgetall(`department:${data.department}`,async(err,object)=>{department=object})
-    //     if(!department){
-    //         department=await Department.findOne({id:data.department});
-    //         redis.hmset(`department:${data.department}`,department)
-    //     }
-    //     if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${department.updatedDate}`)
-    //     {ctx.body={
-    //         "建筑学院":[],
-    //         "吴健雄学院":[],
-    //         "机械工程学院":[],
-    //         "能源与环境学院":[],
-    //         "材料科学与工程学院":[],
-    //         "土木工程学院":[],
-    //         "交通学院":[],
-    //         "自动化学院":[],
-    //         "电气工程学院":[],
-    //         "仪器科学与工程学院":[],
-    //         "化学化工学院":[],
-    //         "信息科学与工程学院":[],
-    //         "电子科学与工程学院":[],
-    //         "计算机科学与工程学院":[],
-    //         "软件工程学院":[],
-    //         "网络空间安全学院":[],
-    //         "物理学院":[],
-    //         "经济管理学院":[],
-    //         "公共卫生学院":[],
-    //         "人文学院":[],
-    //         "艺术学院":[],
-    //         "医学院":[],
-    //         "生物科学与医学工程学院":[],
-    //         "外国语学院":[]
-    //     }
-    //     ctx.body[department.name]=await Student.find({select:["name","username","score","time_use","password"],where:{department:data.department}})
-    //     ctx.response.set({
-    //         'Last-Modified':`${department.updatedDate}`,
-    //         'Cache-Control':"no-cache"
-    //     })
-    //     return ctx;
-    // }
-    // else {
-    //     ctx.status=304;
-    //     return ctx;
-    // }
     }
 /**
- *  获取全部院系的均分，排名
- */
+ * @method Get
+ * @access cousellor,admin
+ * 获取全部院系的均分，排名*/
+
     @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Get("/get_alldepartments")
     async get_alldepartment(@Ctx() ctx:Context){
         ctx.body={Departments:await Department.find({order:{average:"DESC"},select:["name","average","tested_number","total_number"]})}
         return ctx;
     }
+/**
+ * @method Get
+ * @access admin
+ * 获取全部学生的姓名，学号，一卡通，得分，答题用时*/
 
-//获取全部院系的学生姓名，用户名，得分
-    // @UseBefore(verify.verifyToken_Admin,verify.verifyToken_Username)
+    @UseBefore(verify.verifyToken_Admin,verify.verifyToken_Username)
     @Get("/get_allstudents")
     async get_allstudent(@Ctx() ctx:Context){
         let department=await Department.find();
@@ -190,13 +150,13 @@ const redis =require("../config/redis")
         return ctx;
     }
 
+/**
+ * @method Post
+ * @access cousellor,admin
+ * 注册接口
+ * 前端发送Identity,Name,Username,Password
+ * 后端返回注册状况                                     200:注册成功，400:用户名或密码格式不正确，403:用户已存在*/
 
-
-
-    //注册
-//前端发送Identity,Name,Username,Password              {Identity:string,Name:string,Username:string,Password:string}
-//后端返回注册状况                                     200:注册成功，400:用户名或密码格式不正确，403:用户已存在
-//a,c
 @Post("/register")
  @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
 async post_register(@Ctx() ctx:Context){
@@ -270,29 +230,15 @@ async post_register(@Ctx() ctx:Context){
             }
             break;
     }
-    // d.students.forEach(element => {
-    //     let student=new Student()
-    //     student.name=element.Name;
-    //     student.username=element.Username;
-    //     student.password=element.Password;
-    //     student.department=student.username[0]+student.username[1]
-    //     Student.save(student)
-    // });
-    // ctx.body={msg:"successful"}
     return ctx;
 }
 
-// @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
-// @Post("/getByUsername")
-//     async getByUsername(@Ctx() ctx:Context){
-//         let student:Student=await Student.findOne({username:ctx.request.body.Username})
-//         ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
-//         Score:student.score,
-//         Answer:{Choice_answers:student.answers_choice,Judgment_answers:student.answers_judgment},
-//         User_answer:student.answers
-//     }
-//     return ctx;
-//     }
+/**
+ * @method Get
+ * @access cousellor,admin
+ * @param id http://host:port/api/admin/result:id
+ * 通过学号获取学生的答题情况*/
+
 @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
 @Get("/result")
     async getByUsername(@QueryParam("id") id:string,@Ctx() ctx:Context){
@@ -315,33 +261,14 @@ async post_register(@Ctx() ctx:Context){
             ctx.status=304;
             return ctx;
         }
-
-        // let student=undefined
-        // redis.hgetall(`student:${id}`,async(err,object)=>{student=object})
-        // if(!student){
-        //         student=(await Student.findOne({username:id}));
-        //         redis.hmset(`student:${id}`,student)
-        // }
-        // if(!ctx.request.get("If-Modified-Since")||ctx.request.get("If-Modified-Since")!=`${student.updateDate}`){
-        //     ctx.body={Paper:{Choice_question:student.choice_question,Judgment_question:student.judgment_question},
-        //     Score:student.score,
-        //     Answer:{Choice_answers:student.answers_choice,Judgment_answers:student.answers_judgment},
-        //     User_answer:student.answers}
-        //     ctx.response.set({
-        //     'Last-Modified':`${student.updateDate}`,
-        //     'Cache-Control':"no-cache"
-        // })
-        // return ctx;}
-        // else{
-        //     ctx.status=304;
-        //     return ctx;
-        // }
     }
 
 /**
- *  前端发送用户名，姓名            {Username:string,Name:string,Password:string}
- *  后端保存用户修改后信息
- *  @access  admin，counsellor*/
+ * @method Post 
+ * @access admin，counsellor
+ * 前端发送用户名，姓名            {Username:string,Name:string,Password:string}
+ * 后端保存用户修改后信息*/
+
     @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_name")
     async reset_name(@Ctx() ctx:Context){
@@ -357,9 +284,11 @@ async post_register(@Ctx() ctx:Context){
     }
 
 /**
- *  前端发送姓名，一卡通            {Username:string,Name:string,Password:string}
- *  后端保存用户修改后信息
- *  @access  admin，counsellor*/
+ * @method Post
+ * @access admin，counsellor
+ * 前端发送姓名，一卡通            {Username:string,Name:string,Password:string}
+ * 后端保存用户修改后信息*/
+
     @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_username")
     async reset_username(@Ctx() ctx:Context){
@@ -371,9 +300,10 @@ async post_register(@Ctx() ctx:Context){
 }
 
 /**
- *  前端发送学号            {Username:string,Name:string,Password:string}
- *  后端保存用户修改后信息
- *  @access  admin，counsellor*/
+ * @method Post 
+ * @access admin，counsellor
+ * 前端发送学号            {Username:string,Name:string,Password:string}
+ * 后端保存用户修改后信息*/
     @UseBefore(verify.verifyToken_CousellorOrAdmin,verify.verifyToken_Username)
     @Post("/reset_password")
     async reset_password(@Ctx() ctx:Context){
