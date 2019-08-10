@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Radio, Card, Row, Col, Icon, Button, Layout, Table, Descriptions, Input, Tag, message, Dropdown, Menu, Drawer } from 'antd';
+import { Modal, Radio, Card, Row, Col, Icon, Button, Layout, Table, Descriptions, Input, Tag, message, Dropdown, Menu, Drawer,notification } from 'antd';
 import 'antd/dist/antd.css';
 import mark from '../../img/校徽实体.png'
 import xlsx from 'node-xlsx'
@@ -125,6 +125,24 @@ class Super extends React.Component {
         // Object.keys(departInfo).map((inst,i)=>{
         //     departInfo[inst]["均分"]=90.00;
         // })
+        await fetch("http://"+that.props.state.host+"/api/admin/redis_updata",{
+            method:"GET",
+            mode:"cors",
+            headers: {
+                "authorization": that.props.state.token,
+                "Content-Type": "application/json"
+            }
+        }).then(res=>{
+            if(res.status==404){
+                console.log(res.json());
+                notification.open({
+                    placement:"bottomRight",
+                    duration:null,
+                    message: "出了点问题!请尝试右上角刷新",
+                    description: <div><p>此错误正常情况下不影响数据显示,但是如果错误持续出现请及时联系技术人员!</p> <p style={{color:"red"}}>错误详情:redis can not updata from mysql</p></div>,
+                    icon: <Icon type="warning" style={{ color:"red"  }} />
+                })
+        }})
         fetch("http://" + that.props.state.host + "/api/admin/get_alldepartments", {
             methods: "GET",
             mode: "cors",

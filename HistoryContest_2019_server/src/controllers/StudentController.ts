@@ -129,7 +129,7 @@ export class StudentController{
             student.answers=ctx.request.body.Answer;
             redis.hgetall(`department:${student.department}`,(err,object)=>{
                 const n:number=object.average*object.tested_number;
-                object.tested_number+=1;
+                object.tested_number++;
                 object.average=(n+student.score)/object.tested_number;
                 redis.hmset(`department:${student.department}`,object)
                 Department.update(object.test,object)
