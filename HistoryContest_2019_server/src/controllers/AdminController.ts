@@ -28,7 +28,6 @@ export class AdminController {
     @Get("/redis_updata")
     async redis_updata(@Ctx() ctx: Context) {
         try {  //从mysql中向redis录入院系信息
-            throw("e");
             let department = await Department.find()
             department.forEach(element => {
                 redis.hmset(`department:${element.id}`, element)
