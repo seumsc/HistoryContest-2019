@@ -4,12 +4,9 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
-    "@types/memory-cache": "^0.2.0",
-    "@types/node-xlsx": "^0.12.1",
     "antd": "^3.20.4",
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.1.4",
-    "js-xlsx": "^0.8.22",
     "node-xlsx": "^0.15.0",
     "rc-banner-anim": "^2.2.8",
     "rc-queue-anim": "^1.6.12",
