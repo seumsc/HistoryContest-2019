@@ -353,6 +353,7 @@ class Super extends React.Component {
             else {
                 message.success("修改成功", 1.5);
                 that.setState({ reset: { post: false } });
+                that.get();
                 setTimeout(() => { that.setState({ reset: { Visible: false } }) }, 400)
             }
         })
