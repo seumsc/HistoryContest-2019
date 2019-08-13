@@ -235,7 +235,12 @@ class LoginModal extends React.Component {
                                             transform: `skewX(${this.state.rotate[i]}deg)`,
                                             fontSize: `${this.state.fz[i]}px`,
                                             color: `rgb(${this.state.color[i].toString()})`,
-                                            display: 'inline-block'
+                                            display: 'inline-block',
+                                            MozUserSelect: '-moz-none',
+                                            KhtmlUserSelect: 'none',
+                                            WebkitUserSelect: 'none',
+                                            msUserSelect: 'none',
+                                            userSelect: 'none'
                                         }}
                                         onMouseEnter={() => this.setState({ refresh: true })}>
                                         {String.fromCharCode(v > 57 && v < 84 ? v + 7 : (v < 57 ? v : v + 13))}&nbsp;&nbsp;
