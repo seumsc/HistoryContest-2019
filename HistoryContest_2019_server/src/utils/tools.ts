@@ -39,8 +39,8 @@ export async function redis_all(){
         redis.sadd(`choice`,`${element.id}`)
     })
     judge.forEach(element =>{
-        redis.hmset(`choice:${element.id}`,element)
-        redis.sadd(`choice`,`${element.id}`)
+        redis.hmset(`judge:${element.id}`,element)
+        redis.sadd(`judge`,`${element.id}`)
     })
     //为学生划分院系
     let b=await Student.find();

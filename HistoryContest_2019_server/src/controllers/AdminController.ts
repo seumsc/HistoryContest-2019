@@ -332,12 +332,21 @@ export class AdminController {
         let student = eval(`(${await redis.get(`student:${ctx.request.body.Username}`)})`)
         if (!student) {
             student = (await Student.findOne({ username: ctx.request.body.Username }));
-            redis.set(`student:${ctx.request.body.Username}`, JSON.stringify(student))
+            await redis.set(`student:${ctx.request.body.Username}`, JSON.stringify(student))
         }
+        if(!student){
+            ctx.body={msg:undefined}
+        }else{
         student.name = ctx.request.body.Name
         await Student.update(student.id, student)
-        redis.set(`student:${ctx.request.body.Username}`, JSON.stringify(student))
-        return ctx.body = { msg: "successfully reset" };
+        await redis.set(`student:${ctx.request.body.Username}`, JSON.stringify(student))
+        ctx.body = { msg: "successfully reset" };
+        let department=await Department.findOne({id:student.department})
+        department.updatedDate=new Date
+        await Department.update(department.test,department)
+        await redis.hmset(`department:${department.id}`,department)
+    }
+        return ctx;
     }
 
     /**
@@ -350,10 +359,23 @@ export class AdminController {
     @Post("/reset_username")
     async reset_username(@Ctx() ctx: Context) {
         let student = await Student.findOne({ name: ctx.request.body.Name, password: ctx.request.body.Password })
+        if(!student)
+        {
+            ctx.body={msg:undefined}
+        }else{
+        await redis.del(`student:${student.username}`)
+        await redis.srem(`student`,`${student.username}`)
+        await redis.srem(`department${student.department}`,`${student.username}`)
         student.username = ctx.request.body.Username
         await Student.update(student.id, student)
-        redis.set(`student:${ctx.request.body.Username}`, JSON.stringify(student))
-        return ctx.body = { msg: "successfully reset" };
+        await redis.set(`student:${ctx.request.body.Username}`, JSON.stringify(student))
+        ctx.body = { msg: "successfully reset" };
+        let department=await Department.findOne({id:student.department})
+        department.updatedDate=new Date
+        await Department.update(department.test,department)
+        await redis.hmset(`department:${department.id}`,department)
+    }
+        return ctx;
     }
 
     /**
@@ -367,12 +389,21 @@ export class AdminController {
         let student = eval(`(${await redis.get(`student:${ctx.request.body.Username}`)})`)
         if (!student) {
             student = (await Student.findOne({ username: ctx.request.body.Username }));
-            redis.hmset(`student:${ctx.request.body.Username}`, student)
+            redis.set(`student:${ctx.request.body.Username}`, student)
         }
+        if(!student){
+            ctx.body={msg:undefined}
+        }else{
         student.password = ctx.request.body.Password
         await Student.update(student.id, student)
         redis.set(`student:${ctx.request.body.Username}`, JSON.stringify(student))
-        return ctx.body = { msg: "successfully reset" };
+        ctx.body = { msg: "successfully reset" };
+        let department=await Department.findOne({id:student.department})
+        department.updatedDate=new Date
+        await Department.update(department.test,department)
+        await redis.hmset(`department:${department.id}`,department)
+    }
+        return ctx;
     }
 
 
