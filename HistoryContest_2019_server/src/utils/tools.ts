@@ -40,7 +40,7 @@ export async function redis_all(){
     })
     judge.forEach(element =>{
         redis.hmset(`judge:${element.id}`,element)
-        redis.sadd(`judge:`,`${element.id}`)
+        redis.sadd(`judge`,`${element.id}`)
     })
     //为学生划分院系
     let b=await Student.find();
