@@ -8,3 +8,18 @@
 2019/08/13 23:36:34 [notice] 14556#17288: signal process started
 2019/08/13 23:36:34 [error] 14556#17288: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
 2019/08/13 23:37:27 [notice] 13936#19012: signal process started
+2019/08/13 23:42:46 [notice] 20096#10900: signal process started
+2019/08/13 23:43:14 [notice] 20844#18108: signal process started
+2019/08/13 23:43:14 [error] 20844#18108: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/13 23:43:53 [notice] 16740#1212: signal process started
+2019/08/13 23:43:53 [error] 16740#1212: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/13 23:44:27 [notice] 464#21436: signal process started
+2019/08/13 23:44:27 [error] 464#21436: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/14 00:04:04 [emerg] 18688#17876: CreateFile() "./conf/nginx" failed (2: The system cannot find the file specified)
+2019/08/14 00:04:16 [notice] 21292#20376: signal process started
+2019/08/14 00:04:16 [error] 21292#20376: OpenEvent("Global\ngx_reload_20792") failed (2: The system cannot find the file specified)
+2019/08/14 00:04:55 [emerg] 12624#17604: bind() to 0.0.0.0:3000 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2019/08/14 00:05:53 [notice] 17532#6920: signal process started
+2019/08/14 00:07:10 [notice] 11160#20520: signal process started
+2019/08/14 00:07:17 [notice] 20564#14460: signal process started
+2019/08/14 00:09:28 [notice] 8416#11436: signal process started
