@@ -1,6 +1,6 @@
 define({
   "name": "2019-History-Contest",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "Apidocs of History Contest for 2019 Students",
   "title": "apidocs",
   "url": "",
@@ -9,7 +9,7 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2019-07-23T11:38:03.929Z",
+    "time": "2019-08-13T15:24:18.040Z",
     "url": "http://apidocjs.com",
     "version": "0.17.7"
   }

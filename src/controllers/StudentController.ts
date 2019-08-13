@@ -1,26 +1,30 @@
-import { Controller, Ctx, Post, UseBefore } from 'routing-controllers'
-import { ChoiceQuestion } from '../entity/ChoiceQuestion'
-import { JudgmentQuestion } from '../entity/JudgmentQuestion'
-import { Student } from '../entity/Student'
-import { Context } from 'koa'
-import { RandomArr } from '../utils/RandomArray'
-import * as verify from '../config/Verify'
-
-@Controller('/student')
+import { Controller, Ctx, Get, Post, UseBefore } from "routing-controllers"
+import * as jwt from "jsonwebtoken"
+import { Key } from "../utils/keys"
+//import entities
+import { ChoiceQuestion } from "../entity/ChoiceQuestion"
+import { JudgmentQuestion } from "../entity/JudgmentQuestion"
+import { Student } from "../entity/Student"
+import { Context } from "koa";
+//import utils
+import { RandomArr } from "../utils/RandomArray"
+import * as verify from "../config/Verify"
+import { Department } from "../entity/Department";
+const redis = require("../config/redis")
+@Controller("/student")
 export class StudentController {
-	/**
-	 * @api {post} /student/test Post a test paper to Student
-	 * @apiName post
+    /**
+	 * @api {get} /student/test Get a test paper for Student
+	 * @apiName test
 	 * @apiGroup StudentAPIs
 	 * @apiVersion 0.2.1
-	 * @apiDescription By using this api, the front end can post a test paper
-	 * for the objected student.
-	 * If the student has not answered any paper, a randomly constructed paper
-	 * should be posted.
-	 * If the student has answered a paper, the state 403 will be responsed.
+	 * @apiDescription By using this api, the front end can get a test paper
+	 * for the objected student. If the student has not answered any paper, a 
+     * randomly constructed paper should be gotten. If the student has answered 
+     * a paper, the state 403 will be responsed.
 	 * @apiParam (Parameter) {Context} ctx A context with Username.
-	 * @apiParam (Parameter) {String} ctx:request:body:Username The username of the student.
-	 *
+	 * @apiParam (Parameter) {String} ctx:header:payload:Username The username of 
+     * the student.
 	 * @apiSuccess (200) {Context} ctx Return the context with a randomly chosen paper.
 	 * @apiSuccess (200) {Paper} ctx:body:Paper Return a randomly chosen paper in response body.
 	 * @apiSuccess (200) {Number} ctx:status Return the successful status.
@@ -29,7 +33,7 @@ export class StudentController {
 	 * @apiPermission student
 	 * @apiExample {fetch} Example usage:
 	 * fetch(http://server_host/api/student/test, {
-	 *     method: 'POST',
+	 *     method: 'GET',
 	 *     mode: 'cors',
 	 *     headers: {
 	 *       "authorization": xxx.token,
@@ -42,7 +46,7 @@ export class StudentController {
 	 *   }
 	 * )
 	 * @apiSuccessExample {json} Success-Response:
-	 * HTTP/1.1 200 Successfully Post Test Paper
+	 * HTTP/1.1 200 Successfully Get Test Paper
 	 * {
 	 *   Paper: {
 	 *     Choice_question: [...],
@@ -54,55 +58,45 @@ export class StudentController {
 	 * HTTP/1.1 403 Test Paper Finished
 	 * ctx.status = 403
 	 */
-	@UseBefore(verify.verifyToken_Student, verify.verifyToken_Username)
-	@Post('/test')
-	public async post(@Ctx() ctx: Context) {
-		// 获取前端发送的用户名
-		let stu: Student = await await Student.findOne({ username: ctx.request.body.Username })
-		// 尚未答题
-		if (stu.score === -1) {
-			// 生成两个随机数组，应用为选择题和判断题的序号
-			let arr: number[] = await RandomArr(200, 20)
-			let arr2: number[] = await RandomArr(100, 10)
-			// 通过数组获取选择题与判断题
-			let questionarr1: any[] = await ChoiceQuestion.findByIds(
-				arr, { select: ['text', 'options', 'answer'] })
-			let questionarr2: any[] = await JudgmentQuestion.findByIds(
-				arr, { select: ['text', 'answer'] })
-			// 将题目(包括题干，选项，答案)保存在用户的paper对象中
-			stu.paper.Choice_question = questionarr1
-			stu.paper.Judgment_question = questionarr2
-			ctx.status = 200
-			// 除去题目的答案属性输出，Paper属性对象含有Choice_question与Judgment_question两个属性分别为选择题数组，判断题数组
-			ctx.body = {
-				Paper: {
-					Choice_question: await (
-						questionarr1.map(
-							(a) => {
-								delete a.answer
-								return a
-							}
-						)
-					),
-					Judgment_question: await (
-						questionarr2.map(
-							a => {
-								delete a.answer
-								return a
-							}
-						)
-					)
-				}
-			}
-			await Student.update(stu.id, stu)  // 更新用户数据
-		} else {
-			ctx.status = 403
-		}
-		return ctx
-	}
+    @UseBefore(verify.verifyToken_Student, verify.verifyToken_Username)
+    @Get("/test")
+    async test(@Ctx() ctx: Context) {
+        const dataString = ctx.header.authorization;
+        const dataArr = dataString.split(' ');
+        const token = dataArr[1];
+        let playload = await jwt.verify(token, Key)
+        const data = playload;
+        let student: Student = eval(`(${await redis.get(`student:${data.username}`)})`)
+        if (!student) {
+            student = (await Student.findOne({ username: data.username }));
+            redis.set(`student:${data.username}`, JSON.stringify(student))
+        }
+        if (student.score == -1) {
+            //生成两个随机数组，应用为选择题和判断题的序号
+            const choice_id: number[] = await RandomArr(20, 20)
+            const judgment_id: number[] = await RandomArr(10, 10)
+            student.answers_choice = []
+            student.answers_judgment = []
+            choice_id.forEach(async element => {
+                student.answers_choice.push(await redis.hget(`choice:${element}`, 'answer'))
+            });
+            judgment_id.forEach(async element => {
+                student.answers_judgment.push(await redis.hget(`judge:${element}`, 'answer'))
+            });
+            student.choice_question = choice_id;
+            student.judgment_question = judgment_id;
+            ctx.status = 200;
+            //除去题目的答案属性输出，Paper属性对象含有Choice_question与Judgment_question两个属性分别为选择题数组，判断题数组
+            ctx.body = { Paper: { Choice_question: choice_id, Judgment_question: judgment_id } }
+            await Student.update(student.id, student)
+            redis.set(`student:${data.username}`, JSON.stringify(student))
+        }//更新用户数据
+        else { ctx.status = 403 }
+        return ctx;
+    }
 
-	/**
-	 * @api {post} /student/start Start Student's test
+    /**
+	 * @api {get} /student/start Start Student's test
 	 * @apiName start
 	 * @apiGroup StudentAPIs
 	 * @apiVersion 0.2.1
@@ -111,8 +105,7 @@ export class StudentController {
 	 * time, which is used to supervise his/her total test time, and allow the
 	 * student to start his/her test.
 	 * @apiParam (Parameter) {Context} ctx A context with Username.
-	 * @apiParam (Parameter) {String} ctx:request:body:Username The username of the student.
-	 *
+	 * @apiParam (Parameter) {String} ctx:header:payload:Username The username of the student.
 	 * @apiSuccess (200) {Context} ctx Return the context with a message which
 	 * is to tell the student to start his/her test.
 	 * @apiSuccess (200) {String} ctx:body:msg Return the message which is
@@ -122,7 +115,7 @@ export class StudentController {
 	 * @apiPermission student
 	 * @apiExample {fetch} Example usage:
 	 * fetch(http://server_host/api/student/start, {
-	 *     method: 'POST',
+	 *     method: 'GET',
 	 *     mode: 'cors',
 	 *     headers: {
 	 *       "authorization": xxx.token,
@@ -144,26 +137,29 @@ export class StudentController {
 	 * HTTP/1.1 403 Student Not Found
 	 * ctx.body = error
 	 */
-	@Post('/start')
-	public async start(@Ctx() ctx: Context) {
-		let d = new Date()
-		try {
-			await Student.findOne({ username: ctx.request.body.Username })
-				.then(
-					async (stu) => {
-						stu.time_use = (d.getTime() - 1560000000000) / 1000
-						stu.time_start = new Date()
-						await Student.update(stu.id, stu)
-					}
-				)
-			ctx.body = { msg: 'start testing' }
-		} catch (error) {
-			ctx.body = error
-		}
-		return ctx
-	}
+    @UseBefore(verify.verifyToken_Student, verify.verifyToken_Score)
+    @Get("/start")
+    async start(@Ctx() ctx: Context) {
+        let date = new Date()
+        const dataString = ctx.header.authorization;
+        const dataArr = dataString.split(' ');
+        const token = dataArr[1];
+        let playload = await jwt.verify(token, Key)
+        const data = playload;
+        let student: Student = eval(`(${await redis.get(`student:${data.username}`)})`)
+        if (!student) {
+            student = (await Student.findOne({ username: data.username }));
+            await redis.set(`student:${data.username}`, JSON.stringify(student))
+        }
+        student.time_use = (date.getTime() - 1560000000000) / 1000;
+        student.time_start = new Date;
+        Student.update(student.id, student);
+        redis.set(`student:${data.username}`, JSON.stringify(student), (err) => { console.log(err) })
+        ctx.body = { msg: "start testing" }
+        return ctx;
+    }
 
-	/**
+    /**
 	 * @api {post} /student/handin Handin Student's answers
 	 * @apiName handin
 	 * @apiGroup StudentAPIs
@@ -175,7 +171,7 @@ export class StudentController {
 	 * his/her answers and update his/her score to the data base.
 	 * @apiParam (Parameter) {Context} ctx A context with Username and his/her
 	 * answers.
-	 * @apiParam (Parameter) {String} ctx:request:body:Username The username of the student.
+	 * @apiParam (Parameter) {String} ctx:header:payload:Username The username of the student.
 	 * @apiParam (Parameter) {Answer[]} ctx:request:body:answer The answers of
 	 * the objected student to his/her test paper.
 	 * @apiSuccess (200) {Context} ctx Return the context with the objected student's
@@ -200,7 +196,7 @@ export class StudentController {
 	 *   }
 	 * )
 	 * @apiSuccessExample {json} Success-Response:
-	 * HTTP/1.1 200 Score Accessible
+	 * HTTP/1.1 200 Successfully Handin
 	 * {
 	 *   Score: student.score
 	 * }
@@ -209,140 +205,136 @@ export class StudentController {
 	 * HTTP/1.1 403 Over Time or Test Finished
 	 * ctx.status = 403
 	 */
-	@Post('/handin')
-	public async handin(@Ctx() ctx: Context) {
-		let d = new Date()
-		let stu: Student = await Student.findOne({ username: ctx.request.body.Username })
-		if (
-			((stu.time_use !== -1) && ((d.getTime() - 1560000000000) / 1000 - stu.time_use > 1800)) ||
-			(stu.score !== -1)
-		) {
-			ctx.status = 403
-		} else {
-			stu.score = 0
-			for (let i = 0; i < 20; i += 1) {
-				if (ctx.request.body.Answer[i] === stu.answers_choice[i]) {
-					stu.score += 4
-				}
-			}
-			for (let i = 0; i < 10; i += 1) {
-				if (ctx.request.body.Answer[i + 20] === stu.answers_judgment[i]) {
-					stu.score += 2
-				}
-			}
-			await Student.update(stu.id, stu)
-			ctx.body = { Score: stu.score }
-		}
-	}
+    @UseBefore(verify.verifyToken_Student, verify.verifyToken_Score)
+    @Post("/handin")
+    async handin(@Ctx() ctx: Context) {
+        let date = new Date()
+        const dataString = ctx.header.authorization;
+        const dataArr = dataString.split(' ');
+        const token = dataArr[1];
+        let playload = await jwt.verify(token, Key)
+        const data = playload;
+        let student: Student = eval(`(${await redis.get(`student:${data.username}`)})`)
 
-	/**
-	 * @api {post} /student/result_handin Correct Student's answers
-	 * @apiName result1
-	 * @apiGroup StudentAPIs
-	 * @apiVersion 0.2.1
-	 * @apiDescription By using this api, the front end will tell the back end
-	 * the student's username. After that, the back end will access the data base
-	 * and show the correct answers of his/her test paper.
-	 * @apiParam (Parameter) {Context} ctx A context with Username.
-	 * @apiParam (Parameter) {String} ctx:request:body:Username The username of the student.
-	 * @apiSuccess (200) {Context} ctx Return the context with the correct answers
-	 * of the objected student's test paper.
-	 * @apiSuccess (200) {Number[]} ctx:body:Answer Return the correct answers in the
-	 * response body.
-	 * @apiPermission student
-	 * @apiExample {fetch} Example usage:
-	 * fetch(http://server_host/api/student/result_handin, {
-	 *     method: 'POST',
-	 *     mode: 'cors',
-	 *     headers: {
-	 *       "authorization": xxx.token,
-	 *       "Content-Type": "application/x-www-form-urlencoded"
-	 *     },
-	 *     body: JSON.stringify({
-	 *         Username: xxx.username
-	 *      }
-	 *     )
-	 *   }
-	 * )
-	 * @apiSuccessExample {json} Success-Response:
-	 * HTTP/1.1 200 Answers Accessible
-	 * {
-	 *   Answer: [...]
-	 * }
-	 */
-	@Post('/result_handin')
-	public async result1(@Ctx() ctx: Context) {
-		let stu: Student = await Student.findOne({ username: ctx.request.body.Username })
-		let questionarr1 = await ChoiceQuestion.findByIds(stu.choice_question, { select: ['answer'] })
-		let questionarr2 = await JudgmentQuestion.findByIds(stu.judgment_question, { select: ['answer'] })
-		let arr = await questionarr1.map((a) => a.answer)
-		let arr2 = await questionarr2.map((a) => a.answer)
-		ctx.body = { Answer: arr.concat(arr2) }
-	}
+        if (!student) {
+            student = await Student.findOne({ username: data.username });
+            redis.set(`student:${data.username}`, JSON.stringify(student))
+        }
+        if ((((date.getTime() - 1560000000000) / 1000 - student.time_use > 1800) || (student.score != -1))) { ctx.status = 403 }
+        else
+            if ((date.getTime() - 1560000000000) / 1000 - student.time_use < 0) //设置最短时间
+            {
+                ctx.body = { msg: "答题时间过短,请认真答题" };
+            } else {
+                student.time_use = (date.getTime() - 1560000000000) / 1000 - student.time_use;
+                student.score = 0;
+                for (let i = 0; i < 20; i++) {
+                    if (ctx.request.body.Answer[i] == student.answers_choice[i])
+                        student.score += 4;
+                }
+                for (let i = 0; i < 10; i++) {
+                    if (ctx.request.body.Answer[i + 20] == student.answers_judgment[i])
+                        student.score += 2;
+                }
+                student.answers = ctx.request.body.Answer;
+                redis.hgetall(`department:${student.department}`, (err, object) => {
+                    const n: number = object.average * object.tested_number;
+                    object.tested_number++;
+                    object.average = (n + student.score) / object.tested_number;
+                    redis.hmset(`department:${student.department}`, object)
+                    Department.update(object.test, object)
+                })
+                Student.update(student.id, student)
+                redis.set(`student:${data.username}`, JSON.stringify(student))
+                ctx.body = { Score: student.score }
+            }
+        return ctx;
+    }
 
-	/**
-	 * @api {post} /student/result Output Student's all products
+    /**
+	 * @api {get} /student/result Get Student's product for him/her
 	 * @apiName result
 	 * @apiGroup StudentAPIs
 	 * @apiVersion 0.2.1
-	 * @apiDescription By using this api, the front end will tell the back end
-	 * the student's username. After that, the back end will access the data base
-	 * and show all products of the test to the user, including the student's
-	 * information, the test paper, his/her answers, his/her score and the correct
-	 * answers of the test paper.
-	 * @apiParam (Parameter) {Context} ctx A context with Username.
-	 * @apiParam (Parameter) {String} ctx:request:body:Username The username of the student.
-	 * @apiSuccess (200) {Context} ctx Return the context with all test products.
-	 * @apiSuccess (200) {Paper} ctx:body:Paper Return the test paper of the student.
-	 * @apiSuccess (200) {Number[]} ctx:body:Answer:Choice_answers Return the
-	 * choice answers of the student and the correct choice answers of his/her test paper.
-	 * @apiSuccess (200) {Number[]} ctx:body:Answer:Judgment_answers Return the
-	 * judgment answers of the student and the correct judgment answers of his/her test paper.
-	 * @apiSuccess (200) {Number} ctx:body:Score Return the score of the objected student.
-	 * @apiPermission student, admin, counsellor
+	 * @apiDescription By using this api, the front end will send an objected username
+     * to the backend, and the back end will verify the user's acess privilege.
+     * After that, the back end will send the required student's all products to front end.
+     * Note: this api is different from the '/admin/result', as this one is for
+     * student to view his/her test result and the other one is for the administrators
+     * to view the objected students' test products.
+	 * @apiParam (Parameter) {Context} ctx A context with user cached information.
+	 * @apiParam (Parameter) {String} ctx:header:payload:Username The username of the student.
+	 * @apiSuccess (200) {Context} ctx Return the context with the required user's
+     * informations.
+	 * @apiSuccess (200) {Paper} ctx:body:Paper Return the paper of the student.
+     * @apiSuccess (200) {Number} ctx:body:Score Return the score of the student.
+     * @apiSuccess (200) {Number[]} ctx:body:Answer:Choice_answers Return the correct
+     * choice answers to those questions.
+     * @apiSuccess (200) {Number[]} ctx:body:Answer:Judgment_answers Return the correct
+     * judgment answers to those questions.
+     * @apiSuccess (200) {Number[]} ctx:body:User_answer Return the user's answers
+     * to the paper.
+     * @apiError (304) {Context} ctx Return the context with a 304 status.
+     * @apiError (304) {Number} ctx:status Return the 304 status to represent the
+     * caching check failure.
+	 * @apiPermission student
 	 * @apiExample {fetch} Example usage:
 	 * fetch(http://server_host/api/student/result, {
-	 *     method: 'POST',
+	 *     method: 'Get',
 	 *     mode: 'cors',
 	 *     headers: {
 	 *       "authorization": xxx.token,
 	 *       "Content-Type": "application/x-www-form-urlencoded"
 	 *     },
 	 *     body: JSON.stringify({
-	 *         Username: xxx.username
+	 *         Department: xxx.department
 	 *      }
 	 *     )
 	 *   }
 	 * )
 	 * @apiSuccessExample {json} Success-Response:
-	 * HTTP/1.1 200 Products Accessible
+	 * HTTP/1.1 200 Request Satisfied
 	 * {
-	 *   Answer: {
-	 *     Choice_answers: [...],
-	 *     Judgment_answers: [...]
+     *   Answer: {
+	 *     Choice_answers: student.answers_choice,
+	 *     Judgment_answers: student.answers_judgment
 	 *   },
 	 *   Paper: {
 	 *     Choice_question: [...],
 	 *     Judgment_question: [...]
 	 *   },
 	 *   Score: student.score
+     *   User_answer: student.answers
 	 * }
+     * @apiErrorExample {status} Exception-Response:
+     * HTTP/1.1 304 Caching Exception
+     * ctx.status = 304
 	 */
-	@Post('/result')
-	public async result(@Ctx() ctx: Context) {
-		let stu: Student = await Student.findOne({ username: ctx.request.body.Username })
-		let questionarr1: any[] = await ChoiceQuestion.findByIds(stu.choice_question, { select: ['text', 'options', 'answer'] })
-		let questionarr2: any[] = await JudgmentQuestion.findByIds(stu.judgment_question, { select: ['text', 'answer'] })
-		ctx.body = {
-			Answer: {
-				Choice_answers: stu.answers_choice,
-				Judgment_answers: stu.answers_judgment
-			},
-			Paper: {
-				Choice_question: questionarr1,
-				Judgment_question: questionarr2
-			},
-			Score: stu.score,
-		}
-	}
+    @Get("/result")
+    async result(@Ctx() ctx: Context) {
+        const dataString = ctx.header.authorization;
+        const dataArr = dataString.split(' ');
+        const token = dataArr[1];
+        let playload = await jwt.verify(token, Key)
+        const data = playload;
+        let student: Student = eval(`(${await redis.get(`student:${data.username}`)})`)
+        if (!student) {
+            student = (await Student.findOne({ username: data.username }));
+            redis.set(`student:${data.username}`, JSON.stringify(student))
+        }
+        if (!ctx.request.get("If-Modified-Since") || ctx.request.get("If-Modified-Since") != `${student.updateDate}`) {
+            ctx.body = {
+                Paper: { Choice_question: student.choice_question, Judgment_question: student.judgment_question },
+                Score: student.score,
+                Answer: { Choice_answers: student.answers_choice, Judgment_answers: student.answers_judgment },
+                User_answer: student.answers
+            }
+            ctx.response.set({
+                'Last-Modified': `${student.updateDate}`,
+                'Cache-Control': "no-cache"
+            })
+        }
+        else { ctx.status = 304 }
+        return ctx;
+    }
 }

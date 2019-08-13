@@ -1,15 +1,15 @@
-import { Controller, Ctx, Get, Param, Post, Body, Params, UseBefore } from 'routing-controllers'
-import { Context } from 'koa'
-import { Student } from '../entity/Student'
-import { Admin } from '../entity/Admin'
-import { Counsellor } from '../entity/Counsellor'
-import { Key } from '../utils/keys'
-import * as jwt from 'jsonwebtoken'
-import { Department } from '../entity/Department'
-
-@Controller('/ui')
-export class UIController {
-	/**
+import {Controller,Ctx, Get,Param, Post, Body, Params, UseBefore} from "routing-controllers"
+import { Context } from "koa";
+import { Student } from "../entity/Student";
+import { Admin } from "../entity/Admin";
+import {Department} from "../entity/Department"
+import { Counsellor } from "../entity/Counsellor";
+import {Key} from "../utils/keys"
+import * as jwt from "jsonwebtoken"
+const redis =require("../config/redis")
+@Controller("/ui")
+export class UIController{
+    /**
 	 * @api {post} /ui/login User Login
 	 * @apiName post_login
 	 * @apiGroup UIAPIs
@@ -75,72 +75,78 @@ export class UIController {
 	 * HTTP/1.1 404 User Not Found
 	 * ctx.status = 404
 	 */
-	@Post('/login')
-	public async post_login(@Ctx() ctx: Context) {
-		switch (ctx.request.body.Identity) {
-			case '0':  // 学生
-				let stu = await Student.findOne({ username: ctx.request.body.Username })
-				let department = await Department.findOne({ id: parseInt(stu.department, 10) })
-				if (!stu) {  // 未找到学生
-					ctx.status = 404
-				} else if (stu.password !== ctx.request.body.Password) {  // 密码错误
-					ctx.status = 403
-				} else {  // 生成登陆的 Cookie, 使用 JWT 方式
-					const payload = {
-						identity: stu.identity,
-						username: stu.username,
-						score: stu.score
-					}
-					const token = jwt.sign(payload, Key, { expiresIn: 3600 })
-					// console.log(token)
-					ctx.status = 200
-					ctx.body = {
-						Name: stu.name,
-						Score: stu.score,
-						Token: 'Bearer ' + token,
-						Department: department.name
-					}
-				}
-				break
-			case '1':  // 管理员
-				const admin = await Admin.findOne({ username: ctx.request.body.Username })
-				if (!admin) {
-					ctx.status = 404
-				} else if (admin.password !== ctx.request.body.Password) {
-					ctx.status = 403
-				} else {
-					const payload = { identity: admin.identity, username: admin.username }
-					const token = jwt.sign(payload, Key, { expiresIn: 3600 })
-					ctx.status = 200
-					ctx.body = {
-						Name: admin.name,
-						Token: 'Bearer ' + token
-					}
-				}
-				break
-			case '2':  // 辅导员
-				const counsellor = await Counsellor.findOne({ username: ctx.request.body.Username })
-				let department1 = await Department.findOne({ id: parseInt(counsellor.department, 10) })
-				if (!counsellor) {
-					ctx.status = 404
-				} else if (counsellor.password !== ctx.request.body.Password) {
-					ctx.status = 403
-				} else {
-					const payload = {
-						identity: counsellor.identity,
-						username: counsellor.username,
-						department: counsellor.department
-					}
-					const token = jwt.sign(payload, Key, { expiresIn: 3600 })
-					ctx.status = 200
-					ctx.body = {
-						Name: counsellor.name,
-						Token: 'Bearer ' + token,
-						Department: department1.name
-					}
-				}
-				break
-		}
-		return ctx
-	}
+    @Post("/login")
+    async post_login(@Ctx() ctx:Context){
+        console.log(ctx.request.body)
+        switch (ctx.request.body.Identity)
+        {
+            case '0':
+                let student:Student=eval(`(${await redis.get(`student:${ctx.request.body.Username}`)})`)
+                if(!student){
+                    student=await Student.findOne({username:ctx.request.body.Username});
+                    redis.set(`student:${ctx.request.body.Username}`,JSON.stringify(student))
+                }
+                if(!student)
+                {
+                    ctx.status=404
+                }else if(student.password!=ctx.request.body.Password)
+                {
+                    ctx.status=403
+                }
+                else
+                {
+                   let department:Department=undefined
+                    await redis.hgetall(`department:${student.department}`,(err,object)=>{department=object})
+                    const payload = {identity:student.identity,username:student.username,score:student.score }
+                    const token=jwt.sign(payload,Key,{expiresIn:3600});
+                    ctx.status=200
+                    ctx.body={Name:student.name,Score:student.score,Token:"Bearer "+token,Department:department.name,Id:student.department}
+                }
+                    return ctx;
+            case '1':
+                let admin:Admin=await redis.hgetall(`admin:${ctx.request.body.Username}`)
+                if(!admin){
+                    admin=(await Admin.findOne({username:ctx.request.body.Username}));
+                    redis.hmset(`admin:${ctx.request.body.Username}`,admin)
+                }
+                if(!admin)
+                {
+                    ctx.status=404
+                }else if(admin.password!=ctx.request.body.Password)
+                {
+                    ctx.status=403
+                }
+                else
+                {
+                    const payload = {identity:admin.identity,username:admin.username}
+                    const token=jwt.sign(payload,Key,{expiresIn:3600});
+                    ctx.status=200
+                    ctx.body={Name:admin.name,Token:"Bearer "+token}
+                }
+                return ctx;
+            case '2':
+                let counsellor:Counsellor=await redis.hgetall(`counsellor:${ctx.request.body.Username}`)
+                if(!counsellor){
+                    counsellor=(await Counsellor.findOne({username:ctx.request.body.Username}));
+                    redis.hmset(`counsellor:${ctx.request.body.Username}`,counsellor)
+                }
+                let department:Department=undefined
+                await redis.hgetall(`department:${counsellor.department}`,async(err,object)=>{department=object;})
+                if(!counsellor)
+                {
+                    ctx.status=404
+                }else if(counsellor.password!=ctx.request.body.Password)
+                {
+                    ctx.status=403
+                }
+                else
+                {
+                    const payload = {identity:counsellor.identity,username:counsellor.username,department:counsellor.department}
+                    const token=jwt.sign(payload,Key,{expiresIn:3600});
+                    ctx.status=200
+                    ctx.body={Name:counsellor.name,Token:"Bearer "+token,Department:department.name,Id:counsellor.department}
+                }
+                    return ctx;
+        }
+    }
 }
