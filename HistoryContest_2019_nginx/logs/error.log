@@ -1,0 +1,56 @@
+2019/08/13 23:08:29 [notice] 20100#9580: signal process started
+2019/08/13 23:14:02 [emerg] 16424#7240: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/nginx.conf" failed (2: The system cannot find the file specified)
+2019/08/13 23:15:58 [notice] 5588#18236: signal process started
+2019/08/13 23:15:58 [error] 5588#18236: invalid PID number "" in "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid"
+2019/08/13 23:31:26 [emerg] 19984#7696: CreateFile() "E:/etc/nginx/nginx.confE:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/conf/nginx.conf" failed (123: The filename, directory name, or volume label syntax is incorrect)
+2019/08/13 23:34:06 [notice] 2364#21328: signal process started
+2019/08/13 23:36:27 [notice] 4460#10552: signal process started
+2019/08/13 23:36:34 [notice] 14556#17288: signal process started
+2019/08/13 23:36:34 [error] 14556#17288: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/13 23:37:27 [notice] 13936#19012: signal process started
+2019/08/13 23:42:46 [notice] 20096#10900: signal process started
+2019/08/13 23:43:14 [notice] 20844#18108: signal process started
+2019/08/13 23:43:14 [error] 20844#18108: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/13 23:43:53 [notice] 16740#1212: signal process started
+2019/08/13 23:43:53 [error] 16740#1212: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/13 23:44:27 [notice] 464#21436: signal process started
+2019/08/13 23:44:27 [error] 464#21436: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019-nginx\nginx-1.16.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/14 00:04:04 [emerg] 18688#17876: CreateFile() "./conf/nginx" failed (2: The system cannot find the file specified)
+2019/08/14 00:04:16 [notice] 21292#20376: signal process started
+2019/08/14 00:04:16 [error] 21292#20376: OpenEvent("Global\ngx_reload_20792") failed (2: The system cannot find the file specified)
+2019/08/14 00:04:55 [emerg] 12624#17604: bind() to 0.0.0.0:3000 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2019/08/14 00:05:53 [notice] 17532#6920: signal process started
+2019/08/14 00:07:10 [notice] 11160#20520: signal process started
+2019/08/14 00:07:17 [notice] 20564#14460: signal process started
+2019/08/14 00:09:28 [notice] 8416#11436: signal process started
+2019/08/14 07:43:44 [notice] 16572#16604: signal process started
+2019/08/14 07:57:00 [notice] 2708#14216: signal process started
+2019/08/14 07:57:00 [error] 2708#14216: OpenEvent("Global\ngx_quit_8660") failed (5: Access is denied)
+2019/08/14 08:08:00 [notice] 3048#17820: signal process started
+2019/08/14 08:08:00 [error] 3048#17820: OpenEvent("Global\ngx_quit_8660") failed (5: Access is denied)
+2019/08/14 08:20:01 [emerg] 4200#6760: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/mime.types" failed (2: The system cannot find the file specified) in E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/nginx.conf:18
+2019/08/14 08:20:15 [emerg] 3508#9868: CreateFile() "./mime.types" failed (2: The system cannot find the file specified) in ./nginx.conf:18
+2019/08/14 08:20:55 [notice] 13492#2964: signal process started
+2019/08/14 08:25:05 [notice] 2264#11996: signal process started
+2019/08/14 08:30:02 [notice] 6340#10316: signal process started
+2019/08/14 08:30:02 [error] 6340#10316: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/14 08:35:49 [notice] 16484#9772: signal process started
+2019/08/14 08:36:20 [notice] 2120#10264: signal process started
+2019/08/14 08:43:27 [emerg] 1736#18092: host not found in "somename:8080" of the "listen" directive in ./conf/nginx.conf:86
+2019/08/14 08:43:27 [emerg] 10028#17516: host not found in "somename:8080" of the "listen" directive in E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/conf/nginx.conf:86
+2019/08/14 08:44:00 [error] 6912#16992: *3 CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_client\build/api" failed (2: The system cannot find the file specified), client: 192.168.31.96, server: 192.168.31.96, request: "GET /api HTTP/1.1", host: "192.168.31.96"
+2019/08/14 08:45:15 [notice] 9420#12364: signal process started
+2019/08/14 08:45:15 [error] 9420#12364: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/14 08:45:35 [notice] 12660#18028: signal process started
+2019/08/14 08:45:35 [error] 12660#18028: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/14 08:47:16 [emerg] 17752#16924: invalid host in "/api" of the "listen" directive in E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/conf/nginx.conf:86
+2019/08/14 08:49:00 [emerg] 2480#19256: invalid host in "/api" of the "listen" directive in E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/conf/nginx.conf:86
+2019/08/14 08:49:06 [notice] 18696#14400: signal process started
+2019/08/14 08:49:34 [notice] 17752#16924: signal process started
+2019/08/14 08:51:12 [notice] 2088#13120: signal process started
+2019/08/14 09:00:19 [notice] 16488#19188: signal process started
+2019/08/14 09:00:59 [notice] 14856#19148: signal process started
+2019/08/14 09:01:18 [notice] 15004#7064: signal process started
+2019/08/14 09:01:55 [notice] 16752#7932: signal process started
+2019/08/14 09:03:28 [notice] 11384#18100: signal process started
+2019/08/14 09:05:33 [notice] 15580#7856: signal process started

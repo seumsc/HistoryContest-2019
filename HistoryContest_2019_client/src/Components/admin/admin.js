@@ -366,6 +366,7 @@ class Admin extends React.Component {
             }
             else {
                 message.success("修改成功", 1.5);
+                that.get();
                 that.setState({ reset: { post: false } });
                 setTimeout(() => { that.setState({ reset: { Visible: false } }) }, 400)
             }
