@@ -1,1 +1,2 @@
-call npm run start
+@echo off
+ npm run start

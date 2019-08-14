@@ -1,2 +1,3 @@
-cd %cd%/HistoryContest_2019_client
+@echo off
+cd ./HistoryContest_2019_client
 call npm run build 

@@ -57,7 +57,7 @@ class Welcome extends React.Component {
                             className="login-button"
                             onClick={this.open}
                         >
-                            <Icon type="login" style={{ color: "white" }} />&nbsp;<b>Login &nbsp; 登录</b>
+                            <Icon type="login" style={{ color: "white" }} />&nbsp;<b>登录 &nbsp; Login</b>
                         </button>
                         <p key="space2"></p>
                     </QueueAnim>
