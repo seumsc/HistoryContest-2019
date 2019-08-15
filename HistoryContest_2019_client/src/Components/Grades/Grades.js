@@ -138,17 +138,17 @@ class Grades extends React.Component {
                 <Layout>
                     <Header style={{ height: 80 }}>
                         <Row>
-                            <Col span={6} offset={1} style={{ color: "white", fontSize: "calc(5px + 2vmin)"}}>
+                            <Col span={this.props.state.name.length>3?7:5} offset={0} style={{ color: "white", fontSize: "calc(10px + 2vmin)"}}>
                                     {this.props.state.name}同学，你的得分为：
                                     </Col>
-                            <Col span={9}>
+                            <Col span={2}>
                                 <b style={{ color: "red", fontSize: "60px" }}>{this.props.state.score}</b>
                             </Col>
-                            <Col span={6}>
+                            <Col span={4} offset={this.props.state.name.length>3?9:11}>
                                 <Timer min={2} sec={59} finish={this.props.logout} info={"距离自动注销 : "} />
                             </Col>
                             <Col span={2}>
-                                <Button ghost type="danger" onClick={this.props.logout}><Icon type="logout" size="large"/>退出</Button>
+                                <Button ghost  onClick={this.props.logout} style={{height:"50px",width:"100px",fontSize:"calc(3px + 2vmin)"}}><Icon type="logout" size="large"/>退出</Button>
                             </Col>
                         </Row>
                     </Header>
