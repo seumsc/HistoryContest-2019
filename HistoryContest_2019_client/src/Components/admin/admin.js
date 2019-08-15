@@ -930,7 +930,7 @@ class Admin extends React.Component {
                             </Col>
                         </Row>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>版权所有©</Footer>
+                    <Footer style={{ textAlign: 'center' }}>版权所有© 靠脸吃饭工作室</Footer>
                 </Layout>
             </React.Fragment>
         )

@@ -219,7 +219,7 @@ class Grades extends React.Component {
                             </Col>
                         </Row>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微 || 王文虞<br />版权所有©</Footer>
+                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微 || 王文虞<br />版权所有© 靠脸吃饭工作室</Footer>
                 </Layout>
             </React.Fragment>)
         }
