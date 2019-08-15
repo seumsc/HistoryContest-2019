@@ -76,7 +76,7 @@ class Choice extends React.Component {
                                         <div style={{ paddingTop: "180px", marginLeft: "20px" }}>
                                             <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button>
                                         </div></Col>
-                                    <Col span={20}>
+                                    <Col span={this.props.Id < 29 ?20:19}>
 
                                         <div style={{ marginTop: 95, marginBottom: 60, marginLeft: 50, height: 80 }}>
                                             <QueueAnim delay={200}
@@ -117,7 +117,7 @@ class Choice extends React.Component {
                                             </Radio.Group>
                                         </QueueAnim>
                                     </Col>
-                                    <Col span={2}>
+                                    <Col span={this.props.Id < 29 ?2:3}>
                                         <div style={{ marginTop: "290px" }}>
                                             {this.props.Id < 29 ?
                                                 <Button onClick={() => {
@@ -125,7 +125,7 @@ class Choice extends React.Component {
                                                     )
                                                 }}
                                                     size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
-                                                <Button type='primary' size="large" onClick={this.props.submit}>提交</Button>}
+                                                <Button ghost size="large" onClick={this.props.submit} style={{height:"70px",width:"100px"}}><div style={{fontSize:"25px"}}>提交</div></Button>}
                                         </div>
                                     </Col>
 

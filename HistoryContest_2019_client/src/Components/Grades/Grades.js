@@ -142,18 +142,18 @@ class Grades extends React.Component {
                         <Row>
                             <Col span={14}>
                                 <h1 style={{ color: "white", fontSize: "40px", marginTop: 15, marginBottom: 30 }}>
-                                    {this.props.state.name}&nbsp;同学，你本次校史校情知识竞赛得分为:&nbsp;&nbsp;
+                                    {this.props.state.name}&nbsp;同学，你的得分为:&nbsp;&nbsp;
                                 <b style={{ color: "red", fontSize: "50px" }}>{this.props.state.score}</b>
                                 </h1>
                             </Col>
-                            <Col span={4} offset={4}>
+                            <Col span={5} offset={3}>
                                 <div style={{ marginTop: "15px" }}>
                                     <Timer min={2} sec={59} finish={this.props.logout} info={"距离自动注销 : "} />
                                 </div>
                             </Col>
                             <Col span={2}>
                                 <div style={{ marginTop: "15px" }}>
-                                    <Button ghost type="danger" onClick={this.props.logout}><Icon type="logout" size="large"/>退出</Button>
+                                    <Button ghost  onClick={this.props.logout}><Icon type="logout" size="large"/>退出</Button>
                                 </div>
                             </Col>
                         </Row>

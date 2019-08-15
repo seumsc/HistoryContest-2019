@@ -97,3 +97,13 @@
 2019/08/14 23:15:11 [notice] 13860#17936: signal process started
 2019/08/14 23:15:11 [error] 13860#17936: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
 2019/08/14 23:15:31 [notice] 6416#16136: signal process started
+2019/08/15 19:06:04 [error] 17020#20660: *1 "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/..\..\HistoryContest_2019_client\build/index.html" is not found (3: The system cannot find the path specified), client: 192.168.31.96, server: localhost, request: "GET / HTTP/1.1", host: "192.168.31.96"
+2019/08/15 19:07:15 [error] 17020#20660: *2 "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/..\..\HistoryContest_2019_client\build/index.html" is not found (3: The system cannot find the path specified), client: 192.168.31.96, server: localhost, request: "GET / HTTP/1.1", host: "192.168.31.96"
+2019/08/15 19:07:28 [error] 17020#20660: *2 "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/..\..\HistoryContest_2019_client\build/index.html" is not found (3: The system cannot find the path specified), client: 192.168.31.96, server: localhost, request: "GET / HTTP/1.1", host: "192.168.31.96"
+2019/08/15 19:08:47 [error] 17020#20660: *3 "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/..\..\HistoryContest_2019_client\build/index.html" is not found (3: The system cannot find the path specified), client: 192.168.31.96, server: localhost, request: "GET / HTTP/1.1", host: "192.168.31.96"
+2019/08/15 19:09:10 [notice] 6248#4000: signal process started
+2019/08/15 19:09:13 [error] 21472#18840: *1 "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/..\..\HistoryContest_2019_client\build/index.html" is not found (3: The system cannot find the path specified), client: 192.168.31.96, server: localhost, request: "GET / HTTP/1.1", host: "192.168.31.96"
+2019/08/15 19:16:38 [notice] 19904#6396: signal process started
+2019/08/15 19:18:42 [notice] 10216#4716: signal process started
+2019/08/15 19:42:51 [notice] 9676#18172: signal process started
+2019/08/15 19:46:14 [notice] 6536#17396: signal process started
