@@ -335,7 +335,7 @@ class Test extends React.Component {
                             <Col span={10} offset={1} key="1">
                                 <h1 style={{ color: 'white', fontSize: "calc(15px + 2vmin)" }}><img src={mark} height="50px" width="50px" />&nbsp;东南大学校史校情知识竞赛</h1>
                             </Col>
-                            <Col span={4} offset={8} key="2">
+                            <Col span={5} offset={7} key="2">
                                 <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={29} sec={59} info={"  答题倒计时："} />
                             </Col>
                             </QueueAnim>
@@ -376,7 +376,7 @@ class Test extends React.Component {
                             </Col>
                         </Row>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>图源：东南大学官微 &nbsp;版权所有©</Footer>
+                    <Footer style={{ textAlign: 'center' }}> &nbsp;版权所有© 靠脸吃饭工作室</Footer>
                 </Layout>
             </React.Fragment>
         )

@@ -1,12 +1,25 @@
-echo off
-set path=%cd%
-cd  "%path%/HistoryContest_2019_nginx"
-start conf_nginx.bat
+@echo off
+echo check for npm...
+call npm -v
+if %ERRORLEVEL% NEQ 0 pause
+echo run nginx...
+cd ./HistoryContest_2019_nginx
+call run_nginx.bat
+if %ERRORLEVEL% NEQ 0 pause
 
-cd  "%path%/HistoryContest_2019_server"
-start run_server.bat
+echo now homepage is on locahost
+echo wait for server to start... 
+cd ../HistoryContest_2019_server
+call npm run start
+if %ERRORLEVEL% NEQ 0 pause
+if %ERRORLEVEL% EQU 0 (
+    echo exiting...
+    cd ./HistoryContest_2019_nginx
+    call close_nginx
+)
+pause
 
-cd  "%path%/HistoryContest_2019_nginx"
 
-start run_nginx.bat
+
+
 
