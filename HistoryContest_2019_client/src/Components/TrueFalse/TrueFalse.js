@@ -99,7 +99,7 @@ class Choice extends React.Component {
                                                             <Icon type="check"/>
                                                         </Col>
                                                         <Col span={20}>
-                                                            <p style={{ fontSize: 30, color: "white" }}>正&nbsp;确</p>
+                                                            <p style={{ fontSize: 30, color: "white" }}>正确</p>
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>
@@ -109,7 +109,7 @@ class Choice extends React.Component {
                                                         <Icon type="close" />
                                                         </Col>
                                                         <Col span={20}>
-                                                            <p style={{ fontSize: 30, color: "white" }}>错&nbsp;误</p>
+                                                            <p style={{ fontSize: 30, color: "white" }}>错误</p>
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>

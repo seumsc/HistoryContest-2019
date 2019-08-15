@@ -54,3 +54,18 @@
 2019/08/14 09:01:55 [notice] 16752#7932: signal process started
 2019/08/14 09:03:28 [notice] 11384#18100: signal process started
 2019/08/14 09:05:33 [notice] 15580#7856: signal process started
+2019/08/14 14:43:24 [notice] 13468#6604: signal process started
+2019/08/14 14:43:24 [emerg] 2088#7792: CreateDirectory() "C:\Users\87102\Documents\GitHub\HistoryContest-2019\HistoryContest_2019_nginx/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2019/08/14 14:43:24 [error] 13468#6604: OpenEvent("Global\ngx_reload_7028") failed (2: The system cannot find the file specified)
+2019/08/14 14:43:41 [emerg] 12864#13616: CreateDirectory() "C:\Users\87102\Documents\GitHub\HistoryContest-2019\HistoryContest_2019_nginx/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2019/08/14 14:43:41 [notice] 5364#15308: signal process started
+2019/08/14 14:43:41 [error] 5364#15308: OpenEvent("Global\ngx_reload_7028") failed (2: The system cannot find the file specified)
+2019/08/14 14:44:37 [emerg] 13724#14700: CreateDirectory() "C:\Users\87102\Documents\GitHub\HistoryContest-2019\HistoryContest_2019_nginx/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2019/08/14 14:44:53 [emerg] 12408#4064: CreateDirectory() "C:\Users\87102\Documents\GitHub\HistoryContest-2019\HistoryContest_2019_nginx/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2019/08/14 14:45:16 [emerg] 11988#14716: CreateDirectory() "C:\Users\87102\Documents\GitHub\HistoryContest-2019\HistoryContest_2019_nginx/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2019/08/14 14:45:41 [emerg] 13328#14152: CreateDirectory() "C:\Users\87102\Documents\GitHub\HistoryContest-2019\HistoryContest_2019_nginx/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2019/08/14 14:46:40 [notice] 8664#10296: signal process started
+2019/08/14 14:46:40 [error] 8664#10296: OpenEvent("Global\ngx_reload_7028") failed (2: The system cannot find the file specified)
+2019/08/14 15:22:28 [emerg] 10560#13984: CreateDirectory() "C:\Users\87102\Documents\GitHub\HistoryContest-2019\HistoryContest_2019_nginx/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2019/08/14 15:22:28 [notice] 7080#14152: signal process started
+2019/08/14 15:22:28 [error] 7080#14152: OpenEvent("Global\ngx_reload_7028") failed (2: The system cannot find the file specified)

@@ -65,9 +65,11 @@ class LoginModal extends React.Component {
                 async res => {
                     that.setState({ posted: false })
                     if (res.status == 404) {
+                        this.setState({ ...this.initState(), refresh: false });
                         message.error("用户名不存在!",1);
                     }
                     else if (res.status == 403) {
+                        this.setState({ ...this.initState(), refresh: false });
                         message.error("用户名或密码错误!",1);
                     }
                     else {
@@ -145,6 +147,7 @@ class LoginModal extends React.Component {
         
     }
     else{
+        this.setState({ ...this.initState(), refresh: false });
         message.error("账户或密码格式不符!")
     }}
         else {

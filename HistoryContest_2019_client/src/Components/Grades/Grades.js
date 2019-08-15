@@ -14,9 +14,7 @@ class Grades extends React.Component {
             focusOn: 0,
             name: "",
             messageGet:false
-        }
-
-    
+        }    
     }
     
     componentWillMount() {
@@ -140,21 +138,17 @@ class Grades extends React.Component {
                 <Layout>
                     <Header style={{ height: 80 }}>
                         <Row>
-                            <Col span={14}>
-                                <h1 style={{ color: "white", fontSize: "40px", marginTop: 15, marginBottom: 30 }}>
-                                    {this.props.state.name}&nbsp;同学，你本次校史校情知识竞赛得分为:&nbsp;&nbsp;
-                                <b style={{ color: "red", fontSize: "50px" }}>{this.props.state.score}</b>
-                                </h1>
+                            <Col span={6} offset={1} style={{ color: "white", fontSize: "calc(5px + 2vmin)"}}>
+                                    {this.props.state.name}同学，你的得分为：
+                                    </Col>
+                            <Col span={9}>
+                                <b style={{ color: "red", fontSize: "60px" }}>{this.props.state.score}</b>
                             </Col>
-                            <Col span={4} offset={4}>
-                                <div style={{ marginTop: "15px" }}>
-                                    <Timer min={2} sec={59} finish={this.props.logout} info={"距离自动注销 : "} />
-                                </div>
+                            <Col span={6}>
+                                <Timer min={2} sec={59} finish={this.props.logout} info={"距离自动注销 : "} />
                             </Col>
                             <Col span={2}>
-                                <div style={{ marginTop: "15px" }}>
-                                    <Button ghost type="danger" onClick={this.props.logout}><Icon type="logout" size="large"/>退出</Button>
-                                </div>
+                                <Button ghost type="danger" onClick={this.props.logout}><Icon type="logout" size="large"/>退出</Button>
                             </Col>
                         </Row>
                     </Header>
@@ -179,8 +173,8 @@ class Grades extends React.Component {
                                 </Card>
                             </Col>
                             <Col span={8} style={{ backgroundColor: "rgba(225,166,121,0.7)", marginTop: 71,height:470 }}>
-                                <div style={{ marginLeft: 80, overflow: "hidden", height: 160 }}>
-                                    <h2 style={{ color: 'white', fontSize: 25, marginTop: 60, marginBottom: 60, marginRight: 80 }} >
+                                <div style={{ marginLeft: 80, overflow: "hidden", height: 200 }}>
+                                    <h2 style={{ color: 'white', fontSize: 25, marginTop: 50, marginBottom: 60, marginRight: 80 }} >
                                         {this.state.focusOn + 1}&nbsp;{this.state.question[this.state.focusOn].title}<br />
                                     </h2>
                                 </div>
