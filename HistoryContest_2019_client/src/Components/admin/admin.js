@@ -688,6 +688,7 @@ class Admin extends React.Component {
                     </Row>
                 </Modal>
                 <Modal
+                    destroyOnClose={true}
                     title="注册"
                     visible={this.state.register.Visible}
                     onCancel={() => { this.setState({ register: { Visible: false } }) }}
@@ -710,6 +711,7 @@ class Admin extends React.Component {
 
                 </Modal>
                 <Modal
+                    destroyOnClose={true}
                     title={this.state.reset.attemp}
                     visible={this.state.reset.Visible}
                     onCancel={() => { this.setState({ reset: { Visible: false } }) }}

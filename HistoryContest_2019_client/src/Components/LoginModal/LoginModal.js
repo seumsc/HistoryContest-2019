@@ -192,6 +192,7 @@ class LoginModal extends React.Component {
     render() {
         let login = <div id='modal'>
             <Modal visible={this.props.visible}
+
                 destroyOnClose={true}
                 title={
                     <Dropdown overlay={
