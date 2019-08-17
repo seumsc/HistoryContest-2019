@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Radio, Card, Row, Col, Icon, Button, Layout, Table, Descriptions, Input, Tag, message, Dropdown, Menu, Drawer,notification } from 'antd';
+import { Modal, Radio, Card, Row, Col, Icon, Button, Layout, Table, Descriptions, Input, Tag, message, Dropdown, Menu, Drawer, notification } from 'antd';
 import 'antd/dist/antd.css';
 import mark from '../../img/校徽实体.png'
 import xlsx from 'node-xlsx'
@@ -125,24 +125,25 @@ class Super extends React.Component {
         // Object.keys(departInfo).map((inst,i)=>{
         //     departInfo[inst]["均分"]=90.00;
         // })
-        await fetch("http://"+that.props.state.host+"/api/admin/redis_updata",{
-            method:"GET",
-            mode:"cors",
+        await fetch("http://" + that.props.state.host + "/api/admin/redis_updata", {
+            method: "GET",
+            mode: "cors",
             headers: {
                 "authorization": that.props.state.token,
                 "Content-Type": "application/json"
             }
-        }).then(res=>{
-            if(res.status==404){
+        }).then(res => {
+            if (res.status == 404) {
                 console.log(res.json());
                 notification.open({
-                    placement:"bottomRight",
-                    duration:null,
+                    placement: "bottomRight",
+                    duration: null,
                     message: "出了点问题!请尝试右上角刷新",
-                    description: <div><p>此错误正常情况下不影响数据显示,但是如果错误持续出现请及时联系技术人员!</p> <p style={{color:"red"}}>错误详情:redis can not updata from mysql</p></div>,
-                    icon: <Icon type="warning" style={{ color:"red"  }} />
+                    description: <div><p>此错误正常情况下不影响数据显示,但是如果错误持续出现请及时联系技术人员!</p> <p style={{ color: "red" }}>错误详情:redis can not updata from mysql</p></div>,
+                    icon: <Icon type="warning" style={{ color: "red" }} />
                 })
-        }})
+            }
+        })
         fetch("http://" + that.props.state.host + "/api/admin/get_alldepartments", {
             methods: "GET",
             mode: "cors",
@@ -296,10 +297,10 @@ class Super extends React.Component {
                 body: JSON.stringify({
                     Name: that.state.register.name,
                     Username: that.state.register.username,
-                    Password: that.state.register.password
+                    Password: that.state.register.password,
+                    Identity: "0"
                 })
-            }).then(res => res.json()
-            ).then(data => {
+            }).then(data => {
                 if (data.status == 200) {
                     message.success("注册成功", 1.5);
                     that.get();
@@ -517,7 +518,7 @@ class Super extends React.Component {
                 sorter: (a, b) => a["排名"] - b["排名"],
                 align: "center",
                 render(h) {
-                    if(h==-1){
+                    if (h == -1) {
                         return ""
                     }
                     else {
