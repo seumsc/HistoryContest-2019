@@ -285,7 +285,7 @@ class Super extends React.Component {
         //注册函数
         let that = this;
         this.setState({ register: { post: true } });
-        fetch("http://" + this.props.state.host + "/api/ui/register",
+        fetch("http://" + this.props.state.host + "/api/admin/register",
             {
                 method: 'POST',
                 mode: 'cors',
