@@ -7,6 +7,7 @@
 - 本系统无法保证在ＩＥ１１上的稳定性，请至少使用３６０浏览器极速模式或其他非ＩＥ内核浏览器！！
 - ！！注意！！本系统UI优化建立在windows系统100%缩放下，浏览器100%缩放的16：9至4：3界面(即机房电脑的显示比例及缩放)，如果您电脑系统为120%~125%缩放，请在用非360浏览器的浏览器打开时，调整页面缩放到80%以获得较好的UI体验。
 - `linux`环境下，`nginx`静态服务需要重新配置(`HistoryContest_2019_nginx`中包含的为windows版本的`nginx`服务器)
+- `linux`环境下，所有已保存依赖包可能出现只兼容windows而报错的情况，请视实际情况更改相应依赖包
 
 ---
 ### 配置构建流程
@@ -40,11 +41,12 @@ bat 批处理文件解释：
 
 4. 该项目server需要连接 `Redis` 数据库以及`MySQL`数据库,MySQL数据库需严格按照`HistoryContest_2019_server\src\entity`中各对象所规定的数据格式存储信息，或直接导入`./testdata/historycontest-data.sql`的测试数据至MySQL数据库 
 
-   - ​	`Redis` 数据库无需初始化，服务器自动从MySQL中同步数据
-	- ​	MySQL连接端口及用户储存在`HistoryContest_2019_server\ormconfig.json`中，默认为3306；`Redis `连接端口储存在`HistoryContest_2019_server\src\config\redis.ts`中，默认为6379
-   - 启动前请保证服务器防火墙配置，及端口是否被占用，防止数据库端口启动异常
-5. 打开`HistoryContest_2019_nginx\conf\nginx.conf`，找到两个server对象，分别将root 的路径改为你的绝对路径
-  
+   - ​	`Redis` 数据库无需初始化，服务器自动从MySQL中同步数据，MySQL连接端口及用户储存在`HistoryContest_2019_server\ormconfig.json`中，默认为3306；`Redis `连接端口储存在`HistoryContest_2019_server\src\config\redis.ts`中，默认为6379
+	- 启动前请保证服务器防火墙配置，及端口是否被占用，防止数据库端口启动异常
+5. 打开`HistoryContest-2019\HistoryContest_2019_client\src\App.js`,更改`thsis.state`的初始化中的host属性，将其改为本机的IP地址(6553端口跟随后端服务端监听端口改变)
+
+6. 打开`HistoryContest_2019_nginx\conf\nginx.conf`，找到两个server对象，分别将root 的路径改为你的绝对路径
+
    ---
 ### 项目启动流程
 
