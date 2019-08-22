@@ -30,7 +30,7 @@ class LoginModal extends React.Component {
         let password = this.state.password;
         let identity = this.state.attemp;
         //暂时的登陆函数
-        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase() || 1) {
+        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase()) {
             // console.log("login");
             // message.success("登录成功！");
             // that.props.setState({
