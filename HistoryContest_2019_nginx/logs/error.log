@@ -126,12 +126,8 @@
 2019/08/17 10:36:54 [notice] 14564#17824: signal process started
 2019/08/17 11:04:49 [notice] 16968#12856: signal process started
 2019/08/17 11:48:00 [notice] 14752#8404: signal process started
-2019/08/17 16:12:01 [notice] 11948#14148: signal process started
-2019/08/17 16:12:01 [error] 11948#14148: OpenEvent("Global\ngx_quit_16836") failed (2: The system cannot find the file specified)
-2019/08/17 16:41:47 [notice] 5872#13028: signal process started
-2019/08/17 16:56:32 [notice] 1608#14320: signal process started
-2019/08/17 16:58:31 [notice] 4196#4680: signal process started
-2019/08/17 16:58:31 [error] 4196#4680: CreateFile() "C:\Users\87102\Documents\GitHub\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
-2019/08/17 17:01:07 [notice] 1588#14184: signal process started
-2019/08/24 22:51:25 [notice] 19352#7172: signal process started
-2019/08/24 23:41:57 [notice] 24444#23496: signal process started
+2019/08/20 12:47:22 [notice] 12728#7304: signal process started
+2019/08/20 13:25:34 [notice] 10152#4624: signal process started
+2019/08/20 13:25:34 [error] 10152#4624: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2019/08/22 07:57:47 [notice] 7412#2508: signal process started
+2019/08/22 07:57:47 [error] 7412#2508: CreateFile() "E:\projects\HistotyContest_2019\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)

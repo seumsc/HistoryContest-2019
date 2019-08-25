@@ -109,7 +109,7 @@ export class StudentController{
         if((((date.getTime()-1560000000000)/1000-student.time_use>1800)||(student.score!=-1)))
         {ctx.status=403}
         else 
-        if((date.getTime()-1560000000000)/1000-student.time_use<0) //设置最短时间
+        if((date.getTime()-1560000000000)/1000-student.time_use<180) //设置最短时间
         {
            ctx.body={msg:"答题时间过短,请认真答题"}; 
         }else
