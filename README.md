@@ -36,14 +36,14 @@ bat 批处理文件解释：
 
 2. clone 该项目到本地
 
-3. 安装NPM(或CNPM),配置好相应的PATH,在client和server工作区下皆运行一次脚本 `npm install --save`,安装相关依赖
+3. 安装NPM(或CNPM),配置好相应的PATH,在client和server工作区下皆运行一次脚本 `npm install`,安装相关依赖
 
 4. 该项目server需要连接 `Redis` 数据库以及`MySQL`数据库,MySQL数据库需严格按照`HistoryContest_2019_server\src\entity`中各对象所规定的数据格式存储信息，或直接导入`./testdata/historycontest-data.sql`的测试数据至MySQL数据库 
 
    - ​	`Redis` 数据库无需初始化，服务器自动从MySQL中同步数据
 	- ​	MySQL连接端口及用户储存在`HistoryContest_2019_server\ormconfig.json`中，默认为3306；`Redis `连接端口储存在`HistoryContest_2019_server\src\config\redis.ts`中，默认为6379
    - 启动前请保证服务器防火墙配置，及端口是否被占用，防止数据库端口启动异常
-5. 打开`HistoryContest_2019_nginx\conf\nginx.conf`，找到两个server对象，分别将root 的路径改为你的绝对路径
+5. 打开`HistoryContest_2019_nginx\conf\nginx.conf`，找到两个server对象，分别将root 的路径改为你的绝对路径(绝对路径中不能有中文和空格！！)
   
    ---
 ### 项目启动流程
