@@ -1,4 +1,4 @@
-/**
+in/**
  * Welcome to your Workbox-powered service worker!
  *
  * You'll need to register this file in your web app and you should

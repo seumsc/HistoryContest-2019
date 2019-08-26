@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>校史竞赛答题系统展示</title>
+  <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/flexslider.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/queries.css" rel="stylesheet">
+  <link href="css/animate.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body id="top">
+  <header id="home">
+    <nav>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+            <nav class="pull">
+              <ul class="top-nav">
+                <li><a href="#intro">前端简介 <span class="indicator"><i class="fa fa-angle-right"></i></span></a>
+                </li>
+                <li><a href="#func">功能介绍 <span class="indicator"><i class="fa fa-angle-right"></i></span></a>
+                </li>
+                <li><a href="#ui">UI设计 <span class="indicator"><i class="fa fa-angle-right"></i></span></a>
+                </li>
+                <li><a href="#team">团队成员 <span class="indicator"><i class="fa fa-angle-right"></i></span></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-right navicon">
+            <a id="nav-toggle" class="nav_slide_button" href="#"><span></span></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 text-center inner">
+            <h1 class="animated fadeInDown">校史竞赛<span>答题系统</span></h1>
+          </div>
+        </div>
+        <!-- <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                  <a href=".intro" class="learn-more-btn">了解更多</a>
+                </div>
+              </div> -->
+      </div>
+    </section>
+  </header>
+  <section class="intro text-left section-padding" id="intro">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 wp1">
+          <h1 class="arrow text-center" style="font-size: 30px">前端简介</h1>
+          <ul style="font-size: 26px">
+            <li>以react提供的脚手架为框架，创建了一个单页面应用。页面转换由react-dom控制而非前端虚拟路由，便于打包并提高了组件的复用性。</li>
+            <li>采用了ant design的大量现有组件搭建起了成熟的UI界面。登录界面大气，指示明确；答题界面题目突出，题目信息查看方便，富有历史气息；管理员界面功能齐全且易用。</li>
+            <li>交互逻辑皆应用react框架所提供的组件化管理，所有api请求操作皆为异步且有清楚的加载动画提示。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="func text-left">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h1 class="text-center">实现功能</h1>
+          <ul style="color: whitesmoke; font-size: 26px">
+            <li>
+              完整且独立的登录，答题，得分界面，完整且流畅的答题流程，完整功能的辅导员(管理员)界面
+            </li>
+            <li>
+              登录失败有明确的错误提示，登录流程具有验证码验证，防范跨站点攻击
+            </li>
+            <li>
+              完善的权限验证系统
+              <p style="color: whitesmoke; font-size: 22px">
+                通过服务端登录时发放的token，验证访问权限与确认身份，且用户名，密码与验证用token皆无与浏览器储存发生数据交换(无使用cookie)，避免身份信息被盗取</p>
+            </li>
+            <li>
+                优化了获取试卷的方式
+                <p style="color: whitesmoke; font-size: 22px">服务端仅仅只要返回随机题目ID，大大减少了网络通信压力与服务端压力</p>
+              </li>
+            <li>
+              所有网络请求操作与耗时操作皆为异步操作
+            </li>
+            <li>
+              利用react的懒加载特性，在必要时才加载某些图片和组件，加快了页面访问和加载速度
+            </li>
+            <li>
+              大量应用现有企业级组件，并配合自定义的动画过渡，界面重点突出，切换流畅，能随时给予用户必要的提示
+            </li>
+            <li>
+              81端口有完善的API文档
+            </li>
+          </ul>
+        </div>
+      </div>
+  </section>
+  <section class="ui text-center section-padding" id="ui">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="arrow" style="font-size: 30px">UI设计理念</h1>
+          <div class="ui-wrapper">
+            <div class="col-md-4 wp2">
+              <div class="icon">
+                <i class="fa fa-laptop shadow"></i>
+              </div>
+              <h2 style="font-size: 26px">实用</h2>
+              <p class="text-left" style="font-size: 24px">
+                &nbsp;&nbsp;&nbsp;&nbsp;页面交互符合用户操作习惯。答题操作方便简洁，得分界面可自动注销，辅导员界面功能完备，操作提示明确。</p>
+            </div>
+            <div class="col-md-4 wp2 delay-05s">
+              <div class="icon">
+                <i class="fa fa-heart shadow"></i>
+              </div>
+              <h2 style="font-size: 26px">美观</h2>
+              <p class="text-left" style="font-size: 24px">
+                &nbsp;&nbsp;&nbsp;&nbsp;选用多张东大图片作为背景图，并做油画滤镜处理，既不会喧宾夺主，又尽显东大特色、历史气息。动画过渡自然流畅，界面结构清楚舒适</p>
+            </div>
+            <div class="col-md-4 wp2 delay-1s">
+              <div class="icon">
+                <i class="fa Example of lightbulb-o
+                      fa-lightbulb-o shadow"></i>
+              </div>
+              <h2 style="font-size: 26px">清晰</h2>
+              <p class="text-left" style="font-size: 24px">
+                &nbsp;&nbsp;&nbsp;&nbsp;答题界面题目清楚明了，便于操作；得分界面简洁明快，能查询答题情况与正确答案。各处指示明确清晰，符合用户使用习惯</p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid nopadding responsive-services">
+      <h1 class="arrow" style="font-size: 30px">界面展示</h1>
+      <div class="wrapper">
+        <div class="iphone">
+          <div class="wp3"></div>
+        </div>
+        <div class="fluid-white"></div>
+      </div>
+      <div class="container designs">
+        <div class="row">
+          <div class="col-md-5 col-md-offset-7">
+            <div id="servicesSlider">
+              <h1 class="arrow" style="font-size: 26px">欢迎页</h1>
+              <p style="font-size: 22px" class="text-left">
+                &nbsp;&nbsp;&nbsp;&nbsp;选用大礼堂的照片作为背景，又印有校徽水印。既有东大特色，又充满历史气息，同时登录按钮位于中间偏下，清楚明了，便于点击</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="portfolio text-center section-padding" id="portfolio">
+      <h1 class="arrow" style="font-size: 30px">答题页面</h1>
+      <div class="container">
+        <div class="row">
+          <div id="portfolioSlider">
+            <ul class="slides">
+              <li>
+                <div class="col-md-4 wp4">
+                  <div class="overlay-effect effects clearfix">
+                    <div class="img">
+                      <img src="img/question1.jpg" alt="Portfolio Item">
+                    </div>
+                  </div>
+                  <h2 style="font-size: 26px">背景美观</h2>
+                  <p style="font-size: 22px" class="text-left">
+                    &nbsp;&nbsp;&nbsp;&nbsp;背景图由东大照片经油画滤镜处理而成，既有东大特色、历史气息，又不过分华丽，题目清晰</p>
+                </div>
+                <div class="col-md-4 wp4 delay-05s">
+                  <div class="overlay-effect effects clearfix">
+                    <div class="img">
+                      <img src="img/question2.jpg" alt="Portfolio Item">
+                    </div>
+                  </div>
+                  <h2 style="font-size: 26px">指示明确</h2>
+                  <p style="font-size: 22px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;上一题下一题指示明确，最下一排以小红点的形式显示题目是否答过，清晰明了
+                  </p>
+                </div>
+                <div class="col-md-4 wp4 delay-1s">
+                  <div class="overlay-effect effects clearfix">
+                    <div class="img">
+                      <img src="img/question3.jpg" alt="Portfolio Item">
+                    </div>
+                  </div>
+                  <h2 style="font-size: 26px">布局合理</h2>
+                  <p style="font-size: 22px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;标题、计时器、题目等排布合理、舒适</p>
+                </div>
+              </li>
+              <li>
+                <div class="col-md-4 wp4">
+                  <div class="overlay-effect effects clearfix">
+                    <div class="img">
+                      <img src="img/question6.jpg" alt="Portfolio Item">
+                    </div>
+                  </div>
+                  <h2 style="font-size: 26px">背景美观</h2>
+                  <p style="font-size: 22px" class="text-left">
+                    &nbsp;&nbsp;&nbsp;&nbsp;背景图由东大照片经油画滤镜处理而成，既有东大特色、历史气息，又不过分华丽，题目清晰</p>
+                </div>
+                <div class="col-md-4 wp4 delay-05s">
+                  <div class="overlay-effect effects clearfix">
+                    <div class="img">
+                      <img src="img/question8.jpg" alt="Portfolio Item">
+                    </div>
+                  </div>
+                  <h2 style="font-size: 26px">指示明确</h2>
+                  <p style="font-size: 22px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;上一题下一题指示明确，最下一排以小红点的形式显示题目是否答过，清晰明了
+                  </p>
+                </div>
+                <div class="col-md-4 wp4 delay-1s">
+                  <div class="overlay-effect effects clearfix">
+                    <div class="img">
+                      <img src="img/question11.jpg" alt="Portfolio Item">
+                    </div>
+                  </div>
+                  <h2 style="font-size: 26px">布局合理</h2>
+                  <p style="font-size: 22px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;标题、计时器、题目等排布合理、舒适</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="container-fluid nopadding responsive-services">
+      <div class="wrapper">
+        <div class="iphone">
+          <div class="wp7"></div>
+        </div>
+        <div class="fluid-white"></div>
+      </div>
+      <div class="container designs">
+        <div class="row">
+          <div class="col-md-5 col-md-offset-7">
+            <div id="servicesSlider">
+              <h1 class="arrow" style="font-size: 26px">得分页</h1>
+              <p style="font-size: 22px" class="text-left">
+                &nbsp;&nbsp;&nbsp;&nbsp;得分页简洁明快，具体答题情况与正确答案清楚明了，便于查看，在3分钟后自动注销</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid nopadding responsive-services">
+      <div class="wrapper">
+        <div class="iphone">
+          <div class="wp8"></div>
+        </div>
+        <div class="fluid-white"></div>
+      </div>
+      <div class="container designs">
+        <div class="row">
+          <div class="col-md-5 col-md-offset-7">
+            <h1 class="arrow" style="font-size: 26px">管理员页</h1>
+            <ul style="font-size: 22px; color:#8c9398" class="text-left">
+              <li>
+                查看所有权限内学生的身份信息，答题信息以及具体答题结果
+              </li>
+              <li>
+                快速过滤未答题学生(得分排序同理)，能按照姓名，学号，一卡通等信息进行模糊搜索
+              </li>
+              <li>
+                查看所有院系的均分与排名
+              </li>
+              <li>
+                提供注册与修改权限内学生任意身份信息的接口，保证每位学生的答题
+              </li>
+              <li>
+                将权限内的所有数据导出成完整的带有院系数据和学生数据的EXCEL表格
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="end text-center">
+    <div class="container">
+      <h1 style="font-size: 60px">前端展示结束，感谢欣赏</h1>
+
+    </div>
+  </section>
+  <section class="team text-center section-padding" id="team">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="arrow" style="font-size: 30px">靠脸吃饭工作室</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="team-wrapper">
+          <div id="teamSlider">
+            <ul class="slides">
+              <li>
+                <div class="col-md-3 wp5">
+                  <img src="img/hkh.jpg" alt="Team Member">
+                  <h2>黄开鸿</h2>
+                  <p></p>
+                  <div class="social">
+                    <ul class="social-buttons">
+                      <li><a href="mailto:kaihong.huang@foxmail.com" class="social-btn"><i class="fa fa-envelope"></i></a></li>
+                      <b>TEL:13802330190</b>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-3 wp5 delay-05s">
+                  <img src="img/ml.jpg" alt="Team Member">
+                  <h2>梅磊</h2>
+                  <p></p>
+                  <div class="social">
+                    <ul class="social-buttons">
+                      <li><a href="mailto:" class="social-btn"><i class="fa fa-envelope"></i></a></li>
+                      <b>TEL:18851897099</b>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3 wp5 delay-1s">
+                  <img src="img/rlh.jpg" alt="Team Member">
+                  <h2>任栗晗</h2>
+                  <p></p>
+                  <div class="social">
+                    <ul class="social-buttons">
+                      <li><a href="mailto:lihan_ren@foxmail.com" class="social-btn"><i class="fa fa-envelope"></i></a></li>
+                      <b>TEL:18119609984</b>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3 wp5 delay-1s">
+                    <img src="img/zxr.jpg" alt="Team Member">
+                    <h2>张心睿</h2>
+                    <p></p>
+                    <div class="social">
+                      <ul class="social-buttons">
+                        <li><a href="mailto:xinrui_zhang@foxmail.com" class="social-btn"><i class="fa fa-envelope"></i></a></li>
+                        <b>TEL:13223355221</b>
+                      </ul>
+                    </div>
+                  </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container text-center">
+      <p>版权所有© 靠脸吃饭工作室</p>
+      <a href="https://github.com/HHHKKKHHH/HistoryContest-2019"><i class="fa fa-github"></i>&nbsp;GitHub</a>
+      </div>
+    </div>
+  </footer>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="js/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/waypoints.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/jquery.flexslider.js"></script>
+  <script src="js/modernizr.js"></script>
+</body>
+
+</html>
