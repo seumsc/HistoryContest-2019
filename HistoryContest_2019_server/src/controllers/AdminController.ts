@@ -2,8 +2,6 @@ import { Student } from "../entity/Student";
 import { Counsellor } from "../entity/Counsellor"
 import { Admin } from "../entity/Admin"
 import { Department } from "../entity/Department"
-import { ChoiceQuestion } from "../entity/ChoiceQuestion"
-import { JudgmentQuestion } from "../entity/JudgmentQuestion"
 import { Controller, Ctx, Post, Get, UseBefore, QueryParam } from "routing-controllers"
 import { Context } from "koa";
 import * as verify from "../config/Verify"
