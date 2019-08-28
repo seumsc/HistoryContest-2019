@@ -51,17 +51,6 @@ export class AdminController {
                 redis.hmset(`admin:${element.username}`, element)
                 redis.sadd(`admin`, `${element.username}`)
             })
-            //从mysql中向redis录入题目信息
-            let choice = await ChoiceQuestion.find()
-            let judge = await JudgmentQuestion.find()
-            choice.forEach(element => {
-                redis.hmset(`choice:${element.id}`, element)
-                redis.sadd(`choice`, `${element.id}`)
-            })
-            judge.forEach(element => {
-                redis.hmset(`choice:${element.id}`, element)
-                redis.sadd(`choice`, `${element.id}`)
-            })
             //为学生划分院系
             let b = await Student.find();
             b.forEach(element => {

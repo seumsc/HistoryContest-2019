@@ -1,7 +1,4 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, UpdateDateColumn} from "typeorm";
-import { SSL_OP_NO_COMPRESSION } from "constants";
-import {ChoiceQuestion} from "./ChoiceQuestion";
-import {JudgmentQuestion} from "./JudgmentQuestion"
 @Entity()
 export class Student extends BaseEntity{
 

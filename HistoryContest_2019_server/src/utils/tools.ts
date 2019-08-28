@@ -2,8 +2,6 @@ import { Student } from "../entity/Student";
 import {Counsellor}from "../entity/Counsellor"
 import {Admin} from "../entity/Admin"
 import {Department} from "../entity/Department"
-import {ChoiceQuestion}from "../entity/ChoiceQuestion"
-import {JudgmentQuestion}from "../entity/JudgmentQuestion"
 const redis=require("../config/redis")
 //将所有数据从mysql同步到redis
 export async function redis_all(){
@@ -30,17 +28,6 @@ export async function redis_all(){
     admin.forEach(element =>{
         redis.hmset(`admin:${element.username}`,element)
         redis.sadd(`admin`,`${element.username}`)
-    })
-    //从mysql中向redis录入题目信息
-    let choice=await ChoiceQuestion.find()
-    let judge=await JudgmentQuestion.find()
-    choice.forEach(element =>{
-        redis.hmset(`choice:${element.id}`,element)
-        redis.sadd(`choice`,`${element.id}`)
-    })
-    judge.forEach(element =>{
-        redis.hmset(`judge:${element.id}`,element)
-        redis.sadd(`judge`,`${element.id}`)
     })
     //为学生划分院系
     let b=await Student.find();

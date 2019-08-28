@@ -2,8 +2,6 @@ import {Controller,Ctx,Get,Post, UseBefore} from "routing-controllers"
 import * as jwt from "jsonwebtoken"
 import {Key} from "../utils/keys"
 //import entities
-import {ChoiceQuestion}from "../entity/ChoiceQuestion"
-import {JudgmentQuestion}from "../entity/JudgmentQuestion"
 import {Student} from "../entity/Student"
 import { Context } from "koa";
 //import utils
@@ -11,6 +9,8 @@ import {RandomArr}from "../utils/RandomArray"
 import * as verify from "../config/Verify"
 import { Department } from "../entity/Department";
 const redis =require("../config/redis")
+let choices=require("../Data/choice_question.json")
+let judgements=require("../Data/judgment_question.json")
 @Controller("/student")
 export class StudentController{
 
@@ -42,10 +42,10 @@ export class StudentController{
         student.answers_choice=[]
         student.answers_judgment=[]
         choice_id.forEach(async element => {
-            student.answers_choice.push(await redis.hget(`choice:${element}`,'answer'))
+            student.answers_choice.push(choices.RECORDS[element-1].answer)
         });
         judgment_id.forEach(async element => {
-            student.answers_judgment.push(await redis.hget(`judge:${element}`,'answer'))
+            student.answers_judgment.push(judgements.RECORDS[element-1].answer)
         });
         student.choice_question=choice_id;
         student.judgment_question=judgment_id;
