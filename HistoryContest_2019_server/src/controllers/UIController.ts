@@ -17,7 +17,7 @@ export class UIController{
 
     @Post("/login")
     async post_login(@Ctx() ctx:Context){
-        console.log(ctx.request.body)
+        console.log(ctx.request.body);
         switch (ctx.request.body.Identity)
         {
             case '0':

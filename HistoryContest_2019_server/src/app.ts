@@ -20,15 +20,7 @@ const redis=require('../src/config/redis')
 const router=new Router();
 
 //为跨域进行cors设置
-app.use(cors({
-  origin: '*',
-  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-  maxAge: 5,
-  credentials: true,
-  allowMethods: ['GET', 'POST', 'DELETE'],
-  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
-})
-)
+app.use(cors())
 app.use(router.routes()).use(router.allowedMethods());
 
 app.use(async (ctx,next)=>{

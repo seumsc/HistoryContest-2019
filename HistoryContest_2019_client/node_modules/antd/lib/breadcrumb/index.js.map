@@ -1,0 +1,1 @@
+{"version":3,"sources":["breadcrumb/index.jsx"],"names":["Breadcrumb","Item","BreadcrumbItem"],"mappings":";;;;;;;AAAA;;AACA;;;;AACAA,uBAAWC,IAAX,GAAkBC,0BAAlB;eACeF,sB","sourcesContent":["import Breadcrumb from './Breadcrumb';\nimport BreadcrumbItem from './BreadcrumbItem';\nBreadcrumb.Item = BreadcrumbItem;\nexport default Breadcrumb;\n"],"file":"index.js"}

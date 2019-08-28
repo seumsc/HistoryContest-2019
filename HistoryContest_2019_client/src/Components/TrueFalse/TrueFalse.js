@@ -78,12 +78,12 @@ class Choice extends React.Component {
                                         </div></Col>
                                     <Col span={this.props.Id < 29 ?20:19}>
 
-                                        <div style={{ marginTop: 95, marginBottom: 60, marginLeft: 50, height: 80 }}>
+                                        <div   style={{ marginTop: 95, marginBottom: 60, marginLeft: 50, height: 80 }}>
                                             <QueueAnim delay={200}
                                                 animConfig={[
                                                     { opacity: [1, 0], translateX: [0, 80] }
                                                 ]}>
-                                                <p key="title" style={{ color: 'white', fontSize: 35 }}>
+                                                <p classname="text" key="title" style={{ color: 'white', fontSize: 35 }}>
                                                     &nbsp;{this.props.state.title}
                                                 </p>
                                             </QueueAnim>

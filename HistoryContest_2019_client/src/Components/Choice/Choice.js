@@ -52,7 +52,7 @@ class Choice extends React.Component {
         }
         return (
             <React.Fragment>
-                <Row style={{
+                <Row onselectstart="return flase" style={{
                     backgroundImage: `url(${imgs[(this.props.Id % 11)]})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -79,7 +79,7 @@ class Choice extends React.Component {
                                         </div></Col>
                                     <Col span={20}>
 
-                                        <div style={{ marginTop: 95, marginBottom: 60, marginLeft: 50, height: 100 }}>
+                                        <div classname="text" style={{ marginTop: 95, marginBottom: 60, marginLeft: 50, height: 100 }}>
                                             <QueueAnim delay={200}
                                                 animConfig={[
                                                     { opacity: [1, 0], translateX: [0, 80] }

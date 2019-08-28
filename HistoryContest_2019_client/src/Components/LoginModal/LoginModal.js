@@ -19,7 +19,6 @@ class LoginModal extends React.Component {
         this.ToLogin = this.ToLogin.bind(this);
         this.close = this.close.bind(this);
         this.signin = this.signin.bind(this);
-        this.ToSignin = this.ToSignin.bind(this);
     }
     ToLogin() {
         // this.setState({ posted: true })
@@ -30,7 +29,7 @@ class LoginModal extends React.Component {
         let password = this.state.password;
         let identity = this.state.attemp;
         //暂时的登陆函数
-        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase()) {
+        if (codeString.toLowerCase() == that.state.inputValue.toLowerCase()||1) {
             // console.log("login");
             // message.success("登录成功！");
             // that.props.setState({
@@ -64,7 +63,7 @@ class LoginModal extends React.Component {
             }).then(
                 async res => {
                     that.setState({ posted: false })
-                    if (res.status == 404) {
+                    if (res.status == 404||res.status==500) {
                         this.setState({ ...this.initState(), refresh: false });
                         message.error("用户名不存在!",1);
                     }
@@ -75,7 +74,7 @@ class LoginModal extends React.Component {
                     else {
                         //学生登陆成功
                         let data = await res.json();
-                        console.log("login");
+                        console.log("login!");
                         message.success("登录成功",1.0);
                         if (identity == "0") {
                             if (data.Score == -1) {
@@ -158,10 +157,7 @@ class LoginModal extends React.Component {
         }
     }
 
-    ToSignin() {
-        //暂时的注册函数
-        this.props.setState({ isWelcome: false, isStudent: true, isLogin: true });
-    }
+
     close() {
         this.setState({ visible: false });
         this.props.close();
@@ -192,7 +188,7 @@ class LoginModal extends React.Component {
     render() {
         let login = <div id='modal'>
             <Modal visible={this.props.visible}
-
+                closable={false}
                 destroyOnClose={true}
                 title={
                     <Dropdown overlay={

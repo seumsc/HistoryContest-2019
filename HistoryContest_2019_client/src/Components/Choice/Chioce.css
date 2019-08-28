@@ -56,3 +56,12 @@
   .test{
     color: rgba(22, 80, 105, 0.7)
   }
+
+  .text{
+
+      -webkit-user-select: none;  
+      -moz-user-select:none;  
+      -o-user-select:none;  
+      -ms-user-select:none;
+
+  }

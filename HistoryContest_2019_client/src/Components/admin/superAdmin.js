@@ -143,6 +143,9 @@ class Super extends React.Component {
                     icon: <Icon type="warning" style={{ color: "red" }} />
                 })
             }
+            else{
+                console.log("redis update successfully")
+            }
         })
         fetch("http://" + that.props.state.host + "/api/admin/get_alldepartments", {
             methods: "GET",

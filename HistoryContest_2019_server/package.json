@@ -15,6 +15,7 @@
     "@types/koa-router": "^7.0.42",
     "@types/node": "^12.6.2",
     "bcryptjs": "^2.4.3",
+    "ioredis": "^4.14.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",

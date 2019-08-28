@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Row, Col, Tabs, Button, Modal, Layout, Badge, message,Skeleton } from 'antd';
+import { Row, Col, Tabs, Button, Modal, Layout, Badge, message,notification,Icon } from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
 import bg1 from '../../img/background1.png';
@@ -176,6 +176,7 @@ class Test extends React.Component {
                             that.state.question[i].value=-1;
                         }
                         that.setState({ isPaperGet: true });
+                        console.log("get the paper!")
                     }
                 }
                 else {
@@ -253,11 +254,22 @@ class Test extends React.Component {
             )
 
     }
-    done(i, value) {
+    async done(i, value) {
         let x = this.state.question;
         x[i].isFinish = true;
         x[i].value = value;
-        this.setState({ question: x });
+        await this.setState({ question: x });
+        let result=this.state.question.filter((x,i)=>{
+            return !x.isFinish
+        })
+        if(result.length==0){
+            this.setState({focusOn:29});
+            notification.open({
+                message: "所有题目已完成",
+                description: "前往最后一题点击完成按钮吧！",
+                icon: <Icon type="check" style={{ color: "blue" }} />
+            })
+        }
     }
     render() {
         if (!this.state.isTesting) {
@@ -274,6 +286,7 @@ class Test extends React.Component {
                 }}>
                     <Modal
                         visible={!this.state.isTesting}
+                        closable={false}
                         title="答题须知"
                         centered={true}
                         footer={[
@@ -360,11 +373,11 @@ class Test extends React.Component {
                                             <Badge dot={true} > <div style={{ color: 'white' ,fontSize:"18px"}}>{i + 1}</div></Badge> :
                                             <div style={{ color: 'white' }}>{i + 1}</div>}
                                             key={i}
-                                            onChange={() => { this.done(i) }}
+                                            //onChange={() => { this.done(i) }}
                                             style={{ textAlign: "left" }}
                                         >
                                             {x.kind=="选择题" ?
-                                                <Choice className="choice" Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev}
+                                                <Choice  Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev}
                                                     submit={this.submit} />
                                                 : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
                                             }
