@@ -214,6 +214,7 @@ class Test extends React.Component {
         // })
 
         //提交函数
+        notification.close("submit")
         let that = this;
         let data = { Answer: [], Username: this.props.state.username };
         this.state.question.forEach((x, i) => {
@@ -263,11 +264,12 @@ class Test extends React.Component {
             return !x.isFinish
         })
         if(result.length==0){
-            this.setState({focusOn:29});
+            //this.setState({focusOn:29});
             notification.open({
                 message: "所有题目已完成",
-                description: "前往最后一题点击完成按钮吧！",
-                icon: <Icon type="check" style={{ color: "blue" }} />
+                description:<div> <p>点击下方按钮或前往最后一题提交答卷吧！</p><Button onClick={this.submit} type="primary" size="large">提交</Button></div>,
+                icon: <Icon type="check" style={{ color: "blue" }} />,
+                key:"submit"
             })
         }
     }

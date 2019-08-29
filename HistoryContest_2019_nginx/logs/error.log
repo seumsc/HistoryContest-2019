@@ -138,3 +138,5 @@
 2019/08/27 22:51:40 [error] 4416#14304: CreateFile() "E:\projects\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
 2019/08/27 22:55:31 [notice] 19824#19232: signal process started
 2019/08/28 09:45:17 [notice] 15928#19292: signal process started
+2019/08/28 10:05:59 [notice] 17996#5448: signal process started
+2019/08/28 10:05:59 [error] 17996#5448: CreateFile() "E:\projects\HistoryContest-2019\HistoryContest_2019_nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)

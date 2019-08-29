@@ -52,17 +52,4 @@
   .ant-radio-button-wrapper-checked:focus-within {
     outline: 0px solid rgba(24, 144, 255, 0.06);
   }
-  .text{
 
-    -webkit-user-select: none !important;
-    -moz-user-select:none!important;  
-    -o-user-select:none!important;
-    -ms-user-select:none!important;
-
-}
-body {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  } 
