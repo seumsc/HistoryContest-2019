@@ -214,6 +214,10 @@ class Test extends React.Component {
         // })
 
         //提交函数
+        let result=this.state.question.filter((x,i)=>{
+            return !x.isFinish
+        })
+        if(result.length==0){    
         notification.close("submit")
         let that = this;
         let data = { Answer: [], Username: this.props.state.username };
@@ -253,7 +257,10 @@ class Test extends React.Component {
                 }
             }
             )
-
+        }
+        else{
+            message.warning("请认真完成全部题目！")
+        }
     }
     async done(i, value) {
         let x = this.state.question;
@@ -382,15 +389,7 @@ class Test extends React.Component {
                                                 <Choice  Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev}
                                                     submit={this.submit} />
                                                 : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
-                                            }
-
-                                        </TabPane>)
-                                    )
-                                    }
-                                </Tabs>
-                            </Col>
-                        </Row>
-                    </Content>
+                                            }</TabPane>))}</Tabs></Col></Row> </Content>
                     <Footer style={{ textAlign: 'center' }}> &nbsp;版权所有© 靠脸吃饭工作室</Footer>
                 </Layout>
             </React.Fragment>
