@@ -1,7 +1,7 @@
 import React from 'react';
 import './Welcome.css';
 import 'antd/dist/antd.css';
-import bg1 from '../../img/1.png';
+import bg1 from '../../img/1.jpg';
 import seu from '../../img/东南大学.png';
 import words from '../../img/校史校情知识竞赛 .PNG';
 import { Icon } from 'antd';

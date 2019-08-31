@@ -3,9 +3,9 @@ import { Row, Radio, Button, Col } from 'antd';
 import 'antd/dist/antd.css';
 import './Chioce.css'
 import QueueAnim from 'rc-queue-anim';
-import bg1 from '../../img/background1.png';
-import bg2 from '../../img/background2.png';
-import bg3 from '../../img/background3.png';
+import bg1 from '../../img/background1.jpg';
+import bg2 from '../../img/background2.jpg';
+import bg3 from '../../img/background3.jpg';
 import bg4 from '../../img/background4.jpg';
 import bg5 from '../../img/background5.jpg';
 import bg6 from '../../img/background6.jpg';

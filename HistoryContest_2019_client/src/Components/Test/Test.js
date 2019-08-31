@@ -3,15 +3,15 @@ import React from 'react';
 import { Row, Col, Tabs, Button, Modal, Layout, Badge, message,notification,Icon } from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
-import bg1 from '../../img/background1.png';
+import bg1 from '../../img/background1.jpg';
 import BG from '../../img/图片2.jpg'
 import mark from '../../img/校徽实体.png'
 import Timer from '../Timer/Timer';
 import Choice from '../Choice/Choice';
 import TrueFalse from '../TrueFalse/TrueFalse';
 import QueueAnim from 'rc-queue-anim';
-const bg2 = React.lazy(() => import('../../img/background2.png'))
-const bg3 = React.lazy(() => import('../../img/background3.png'))
+const bg2 = React.lazy(() => import('../../img/background2.jpg'))
+const bg3 = React.lazy(() => import('../../img/background3.jpg'))
 const bg4 = React.lazy(() => import('../../img/background4.jpg'))
 const bg5 = React.lazy(() => import('../../img/background5.jpg'))
 const bg6 = React.lazy(() => import('../../img/background6.jpg'))

@@ -69,8 +69,9 @@
           <h1 class="arrow text-center" style="font-size: 30px">前端简介</h1>
           <ul style="font-size: 26px">
             <li>以react提供的脚手架为框架，创建了一个单页面应用。页面转换由react-dom控制而非前端虚拟路由，便于打包并提高了组件的复用性。</li>
-            <li>采用了ant design的大量现有组件搭建起了成熟的UI界面。登录界面大气，指示明确；答题界面题目突出，题目信息查看方便，富有历史气息；管理员界面功能齐全且易用。</li>
             <li>交互逻辑皆应用react框架所提供的组件化管理，所有api请求操作皆为异步且有清楚的加载动画提示。</li>
+            <li>学生数据、题目信息等大容量数据及图片等文件可缓存在前端，并在服务器更新后重新加载，避免了大量重复的网络通信</li>
+            <li>采用了ant design的大量现有组件搭建起了成熟的UI界面。</li>
           </ul>
         </div>
       </div>
@@ -90,24 +91,12 @@
             </li>
             <li>
               完善的权限验证系统
-              <p style="color: whitesmoke; font-size: 22px">
-                通过服务端登录时发放的token，验证访问权限与确认身份，且用户名，密码与验证用token皆无与浏览器储存发生数据交换(无使用cookie)，避免身份信息被盗取</p>
             </li>
             <li>
                 优化了获取试卷的方式
-                <p style="color: whitesmoke; font-size: 22px">服务端仅仅只要返回随机题目ID，大大减少了网络通信压力与服务端压力</p>
               </li>
             <li>
-              所有网络请求操作与耗时操作皆为异步操作
-            </li>
-            <li>
               利用react的懒加载特性，在必要时才加载某些图片和组件，加快了页面访问和加载速度
-            </li>
-            <li>
-              大量应用现有企业级组件，并配合自定义的动画过渡，界面重点突出，切换流畅，能随时给予用户必要的提示
-            </li>
-            <li>
-              81端口有完善的API文档
             </li>
           </ul>
         </div>
@@ -124,16 +113,12 @@
                 <i class="fa fa-laptop shadow"></i>
               </div>
               <h2 style="font-size: 26px">实用</h2>
-              <p class="text-left" style="font-size: 24px">
-                &nbsp;&nbsp;&nbsp;&nbsp;页面交互符合用户操作习惯。答题操作方便简洁，得分界面可自动注销，辅导员界面功能完备，操作提示明确。</p>
             </div>
             <div class="col-md-4 wp2 delay-05s">
               <div class="icon">
                 <i class="fa fa-heart shadow"></i>
               </div>
               <h2 style="font-size: 26px">美观</h2>
-              <p class="text-left" style="font-size: 24px">
-                &nbsp;&nbsp;&nbsp;&nbsp;选用多张东大图片作为背景图，并做油画滤镜处理，既不会喧宾夺主，又尽显东大特色、历史气息。动画过渡自然流畅，界面结构清楚舒适</p>
             </div>
             <div class="col-md-4 wp2 delay-1s">
               <div class="icon">
@@ -141,8 +126,6 @@
                       fa-lightbulb-o shadow"></i>
               </div>
               <h2 style="font-size: 26px">清晰</h2>
-              <p class="text-left" style="font-size: 24px">
-                &nbsp;&nbsp;&nbsp;&nbsp;答题界面题目清楚明了，便于操作；得分界面简洁明快，能查询答题情况与正确答案。各处指示明确清晰，符合用户使用习惯</p>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -162,8 +145,7 @@
           <div class="col-md-5 col-md-offset-7">
             <div id="servicesSlider">
               <h1 class="arrow" style="font-size: 26px">欢迎页</h1>
-              <p style="font-size: 22px" class="text-left">
-                &nbsp;&nbsp;&nbsp;&nbsp;选用大礼堂的照片作为背景，又印有校徽水印。既有东大特色，又充满历史气息，同时登录按钮位于中间偏下，清楚明了，便于点击</p>
+              <p style="font-size: 26px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;选用大礼堂的照片作为背景，又印有校徽水印。既有东大特色，又充满历史气息，同时登录按钮位于中间偏下，清楚明了，便于点击</p>
             </div>
           </div>
         </div>
@@ -183,8 +165,6 @@
                     </div>
                   </div>
                   <h2 style="font-size: 26px">背景美观</h2>
-                  <p style="font-size: 22px" class="text-left">
-                    &nbsp;&nbsp;&nbsp;&nbsp;背景图由东大照片经油画滤镜处理而成，既有东大特色、历史气息，又不过分华丽，题目清晰</p>
                 </div>
                 <div class="col-md-4 wp4 delay-05s">
                   <div class="overlay-effect effects clearfix">
@@ -193,8 +173,6 @@
                     </div>
                   </div>
                   <h2 style="font-size: 26px">指示明确</h2>
-                  <p style="font-size: 22px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;上一题下一题指示明确，最下一排以小红点的形式显示题目是否答过，清晰明了
-                  </p>
                 </div>
                 <div class="col-md-4 wp4 delay-1s">
                   <div class="overlay-effect effects clearfix">
@@ -203,7 +181,6 @@
                     </div>
                   </div>
                   <h2 style="font-size: 26px">布局合理</h2>
-                  <p style="font-size: 22px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;标题、计时器、题目等排布合理、舒适</p>
                 </div>
               </li>
               <li>
@@ -214,8 +191,6 @@
                     </div>
                   </div>
                   <h2 style="font-size: 26px">背景美观</h2>
-                  <p style="font-size: 22px" class="text-left">
-                    &nbsp;&nbsp;&nbsp;&nbsp;背景图由东大照片经油画滤镜处理而成，既有东大特色、历史气息，又不过分华丽，题目清晰</p>
                 </div>
                 <div class="col-md-4 wp4 delay-05s">
                   <div class="overlay-effect effects clearfix">
@@ -224,8 +199,6 @@
                     </div>
                   </div>
                   <h2 style="font-size: 26px">指示明确</h2>
-                  <p style="font-size: 22px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;上一题下一题指示明确，最下一排以小红点的形式显示题目是否答过，清晰明了
-                  </p>
                 </div>
                 <div class="col-md-4 wp4 delay-1s">
                   <div class="overlay-effect effects clearfix">
@@ -234,7 +207,6 @@
                     </div>
                   </div>
                   <h2 style="font-size: 26px">布局合理</h2>
-                  <p style="font-size: 22px" class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;标题、计时器、题目等排布合理、舒适</p>
                 </div>
               </li>
             </ul>
@@ -274,19 +246,16 @@
             <h1 class="arrow" style="font-size: 26px">管理员页</h1>
             <ul style="font-size: 22px; color:#8c9398" class="text-left">
               <li>
-                查看所有权限内学生的身份信息，答题信息以及具体答题结果
-              </li>
-              <li>
-                快速过滤未答题学生(得分排序同理)，能按照姓名，学号，一卡通等信息进行模糊搜索
+                查看权限内所有学生的身份信息，答题信息,并可排序和搜索
               </li>
               <li>
                 查看所有院系的均分与排名
               </li>
               <li>
-                提供注册与修改权限内学生任意身份信息的接口，保证每位学生的答题
+                可注册与修改权限内学生任意身份信息
               </li>
               <li>
-                将权限内的所有数据导出成完整的带有院系数据和学生数据的EXCEL表格
+                可将权限内的所有数据导出成完整的带有院系数据和学生数据的EXCEL表格
               </li>
             </ul>
           </div>
