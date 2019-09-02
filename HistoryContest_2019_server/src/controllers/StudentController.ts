@@ -107,7 +107,7 @@ export class StudentController{
             redis.set(`student:${data.username}`,JSON.stringify(student))
         }
         if((((date.getTime()-1560000000000)/1000-student.time_use>1800)||(student.score!=-1)))
-        {ctx.status=403}
+        {ctx.status=200;ctx.body={msc:(date.getTime()-1560000000000)/1000-student.time_use}}
         else 
         if((date.getTime()-1560000000000)/1000-student.time_use<180) //设置最短时间
         {

@@ -19,7 +19,7 @@ class App extends React.Component {
       isAllDone: false,
       isAdmin: false,
       isTeacher: false,
-      host: " :6553",
+      host: "localhost:6553",
         name: '',
         username: "",
         depart: "",

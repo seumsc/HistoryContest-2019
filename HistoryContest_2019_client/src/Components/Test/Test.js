@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Row, Col, Tabs, Button, Modal, Layout, Badge, message,notification,Icon } from 'antd';
+import { BackTop, Row, Col, Tabs, Button, Modal, Layout, Badge, message,notification,Icon,Popconfirm } from 'antd';
 import 'antd/dist/antd.css';
 import './Test.css';
 import bg1 from '../../img/background1.jpg';
@@ -274,7 +274,7 @@ class Test extends React.Component {
             //this.setState({focusOn:29});
             notification.open({
                 message: "所有题目已完成",
-                description:<div> <p>点击下方按钮或前往最后一题提交答卷吧！</p><Button onClick={this.submit} type="primary" size="large">提交</Button></div>,
+                description:<div> <p>点击下方按钮或前往最后一题提交答卷吧！</p><Popconfirm placement="top" title={"确认交卷？"} onConfirm={this.submit} okText="完成了！" cancelText="检查一下"><Button>提交</Button></Popconfirm></div>,
                 icon: <Icon type="check" style={{ color: "blue" }} />,
                 key:"submit"
             })
