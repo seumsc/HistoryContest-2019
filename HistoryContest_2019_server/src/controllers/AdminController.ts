@@ -77,7 +77,7 @@ export class AdminController {
             department = await Department.findOne({ id: data.department });
             redis.hmset(`department:${data.department}`, department)
         }
-        if (!ctx.request.get("If-Modified-Since") || ctx.request.get("If-Modified-Since") != `${department.updatedDate}`) {
+        // if (!ctx.request.get("If-Modified-Since") || ctx.request.get("If-Modified-Since") != `${department.updatedDate}`) {
             ctx.body = {
                 "建筑学院": [],
                 "吴健雄学院": [],
@@ -118,14 +118,14 @@ export class AdminController {
                 arr.push(test)
             }
             ctx.body[department.name] = arr
-            ctx.response.set({
-                'Last-Modified': `${department.updatedDate}`,
-                'Cache-Control': "no-cache"
-            })
-        }
-        else {
-            ctx.status = 304;
-        }
+            // ctx.response.set({
+                // 'Last-Modified': `${department.updatedDate}`,
+                // 'Cache-Control': "no-cache"
+            // })
+        // }
+        // else {
+            // ctx.status = 304;
+        // }
         return ctx;
     }
     /**

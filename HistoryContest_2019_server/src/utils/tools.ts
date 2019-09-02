@@ -5,6 +5,27 @@ import {Department} from "../entity/Department"
 const redis=require("../config/redis")
 //将所有数据从mysql同步到redis
 export async function redis_all(){
+    //初次导入 数据库初始化
+    let allStudent=await Student.find();
+    for(let stu of allStudent){
+        stu.department = stu.username[0] + stu.username[1]
+        await Student.update(stu.id,stu);}
+    //     let Dep =await Department.findOne({id:stu.department})
+    //     console.log(Dep);
+        
+    //     if(Dep==undefined){
+    //         let newDep=new Department();
+    //         newDep.id=stu.department;
+    //         newDep.total_number=1;
+    //         await Department.save(newDep);
+    //         console.log(`add department ${newDep.id}`)
+    //     }
+    //     else{
+    //         Dep.total_number+=1;
+    //         await Department.update(Dep.test,Dep);
+    //         console.log(`add student in ${Dep.id}`)
+    //     }
+    // }
     //从mysql中向redis录入院系信息
     let department=await Department.find()
     department.forEach(element => {

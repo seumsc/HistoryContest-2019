@@ -125,6 +125,10 @@ class Super extends React.Component {
         // Object.keys(departInfo).map((inst,i)=>{
         //     departInfo[inst]["均分"]=90.00;
         // })
+        await that.setState({origionData: {},
+            displayData: [],
+            departData: [],
+            departList: []})
         await fetch("http://" + that.props.state.host + "/api/admin/redis_updata", {
             method: "GET",
             mode: "cors",

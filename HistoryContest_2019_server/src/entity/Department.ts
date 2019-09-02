@@ -9,7 +9,7 @@ export class Department extends BaseEntity{
     @Column()
     id:string;
     
-    @Column()
+    @Column({default:""})
     name:string;
 
     @Column({default:0})

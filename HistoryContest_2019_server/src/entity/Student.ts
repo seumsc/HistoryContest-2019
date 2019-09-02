@@ -6,7 +6,7 @@ export class Student extends BaseEntity{
     id: number;
 
     @Column({
-    length:10
+    length:20
     })
     name: string;
 
@@ -19,7 +19,7 @@ export class Student extends BaseEntity{
     @Column({default:0})
     identity:string;//0:学生；1：管理员；2：辅导员
 
-    @Column()//院系序号，例：“71”，“09”
+    @Column({default:"none"})//院系序号，例：“71”，“09”
     department:string;
 
     @Column({default:-1})//得分，-1为未答题

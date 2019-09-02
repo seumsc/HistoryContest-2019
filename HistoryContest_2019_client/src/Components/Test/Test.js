@@ -61,7 +61,7 @@ class Test extends React.Component {
         this.Next = this.Next.bind(this);
         this.Prev = this.Prev.bind(this);
         this.submit = this.submit.bind(this);
-
+        this.finshSubmit=this.finshSubmit.bind(this);
     }
     Next(e) {
         if (e) {
@@ -261,6 +261,48 @@ class Test extends React.Component {
         else{
             message.warning("请认真完成全部题目！")
         }
+    }
+    finshSubmit(){   
+        notification.close("submit")
+        let that = this;
+        let data = { Answer: [], Username: this.props.state.username };
+        this.state.question.forEach((x, i) => {
+            data.Answer.push(x.value)
+        })
+        fetch("http://" + that.props.state.host + "/api/student/handin",
+            {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "authorization": that.props.state.token,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(async (res) => {
+                if (res.status == 403) {
+                    message.warning("非法答题!",1.5)
+                }
+                else {
+                    let data = await res.json();
+                    if (data.message == undefined) {
+                        if(data.msg=="答题时间过短,请认真答题"){
+                            message.warning("答题时间过短,请认真答题",1)
+                        }
+                        else{
+                        console.log("handin successfully");
+                        message.success("提交成功!",1.5);
+                        that.props.setState({ isAllDone: true, answer: that.state.question })
+                        that.props.setState({ score: data.Score })
+                        }
+                    }
+                    else {
+                        message.error("登陆已过期",1.5);
+                        this.props.logout();
+                    }
+                }
+            }
+            )
+
     }
     async done(i, value) {
         let x = this.state.question;

@@ -125,7 +125,7 @@ class Choice extends React.Component {
                                                     )
                                                 }}
                                                     size="large" ghost type="default" shape="circle-outline" icon="right"></Button> :
-                                                    <Popconfirm placement="top" title={"确认交卷？"} onConfirm={this.submit} okText="完成了！" cancelText="检查一下"><Button ghost size="large"  style={{height:"70px",width:"100px"}}><div style={{fontSize:"25px"}}>提交</div></Button></Popconfirm>}
+                                                    <Popconfirm placement="top" title={"确认交卷？"} onConfirm={this.props.submit} okText="完成了！" cancelText="检查一下"><Button ghost size="large"  style={{height:"70px",width:"100px"}}><div style={{fontSize:"25px"}}>提交</div></Button></Popconfirm>}
                                         </div>
                                     </Col>
 
