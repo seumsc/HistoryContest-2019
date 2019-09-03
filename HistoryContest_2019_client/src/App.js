@@ -1,14 +1,11 @@
 import React,{Suspense} from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
-import {Result} from 'antd'
 const Welcome = React.lazy(() => import('./Components/Welcome/Welcome'));
 const Test = React.lazy(() => import('./Components/Test/Test'));
 const Grades = React.lazy(() => import('./Components/Grades/Grades'));
 const Admin = React.lazy(() => import('./Components/admin/admin'));
 const Super = React.lazy(() => import('./Components/admin/superAdmin'));
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +16,7 @@ class App extends React.Component {
       isAllDone: false,
       isAdmin: false,
       isTeacher: false,
-      host: "localhost:6553",
+      host: "49.232.27.239:6553",
         name: '',
         username: "",
         depart: "",
@@ -29,9 +26,11 @@ class App extends React.Component {
         score: -1,
   
       answer: [],
+      scare:0
     }
     this.appState = this.appState.bind(this);
     this.logout = this.logout.bind(this);
+    this.state.scare=window.screen.height/window.screen.width;
   }
   appState(obj) {
     this.setState(obj);
@@ -53,6 +52,7 @@ class App extends React.Component {
     })
   }
   render() {
+    console.log(window.screen.height/window.screen.width);
     return (
       <React.Fragment>
         <div id="index" className="app">

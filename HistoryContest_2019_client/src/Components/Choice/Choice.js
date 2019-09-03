@@ -50,7 +50,9 @@ class Choice extends React.Component {
             border: "0",
             overflow: "hidden"
         }
+        console.log(this.props.size)
         return (
+            
             <React.Fragment>
                 <Row onselectstart="return flase" style={{
                     backgroundImage: `url(${imgs[(this.props.Id % 11)]})`,
@@ -76,10 +78,12 @@ class Choice extends React.Component {
                                         <div style={{ backgroundColor: "rgba(255,255,255,0.3)", color: "white", fontSize: "80px", width: "110px", height: "110px" }} ><p style={{ textAlign: "center" }}>{this.props.Id + 1}</p></div>
                                         <div style={{ paddingTop: "180px", marginLeft: "20px" }}>
                                             <Button onClick={this.props.Prev} size="large" ghost type="default" shape="circle-outline" icon="left"></Button>
-                                        </div></Col>
+                                        </div>
+                                    </Col>
                                     <Col span={20}>
 
                                         <div classname="text" style={{ marginTop: 95, marginBottom: 60, marginLeft: 50, height: 100 }}>
+                                        {this.props.size==1080/1920?
                                             <QueueAnim delay={200}
                                                 animConfig={[
                                                     { opacity: [1, 0], translateX: [0, 80] }
@@ -88,6 +92,14 @@ class Choice extends React.Component {
                                                     &nbsp;{this.props.state.title}
                                                 </p>
                                             </QueueAnim>
+                                            :<QueueAnim delay={200}
+                                                animConfig={[
+                                                    { opacity: [1, 0], translateX: [0, 80] }
+                                                ]}>
+                                                <p key="title" style={{ color: 'white', fontSize: 25 }}>
+                                                    &nbsp;{this.props.state.title}
+                                                </p>
+                                            </QueueAnim>}
                                         </div>
                                         <QueueAnim delay={400}
                                             animConfig={[

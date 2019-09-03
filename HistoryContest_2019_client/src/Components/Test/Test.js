@@ -429,8 +429,8 @@ class Test extends React.Component {
                                         >
                                             {x.kind=="选择题" ?
                                                 <Choice  Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev}
-                                                    submit={this.submit} />
-                                                : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} />
+                                                    submit={this.submit} size={this.props.state.scare}/>
+                                                : <TrueFalse Id={i} state={x} setFinish={this.done.bind(this)} Next={this.Next} Prev={this.Prev} submit={this.submit} size={this.props.state.scare}/>
                                             }</TabPane>))}</Tabs></Col></Row> </Content>
                     <Footer style={{ textAlign: 'center' }}> &nbsp;版权所有© 靠脸吃饭工作室</Footer>
                 </Layout>

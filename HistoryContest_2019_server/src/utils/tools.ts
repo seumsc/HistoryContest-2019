@@ -5,11 +5,12 @@ import {Department} from "../entity/Department"
 const redis=require("../config/redis")
 //将所有数据从mysql同步到redis
 export async function redis_all(){
+    redis.flushdb();
     //初次导入 数据库初始化
-    let allStudent=await Student.find();
-    for(let stu of allStudent){
-        stu.department = stu.username[0] + stu.username[1]
-        await Student.update(stu.id,stu);}
+    // let allStudent=await Student.find();
+    // for(let stu of allStudent){
+    //     stu.department = stu.username[0] + stu.username[1]
+    //     await Student.update(stu.id,stu);}
     //     let Dep =await Department.findOne({id:stu.department})
     //     console.log(Dep);
         
