@@ -15,9 +15,9 @@ import bg9 from '../../img/background9.jpg';
 import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
 const RadioGroup = Radio.Group;
-let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11];
+let imgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9,  bg11];
 //let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(98,89,44,0.7)', 'rgba(102, 153, 161,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(46,169,223, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(215,185,142,0.7)', 'rgba(46,169,223,0.7)']
-let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(59, 54, 25, 0.7)', 'rgba(98,89,44,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(14, 90, 122, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)', 'rgba(215,185,142,0.7)', 'rgba(22, 80, 105, 0.7)']
+let bg = ['rgba(202,122,44,0.7)', 'rgba(159,53,58,0.7)', 'rgba(59, 54, 25, 0.7)', 'rgba(98,89,44,0.7)', 'rgba(135,102,51,0.7)', 'rgba(135,102,51,0.7)', 'rgba(14, 90, 122, 0.7)', 'rgba(115,67,56,0.7)', 'rgba(98,89,44,0.7)','rgba(22, 80, 105, 0.7)']
 
 class Choice extends React.Component {
     constructor(props) {
@@ -38,10 +38,19 @@ class Choice extends React.Component {
         }
     }
     render() {
+        let border,font1;
+        if(this.props.size==1080/1920){
+             border= 100;
+             font1=30
+        }
+        else{
+             border=70;
+             font1=30;
+        }
         let style = {
             display: 'block',
             height: '70px',
-            width: "500px",
+            width: "700px",
             lineHeight: '45px',
             //color: 'white',
             //fontSize: '25px',
@@ -55,17 +64,17 @@ class Choice extends React.Component {
             
             <React.Fragment>
                 <Row onselectstart="return flase" style={{
-                    backgroundImage: `url(${imgs[(this.props.Id % 11)]})`,
+                    backgroundImage: `url(${imgs[(this.props.Id % 10)]})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: "100%", height: "100%",
                     overflow: "hidden",
                     border: "0px"
                 }}>
-                    <Col span={4}></Col>
-                    <Col span={14} offset={1}>
+                    <Col span={this.props.size==1080/1920?4:2}></Col>
+                    <Col span={this.props.size==1080/1920?14:18} offset={1}>
                         <div style={{
-                            backgroundColor: bg[this.props.Id % 11],
+                            backgroundColor: bg[this.props.Id % 10],
                             marginTop: 60,
                             marginBottom: 60,
                             backgroundSize: "cover",
@@ -82,8 +91,7 @@ class Choice extends React.Component {
                                     </Col>
                                     <Col span={20}>
 
-                                        <div classname="text" style={{ marginTop: 95, marginBottom: 60, marginLeft: 50, height: 100 }}>
-                                        {this.props.size==1080/1920?
+                                        <div classname="text" style={{ marginTop: 70, marginBottom: 60, marginLeft: 50, height: 195,overflowX:"hidden",overflowY:"auto",msScrollbarBaseColor:bg[this.props.Id % 10]}}>
                                             <QueueAnim delay={200}
                                                 animConfig={[
                                                     { opacity: [1, 0], translateX: [0, 80] }
@@ -92,27 +100,19 @@ class Choice extends React.Component {
                                                     &nbsp;{this.props.state.title}
                                                 </p>
                                             </QueueAnim>
-                                            :<QueueAnim delay={200}
-                                                animConfig={[
-                                                    { opacity: [1, 0], translateX: [0, 80] }
-                                                ]}>
-                                                <p key="title" style={{ color: 'white', fontSize: 25 }}>
-                                                    &nbsp;{this.props.state.title}
-                                                </p>
-                                            </QueueAnim>}
                                         </div>
                                         <QueueAnim delay={400}
                                             animConfig={[
                                                 { opacity: [1, 0], translateX: [0, 120] }
                                             ]}>
-                                            <Radio.Group key="choice" style={{ color: 'white', marginLeft: 110, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
+                                            <Radio.Group key="choice" style={{ color: 'white', marginLeft: border, marginBottom: 40, minHeight: 250 }} onChange={this.onchange} value={this.props.state.value} buttonStyle={"outline"}>
                                                 <Radio.Button style={style} value={this.props.state.option[0].value}>
                                                     <Row>
                                                         <Col span={4}>
                                                             <b>A</b>
                                                         </Col>
                                                         <Col span={20}>
-                                                            <p style={{ fontSize: 30, color: "white" }}>{this.props.state.option[0].text}</p>
+                                                            {this.props.state.option[0].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[0].text}</p>:<p style={{ fontSize: font1-3, color: "white" }}>{this.props.state.option[0].text}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>
@@ -122,7 +122,7 @@ class Choice extends React.Component {
                                                             <b>B</b>
                                                         </Col>
                                                         <Col span={20}>
-                                                            <p style={{ fontSize: 30, color: "white" }}>{this.props.state.option[1].text}</p>
+                                                        {this.props.state.option[1].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[1].text}</p>:<p style={{ fontSize: font1-3, color: "white" }}>{this.props.state.option[1].text}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>
@@ -132,7 +132,7 @@ class Choice extends React.Component {
                                                             <b>C</b>
                                                         </Col>
                                                         <Col span={20} >
-                                                            <p style={{ fontSize: 30, color: "white" }}>{this.props.state.option[2].text}</p>
+                                                        {this.props.state.option[2].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[2].text}</p>:<p style={{ fontSize: font1-3, color: "white" }}>{this.props.state.option[2].text}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>
@@ -142,7 +142,7 @@ class Choice extends React.Component {
                                                             <b>D</b>
                                                         </Col>
                                                         <Col span={20}>
-                                                            <p style={{ fontSize: 30, color: "white" }}>{this.props.state.option[3].text}</p>
+                                                        {this.props.state.option[3].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[3].text}</p>:<p style={{ fontSize: font1-3, color: "white" }}>{this.props.state.option[3].text}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>

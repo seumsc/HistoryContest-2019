@@ -143,7 +143,7 @@ class Grades extends React.Component {
                             {this.props.state.name}同学，你的得分为：
                             </Col>:
                             <Col span={this.props.state.name.length>3?7:5} offset={0} style={{ color: "white", fontSize: "calc(5px + 2vmin)"}}>
-                            {this.props.state.name}同学，你的得分为：
+                            {this.props.state.name}同学，你的得分为
                             </Col>
                             }
                             <Col span={2}>

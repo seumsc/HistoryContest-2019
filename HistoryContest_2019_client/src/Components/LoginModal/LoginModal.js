@@ -9,8 +9,8 @@ class LoginModal extends React.Component {
         this.state = {
             visible: true,
             attemp: "0",
-            username: '09018316',
-            password: '213181432',
+            username: '',
+            password: '',
             toDo: "登录",
             posted: false,
             ...this.initState(),
