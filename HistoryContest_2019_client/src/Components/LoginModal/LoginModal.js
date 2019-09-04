@@ -141,7 +141,7 @@ class LoginModal extends React.Component {
                             })
                         }
                     }
-                }).catch(err => { console.log(err) })
+                }).catch(err => { console.log(err) ;this.setState({ ...this.initState(), refresh: false }); that.setState({ posted: false });message.error("用户名不存在!",1);})
 
         
     }

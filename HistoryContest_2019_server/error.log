@@ -1,0 +1,6 @@
+2019/09/03 10:23:23 [notice] 21694#21694: signal process started
+2019/09/03 10:28:12 [emerg] 21707#21707: unexpected end of file, expecting "}" in /etc/nginx/nginx.conf:98
+2019/09/03 10:28:15 [emerg] 21708#21708: unexpected end of file, expecting "}" in /etc/nginx/nginx.conf:98
+2019/09/03 10:28:50 [notice] 21709#21709: signal process started
+2019/09/03 10:29:37 [notice] 21717#21717: signal process started
+2019/09/03 10:29:42 [error] 21721#21721: *1 "/root/HistiryContest-2019/HistiryContest_2019_client/buildd/index.html" is forbidden (13: Permission denied), client: 10.203.94.161, server: localhost, request: "GET / HTTP/1.1", host: "10.128.202.40"
