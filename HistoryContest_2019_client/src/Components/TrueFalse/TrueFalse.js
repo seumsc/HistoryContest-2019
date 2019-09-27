@@ -12,7 +12,6 @@ import bg6 from '../../img/background6.jpg';
 import bg7 from '../../img/background7.jpg';
 import bg8 from '../../img/background8.jpg';
 import bg9 from '../../img/background9.jpg';
-import bg10 from '../../img/background10.jpg';
 import bg11 from '../../img/background11.jpg';
 
 const RadioGroup = Radio.Group;

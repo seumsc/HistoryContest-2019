@@ -156,3 +156,11 @@
 2019/09/04 09:28:17 [error] 2284#4976: *2 CreateFile() "E:\projects\HistoryContest-2019\HistoryContest_2019_client\build/static/js/7.b9c30a05.chunk.js.map" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /static/js/7.b9c30a05.chunk.js.map HTTP/1.1", host: "localhost"
 2019/09/04 09:28:17 [error] 2284#4976: *1 CreateFile() "E:\projects\HistoryContest-2019\HistoryContest_2019_client\build/static/js/0.34eed736.chunk.js.map" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /static/js/0.34eed736.chunk.js.map HTTP/1.1", host: "localhost"
 2019/09/04 10:21:11 [notice] 1616#9876: signal process started
+2019/09/12 00:22:13 [emerg] 1300#5244: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2019/09/12 00:22:15 [error] 16932#11112: *1 "E:\projects\HistoryContest-2019\HistoryContest_2019_client\build/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /files/ HTTP/1.1", host: "localhost"
+2019/09/12 00:25:04 [emerg] 10356#18948: unknown directive "/404.html" in E:\projects\HistoryContest-2019\HistoryContest_2019_nginx/conf/nginx.conf:51
+2019/09/12 00:25:21 [emerg] 13824#14324: unknown directive "/404.html" in E:\projects\HistoryContest-2019\HistoryContest_2019_nginx/conf/nginx.conf:51
+2019/09/12 00:25:27 [notice] 6376#12308: signal process started
+2019/09/12 00:26:35 [notice] 16428#18864: signal process started
+2019/09/12 00:29:09 [notice] 18136#15580: signal process started
+2019/09/12 00:29:37 [notice] 10104#6764: signal process started

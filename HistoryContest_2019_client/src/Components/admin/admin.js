@@ -135,10 +135,12 @@ class Admin extends React.Component {
         // Object.keys(departInfo).map((inst,i)=>{
         //     departInfo[inst]["均分"]=90.00;
         // })
-        await that.setState({origionData: {},
+        await that.setState({
+            origionData: {},
             displayData: [],
             departData: [],
-            departList: []})
+            departList: []
+        })
         await fetch("http://" + that.props.state.host + "/api/admin/redis_updata", {
             method: "GET",
             mode: "cors",
@@ -157,7 +159,7 @@ class Admin extends React.Component {
                     icon: <Icon type="warning" style={{ color: "red" }} />
                 })
             }
-            else{
+            else {
                 console.log("redis update successfully")
             }
         })
@@ -440,7 +442,6 @@ class Admin extends React.Component {
     };
 
     render() {
-        let that = this;
         let title = [
             {
                 title: "院系",
@@ -703,11 +704,11 @@ class Admin extends React.Component {
                     footer={[
                         <Button key="返回" type="defult" onClick={() => { this.setState({ register: { Visible: false } }) }}>
                             返回
-              </Button>,
+                        </Button>,
                         <Button key="注册" type="primary" onClick={this.register} loading={this.state.register.post}>
                             <Icon type="check-circle" theme="twoTone" />
                             注册
-              </Button>
+                        </Button>
                     ]}
                     visible={this.state.register.Visible}
                 >   <Input id="name" addonBefore=" 姓名 " placeholder="注册姓名" allowClear onChange={(e) => { this.state.register.name = e.target.value }}></Input>
@@ -848,8 +849,7 @@ class Admin extends React.Component {
                                             </Row>
                                         )
                                     }}
-                                    onRow={(record, index) => {
-                                        let that = this;
+                                    onRow={(record) => {
                                         return {
                                             onDoubleClick: (event) => {
                                                 if (record["成绩"] == -1) { }

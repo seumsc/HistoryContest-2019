@@ -182,7 +182,7 @@ class Grades extends React.Component {
                             </Col>
                             <Col span={8} style={{ backgroundColor: "rgba(225,166,121,0.7)", marginTop: 71,height:470 }}>
                                 <div style={{ marginLeft: 80, overflow: "hidden", height: 200 }}>
-                                    <h2 style={{ color: 'white', fontSize: 25, marginTop: 50, marginBottom: 60, marginRight: 80 }} >
+                                    <h2 style={{ color: 'white', fontSize: 25, marginTop: 50, marginBottom: 60, marginRight: 80,overflowX:"hidden",overflowY:"auto"}} >
                                         {this.state.focusOn + 1}&nbsp;{this.state.question[this.state.focusOn].title}<br />
                                     </h2>
                                 </div>

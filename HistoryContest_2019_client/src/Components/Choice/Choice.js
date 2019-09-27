@@ -112,7 +112,7 @@ class Choice extends React.Component {
                                                             <b>A</b>
                                                         </Col>
                                                         <Col span={20}>
-                                                            {this.props.state.option[0].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[0].text}</p>:<p style={{ fontSize: font1-3, color: "white" }}>{this.props.state.option[0].text}</p>}
+                                                            {this.props.state.option[0].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[0].text}</p>:<p style={{ fontSize: font1-6, color: "white" }}>{this.props.state.option[0].text}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>
@@ -122,7 +122,7 @@ class Choice extends React.Component {
                                                             <b>B</b>
                                                         </Col>
                                                         <Col span={20}>
-                                                        {this.props.state.option[1].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[1].text}</p>:<p style={{ fontSize: font1-3, color: "white" }}>{this.props.state.option[1].text}</p>}
+                                                        {this.props.state.option[1].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[1].text}</p>:<p style={{ fontSize: font1-6, color: "white" }}>{this.props.state.option[1].text}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>
@@ -132,7 +132,7 @@ class Choice extends React.Component {
                                                             <b>C</b>
                                                         </Col>
                                                         <Col span={20} >
-                                                        {this.props.state.option[2].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[2].text}</p>:<p style={{ fontSize: font1-3, color: "white" }}>{this.props.state.option[2].text}</p>}
+                                                        {this.props.state.option[2].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[2].text}</p>:<p style={{ fontSize: font1-6, color: "white" }}>{this.props.state.option[2].text}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>
@@ -142,7 +142,7 @@ class Choice extends React.Component {
                                                             <b>D</b>
                                                         </Col>
                                                         <Col span={20}>
-                                                        {this.props.state.option[3].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[3].text}</p>:<p style={{ fontSize: font1-3, color: "white" }}>{this.props.state.option[3].text}</p>}
+                                                        {this.props.state.option[3].text.length<=15?<p style={{ fontSize: font1, color: "white" }}>{this.props.state.option[3].text}</p>:<p style={{ fontSize: font1-6, color: "white" }}>{this.props.state.option[3].text}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Radio.Button>

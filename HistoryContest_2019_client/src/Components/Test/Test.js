@@ -379,7 +379,7 @@ class Test extends React.Component {
 
                             <li key="2">选择题每道4分,&nbsp;判断题每道2分,&nbsp;满分共<b>100分</b></li>
 
-                            <li key="3">答题时限为<b>3分钟-30分钟</b>,&nbsp;3分钟之前无法交卷,&nbsp;30分钟时自动交卷</li>
+                            <li key="3">答题时限为<b>3分钟-20分钟</b>,&nbsp;3分钟之前无法交卷,&nbsp;20分钟时自动交卷</li>
 
                             <li key="4">在未成功交卷前,&nbsp;出现特殊情况,可重新进入答题</li>
 
@@ -400,7 +400,7 @@ class Test extends React.Component {
                                 <h1 style={{ color: 'white', fontSize: "calc(15px + 2vmin)" }}><img src={mark} height="50px" width="50px" />&nbsp;东南大学校史校情知识竞赛</h1>
                             </Col>
                             <Col span={5} offset={7} key="2">
-                                <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={29} sec={59} info={"  答题倒计时："} />
+                                <Timer state={this.state} setState={this.setState.bind(this)} finish={this.submit} min={19} sec={59} info={"  答题倒计时："} />
                             </Col>
                             </QueueAnim>
                         </Row>
