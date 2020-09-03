@@ -1,3 +1,5 @@
 /HistoryContest_2019_client/node_modules
 /HistoryContest_2019_server/node_modules
 /HistoryContest_2019_nginx/conf/nginx.conf
+/HistoryContest_2019_server/build
+/HistoryContest_2019_client/build
